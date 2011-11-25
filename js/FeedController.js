@@ -1,0 +1,146 @@
+
+var FeedController = {
+	
+	myFeedList : new LocalStore('myFeeds'),
+	initialise : function()
+	{
+		FeedController.myFeedList = new LocalStore('myFeeds');
+	},
+	addFeed : function(feedinfo)
+	{
+		var feed_name;
+		var url = feedinfo.feedUrl;
+		var list = FeedController.myFeedList.get();
+		if( list == null || list =="")
+		{
+			feed_name = FeedController.registerFeed(feedinfo);
+			list = url;
+		}
+		else
+		{
+			if(list.indexOf(url) == -1)
+			{
+				feed_name = FeedController.registerFeed(feedinfo);
+				list+= "," + url;
+			}
+			else
+			{
+				return 0;
+			}
+		}
+		FeedController.myFeedList.set(list);
+		return feed_name;
+		
+	},
+	removeFeed : function(url)
+	{
+		FeedController.unregisterFeed(url);
+		var list = FeedController.myFeedList.get();
+		if(list!=null)
+		{
+			list = list.split(",");
+			for(i=0;i<list.length;i++)
+			{
+				if(list[i] == url){
+					console.log(url + " and " + list[i] + " match");
+					list.splice(i,1);
+					break;
+				}
+			}
+			FeedController.myFeedList.set(list.toString());
+		}
+		return true;
+	},
+	listFeeds : function()
+	{
+		console.log(FeedController.myFeedList.get());
+		return (FeedController.myFeedList.get());
+	},
+	getMyFeeds : function()
+	{
+		var list = FeedController.myFeedList.get();
+		if(list!=null)
+			return list.split(",");
+		else 
+			return null;
+	},
+	clearMyFeedsList : function()
+	{
+		FeedController.myFeedList.remove();
+	},
+	issubscribed : function(url)
+	{
+		var list = FeedController.myFeedList.get();
+		if(list!=null)
+		{
+			list = list.split(",");
+			for(i=0;i<list.length;i++)
+			{
+				if(list[i] == url){
+					console.log(url + " and " + list[i] + " match");
+					return 1;
+				}
+			}
+		}
+		return 0;
+	},
+	registerFeed : function(feedinfo)
+	{
+		var feed = new LocalStore(feedinfo.feedUrl);
+		var feedobj = new Object();
+		feedobj.link = feedinfo.link;
+		feedobj.title = feedinfo.title;
+		feedobj.headlines = new Array();
+		for(var i = 0;i<feedinfo.entries.length;i++)
+		{
+			feedobj.headlines[i] = feedinfo.entries[i].title;
+		}
+		feed.set(JSON.stringify(feedobj));
+		return feedobj.title;
+	},
+	unregisterFeed : function(url)
+	{
+		var feed = new LocalStore(url);
+		feed.remove();;
+	},
+	getHeadlines : function(url,num)
+	{
+		var feed = new LocalStore(url);
+		var feedinfo = JSON.parse(feed.get());
+		if (feedinfo == null)
+		return;
+		//console.log("Feed of " + url + " : "  + feedinfo);
+		if(feedinfo.headlines == null)
+			return "No Headlines";
+		else
+		{
+			feedstr = "<ul class = 'headl'>";
+			for(var i = 0;i<num;i++)
+			{
+				feedstr+= "<li>"+feedinfo.headlines[i] + "</li>";
+			}
+			feedstr += "</ul>";
+		}
+		return feedstr;
+	},
+	getFeedNames : function()
+	{
+		var list = FeedController.myFeedList.get();
+		var namesList = new Array();
+		if(list!=null)
+		{
+			var feed,feedinfo;
+			list = list.split(",");
+			for(i=0;i<list.length;i++)
+			{
+				feed = new LocalStore(list[i]);
+				feedinfo = JSON.parse(feed.get());
+				namesList[i] = feedinfo.title;
+			}
+		}
+//console.log(namesList);
+		return namesList;
+		
+	}
+}
+

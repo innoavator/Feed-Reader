@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+
+<html>
+	<head>
+        <meta charset="utf-8" />
+        <title>RSS Feed Reader</title>
+		
+            <!-- CSS reset -->
+   			 <link rel="stylesheet" href="css/html5reset-1.6.1.css" type="text/css" />
+              <!-- Loading pop-up styling -->
+    		<link rel="stylesheet" href="css/default.css" type="text/css" />
+                                                                                                                                   <!-- Our CSS stylesheet file -->
+            
+            <script src="js/jquery.min.js"></script>
+        	
+        	<script src="js/jquery-1.4.1-and-plugins.min.js"></script> 
+            <link rel="stylesheet" href="css/styles.css" />
+            <!-- Loading PokkiBrowser to do testing in a normal chrome web browser -->
+			<script type="text/javascript" src="js/lib/PokkiBrowser.js"></script>
+            <!-- Loading SmoothScroll to make the scrollbars scroll more smoothly (it's really smooth!) -->
+            <script type="text/javascript" src="js/lib/SmoothScroll.js"></script>
+            <!-- Loading Google Analytics for Pokki wrapper -->
+            <script type="text/javascript" src="js/lib/GAPokki.js"></script>
+            <!-- Loading utility class for localStorage interaction -->
+            <script type="text/javascript" src="js/lib/LocalStore.js"></script>
+            <!-- Loading application files -->
+            <script type="text/javascript" src="js/app.js"></script>
+            <!-- Loading pop-up logic -->
+            <script type="text/javascript" src="js/popup.js"></script>
+			<!-- Feeds Files   -->
+           <script type = "text/javascript" src="js/FeedViewer.js"></script>
+            <script type = "text/javascript" src="js/FeedController.js"></script>
+            <script type = "text/javascript" src="js/FeedEngine.js"></script>
+            <script type = "text/javascript" src="js/Utils.js"></script>
+            <!-- FeedReader View -->
+    		<link rel="stylesheet" href="css/anythingslider.css">  
+            <script type="text/javascript" src="js/jquery.anythingslider.js"></script>
+   			<script type="text/javascript" src="js/jquery.easing.1.2.js"></script>
+          
+			
+           
+</head>
+<body>
+</head>
+<body>
+
+  <div id="wrapper">
+   	<div id = "minimize">
+    <a href="#"></a><br>
+    </div>
+    	<div class="scrollable">
+   		   <!-- Add feeds Box -->
+           <div id = "addfeedsdiv">
+           <div id='header'><h1>Feed Reader</h1></div>
+           <div id='sidebar'>	<h1>Add Feeds:</h1>
+             
+
+            <ul class="filter">
+            <li id='descr'><p>Select the feed from the categories given below or enter the URL of the desired feed of your wish</p></li>
+                      <li>Category:</li>
+                        <br><ul>
+                        <li class="selected"><a href="#" data-value="news">News</a></li>
+                        <li ><a href="#" data-value="busi">Business</a></li>
+            
+                        <li><a href="#" data-value="enti">Entertainment</a></li>
+                        <li><a href="#" data-value="comic">Comics</a></li>
+            
+                        <li><a href="#" data-value="tech">Science and Technology</a></li>
+                        <li><a href="#" data-value="sports">Sports</a></li>
+                        </ul>
+                      </li>
+            </ul>
+			</div>
+	<div id="container">
+       <div id="searchbox">
+                 <form id="addFeedsForm">Enter Feed URL:
+                    <input type="text" placeholder="URL goes here...."></input>
+                    <input type="submit" value="Add" id="addFeedbtn" />
+                    <img src = "img/addfeed.gif" style = "opacity:0;vertical-align:middle">
+                 </form>
+            <div id="error-message"></div>
+       </div><!--searchbox div end-->
+        	<ul id="stage" class="grimg">
+	        <div id="news-feeds">
+            <li data-id="http://feeds.nytimes.com/nyt/rss/HomePage" class="news"><img src="assets/img/shots/nyt.png" alt="NYT" title="New York Times"/></li>
+           
+           <li  data-id="http://www.guardian.co.uk/rss" class="news"><img src="assets/img/shots/guard.png" alt="GUARDIAN" title="The Guardian"/></li>		                
+            <li  data-id="http://feeds.bbci.co.uk/news/rss.xml" class="news"><img src="assets/img/shots/bbcn.png" alt="BBC NEWS" title="BBC News"/></li>
+            
+            <li  data-id="http://ibnlive.in.com/xml/top.xml" class="news"><img src="assets/img/shots/ibn.png" alt="IBN-LIVE" title="IBN Live"/></li>
+            
+            <li  data-id="http://rss.news.yahoo.com/rss/topstories" class="news"><img src="assets/img/shots/ynews.png" alt="YAHOO! NEWS" title="Yahoo! News"/></li>
+           
+            <li  data-id="http://news.google.com/?topic=h&num=3&output=rss" class="news"><img src="assets/img/shots/ggle.png" alt="GOOGLE TOP STORIES" title="Google Top Stories"/></li>
+            </div>
+            <div id="enti-feeds" style="display:none">
+            <li  data-id="http://www.mtv.com/rss/news/news_full.jhtml" class="enti"><img src="assets/img/shots/mtv.png" alt="MTV" title="MTV"/></li>
+            
+            <li  data-id="http://feeds.feedburner.com/buzzsugar" class="enti"><img src="assets/img/shots/bsug.png" alt="BUZZSUGAR" title="Buzzsugar"/></li>
+           
+            <li  data-id="http://www.rollingstone.com/siteServices/rss/allNews" class="enti"><img src="assets/img/shots/rollst.png" alt="ROLLING STONES" title="Rolling Stones"/></li>
+            <li  data-id="http://feeds.people.com/people/headlines" class="enti"><img src="assets/img/shots/people.png" alt="PEOPLE" title="People"/></li>
+            <li  data-id="http://news.yahoo.com/rss/entertainment" class="enti"><img src="assets/img/shots/yent.png" alt="YAHOO ENTI" title="Yahoo! Entertainment"/></li>
+            </div>
+            <div id="tech-feeds" style = "display:none">
+            <li data-id="http://www.digitaltrends.com/feed" class="tech"><img src="assets/img/shots/digtr.png" alt="DIGITAL TRENDS" title="Digital Trends"/></li>
+             <li data-id="http://lifehacker.com/index.xml"class="tech"><img src="assets/img/shots/lifhck.png" alt="LIFEHACKER" title="Lifehacker"/></li>
+             <li data-id="http://www.engadget.com/rss.xml" class="tech"><img src="assets/img/shots/engdg.png" alt="ENGADGET" title="Engadget"/></li>
+             <li data-id="http://www.redmondpie.com/feed" class="tech"><img src="assets/img/shots/rdmnd.png" alt="REDMONDPIE" title="Redmondpie"/></li>
+             <li data-id="http://feeds.feedburner.com/tedblog" class="tech"><img src="assets/img/shots/ted.png" alt="TED TALKS" title="TED Talks"/></li>
+             </div>
+             <div id="busi-feeds" style = "display:none">
+             
+             <li data-id="http://www.forbes.com/news/index.xml" class="busi"><img src="assets/img/shots/forbes.png" alt="FORBES" title="Forbes"/></li>
+             <li data-id="http://rss.cnn.com/rss/money_latest.rss" class="busi"><img src="assets/img/shots/fortune.png" alt="FORTUNE" title="Fortune"/></li>
+             <li data-id="http://feeds.finance.yahoo.com/rss/2.0/category-stocks?region=US&lang=en-US" class="busi"><img src="assets/img/shots/yfin.png" alt="YAHOO FINANCE" title="Yahoo! Finance"/></li>
+             </div>
+             <div id="comic-feeds" style = "display:none">
+		     <li data-id="http://feeds.feedburner.com/DilbertDailyStrip" class="comic"><img src="assets/img/shots/dilbert.png" alt="DILBERT" title="Dilbert"/></li>
+             <li data-id="http://xkcd.com/atom.xml" class="comic"><img src="assets/img/shots/xkcd.png" alt="XKCD" title="XKCD"/></li>
+			 <li data-id="http://feedproxy.google.com/uclick/calvinandhobbes" class="comic"><img src="assets/img/shots/calhob.png" alt="CALVIN N HOBBES" title="Calvin n Hobbes"/></li>
+             <li data-id="http://feeds.feedburner.com/uclick/garfield" class="comic"><img src="assets/img/shots/garf.png" alt="GARFIELD" title="Garfield"/></li> 
+             </div>
+             <div id="sports-feeds" style = "display:none">
+             <li data-id="http://sports.espn.go.com/espn/rss/news" class="sports"><img src="assets/img/shots/espn.png" alt="ESPN" title="ESPN"/></li>
+             <li data-id="http://www.espncricinfo.com/rss/livescores.xml" class="sports"><img src="assets/img/shots/cricinfo.png" alt="CRICINFO" title="Cricinfo"/></li>
+             <li data-id="http://newsrss.bbc.co.uk/rss/sportonline_uk_edition/latest_published_stories/rss.xml" class="sports"><img src="assets/img/shots/bbcs.png" alt="BBC SPORTS" title="BBC Sports"/></li>
+             <li data-id="http://sports.yahoo.com/top/rss.xml" class="sports"><img src="assets/img/shots/ysport.png" alt="YAHOO SPORTS" title="Yahoo! Sports"/></li>
+             <li data-id="http://www.fifa.com/rss/index.xml" class="sports"><img src="assets/img/shots/fifa.png" alt="FIFA" title="FIFA"/></li>
+             
+            </div>
+             
+           </ul>
+        </div>
+       
+     
+	<div id='footer'><div id="tomyfeedsbtn">My Feeds</div></div>
+       </div>  <!-- #addfeedsdiv end -->
+	  
+	  
+	  <div id = "myfeedsdiv"  style="visibility:hidden">  
+      	<div id='header2'><h2>My Feeds</h2></div>
+		 
+         <ol class='myfeedlist'>
+      
+      </ol><div id='footer'>
+      	<div class="toaddfeedsbtn">Add Feeds</div>
+        <input id = "feedsearch" type = "text" onkeyup="FeedViewer.searchMyFeeds(this.value);return false;"></input>
+    </div>
+      </div>
+      <div id = "readerviewdiv" style="visibility:hidden">
+      <div id = "feedurldiv" style="display:none"></div>
+      <div id="page-wrap">  
+           <!-- AnythingSlider #2 -->
+			<ul id="slider">
+            </ul>
+			<!-- END AnythingSlider #2 -->
+	    
+     <div id='footer'>
+     <div class="toaddfeedsbtn">Add Feeds</div>
+     <div id="tomyfeedsbtn2">My Feeds</div>
+     <div id='headlview' state="notshown">View Headlines</div>
+        <ul id="rdrheadl" start = '0' end = '10'>
+        <div id = "minimizeHeadlines"></div>
+     	<li id = "headlactions">
+        	<div id="hprev"></div>
+            <img src = "img/barload.gif"/><!--<a href = "loadAllFeeds();return false;">View All</a>-->
+            <div id="hnext"></div>
+        </li>
+     </ul>
+     </div>
+     </div><!--  #page-wrap end   -->
+      </div>   <!-- readerviewend -->
+ <!--     </div>  --><!-- .content end -->
+      </div>  <!-- .scrollable end -->
+<!--      </div>  --> <!-- #content end -->
+        <div id="loadingScreen" class="reveal-modal">
+<img src = "img/feedsload.gif" />
+</div>
+        </div><!-- wrapper end -->
+         <script type="text/javascript">
+            //GOOGLE ANALYTICS: Enter your settings here
+            ga_pokki._setAccount('UA-20826515-2');
+            ga_pokki._setDomain('googleanalytics.domain.com'); 
+			pokki.addEventListener('popup_shown', function() { 
+   				ga_pokki._trackPageview('/'); 
+			});
+        </script>
+		 <script type="text/javascript" src="https://www.google.com/jsapi"></script> 
+ 		<script type="text/javascript">
+			 google.load("feeds", "1");
+			</script>
+   </body>
+</html>
+
