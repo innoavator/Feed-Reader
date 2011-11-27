@@ -1,4 +1,4 @@
-// JavaScript Document
+// FeedEngine File
 var fetchTimer;
 var inFetchingState = false;
 var FeedEngine = {

@@ -8,6 +8,7 @@ var FeedViewer = {
 		FeedViewer.initialiseMyFeeds();
 //		FeedViewer.addKeyboardControls();
 		ReaderViewer.initialise();
+		ReaderViewer.initialiseHeadlineView();
 		
 		$("#tomyfeedsbtn").click(function(){modes.switchToMode(1);});
 		$("#tomyfeedsbtn2").click(function(){modes.switchToMode(1);});
@@ -325,7 +326,7 @@ var FeedViewer = {
 			$("#myfeedsdiv .feedl").each(function(i){
 		//	console.log($(this).text());
 			
-			if(($(this).text().toLowerCase()).indexOf(feedname) != 0)
+			if(($(this).text().toLowerCase()).indexOf(feedname) == -1)
 				//$(this).css('display','none');
 				$(this).fadeOut("fast");
 			else

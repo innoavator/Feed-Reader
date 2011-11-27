@@ -39,7 +39,7 @@ pokki.addEventListener('popup_showing', showing);
 function shown() {
     console.log('Popup window is visible.');
     if (Atom) {
-    	Atom.onPopupShown();
+  //  	Atom.onPopupShown();
     }
 }
 pokki.addEventListener('popup_shown', shown);

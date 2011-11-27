@@ -18,14 +18,11 @@ var ReaderViewer = {
 	},
 	initialiseHeadlineView : function()
 	{
-		$("#headlview").bind('click',function(){
-
+		$("#headlview").live('click',function(){
 			$("#rdrheadl").slideToggle();
-			$("#minimizeHeadlines").live('click',function(){
-			  
+		});
+		$("#minimizeHeadlines").live('click',function(){
 			  $("#rdrheadl").slideUp();
-				$("#headlview").attr('state','notshown');
-			  });
 		});
 	// Add event handler to next button
 		$("#hnext").live('click',function(){
@@ -58,10 +55,11 @@ var ReaderViewer = {
 		var length = 0;
 		for(var i = 0;i<content.length;i++)
 			length+= content[i].content.length;
-		if(length/10 >200)
+//		if(length/10 >200)
 			ReaderViewer.renderSliderFeed(feeds);
-		else
-			ReaderViewer.renderScrollFeed(feeds);
+//		else
+//			ReaderViewer.renderScrollFeed(feeds);
+		$("#rdrheadl").slideUp(0);
 		loadingFinished = true;
 		$("#loadingScreen").css('visibility','hidden').css('display','none');
 	},
@@ -131,7 +129,7 @@ var ReaderViewer = {
 							 + '<div id="hnext"></div></li>');
 		$("#hprev").hide();
 		$("#headlactions").find('img').hide();
-		ReaderViewer.initialiseHeadlineView();
+//		ReaderViewer.initialiseHeadlineView();
 	}
 
 }
