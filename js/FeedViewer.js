@@ -183,56 +183,6 @@ var FeedViewer = {
 //		modes.switchToMode(3); */
 		
 	},
-	registerHeadlines : function(result,feeds)
-	{
-		temp_feed = feeds;
-		var start_index = parseInt($("#rdrheadl").attr('start'));
-		FeedViewer.renderHeadlines( start_index + 10);
-	},
-	renderHeadlines : function(startentry)
-	{
-		var isMoreFeed = true;
-		$("#rdrheadl").empty();
-		$("#rdrheadl").append('<div id = "minimizeHeadlines"></div>');
-		var start = parseInt(startentry,10);
-
-		if(temp_feed)
-		{
-			if(temp_feed.entries.length > start)
-			{
-		//		console.log(temp_feed.entries);
-				for(var i =start;i<start+10;i++)
-				{
-					if(temp_feed.entries[i] == null)
-						break;
-					var headlineli = $('<li>').attr('slideno',i).attr('link',temp_feed.entries[i].link);
-					$(headlineli).html("<h2>" + temp_feed.entries[i].title + "</h2>");
-					$("#rdrheadl").append(headlineli);
-				}
-			}
-			else
-			{
-				isMoreFeed = false;
-				$("#rdrheadl").append('<li><h2>Could not retrieve more feeds</h2></li>');
-			}
-		}
-		else
-		{
-			$("#rdrheadl").append('<li><h2>Failed to retrieve feeds</h2></li>');
-		}
-		$("#rdrheadl").append('<li id = "headlactions"><div id="hprev"></div>'
-							 +' <img src = "img/barload.gif"/>'//+<a href = "#">View All</a>'
-            				 + '<div id="hnext"></div></li>');
-		$("#rdrheadl").attr('start',start);
-		if(isMoreFeed)
-		{
-			if(start == 0)
-				$("#hprev").hide();
-		}
-		else
-			$("#hnext").hide();
-		switchToLoadingView(false);
-	},
 	renderOneFeed : function(i)
 	{
 		if(temp_feed == null)

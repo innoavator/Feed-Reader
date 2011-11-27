@@ -42,7 +42,7 @@ var FeedEngine = {
 						{
 							modes.switchToMode(2);
 						//	console.log("feed engine showfeed");
-							ReaderViewer.renderFeed(result.feed);
+							ReaderViewer.renderFeed(result.feed,0,10);
 						}
 						else
 						{
@@ -53,7 +53,7 @@ var FeedEngine = {
 						}
 					  })
 	},
-	loadHeadlines : function(url,num){
+	loadHeadlines : function(url,num,minindex,maxindex){
 		
 		//console.log("Load headlines : " + url + " , "  + num);
 		var feed = new google.feeds.Feed(url);
@@ -66,12 +66,12 @@ var FeedEngine = {
 						{
 						//	console.log("Success");
 							console.log(result);
-							FeedViewer.registerHeadlines("success",result.feed);
+							ReaderViewer.renderFeed(result.feed,minindex,maxindex);
 						}
 						else
 						{
 						//	console.log("Failure");
-							FeedViewer.registerHeadlines("failure",null);
+						//	ReaderViewer.registerHeadlines("failure",null);
 						}
   					  });
 	},

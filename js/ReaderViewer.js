@@ -18,48 +18,66 @@ var ReaderViewer = {
 	},
 	initialiseHeadlineView : function()
 	{
-		$("#headlview").live('click',function(){
-			$("#rdrheadl").slideToggle();
-		});
-		$("#minimizeHeadlines").live('click',function(){
-			  $("#rdrheadl").slideUp();
-		});
-	// Add event handler to next button
+		//Click event handler for view Headlines button
+		$("#headlview").live('click',function(){ $("#rdrheadl").slideToggle();});
+		
+		// Click event for minimise button
+		$("#minimizeHeadlines").live('click',function(){ $("#rdrheadl").slideUp();});
+	    
+		// Click event for nextHeadlines button
 		$("#hnext").live('click',function(){
 			switchToLoadingView(true);
 			$("#hprev").show(0);
-			FeedEngine.loadHeadlines($("#feedurldiv").html(), $("#rdrheadl").attr('start')+20)
-		});
-		$("#hprev").live('click',function(){
-			switchToLoadingView(true);							  
-			if(temp_feed.length < ($("#rdrheadl").attr('start') - 10))
-				FeedEngine.loadHeadlines($("#feedurldiv").html(), $("#rdrheadl").attr('start'));
+			var startindex = parseInt($("#rdrheadl").attr('startindex'));
+			var endindex = parseInt($("#rdrheadl").attr('endindex'));
+			if(temp_feed.entries.length < startindex + 19)
+			{
+				console.log("Loading headlines");
+				FeedEngine.loadHeadlines($("#feedurldiv").html(), startindex+20,endindex,endindex+10);
+			}
 			else
-				FeedViewer.renderHeadlines( $("#rdrheadl").attr('start')-10);
-	   });
-		$("#rdrheadl li").live('click',function(){
-			FeedViewer.renderOneFeed($(this).attr('slideno'));	
-		$("#headlactions a").live('click',function(){
-			FeedViewer.loadAllFeeds( $("#rdrheadl").attr('start'));
-			
-			});
+			{
+				console.log("Rendering feed");
+				ReaderViewer.renderFeed(temp_feed,endindex,endindex+10);
+			}
 		});
+		
+		//Click event for prev headlines button
+		$("#hprev").live('click',function(){
+			switchToLoadingView(true);
+			var startindex = parseInt($("#rdrheadl").attr('startindex'));
+			var endindex = parseInt($("#rdrheadl").attr('endindex'));
+			if(temp_feed.entries.length < startindex - 10)
+				FeedEngine.loadHeadlines($("#feedurldiv").html(),startindex,startindex-10,startindex);
+			else
+				ReaderViewer.renderFeed(temp_feed,startindex-10,startindex);
+	    });
+		
+		//Click on headlines event
+		$("#rdrheadl li").live('click',function(){
+			var slideno = $(this).attr('slideno') %10 + 1;
+			//FeedViewer.renderOneFeed($(this).attr('slideno'));
+			$('#slider').anythingSlider(slideno);
+			});
+		
+		$("#headlactions a").live('click',function(){FeedViewer.loadAllFeeds( $("#rdrheadl").attr('start'));});
 	},
-	renderFeed : function(feeds){
+	renderFeed : function(feeds,minindex,maxindex){
 		
 		temp_feed = feeds;
 		$("#slider").empty();
 		$("#rdrheadl").empty();
-		
+		if(minindex == 0)
+			$("#rdrheadl").slideUp(0);
 		var content = feeds.entries;
 		var length = 0;
 		for(var i = 0;i<content.length;i++)
 			length+= content[i].content.length;
 //		if(length/10 >200)
-			ReaderViewer.renderSliderFeed(feeds);
+			ReaderViewer.renderSliderFeed(temp_feed,minindex,maxindex);
 //		else
 //			ReaderViewer.renderScrollFeed(feeds);
-		$("#rdrheadl").slideUp(0);
+		$("#headlactions").find('img').hide();
 		loadingFinished = true;
 		$("#loadingScreen").css('visibility','hidden').css('display','none');
 	},
@@ -93,15 +111,17 @@ var ReaderViewer = {
 	//		$("#rdrheadl").append(headlineli);
 		}
 	},
-	renderSliderFeed : function(feeds){
+	renderSliderFeed : function(feeds,minindex,maxindex){
 		
 		$("#feedurldiv").html(feeds.feedUrl);
 		$("#rdrheadl").append('<div id = "minimizeHeadlines"></div>');
+		$("#rdrheadl").attr('startindex',minindex);
+		$("#rdrheadl").attr('endindex',maxindex);
 		var feedContent = feeds.entries;
-		for(i= 0;i<feedContent.length;i++)
+		for(i= minindex;i<maxindex;i++)
 		{
 			var lielement = $('<li>').attr('class','panel' + (i+1));
-			var headlineli = $('<li>').attr('slideno',i).attr('link',temp_feed.entries[i].link);
+			var headlineli = $('<li>').attr('slideno',i).attr('link',feeds.entries[i].link);
 			var wrapdiv = $('<div>');
 			var divelement = $('<div>').attr('class','textSlide');
 			var title = "<a href = '" + feedContent[i].link + "'><h2>" + feedContent[i].title + "</h2></a>";
@@ -120,16 +140,69 @@ var ReaderViewer = {
 			$(wrapdiv).append(divelement);
 			$(lielement).append(wrapdiv);
 			$("#slider").append(lielement);
-			ReaderViewer.initialise();
+			$("#slider").anythingSlider();
 			$(".textSlide a").addClass("nivoZoom center");
 			$("#rdrheadl").append(headlineli);
 		}
 		$("#rdrheadl").append('<li id = "headlactions"><div id="hprev"></div>'
 							 +' <img src = "img/barload.gif"/>'//+'<a href = "#">View All</a>'
 							 + '<div id="hnext"></div></li>');
-		$("#hprev").hide();
-		$("#headlactions").find('img').hide();
+		if(minindex == 0)
+			$("#hprev").hide();
+		
 //		ReaderViewer.initialiseHeadlineView();
+	},
+	registerHeadlines : function(result,feeds)
+	{
+		temp_feed = feeds;
+		var start_index = parseInt($("#rdrheadl").attr('startindex'));
+		//ReaderViewer.renderHeadlines( start_index + 10);
+		ReaderViewer.renderFeed(temp_feed,start_index+10,start_index+0);
+	},
+	
+	renderHeadlines : function(startentry)
+	{
+		var isMoreFeed = true;
+		$("#rdrheadl").empty();
+		$("#rdrheadl").append('<div id = "minimizeHeadlines"></div>');
+		var start = parseInt(startentry,10);
+
+		if(temp_feed)
+		{
+			if(temp_feed.entries.length > start)
+			{
+		//		console.log(temp_feed.entries);
+				for(var i =start;i<start+10;i++)
+				{
+					if(temp_feed.entries[i] == null)
+						break;
+					var headlineli = $('<li>').attr('slideno',i).attr('link',temp_feed.entries[i].link);
+					$(headlineli).html("<h2>" + temp_feed.entries[i].title + "</h2>");
+					$("#rdrheadl").append(headlineli);
+				}
+			}
+			else
+			{
+				isMoreFeed = false;
+				$("#rdrheadl").append('<li><h2>Could not retrieve more feeds</h2></li>');
+			}
+		}
+		else
+		{
+			$("#rdrheadl").append('<li><h2>Failed to retrieve feeds</h2></li>');
+		}
+		$("#rdrheadl").append('<li id = "headlactions"><div id="hprev"></div>'
+							 +' <img src = "img/barload.gif"/>'//+<a href = "#">View All</a>'
+            				 + '<div id="hnext"></div></li>');
+		$("#rdrheadl").attr('start',start);
+		if(isMoreFeed)
+		{
+			if(start == 0)
+				$("#hprev").hide();
+		}
+		else
+			$("#hnext").hide();
+		switchToLoadingView(false);
 	}
 
 }
