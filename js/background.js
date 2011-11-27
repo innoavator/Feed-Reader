@@ -6,7 +6,7 @@ var FeedLoader = {
 	setFeedIntervals : function(){
 	//	console.log("Setting intervals : " + url);
 //		t=setTimeout("FeedLoader.loadFeed(" +"'" +url+"'" + ",10)",5000*12);
-		t=setTimeout("FeedLoader.loadAllFeeds()",5000*12);
+		t=setTimeout("FeedLoader.loadAllFeeds()",5000*12);  //heres the comment
 	},
 	loadFeed : function(url,numEntries) {
 				//	  console.log("LoadFeed : " + url);
