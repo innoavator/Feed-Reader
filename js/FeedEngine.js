@@ -66,6 +66,7 @@ var FeedEngine = {
 						{
 						//	console.log("Success");
 							console.log(result);
+							console.log("Length of feed : " + result.feed.entries.length);
 							ReaderViewer.renderFeed(result.feed,minindex,maxindex);
 						}
 						else

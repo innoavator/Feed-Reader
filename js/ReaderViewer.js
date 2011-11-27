@@ -30,10 +30,11 @@ var ReaderViewer = {
 			$("#hprev").show(0);
 			var startindex = parseInt($("#rdrheadl").attr('startindex'));
 			var endindex = parseInt($("#rdrheadl").attr('endindex'));
+			console.log(" Temp feed length : " + temp_feed.entries.length);
 			if(temp_feed.entries.length < startindex + 19)
 			{
 				console.log("Loading headlines");
-				FeedEngine.loadHeadlines($("#feedurldiv").html(), startindex+20,endindex,endindex+10);
+				FeedEngine.loadHeadlines($("#feedurldiv").html(), endindex+20,endindex,endindex+10);
 			}
 			else
 			{
