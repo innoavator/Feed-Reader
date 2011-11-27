@@ -13,7 +13,6 @@
             
             <script src="js/jquery.min.js"></script>
         	
-        	<script src="js/jquery-1.4.1-and-plugins.min.js"></script> 
             <link rel="stylesheet" href="css/styles.css" />
             <!-- Loading PokkiBrowser to do testing in a normal chrome web browser -->
 			<script type="text/javascript" src="js/lib/PokkiBrowser.js"></script>
@@ -31,6 +30,7 @@
            <script type = "text/javascript" src="js/FeedViewer.js"></script>
             <script type = "text/javascript" src="js/FeedController.js"></script>
             <script type = "text/javascript" src="js/FeedEngine.js"></script>
+             <script type = "text/javascript" src="js/ReaderViewer.js"></script>
             <script type = "text/javascript" src="js/Utils.js"></script>
             <!-- FeedReader View -->
     		<link rel="stylesheet" href="css/anythingslider.css">  
@@ -145,7 +145,7 @@
       
       </ol><div id='footer'>
       	<div class="toaddfeedsbtn">Add Feeds</div>
-        <input id = "feedsearch" type = "text" onkeyup="FeedViewer.searchMyFeeds(this.value);return false;"></input>
+        <input id = "feedsearch" type = "text" onKeyUp="FeedViewer.searchMyFeeds(this.value);return false;"></input>
     </div>
       </div>
       <div id = "readerviewdiv" style="visibility:hidden">

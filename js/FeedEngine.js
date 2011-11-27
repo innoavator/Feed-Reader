@@ -42,7 +42,7 @@ var FeedEngine = {
 						{
 							modes.switchToMode(2);
 						//	console.log("feed engine showfeed");
-							FeedViewer.renderFeed(result.feed);
+							ReaderViewer.renderFeed(result.feed);
 						}
 						else
 						{
