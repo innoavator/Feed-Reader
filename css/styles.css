@@ -1,161 +1,161 @@
 /*-------------------------
-	Simple reset
+    Simple reset
 --------------------------*/
 *{
-	margin:0;
-	padding:0;
+    margin:0;
+    padding:0;
 }
 
 
 /*-------------------------
-	General Styles
+    General Styles
 --------------------------*/
 
 
 html{
-	
+    
 }
 
 #addfeedsdiv{
-	
-	float:left;
-	font-weight:800;
-	color:#fff;
-	font:14px/1.3 'Segoe UI',Arial, sans-serif;
-	text-shadow:none;
-	height: 600px;
-	overflow:hidden;
-	background:url('../img/bg-body.gif') repeat-y;
+    
+    float:left;
+    font-weight:800;
+    color:#fff;
+    font:14px/1.3 'Segoe UI',Arial, sans-serif;
+    text-shadow:none;
+    height: 600px;
+    overflow:hidden;
+    background:url('../img/bg-body.gif') repeat-y;
 }
 #addfeedsdiv ul{
-	list-style:none;
+    list-style:none;
 }
 
 #sidebar{
-	margin: 40px;
-	height: 500px;
-	width:180px;
-	z-index:-10000;
-	text-shadow: 0 2px 4px #000;
+    margin: 40px;
+    height: 500px;
+    width:180px;
+    z-index:-10000;
+    text-shadow: 0 2px 4px #000;
 }
 a, a:visited {
-	text-decoration:none;
-	outline:none;
-	color:#026;
+    text-decoration:none;
+    outline:none;
+    color:#026;
 }
 #header{
-	color:black;
-	position:absolute;
-	margin-left:400px;
-	top:20px;
-	text-align:center;	
+    color:black;
+    position:absolute;
+    margin-left:400px;
+    top:20px;
+    text-align:center;  
 }
 
 /*----------------------------
-	SearchBox in AddFeeds Page
+    SearchBox in AddFeeds Page
 -----------------------------*/
 #searchbox {
-	padding: 90px 0 0 20px;
-	text-shadow:none;
-	-webkit-box-shadow:inset 0px 0px 0px #ccc;
-	border: 1px solid #;
+    padding: 90px 0 0 20px;
+    text-shadow:none;
+    -webkit-box-shadow:inset 0px 0px 0px #ccc;
+    border: 1px solid #;
 }
 
 #searchbox input[type="text"]{
-	font-size: 12px;
-	color: #000;
-	width:300px;
-	padding: 6px;
-	outline:none;
-	border-radius:20px 0 0 20px; 
-	-webkit-transition: all 0.7s ease 0s;
-	background:#F0F0F0;
+    font-size: 12px;
+    color: #000;
+    width:300px;
+    padding: 6px;
+    outline:none;
+    border-radius:20px 0 0 20px; 
+    -webkit-transition: all 0.7s ease 0s;
+    background:#F0F0F0;
 }
 #searchbox input[type="text"]:focus{
-	background:#fff;
-	-webkit-transition: all 0.7s ease 0s;
+    background:#fff;
+    -webkit-transition: all 0.7s ease 0s;
 }
 
 #searchbox input[type="submit"]{
-	background: url("../img/submit.png") top left no-repeat;
-	width: 67px;
-	height: 30px;
-	border: none;
-	color: #fff;
-	cursor: pointer;
-	border-radius:0 20px 20px 0;
-	position:relative;
-	left: -5px;
-	-webkit-transition: all 0.7s ease 0s;
+    background: url("../img/submit.png") top left no-repeat;
+    width: 67px;
+    height: 30px;
+    border: none;
+    color: #fff;
+    cursor: pointer;
+    border-radius:0 20px 20px 0;
+    position:relative;
+    left: -5px;
+    -webkit-transition: all 0.7s ease 0s;
 }
 
 #searchbox input[type="submit"]:hover
 {
-	background: url("../img/submit.png") 0 -30px no-repeat;
+    background: url("../img/submit.png") 0 -30px no-repeat;
 }
 
 #searchbox input[type="submit"]:active
 {
- 	background: url("../img/submit.png") bottom right no-repeat;
+    background: url("../img/submit.png") bottom right no-repeat;
 }
 /*----------------------------
-	Addfeeds Menu Bar 
+    Addfeeds Menu Bar 
 -----------------------------*/
 
 .filter {
-	margin: 10px 0px 10px;
-	list-style:none;
+    margin: 10px 0px 10px;
+    list-style:none;
 }
 
 .filter a{
-	color: #FFF;
-	display: inline-block;
-	height: 20px;
-	margin-top: 0px;
-	text-shadow:1px 1px 5px #315218;
-	width:176px;
-	padding: 7px;
+    color: #FFF;
+    display: inline-block;
+    height: 20px;
+    margin-top: 0px;
+    text-shadow:1px 1px 5px #315218;
+    width:176px;
+    padding: 7px;
 }
 
 .filter a:hover{
 text-decoration:underline;
 }
 .filter li.selected a{
-	
-	background: url("../img/gbutton.png") no-repeat -2px 1px;	
-	text-decoration:none;
-	color:#ffffff;
-	text-shadow:#000;
-	border-radius:5px 0 0 5px;
+    
+    background: url("../img/gbutton.png") no-repeat -2px 1px;   
+    text-decoration:none;
+    color:#ffffff;
+    text-shadow:#000;
+    border-radius:5px 0 0 5px;
 }
 
 #descr{
-	margin-bottom: 20px;
-	color:#ddd;
+    margin-bottom: 20px;
+    color:#ddd;
 }
 
 .filter {
-	list-style:none;
+    list-style:none;
 }
 
 #error-message{
-	margin-top:10px;
-	height:30px;
-	display:block;
-	position:absolute;
-	font-weight:bold;
+    margin-top:10px;
+    height:30px;
+    display:block;
+    position:absolute;
+    font-weight:bold;
 }
 /*----------------------------
-	AddFeeds Content Area
+    AddFeeds Content Area
 -----------------------------*/
 
 #descr{
-	margin-top:30px;
+    margin-top:30px;
 }
 
 .grimg{
-	position:relative;
-	margin-top: 50px;
+    position:relative;
+    margin-top: 50px;
 }
 .actions p a strong {
   text-shadow: none;
@@ -164,26 +164,26 @@ text-decoration:underline;
 /*grid*/
 
 #container{
-	color:#333;
-	position: absolute;
-	top:0;
-	min-width:600px;
-	text-shadow: 0px 2px 3px #aaa;
-	left: 240px;
-	overflow:hidden;
-	display:block;
-	margin: 25px auto;
+    color:#333;
+    position: absolute;
+    top:0;
+    min-width:600px;
+    text-shadow: 0px 2px 3px #aaa;
+    left: 240px;
+    overflow:hidden;
+    display:block;
+    margin: 25px auto;
 
 }
 .grimg li img{
-	
-	-webkit-box-reflect:below -8px
-	-webkit-gradient(linear, left top, left bottom, from(transparent), color-stop(.8, transparent), to(white)); 
-	-webkit-transition: margin 0.25s ease-out;
+    
+    -webkit-box-reflect:below -8px
+    -webkit-gradient(linear, left top, left bottom, from(transparent), color-stop(.8, transparent), to(white)); 
+    -webkit-transition: margin 0.25s ease-out;
 }
 .grimg li img:hover{
-	margin-top: -8px;
-	-webkit-transition: margin 0.25s ease-out;
+    margin-top: -8px;
+    -webkit-transition: margin 0.25s ease-out;
 }
 #container:after {
   content: "";
@@ -225,96 +225,95 @@ text-decoration:underline;
    display: none;
  }
  #feedback{
-	position:relative;
- 	margin-left:50px;
-	top:20px;
-	color:#000;
-	padding:5px;
-	cursor:pointer;
-	border-radius:5px;
-	background:url(../img/arrow.png) -10px 0px no-repeat;
+    position:relative;
+    margin-left:50px;
+    top:20px;
+    color:#000;
+    padding:5px;
+    cursor:pointer;
+    border-radius:5px;
+    background:url(../img/arrow.png) -10px 0px no-repeat;
  }
  #feedback:hover{
- 	color:#222;
-	background:url('../img/arrow.png') -10px -30px no-repeat;
+    color:#222;
+    background:url('../img/arrow.png') -10px -30px no-repeat;
  }
  #feedback:active{
-	 background:url('../img/arrow.png') -10px -60px no-repeat;
-	 
+     background:url('../img/arrow.png') -10px -60px no-repeat;
+     
  }
 /*----------------------------
-	MyFeeds Content Area/////////////////////////////////////////////
+    MyFeeds Content Area/////////////////////////////////////////////
 -----------------------------*/
 
  #myfeedsdiv{
-	position:fixed;
-	font-weight:800;
-	width: 830px;
-	color:#fff;
-	font:14px/1.3 'Segoe UI',Arial, sans-serif;
-	text-shadow: 0 2px 5px #000;
+    position:fixed;
+    font-weight:800;
+    width: 830px;
+    color:#fff;
+    font:14px/1.3 'Segoe UI',Arial, sans-serif;
+    text-shadow: 0 2px 5px #000;
 }
 
 #header2{
-	color:#fff;
-	text-shadow: 0 2px 5px #000;
-	height:50px;
-	padding-top:10px;
-	text-align:center;
-	background:url('../img/footer.png') repeat-x
+    color:#fff;
+    text-shadow: 0 2px 5px #000;
+    height:50px;
+    padding-top:10px;
+    text-align:center;
+    background:url('../img/footer.png') repeat-x
 }
 .myfeedlist{
-	margin: 0 0 0 75px;
-	padding: 0 10px 10px 10px;
-	height:470px;
-	list-style:none;
-	overflow:auto;
+    margin-left:65px;
+    height:480px;
+    list-style:none;
+    overflow:auto;
 }
 .unsub{
-	position:absolute;
-	width:32px;
-	height:32px;
-	float:right;
-	right:-15px;
-	top:-10px;
-	background:url('../img/unsub.png') no-repeat; 
-	cursor:pointer;
-	display:none; 
+    position:absolute;
+    width:32px;
+    height:32px;
+    float:right;
+    right:-15px;
+    top:-10px;
+    background:url('../img/unsub.png') no-repeat; 
+    cursor:pointer;
+    display:none; 
 }
 
 .feedl
-{	margin :20px 25px 30px 15px; 
-	text-align:center;
-	border-radius: 3px;
-	width:100px;
-	height:85px;
-	position:relative;
-	float:left; 
-	padding:5px 10px 10px 10px;
-	font-size:14px;
-	color: #fff;
-	font-weight:;
-	font-family:'Segoe UI',Arial, Helvetica, sans-serif;
-	word-wrap:break-word;
-	box-shadow: 1px 1px 2px #888;
-	text-shadow: none;
-	
+{   
+    margin :20px 25px 5px 15px; 
+    text-align:center;
+    border-radius: 3px;
+    width:100px;
+    height:85px;
+    position:relative;
+    float:left;
+    font-size:14px;
+    color: #fff;
+    font-weight:;
+    font-family:'Segoe UI',Arial, Helvetica, sans-serif;
+    word-wrap:break-word;
+    box-shadow: 1px 1px 2px #888;
+    text-shadow: none;
+    
 }
 .myfeedlist li p{
-	max-width:100px;
-	max-height:40px;
+    max-width:100px;
+    max-height:40px;
 }
 #myfeedsdiv h2
 {
-	text-align:center;
+    text-align:center;
 }
 
 .myfeedlist li img{
     position:relative;
     border-radius:4px;
     margin-top:10px;
-	height:28px;
-	width:28px;
+    height:28px;
+    width:28px;
 }
 
 
@@ -323,8 +322,8 @@ background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0, 
 }
 .color0:hover
 {
-	background-image: -webkit-gradient(linear, left bottom, left top, color-stop(0, #DA8200), color-stop(1, #EABA00));
-	cursor:pointer;
+    background-image: -webkit-gradient(linear, left bottom, left top, color-stop(0, #DA8200), color-stop(1, #EABA00));
+    cursor:pointer;
 }
 .color0:active
 {background-image: -webkit-gradient(radial, center top, 0, center top, 100, color-stop(0, #EABA00), color-stop(1, #DA8200));
@@ -335,8 +334,8 @@ background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0, 
 }
 .color1:hover
 {
-	background-image: -webkit-gradient(linear, left bottom, left top, color-stop(0, #38879E), color-stop(1, #4FBAC7));
-	cursor:pointer;
+    background-image: -webkit-gradient(linear, left bottom, left top, color-stop(0, #38879E), color-stop(1, #4FBAC7));
+    cursor:pointer;
 }
 .color1:active
 {background-image: -webkit-gradient(radial, center top, 0, center top, 100, color-stop(0, #4FBAC7), color-stop(1, #38879E));
@@ -347,8 +346,8 @@ background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0, 
 }
 .color2:hover
 {
-	background-image: -webkit-gradient(linear, left bottom, left top, color-stop(0, #779E39), color-stop(1, #9EBE4B));
-	cursor:pointer;
+    background-image: -webkit-gradient(linear, left bottom, left top, color-stop(0, #779E39), color-stop(1, #9EBE4B));
+    cursor:pointer;
 }
 .color2:active
 {background-image: -webkit-gradient(radial, center top, 0, center top, 100, color-stop(0, #9EBE4B), color-stop(1, #779E39));
@@ -359,8 +358,8 @@ background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0, 
 }
 .color3:hover
 {
-	background-image: -webkit-gradient(linear, left bottom, left top, color-stop(0, #924650), color-stop(1, #C46674));
-	cursor:pointer;
+    background-image: -webkit-gradient(linear, left bottom, left top, color-stop(0, #924650), color-stop(1, #C46674));
+    cursor:pointer;
 }
 .color3:active
 {background-image: -webkit-gradient(radial, center top, 0, center top, 100, color-stop(0, #C46674 ), color-stop(1,#924650));
@@ -371,8 +370,8 @@ background-image: -webkit-gradient(linear, left bottom, left top, color-stop(0, 
 }
 .color4:hover
 {
-	background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0, #DA5534), color-stop(1, #8A2F2F));
-	cursor:pointer;
+    background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0, #DA5534), color-stop(1, #8A2F2F));
+    cursor:pointer;
 }
 
 .color4:active
@@ -380,7 +379,7 @@ background-image: -webkit-gradient(linear, left bottom, left top, color-stop(0, 
 }
 
 /*----------------------------
-	SearchBox in MyFeeds Page
+    SearchBox in MyFeeds Page
 -----------------------------*/
 
 #feedsearch{
@@ -409,128 +408,128 @@ background-image: -webkit-gradient(linear, left bottom, left top, color-stop(0, 
 }
 
 #srchglass{
-	float: right;
-	margin-top: 24px;
-	margin-right: -20px;
+    float: right;
+    margin-top: 24px;
+    margin-right: -20px;
 }
 /*///////////////////////////////////
-		FOOTER
+        FOOTER
 ////////////////////////////////////*/
 
 #footer{
-	position:fixed;
-	height:60px;
-	bottom:0px;
-	background:url('../img/footer.png') repeat-x;
-	width:830px;
+    position:fixed;
+    height:60px;
+    bottom:0px;
+    background:url('../img/footer.png') repeat-x;
+    width:830px;
 }
 .toaddfeedsbtn{
-	font-family:'Segoe UI',Arial, sans-serif;
-	color:#333;
-	text-shadow: none;
-	margin-left: 40px;
-	margin-top: 15px;
-	width: 90px;
-	float:left;
-	font-size:15px;
-	cursor:pointer;
-	padding:4px 0 6px 22px;
-	background:url('../img/arrow2.png') 0 0 no-repeat;
+    font-family:'Segoe UI',Arial, sans-serif;
+    color:#333;
+    text-shadow: none;
+    margin-left: 40px;
+    margin-top: 15px;
+    width: 90px;
+    float:left;
+    font-size:15px;
+    cursor:pointer;
+    padding:4px 0 6px 22px;
+    background:url('../img/arrow2.png') 0 0 no-repeat;
 }
 #tomyfeedsbtn2{
-	font-family:'Segoe UI',Arial, sans-serif;
-	color:#333;
-	text-shadow: none;
-	margin-left: 5px;
-	margin-top: 15px;
-	width: 90px;
-	float:left;
-	font-size:15px;
-	cursor:pointer;
-	padding:4px 0 6px 22px;
-	background:url('../img/arrow2.png') 0 0 no-repeat;
+    font-family:'Segoe UI',Arial, sans-serif;
+    color:#333;
+    text-shadow: none;
+    margin-left: 5px;
+    margin-top: 15px;
+    width: 90px;
+    float:left;
+    font-size:15px;
+    cursor:pointer;
+    padding:4px 0 6px 22px;
+    background:url('../img/arrow2.png') 0 0 no-repeat;
 }
 #tomyfeedsbtn2:hover,.toaddfeedsbtn:hover{
-	color:#444;
-	background:url('../img/arrow2.png') 0 -30px no-repeat;
+    color:#444;
+    background:url('../img/arrow2.png') 0 -30px no-repeat;
 }
 
 #tomyfeedsbtn2:active,.toaddfeedsbtn:active{
 
-	background:url('../img/arrow2.png') 0 -60px no-repeat;
+    background:url('../img/arrow2.png') 0 -60px no-repeat;
 }
 
 
 #tomyfeedsbtn
 {
-	cursor:pointer;
-	color:#333;
-	text-shadow: none;
-	font-family:'Segoe UI',Arial, sans-serif;
-	margin-right: 40px;
-	margin-top: 15px;
-	width: 90px;
-	float:right;
-	font-size:15px;
-	padding:4px 5px 6px 10px;
-	background:url('../img/arrow.png') 0 0 no-repeat;
+    cursor:pointer;
+    color:#333;
+    text-shadow: none;
+    font-family:'Segoe UI',Arial, sans-serif;
+    margin-right: 40px;
+    margin-top: 15px;
+    width: 90px;
+    float:right;
+    font-size:15px;
+    padding:4px 5px 6px 10px;
+    background:url('../img/arrow.png') 0 0 no-repeat;
 }
 
 #tomyfeedsbtn:hover
-{	
-	color:#444;
-	background:url('../img/arrow.png') 0 -30px no-repeat;
+{   
+    color:#444;
+    background:url('../img/arrow.png') 0 -30px no-repeat;
 }
 #tomyfeedsbtn:active
 {
-	background:url('../img/arrow.png') 0 -60px no-repeat;
+    background:url('../img/arrow.png') 0 -60px no-repeat;
 }
 
 /*--------------------------------------------------------
-				Feed View Area CSS/////////////////////////////////////////////////
+                Feed View Area CSS/////////////////////////////////////////////////
 ----------------------------------------------------------*/
 #readerviewdiv{
 
-	height:530px;
-	padding: 5px 0 10px 0; 
-	position: relative;
-	font: normal 12px Helvetica, Arial, sans-serif;
-	text-shadow:0 -1px 0 white;
-	text-align: left;
-	background-image : -webkit-gradient(
-								 linear,
-								 left bottom,
-								 left top,
-								 color-stop(0, rgb(240,240,240)),
-								 color-stop(1, rgb(251,250,255))
-								 )
-	}
+    height:530px;
+    padding: 5px 0 10px 0; 
+    position: relative;
+    font: normal 12px Helvetica, Arial, sans-serif;
+    text-shadow:0 -1px 0 white;
+    text-align: left;
+    background-image : -webkit-gradient(
+                                 linear,
+                                 left bottom,
+                                 left top,
+                                 color-stop(0, rgb(240,240,240)),
+                                 color-stop(1, rgb(251,250,255))
+                                 )
+    }
 #page-wrap,{
-	width: 830px;
-	padding: 0 15px;
-	margin: 0 auto 20px;
-	position: relative;
+    width: 830px;
+    padding: 0 15px;
+    margin: 0 auto 20px;
+    position: relative;
 }
 #slider ul li{
-	font:15px Georgia, Serif;
+    font:15px Georgia, Serif;
 }
 .textSlide{
-	/*height:500px;*/
-	overflow:hidden;
-	padding:10px 30px;
-	color:#000;
-	font-size: 15px;
-	line-height: 160%;
-	font-weight:100%;
+    /*height:500px;*/
+    overflow:hidden;
+    padding:10px 30px;
+    color:#000;
+    font-size: 15px;
+    line-height: 160%;
+    font-weight:100%;
 }
 .textSlide h2 a{
-	font:bold 30px Helvetica, Sans-Serif;
-	letter-spacing:-1px;
-	margin:0 0 10px 0;
-	color:#026;
+    font:bold 30px Helvetica, Sans-Serif;
+    letter-spacing:-1px;
+    margin:0 0 10px 0;
+    color:#026;
 }
 .textSlide a:hover{
-	color:blue;
+    color:blue;
 }
 .textSlide a img{
 margin:0 11px 11px 11px;
@@ -553,127 +552,127 @@ margin-bottom:15px;
 .quoteSlide p          { text-align: center; }
 
 /* ///////////////////////////////////////////////////////// 
-	headlines view
-	/////////////////////////////////////////////////////////*/
+    headlines view
+    /////////////////////////////////////////////////////////*/
 
 #headlview {
-	font-family:'Segoe UI',Arial, sans-serif;
-	border-radius: 4px;
-	text-shadow: none;
-	color:#fff;
-	margin-right: 10px;
-	margin-top: 10px;
-	width: 160px;
-	text-align:center;
-	font-size:15px;
-	float: right;
-	padding: 6px;
-	position: relative;
-	display: inline-block;
-	cursor:pointer;
-	background: url("../img/gbutton.png") no-repeat -2px 1px;
-	 /*--Declare X and Y axis base for sub navigation--*/
+    font-family:'Segoe UI',Arial, sans-serif;
+    border-radius: 4px;
+    text-shadow: none;
+    color:#fff;
+    margin-right: 10px;
+    margin-top: 10px;
+    width: 160px;
+    text-align:center;
+    font-size:15px;
+    float: right;
+    padding: 6px;
+    position: relative;
+    display: inline-block;
+    cursor:pointer;
+    background: url("../img/gbutton.png") no-repeat -2px 1px;
+     /*--Declare X and Y axis base for sub navigation--*/
 }
 
 #headlview:hover{
-	background: url("../img/gbutton.png") no-repeat -2px -33px;
+    background: url("../img/gbutton.png") no-repeat -2px -33px;
 }
 
 #headlview:active{
-	background: url("../img/gbutton.png") no-repeat -2px -66px;
+    background: url("../img/gbutton.png") no-repeat -2px -66px;
 }
 #rdrheadl li:hover
 {
-	background: #555;
-	cursor: pointer;
+    background: #555;
+    cursor: pointer;
 }
 #headlactions:hover
 {
-	background:#111;
+    background:#111;
 }
 #rdrheadl{
-	font-family:'Segoe UI',Arial, sans-serif;
-	font-size:14px;
-	color:#fff;
-	text-shadow: none;
-	text-align:left;
-	list-style: none;
-	position: absolute;
-	right:0px ; 
-	bottom: 100px;
-	background: #222;
-	display: none; 
-	width:270px;
-	max-height: 400px;
-	overflow-y:auto;
-	overflow-x:hidden;
-	border: 1px 1px 0 1px solid #111;
+    font-family:'Segoe UI',Arial, sans-serif;
+    font-size:14px;
+    color:#fff;
+    text-shadow: none;
+    text-align:left;
+    list-style: none;
+    position: absolute;
+    right:0px ; 
+    bottom: 100px;
+    background: #222;
+    display: none; 
+    width:270px;
+    max-height: 400px;
+    overflow-y:auto;
+    overflow-x:hidden;
+    border: 1px 1px 0 1px solid #111;
 }
 #rdrheadl li h2{
-	font-weight: 100;
+    font-weight: 100;
 }
 #rdrheadl li, #headlactions{
-	padding:10px 0px 10px 10px;
-	border-top:solid 1px #333;
-	font-size: 10px;
-	width:260px;
-	clear: both;
+    padding:10px 0px 10px 10px;
+    border-top:solid 1px #333;
+    font-size: 10px;
+    width:260px;
+    clear: both;
 }
 
 ,
 html #rdrheadl li a {
-	float: left;
-	width: 50px;	
-	padding-left: 55px;
+    float: left;
+    width: 50px;    
+    padding-left: 55px;
 }
 
 /* next and previous*/
 
 #headlactions{
-	background-color:#555;
-	position:fixed;
-	bottom:60px;
-	height:20px;
+    background-color:#555;
+    position:fixed;
+    bottom:60px;
+    height:20px;
 }
 #headlactions img{
-	padding-left:95px;
-	position:relative;
+    padding-left:95px;
+    position:relative;
 }
 #hprev{
-	width:25px;
-	height:25px;
-	float:left;
-	margin-left:30px;
-	background:url(../img/prev.png) no-repeat;
-	cursor:pointer;
-	margin-top:-5px;
+    width:25px;
+    height:25px;
+    float:left;
+    margin-left:30px;
+    background:url(../img/prev.png) no-repeat;
+    cursor:pointer;
+    margin-top:-5px;
 }
 #hnext:hover
 {
-	background:url('../img/next.png') 0 -25px no-repeat;
+    background:url('../img/next.png') 0 -25px no-repeat;
 }
 #hnext:active{
-	background:url('../img/next.png') 0 -50px no-repeat;
+    background:url('../img/next.png') 0 -50px no-repeat;
 }
 
 #hprev:hover
 {
-	background:url('../img/prev.png') 0 -25px no-repeat;
+    background:url('../img/prev.png') 0 -25px no-repeat;
 }
 #hprev:active{
-	background:url('../img/prev.png') 0 -50px no-repeat;
+    background:url('../img/prev.png') 0 -50px no-repeat;
 }
 
 
 
 #hnext{
-	width:25px;
-	height:25px;
-	float:right;
-	margin-right:30px;
-	background:url(../img/next.png) no-repeat;
-	cursor:pointer;
-	margin-top:-5px;
+    width:25px;
+    height:25px;
+    float:right;
+    margin-right:30px;
+    background:url(../img/next.png) no-repeat;
+    cursor:pointer;
+    margin-top:-5px;
 }
 
 #minimizeHeadlines {
@@ -695,40 +694,40 @@ z-index: 100000000000000000000;
     background-position: 0px -1px;
 }
  /*----------------------------------------
- 	Loading Screen
+    Loading Screen
 ------------------------------------------*/
 #loadingScreen{
-/*	opacity : 0; */
-	visibility: hidden;
-	position: absolute;
-	height:100%;
-	width:100%;
-	background:#000;
-	background:rgba(0,0,0,.8); 
-	top:0px;
-	left:0; 
-	text-align:center;
-	color:#FFF;
-	vertical-align:middle;
-	text-shadow:none;
-	font-size:18px;
-	padding-top:200px;
+/*  opacity : 0; */
+    visibility: hidden;
+    position: absolute;
+    height:100%;
+    width:100%;
+    background:#000;
+    background:rgba(0,0,0,.8); 
+    top:0px;
+    left:0; 
+    text-align:center;
+    color:#FFF;
+    vertical-align:middle;
+    text-shadow:none;
+    font-size:18px;
+    padding-top:200px;
 }
 #loadingScreen img{
-	margin:auto;
-	top:30%;
-	left:45%;
-	position:absolute;
-	z-index:101; 
+    margin:auto;
+    top:30%;
+    left:45%;
+    position:absolute;
+    z-index:101; 
 }
 
 .reveal-modal {
-		visibility: hidden;
-		position: absolute;
-		z-index: 101; 
-		padding: 30px 40px 34px;
-		border-radius: 5px;
-		
-	}
+        visibility: hidden;
+        position: absolute;
+        z-index: 101; 
+        padding: 30px 40px 34px;
+        border-radius: 5px;
+        
+    }
 
-	
+    
