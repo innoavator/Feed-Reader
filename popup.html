@@ -55,10 +55,10 @@
            <div id='sidebar'>	<h1>Add Feeds:</h1>
              
 
-            <ul class="filter">
+            <ul >
             <li id='descr'><p>Select the feed from the categories given below or enter the URL of the desired feed of your wish</p></li>
                       <li>Category:</li>
-                        <br><ul>
+                        <br><ul class="filter">
                         <li class="selected"><a href="#" data-value="news">News</a></li>
                         <li ><a href="#" data-value="busi">Business</a></li>
             
@@ -67,6 +67,7 @@
             
                         <li><a href="#" data-value="tech">Science and Technology</a></li>
                         <li><a href="#" data-value="sports">Sports</a></li>
+                       
                         </ul>
                       </li>
             </ul>
@@ -127,14 +128,13 @@
              <li data-id="http://newsrss.bbc.co.uk/rss/sportonline_uk_edition/latest_published_stories/rss.xml" class="sports"><img src="assets/img/shots/bbcs.png" alt="BBC SPORTS" title="BBC Sports"/></li>
              <li data-id="http://sports.yahoo.com/top/rss.xml" class="sports"><img src="assets/img/shots/ysport.png" alt="YAHOO SPORTS" title="Yahoo! Sports"/></li>
              <li data-id="http://www.fifa.com/rss/index.xml" class="sports"><img src="assets/img/shots/fifa.png" alt="FIFA" title="FIFA"/></li>
-             
             </div>
              
            </ul>
         </div>
        
      
-	<div id='footer'><div id="tomyfeedsbtn">My Feeds</div></div>
+	<div id='footer'><a href="http://www.codeblues.in/softwares/feedreader.php" id="feedback">Feedback</a></li><div id="tomyfeedsbtn">My Feeds</div></div>
        </div>  <!-- #addfeedsdiv end -->
 	  
 	  
@@ -145,7 +145,7 @@
       
       </ol><div id='footer'>
       	<div class="toaddfeedsbtn">Add Feeds</div>
-        <input id = "feedsearch" type = "text" onKeyUp="FeedViewer.searchMyFeeds(this.value);return false;"></input>
+     <form><input id = "feedsearch" type = "text" onKeyUp="FeedViewer.searchMyFeeds(this.value);return false;"><img id="srchglass" src="img/search-dark.png"></form>
     </div>
       </div>
       <div id = "readerviewdiv" style="visibility:hidden">
@@ -160,7 +160,7 @@
      <div class="toaddfeedsbtn">Add Feeds</div>
      <div id="tomyfeedsbtn2">My Feeds</div>
      <div id='headlview' state="notshown">View Headlines</div>
-        <ul id="rdrheadl">
+        <ul id="rdrheadl" start = '0' end = '10'>
         <div id = "minimizeHeadlines"></div>
      	<li id = "headlactions">
         	<div id="hprev"></div>
