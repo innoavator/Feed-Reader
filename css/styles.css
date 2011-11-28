@@ -230,6 +230,7 @@ text-decoration:underline;
 	top:20px;
 	color:#000;
 	padding:5px;
+	cursor:pointer;
 	border-radius:5px;
 	background:url(../img/arrow.png) -10px 0px no-repeat;
  }
@@ -635,7 +636,7 @@ html #rdrheadl li a {
 	height:20px;
 }
 #headlactions img{
-	padding-left:45px;
+	padding-left:95px;
 	position:relative;
 }
 #hprev{

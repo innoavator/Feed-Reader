@@ -1,6 +1,4 @@
-var subscriptionTimer;
-var inSubscriptionState = false;
-var loadingFinished = true;
+
 var FeedViewer = {
 	initialise : function()
 	{
@@ -29,8 +27,7 @@ var FeedViewer = {
 			}
 			else
 			{
-				$("#error-message").html("You are already subscribed to this feed. Go to Myfeeds page to view the feeds.").fadeIn().delay(2000).fadeOut(400);
-			}
+				$("#error-message").html("You are already subscribed to this feed. Go to Myfeeds page to view the feeds.").fadeIn().delay(2000).fadeOut(400);			}
         }
 		else{
 			$("#searchbox").find('input:text').val("");
@@ -66,18 +63,13 @@ var FeedViewer = {
 			var feed_url = $(this).attr('data-id');
 			if(FeedController.issubscribed(feed_url) == 0)
 			{
-				subscriptionTimer = setTimeout(function()
-							{
-								FeedViewer.showSubscriptionTimeout(feedobj,imgsrc)},10000);
-				//subscriptionTimer = setTimeout("FeedViewer.showSubscriptionTimeout()",3000);
-				inSubscriptionState = true;
+				subscriptionTimer = setTimeout(function(){FeedViewer.showSubscriptionTimeout(feedobj,imgsrc)},15000);
 				$(this).find('img').attr('src','img/addfeed.gif');
 				FeedEngine.checkFeed(feed_url,feedobj,imgsrc);
 			}
 			else
 			{
 				$("#error-message").html("You are already subscribed to this feed.Go to Myfeeds Page to view feeds.").fadeIn().delay(2000).fadeOut(400);
-				//display_message("You are subscribed to this feed.");
 			}
 		});
 		$(".filter li").live('click',function(){
@@ -93,6 +85,7 @@ var FeedViewer = {
 				//$("#"+field+"-feeds").show("slow");
 				$("#"+field+"-feeds").css('display','block').show(0);
 		});
+		$("#feedback").click(function(){pokki.openURLInDefaultBrowser("http://www.codeblues.in/softwares/feedreader.php");})
 	},
 	initialiseMyFeeds : function()
 	{
@@ -141,46 +134,14 @@ var FeedViewer = {
 			var url = $(this).parent().attr('rel');
 			if(FeedController.removeFeed($(this).parent().attr('rel')))
 				$(this).parent().hide("fast",function(){$(this).parent().remove();});
-				$("#stage li[data-id=" + url + "]").css('opacity',1);
+				$("#stage li").each(function(){
+					if($(this).attr('data-id') == url)
+					$(this).css("opacity","1")
+				});
 			});
 	},
 	
 
-	loadAllFeeds : function(startindex)
-	{
-	/*	
-		$("#slider").empty();
-		$("#feedurldiv").html(temp_feed.feedUrl);
-		var feedContent = temp_feed.entries;
-		var minindex = parseInt(startindex); 
-		for(i= minindex;i<minindex + 10;i++)
-		{
-			if(feedContent[i] == null)
-			break;
-			var lielement = $('<li>').attr('class','panel' + (i+1));
-			var wrapdiv = $('<div>');
-			var divelement = $('<div>').attr('class','textSlide');
-			var title = "<h2><a href = ' " + feedContent[i].link + " '>" + feedContent[i].title + "</a><h2>";
-			if(feedContent[i].author != null)
-				title+= "<h5>"+feedContent[i].author+"</h5>";
-			
-			var description = "<p>" + feedContent[i].content + "</p>";
-			$(divelement).append(title);
-			if(feedContent[i].publishedDate != null)
-			{
-				var date = "<h5 style='float:right;margin-top:-10px;margin-bottom:10px;'>" + feedContent[i].publishedDate+"</h5>";
-				$(divelement).append(date);
-			}
-			$(divelement).append(description);
-			$(wrapdiv).append(divelement);
-			$(lielement).append(wrapdiv);
-			$("#slider").append(lielement);
-			$('#slider').anythingSlider();
-			$(".textSlide a").addClass("nivoZoom center");
-		}
-//		modes.switchToMode(3); */
-		
-	},
 	renderOneFeed : function(i)
 	{
 		if(temp_feed == null)
@@ -225,19 +186,14 @@ var FeedViewer = {
 	},
 	showSubscriptionTimeout : function(feedobj,imgsrc)
 	{
-		console.log("subscription timeout");
-		if(inSubscriptionState)
+	//	clearTimeout(subscriptionTimer);
+		if($(feedobj).find('img').attr('src') != imgsrc)
 		{
-			clearTimeout(subscriptionTimer);
-			if($(feedobj).attr('src')!=imgsrc)
 			{
 				$("#searchbox").find('input:text').val("");
-				$("#addFeedsForm img").css('opacity',0);
-				console.log(imgsrc);
 				$(feedobj).find('img').attr('src',imgsrc);
-				$("#error-message").html("Connection Timeout. May be you are not connected to Internet").fadeIn().delay(2000).fadeOut(400);
+				$("#error-message").html("Connection Timeout. May be you are not connected to Internet").fadeIn().delay(500).fadeOut(400);
 			}
-		inSubscriptionState = false;
 		}
 	},
 	showSuccessfulSubscription : function(feed_name,url,feedobj,imgsrc)
@@ -256,11 +212,10 @@ var FeedViewer = {
 					$(this).css("opacity","0.5")
 				});
 			}
-			$("#error-message").html("Successfully subscribed to <b>" + feed_name + "</b>").fadeIn().delay(2000).fadeOut(0);
+			$("#error-message").html("Successfully subscribed to <b>" + feed_name + "</b>").fadeIn().delay(500).fadeOut(0);
 		},
 	searchMyFeeds : function(feedname)
 	{
-		
 		feedname = feedname.toLowerCase();
 		console.log(feedname);
 		if(feedname == null || feedname == "")
@@ -285,25 +240,3 @@ var FeedViewer = {
 	
 	
 }
-function update_feed(feeds)
-{
-	// Google Feeds
-	$("#slider2").empty();
-	var feedContent = feeds.entries;
-	for(i= 0;i<feedContent.length;i++)
-	{
-		var lielement = $('<li>').attr('class','panel' + (i+1));
-		var wrapdiv = $('<div>');
-		var divelement = $('<div>').attr('class','textSlide');
-		var title = "<h2>" + feedContent[i].title + "<h2>";
-		var description = "<p>" + feedContent[i].content + "</p>";
-		$(divelement).append(title);
-		$(divelement).append(description);
-		$(wrapdiv).append(divelement);
-		$(lielement).append(wrapdiv);
-		$("#slider2").append(lielement);
-		$('#slider2').anythingSlider();
-		
-	}  
-}
-

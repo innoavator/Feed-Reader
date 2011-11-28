@@ -1,33 +1,38 @@
 // FeedEngine File
-var fetchTimer;
-var inFetchingState = false;
 var FeedEngine = {
 	checkFeed : function(url,feedobj,imgsrc){
-					 
-					  var feed = new google.feeds.Feed(url);
-  					  feed.setNumEntries(10);
-  					  feed.setResultFormat(google.feeds.Feed.JSON_FORMAT);
-  					  feed.load(function(result) 
-					  {
-					  	if (!result.error) 
-						{	
-							clearTimeout(subscriptionTimer);
-							var feed_name = FeedController.addFeed(result.feed);
-							if(feed_name !=0 )
-							{	
-								FeedViewer.showSuccessfulSubscription(feed_name,url,feedobj,imgsrc);
-								FeedViewer.initialiseMyFeeds();
-							}
-						}
-						else
-						{
-							FeedEngine.searchFeed(url);
-							$("#searchbox").find('input:text').val("");
-							$("#searchbox img").css("opacity","0");
-							$("#error-message").html("Sorry, We could not find feeds at this url.").fadeIn().delay(2000).fadeOut(400);
-						}
-						
-  					  });  
+					      try{
+						  var feed = new google.feeds.Feed(url);
+						  }catch(err){
+						  	//console.log(err);
+							console.log("Returning");
+							return;}
+						  feed.setNumEntries(10);
+						  feed.setResultFormat(google.feeds.Feed.JSON_FORMAT);
+						  feed.load(function(result) 
+						  {
+							if($(feedobj).find('img').attr('src') != imgsrc)
+							{
+								if (!result.error) 
+								{	
+									var feed_name = FeedController.addFeed(result.feed);
+									if(feed_name !=0 )
+									{	
+										FeedViewer.showSuccessfulSubscription(feed_name,url,feedobj,imgsrc);
+										FeedViewer.initialiseMyFeeds();
+									}
+								}
+								else
+								{
+									//FeedEngine.searchFeed(url);
+									$("#searchbox").find('input:text').val("");
+									$("#searchbox img").css("opacity","0");
+									$("#error-message").html("Sorry, We could not find feeds at this url.").fadeIn().delay(2000).fadeOut(400);
+								}
+						   	 }
+						  
+					  }); 
+					  
 	},
 	showFeed : function(url){
 					  fetchTimer = setTimeout("FeedEngine.showTimeout()",10000);
@@ -71,7 +76,11 @@ var FeedEngine = {
 							if(result.feed.entries.length > minindex)
 								ReaderViewer.renderFeed(result.feed,minindex,maxindex);
 							else
+							{
+								switchToLoadingView(false);
 								$("#hnext").hide();
+								//TODO - Show a message - could not retrieve more feeds
+							}
 						}
 						else
 						{

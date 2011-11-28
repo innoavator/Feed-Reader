@@ -27,7 +27,6 @@ var ReaderViewer = {
 		// Click event for nextHeadlines button
 		$("#hnext").live('click',function(){
 			switchToLoadingView(true);
-		//	$("#hprev").show();
 			var startindex = parseInt($("#rdrheadl").attr('startindex'));
 			var endindex = parseInt($("#rdrheadl").attr('endindex'));
 			console.log(" Temp feed length : " + temp_feed.entries.length);
@@ -45,7 +44,6 @@ var ReaderViewer = {
 		
 		//Click event for prev headlines button
 		$("#hprev").live('click',function(){
-		//	$("#hnext").show();
 			switchToLoadingView(true);
 			var startindex = parseInt($("#rdrheadl").attr('startindex'));
 			var endindex = parseInt($("#rdrheadl").attr('endindex'));
@@ -58,7 +56,6 @@ var ReaderViewer = {
 		//Click on headlines event
 		$("#rdrheadl li").live('click',function(){
 			var slideno = $(this).attr('slideno') %10 + 1;
-			//FeedViewer.renderOneFeed($(this).attr('slideno'));
 			$('#slider').anythingSlider(slideno);
 			});
 		
@@ -69,8 +66,6 @@ var ReaderViewer = {
 		temp_feed = feeds;
 		$("#slider").empty();
 		$("#rdrheadl").empty();
-		if(minindex == 0)
-			$("#rdrheadl").slideUp(0);
 		var content = feeds.entries;
 		var length = 0;
 		for(var i = 0;i<content.length;i++)
@@ -90,11 +85,7 @@ var ReaderViewer = {
 		for(i= 0;i<feedContent.length;i++)
 		{
 			var lielement = $('<li>');
-		//	var headlineli = $('<li>').attr('slideno',i).attr('link',temp_feed.entries[i].link);
-		//	var wrapdiv = $('<div>');
-		//	var divelement = $('<div>').attr('class','textSlide');
 			var title = "<a href = '" + feedContent[i].link + "'><h3>" + feedContent[i].title + "</h3></a>";
-		//	$(headlineli).html("<h2>"+feedContent[i].title+"</h2>");
 			if(feedContent[i].author != null)
 				title+= "<h5 style='float:left'>"+feedContent[i].author+"</h5><br>";
 			
@@ -106,11 +97,7 @@ var ReaderViewer = {
 			}
 			$(lielement).append(title);
 			$(lielement).append(description);
-	//		$(wrapdiv).append(divelement);
 			$("#slider").append(lielement);
-	//		ReaderViewer.initialise();
-	//		$(".textSlide a").addClass("nivoZoom center");
-	//		$("#rdrheadl").append(headlineli);
 		}
 	},
 	renderSliderFeed : function(feeds,minindex,maxindex){
@@ -153,12 +140,6 @@ var ReaderViewer = {
 		$("#rdrheadl").append('<li id = "headlactions"><div id="hprev"></div>'
 							 +' <img src = "img/barload.gif"/>'//+'<a href = "#">View All</a>'
 							 + '<div id="hnext"></div></li>');
-		if(minindex == 0)
-			$("#hprev").hide();
-//		else
-		//	$("#hprev").fadeIn(100);
-		
-//		ReaderViewer.initialiseHeadlineView();
 	},
 	registerHeadlines : function(result,feeds)
 	{
