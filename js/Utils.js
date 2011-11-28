@@ -79,8 +79,12 @@ function switchToLoadingView(cond)
 	else
 	{
 		//$("#headlactions").find('a').show();
-		if(parseInt($("#rdrheadl").attr('startindex'))> 0)
-		$("#hprev").show();
+//		console.log("Startindex : " + $("#rdrheadl").attr('startindex'));
+		if(parseInt($("#rdrheadl").attr('startindex'))== 0)
+		{
+			$("#hprev").hide();
+		}
+			
 		$("#hnext").show();
 		$("#headlactions").find('img').hide();
 	}
