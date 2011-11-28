@@ -27,7 +27,7 @@ var ReaderViewer = {
 		// Click event for nextHeadlines button
 		$("#hnext").live('click',function(){
 			switchToLoadingView(true);
-			$("#hprev").show(0);
+		//	$("#hprev").show();
 			var startindex = parseInt($("#rdrheadl").attr('startindex'));
 			var endindex = parseInt($("#rdrheadl").attr('endindex'));
 			console.log(" Temp feed length : " + temp_feed.entries.length);
@@ -45,6 +45,7 @@ var ReaderViewer = {
 		
 		//Click event for prev headlines button
 		$("#hprev").live('click',function(){
+		//	$("#hnext").show();
 			switchToLoadingView(true);
 			var startindex = parseInt($("#rdrheadl").attr('startindex'));
 			var endindex = parseInt($("#rdrheadl").attr('endindex'));
@@ -78,7 +79,7 @@ var ReaderViewer = {
 			ReaderViewer.renderSliderFeed(temp_feed,minindex,maxindex);
 //		else
 //			ReaderViewer.renderScrollFeed(feeds);
-		$("#headlactions").find('img').hide();
+		switchToLoadingView(false);
 		loadingFinished = true;
 		$("#loadingScreen").css('visibility','hidden').css('display','none');
 	},
@@ -121,8 +122,12 @@ var ReaderViewer = {
 		var feedContent = feeds.entries;
 		for(i= minindex;i<maxindex;i++)
 		{
+			if(feedContent[i] == null)
+			{
+				$("#hnext").hide();break;
+			}
 			var lielement = $('<li>').attr('class','panel' + (i+1));
-			var headlineli = $('<li>').attr('slideno',i).attr('link',feeds.entries[i].link);
+			var headlineli = $('<li>').attr('slideno',i).attr('link',feedContent[i].link);
 			var wrapdiv = $('<div>');
 			var divelement = $('<div>').attr('class','textSlide');
 			var title = "<a href = '" + feedContent[i].link + "'><h2>" + feedContent[i].title + "</h2></a>";
@@ -150,6 +155,8 @@ var ReaderViewer = {
 							 + '<div id="hnext"></div></li>');
 		if(minindex == 0)
 			$("#hprev").hide();
+//		else
+		//	$("#hprev").fadeIn(100);
 		
 //		ReaderViewer.initialiseHeadlineView();
 	},

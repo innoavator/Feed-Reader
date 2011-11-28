@@ -72,11 +72,16 @@ function switchToLoadingView(cond)
 	if(cond)
 	{
 		//$("#headlactions").find('a').hide();
+		$("#hprev").hide();
+		$("#hnext").hide();
 		$("#headlactions").find('img').show();
 	}
 	else
 	{
 		//$("#headlactions").find('a').show();
+		if(parseInt($("#rdrheadl").attr('startindex'))> 0)
+		$("#hprev").show();
+		$("#hnext").show();
 		$("#headlactions").find('img').hide();
 	}
 }

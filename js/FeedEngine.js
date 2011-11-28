@@ -21,6 +21,7 @@ var FeedEngine = {
 						}
 						else
 						{
+							FeedEngine.searchFeed(url);
 							$("#searchbox").find('input:text').val("");
 							$("#searchbox img").css("opacity","0");
 							$("#error-message").html("Sorry, We could not find feeds at this url.").fadeIn().delay(2000).fadeOut(400);
@@ -67,7 +68,10 @@ var FeedEngine = {
 						//	console.log("Success");
 							console.log(result);
 							console.log("Length of feed : " + result.feed.entries.length);
-							ReaderViewer.renderFeed(result.feed,minindex,maxindex);
+							if(result.feed.entries.length > minindex)
+								ReaderViewer.renderFeed(result.feed,minindex,maxindex);
+							else
+								$("#hnext").hide();
 						}
 						else
 						{
@@ -75,6 +79,21 @@ var FeedEngine = {
 						//	ReaderViewer.registerHeadlines("failure",null);
 						}
   					  });
+	},
+	searchFeed : function(query)
+	{
+		google.feeds.findFeeds(query,function(result){
+		if (!result.error) 
+		{
+			/*for (var i = 0; i < result.entries.length; i++) 
+			{
+				
+				//var entry = result.entries[i];
+				//html += '<p><a href="' + entry.url + '">' + entry.title + '</a></p>';
+			}*/
+			console.log(result);
+		}
+	});
 	},
 	showTimeout : function()
 	{

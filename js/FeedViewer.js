@@ -20,11 +20,8 @@ var FeedViewer = {
 		if(regexp.test(feed_url))
 		{
 			if(feed_url.charAt(feed_url.length -1)=="/")
-			{
-				console.log("Untouched : " + feed_url);
 				feed_url = feed_url.substring(0,feed_url.length -1);
-				console.log("touched : " + feed_url);
-			}
+			
 			if(FeedController.issubscribed(feed_url) == 0)
 			{
 				$("#searchbox").find('img').css('opacity',1);
@@ -37,6 +34,7 @@ var FeedViewer = {
         }
 		else{
 			$("#searchbox").find('input:text').val("");
+			FeedEngine.searchFeed(feed_url);
 			$("#error-message").html("Please Enter a Valid Url").fadeIn().delay(2000).fadeOut(400);
 		}
 		 });
