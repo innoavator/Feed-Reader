@@ -56,8 +56,7 @@ body {
 
 /* Scrollable area */
 .scrollable {
-    overflow-x: hidden;
- 	overflow-y: auto;
+    overflow: hidden;
 	width:830px;
 	height:600px;
 	background:url('../img/bg_center.jpg');
