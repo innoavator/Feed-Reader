@@ -19,17 +19,22 @@ html{
 	width:830px;
 	height:600px;
 	position:absolute;
-	background:#eee;
+	background:url('../img/cover.png');
 	z-index:1200;
 	top:0;
 }
 #loadercontainer{
 	width:700px;
-	margin:200px 150px;
+	margin:160px 175px;
+	
+	}
+#loadercontainer h1{
+	padding-left:15px;
 	font-size:50px;
+	color:#111;
+	text-shadow:4px 4px 5px #ccc;
 	font-family:"Comic Sans MS", cursive;
 	}
-
 #loadercontainer img{
 	vertical-align:middle;
 }
