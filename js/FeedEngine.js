@@ -89,6 +89,31 @@ var FeedEngine = {
 						}
   					  });
 	},
+	getVideos : function(query)
+	{
+		var selectedli = $(".filter .selected");
+		if($("#youtube-feeds").find("iframe").length != 0)
+		{
+			//console.log($("#youtube-feeds").find("iframe").length == 0);
+			return;
+		}
+		if($(selectedli).find('a').attr('data-value') == "youtube")
+		{
+			$.ajax({
+			  method: "get",
+			  url: "http://gdata.youtube.com/feeds/api/videos?max-results=9&alt=json&q="+query,
+			  success: function(result){
+				FeedViewer.renderVideos(result);
+		  	  },
+			  
+			  timeout: (15 * 1000),
+			  dataType : "json"	,
+			  error: function( objAJAXRequest, strError ){
+				$("#youtube-feeds").empty().text("Error! Type: " +strError);
+	  			}
+			});
+		}
+	},
 	searchFeed : function(query)
 	{
 		google.feeds.findFeeds(query,function(result){

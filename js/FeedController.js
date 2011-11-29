@@ -53,7 +53,7 @@ var FeedController = {
 	},
 	listFeeds : function()
 	{
-		console.log(FeedController.myFeedList.get());
+		//console.log(FeedController.myFeedList.get());
 		return (FeedController.myFeedList.get());
 	},
 	getMyFeeds : function()

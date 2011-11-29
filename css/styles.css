@@ -178,7 +178,7 @@ text-decoration:underline;
 
 .grimg{
     position:relative;
-    margin-top: 50px;
+    margin-top: 30px;
 }
 .actions p a strong {
   text-shadow: none;
@@ -265,6 +265,28 @@ text-decoration:underline;
      background:url('../img/arrow.png') -10px -60px no-repeat;
      
  }
+ /************** Youtube Search API ********************/
+#youtubeResultsul {
+	overflow-y:auto;
+}
+#youtubeResultsul li{
+	margin: 5px 10px 5px 15px; 
+	width:140px;
+	height:90px;
+	padding:0px;
+}
+
+.youtubeResultsli img {
+	height : 90px;
+	width:140px;
+}
+.Video-IFrame-YouTube {
+	margin: 5px 40px 0 40px;
+	width: 580px;
+	height: 320px;
+	background: transparent;
+	}
+/*******************************************************/
 /*----------------------------
     MyFeeds Content Area/////////////////////////////////////////////
 -----------------------------*/

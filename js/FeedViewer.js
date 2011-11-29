@@ -37,7 +37,6 @@ var FeedViewer = {
 		 });
 		$(".textSlide a").live('click',function()
 		{
-			console.log("Link clicked");
 				var url = $(this).attr("href");
 				pokki.openURLInDefaultBrowser(url);
 		});  
@@ -57,6 +56,12 @@ var FeedViewer = {
 		}
 		
 		$("#stage li").live('click',function(){
+			if($(this).attr('class') == "youtubeResultsli")
+			{
+				var link =  $(this).attr('link');
+				FeedViewer.showVideo(link);	
+				return;
+			}
 			var imgsrc = $(this).find('img').attr('src');
 			var feedobj = $(this);
 			
@@ -86,6 +91,7 @@ var FeedViewer = {
 				$("#"+field+"-feeds").css('display','block').show(0);
 		});
 		$("#feedback").click(function(){pokki.openURLInDefaultBrowser("http://www.codeblues.in/softwares/feedreader.php");})
+		
 	},
 	initialiseMyFeeds : function()
 	{
@@ -140,37 +146,41 @@ var FeedViewer = {
 				});
 			});
 	},
-	
-
-	renderOneFeed : function(i)
-	{
-		if(temp_feed == null)
-			return;
-		var feedContent = temp_feed.entries[parseInt(i)];
-		if(feedContent == null)
-			return;
-		$("#slider").empty();
-		var lielement = $('<li>').attr('class','panel' + (i+1));
-		var wrapdiv = $('<div>');
-		var divelement = $('<div>').attr('class','textSlide');
-		var title = "<h2><a href = ' " + feedContent.link + " '>" + feedContent.title + "</a><h2>";
-		if(feedContent.author != null)
-			title+= "<h5>"+feedContent.author+"</h5>";
+	renderVideos : function(videoData){
 		
-		var description = "<p>" + feedContent.content + "</p>";
-		$(divelement).append(title);
-		if(feedContent.publishedDate != null)
+		console.log(videoData);
+		$("#stage #youtube-feeds").empty();
+		var content = videoData.feed.entry;
+		var ul = $('<ul>').attr('id','youtubeResultsul');
+		var i = 0;
+		for(i = 0;i<content.length;i++)
 		{
-			var date = "<h5 style='float:right;margin-top:-10px;margin-bottom:10px;'>" + feedContent.publishedDate+"</h5>";
-			$(divelement).append(date);
+			var idarr = (content[i].id.$t).split("/");
+			var url = idarr[idarr.length - 1];
+			var li = $("<li>").attr('link','http://www.youtube.com/embed/'+url+'?autoplay=1').attr('class','youtubeResultsli');
+			$(li).append("<img src = '"+content[i].media$group.media$thumbnail[0].url+"'/>");
+			$(ul).append(li);
+			//console.log(content[i].media$thumbnail); */
 		}
+		$("#stage #youtube-feeds").append(ul);
+	},
+	showVideo : function(videoUrl)
+	{
+		$('.youtubeResultsli').hide("slow");
+/*		var str = '<iframe class="Video-IFrame-YouTube" src="http://www.youtube.com/embed/' + videoUrl + '?';
+	//	if (Autoplay == "On") Str2 += 'autoplay=1';
+		str += '&html5=1&showinfo=0" frameborder="0" allowfullscreen></iframe>';
+		console.log(str); */
+		var str = '<a href = "#" onClick="FeedViewer.closeVideo()">Close</a><br>';
+		str += '<iframe class="youtube-player" type="text/html" width="580" height="320" src="'+videoUrl+'" frameborder="0"></iframe>';
+		$('#youtube-feeds').append(str);
+	},
+	closeVideo : function()
+	{
+		$("#youtube-feeds").find('iframe').remove();
+		$("#youtube-feeds").find('a').remove();
+		$('.youtubeResultsli').show("slow");
 		
-		$(divelement).append(description);
-		$(wrapdiv).append(divelement);
-		$(lielement).append(wrapdiv);
-		$("#slider").append(lielement);
-		$('#slider').anythingSlider();
-		$(".textSlide a").addClass("nivoZoom center");
 	},
 	addKeyboardControls : function(){
 		$(document).keyup(function(e){

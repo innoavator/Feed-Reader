@@ -12,6 +12,12 @@ var modes = {
 	readFeedMode  : 2,
 	currentMode : 0,
 	initialise : function(){
+	/*	if(FeedController.listFeeds!= null)
+		{
+			FeedViewer.initialiseMyFeeds();
+			modes.switchToMode(1);
+		}
+		else */
 		modes.switchToMode(0);
 	},
 	switchToMode : function(nextstate){
