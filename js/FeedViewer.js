@@ -171,7 +171,7 @@ var FeedViewer = {
 	//	if (Autoplay == "On") Str2 += 'autoplay=1';
 		str += '&html5=1&showinfo=0" frameborder="0" allowfullscreen></iframe>';
 		console.log(str); */
-		var str = '<a href = "#" onClick="FeedViewer.closeVideo()">Close</a><br>';
+		var str = '<a href = "#" onClick="FeedViewer.closeVideo()">Close</a>';
 		str += '<iframe class="youtube-player" type="text/html" width="580" height="320" src="'+videoUrl+'" frameborder="0"></iframe>';
 		$('#youtube-feeds').append(str);
 	},
