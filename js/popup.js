@@ -37,7 +37,7 @@ pokki.addEventListener('popup_showing', showing);
 
 // Add listener for when the popup window is shown
 function shown() {
-if(!Atom){setTimeout(function(){
+if(Atom){setTimeout(function(){
 		$('#loadercontainer').fadeOut(400);
     	$('#loader').fadeOut(500);},1000);};
 
