@@ -15,6 +15,24 @@
 html{
     
 }
+#loader{
+	width:830px;
+	height:600px;
+	position:absolute;
+	background:#eee;
+	z-index:1200;
+	top:0;
+}
+#loadercontainer{
+	width:700px;
+	margin:200px 150px;
+	font-size:50px;
+	font-family:"Comic Sans MS", cursive;
+	}
+
+#loadercontainer img{
+	vertical-align:middle;
+}
 
 #addfeedsdiv{
     

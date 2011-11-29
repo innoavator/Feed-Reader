@@ -14,7 +14,8 @@ var App = function() {
     this.onPopupShowing = function() {    
     
     };
-    // Kick off what needs to be done when the popup is hidden
+   
+	// Kick off what needs to be done when the popup is hidden
     this.onPopupHidden = function() {
     
     };
