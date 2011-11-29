@@ -36,21 +36,16 @@ function showing() {
 pokki.addEventListener('popup_showing', showing);
 
 // Add listener for when the popup window is shown
-/*function shown() {
-    console.log('Popup window is visible.');
-    
-}*/// Add listener for when the popup window is shown
+function shown() {
+if(!Atom){setTimeout(function(){
+		$('#loadercontainer').fadeOut(400);
+    	$('#loader').fadeOut(500);},1000);};
 
-function shown() {  
-    if (Atom=new App()) {setTimeout(function(){
-      $('#loadercontainer').fadeOut(400);
-      $('#loader').fadeOut(500);
-    },1000);
-	
-   	
-    }
-    
-    console.log('Popup window is visible.');   
+	console.log('Popup window is visible.');
+ 	   
+/// Add listener for when the popup window is shown
+
+
 }
 pokki.addEventListener('popup_shown', shown);
 
