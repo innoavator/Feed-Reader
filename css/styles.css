@@ -15,103 +15,63 @@
 html{
     
 }
-#loader{
-	width:830px;
-	height:600px;
-	position:absolute;
-	background:url('../img/cover.png');
-	z-index:1200;
-	top:0;
-}
-#loadercontainer{
-	width:700px;
-	margin:160px 175px;
-	
-	}
-#loadercontainer h1{
-	padding-left:15px;
-	font-size:50px;
-	color:#111;
-	text-shadow:4px 4px 5px #ccc;
-	font-family:"Comic Sans MS", cursive;
-	}
-#loadercontainer img{
-	vertical-align:middle;
-}
-
 #addfeedsdiv{
-    
-    float:left;
-    font-weight:800;
+    background:url(../img/bg-body.png) repeat-x;
     color:#fff;
-    font:14px/1.3 'Segoe UI',Arial, sans-serif;
-    text-shadow:none;
-    height: 600px;
-    overflow:hidden;
-    background:url('../img/bg-body.gif') repeat-y;
-}
-#addfeedsdiv ul{
-    list-style:none;
+    text-shadow:0 2px 5px #333;
+    height:600px;
+	width:830px;
 }
 
-#sidebar{
-    margin: 40px;
-    height: 500px;
-    width:180px;
-    z-index:-10000;
-    text-shadow: 0 2px 4px #000;
-}
-a, a:visited {
-    text-decoration:none;
-    outline:none;
-    color:#026;
-}
 #header{
-    color:black;
-    position:absolute;
-    margin-left:400px;
-    top:20px;
-    text-align:center;  
+    padding: 40px 0 10px 30px;
 }
-
+#header img{
+    vertical-align:middle;
+    margin-top:-4px;    
+    padding-right:4px;
+}
 /*----------------------------
     SearchBox in AddFeeds Page
 -----------------------------*/
-#searchbox {
-    padding: 90px 0 0 20px;
-    text-shadow:none;
-    -webkit-box-shadow:inset 0px 0px 0px #ccc;
-    border: 1px solid #;
+#addFeedsForm{
+    float:right;
+    margin-top: -30px;
+    margin-right:30px;
+	font-size:12px;
+    font-family:"Tahoma";
+	font-weight:bold;
 }
-
 #searchbox input[type="text"]{
+    text-shadow: 0 2px 5px #000;    
+    float:right;
+    border-radius:10px;
+    outline:none;
+    padding: 3px;
+    margin-top:-5px;
+    width:220px;
     font-size: 12px;
     color: #000;
-    width:300px;
-    padding: 6px;
-    outline:none;
-    border-radius:20px 0 0 20px; 
+    text-shadow:none;
+    -webkit-box-shadow:inset 0px 0px 0px #ccc;
+    border: 1px solid #aaa;
+    padding-left:22px;
+    background:#ccc;
     -webkit-transition: all 0.7s ease 0s;
-    background:#F0F0F0;
+}
+#searchbox input[type="text"]:hover{
+    background:#ddd;
 }
 #searchbox input[type="text"]:focus{
-    background:#fff;
+    background:#eee;
     -webkit-transition: all 0.7s ease 0s;
 }
 
-#searchbox input[type="submit"]{
-    background: url("../img/submit.png") top left no-repeat;
-    width: 67px;
-    height: 30px;
-    border: none;
-    color: #fff;
-    cursor: pointer;
-    border-radius:0 20px 20px 0;
-    position:relative;
-    left: -5px;
-    -webkit-transition: all 0.7s ease 0s;
-}
-
+#searchbox #srchglass{
+    float: right;
+    margin-top: -14px;
+    margin-left:14px;
+}/*
 #searchbox input[type="submit"]:hover
 {
     background: url("../img/submit.png") 0 -30px no-repeat;
@@ -120,134 +80,131 @@ a, a:visited {
 #searchbox input[type="submit"]:active
 {
     background: url("../img/submit.png") bottom right no-repeat;
+}*/
+#error-message{
+    position:relative;
+    text-align:center;
+    margin-top:10px;
+    color:black;
+    text-shadow:none;s
 }
 /*----------------------------
     Addfeeds Menu Bar 
 -----------------------------*/
-
-.filter {
-    margin: 10px 0px 10px;
+.filter{
+    margin-top:14px;
+    margin-left:20px;
+	background-image: -webkit-gradient(radial, center bottom, 0, center bottom, 490, color-stop(0, #303030), color-stop(1, #000000));
+	border-radius:10px 10px 0 0; 
+	width:655px;
+	height:26px;
+}
+.filter li{
+    float:left;
+	font-size:13px;
     list-style:none;
+	margin-left:10px;
+	margin-top:6px;
+	text-shadow:0 2px 3px #111;
+	font-family:"Trebuchet MS";
+	font-weight:bold;
 }
-
-.filter a{
-    color: #FFF;
-    display: inline-block;
-    height: 20px;
-    margin-top: 0px;
-    text-shadow:1px 1px 5px #315218;
-    width:176px;
-    padding: 7px;
-}
-
-.filter a:hover{
-text-decoration:underline;
-}
-.filter li.selected a{
-    
-    background: url("../img/gbutton.png") no-repeat -2px 1px;   
+.filter li a{
+    color:#fff;
+    margin-left:-3px;
+    border-radius:10px 10px 0 0; 
     text-decoration:none;
-    color:#ffffff;
-    text-shadow:#000;
-    border-radius:5px 0 0 5px;
+    padding:6px 8px 3px 8px;
+    -webkit-transition: all 0.05s ease 0s;
 }
-
-#descr{
-    margin-bottom: 20px;
-    color:#ddd;
+.filter li a:hover{
+    background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0, #333333), color-stop(1, #3D3D3D));
+    
+    text-shadow:0 -2px 15px #888;
 }
-
-.filter {
-    list-style:none;
+.filter li a.selected{
+	border-radius:10px 10px 0 0;
+	background-image: -webkit-gradient(linear, left bottom, left top, color-stop(0, #FCFCFC), color-stop(1, #D1D1D1));
+	color:#333;
+	padding-top:10px;
+	text-shadow:none;
 }
-
-#error-message{
-    margin-top:10px;
-    height:30px;
-    display:block;
-    position:absolute;
-    font-weight:bold;
+.filter li a.selected{
+	text-decoration:none;
+	cursor:default;
 }
 /*----------------------------
     AddFeeds Content Area
 -----------------------------*/
-
-#descr{
-    margin-top:30px;
-}
-
-.grimg{
-    position:relative;
-    margin-top: 50px;
-}
-.actions p a strong {
-  text-shadow: none;
-}
-
-/*grid*/
-
 #container{
-    color:#333;
-    position: absolute;
-    top:0;
-    min-width:600px;
-    text-shadow: 0px 2px 3px #aaa;
-    left: 240px;
-    overflow:hidden;
+    margin-left:6px;
+    position:relative;
+    width:10000px;
+    height:390px;
+    overflow:auto;
+    margin-top:5px;
+}
+.fdkadiv{
+    float:left;
+    width:830px;
+    position:relative;
+}
+.caption{
+    text-align:center;
+    padding:auto;
+    margin:auto;
+    width:150px;
+    height:80px;
+    color:white;
+    font-size:12px;
+    font-weight:bold;
+    margin-top:-60px;
+    z-index:1001;
+    opacity:0;
+}
+.subscbdimg{
+	position:absolute;
+    width:32px;
+    height:22px;
+    float:right;
+    right:-12px;
+    top:-5px;
+}
+.grimg li{
+    width:154px;
+    height:86px;
+    position:relative;
+    margin:15px 25px 25px 25px;
+    list-style:none;
     display:block;
-    margin: 25px auto;
-
+    float:left;
+    border-radius:7px;
+    color:black;
+    background:#333;
+    -webkit-transition-duration:.2s;
+    -webkit-box-shadow:0 3px 7px #333;
 }
 .grimg li img{
-    
-    -webkit-box-reflect:below -8px
-    -webkit-gradient(linear, left top, left bottom, from(transparent), color-stop(.8, transparent), to(white)); 
-    -webkit-transition: margin 0.25s ease-out;
+    z-index:100;
+    border-radius:7px;
 }
-.grimg li img:hover{
-    margin-top: -8px;
-    -webkit-transition: margin 0.25s ease-out;
+.grimg li:hover{
+    cursor:pointer; 
+    -webkit-transition-duration:.2s;
+    -webkit-box-shadow:0 2px 15px #444;
 }
-#container:after {
-  content: "";
-  display: block;
-  height: 0;
-  overflow: hidden;
-  clear: both;
-}
-
-#container li {
-  width: 100px;
-  margin: 10px 20px 15px 20px;
-  padding-top: 10px;
-  float: left;
-  text-align: center;
-  font-family: "Helvetica Neue", sans-serif;
-  line-height: 18px;
-  color: #686f74;
-  height: 120px;
-  overflow: hidden;
-  cursor:pointer;
-  
+.fdname{
+    position:absolute;
+    color:black;
+    display:block;
+    text-shadow:none;
+    text-align:center;
+    bottom:-25px;
+    left:0%;
+    width:100%;
 }
 
-#container li img,
-{
-  display: block;
-  
-  
-}
-.quick-alert {
-   width: 50%;
-   margin: 1em 0;
-   padding: .5em;
-   background: #ffa;
-   border: 1px solid #a00;
-   color: #a00;
-   font-weight: bold;
-   display: none;
- }
- #feedback{
+#feedback{
     position:relative;
     margin-left:50px;
     top:20px;
@@ -256,15 +213,14 @@ text-decoration:underline;
     cursor:pointer;
     border-radius:5px;
     background:url(../img/arrow.png) -10px 0px no-repeat;
- }
- #feedback:hover{
+}
+#feedback:hover{
     color:#222;
     background:url('../img/arrow.png') -10px -30px no-repeat;
- }
- #feedback:active{
-     background:url('../img/arrow.png') -10px -60px no-repeat;
-     
- }
+}
+#feedback:active{
+    background:url('../img/arrow.png') -10px -60px no-repeat;
+}
 /*----------------------------
     MyFeeds Content Area/////////////////////////////////////////////
 -----------------------------*/
@@ -276,7 +232,6 @@ text-decoration:underline;
     color:#fff;
     font:14px/1.3 'Segoe UI',Arial, sans-serif;
     text-shadow: 0 2px 5px #000;
-	background:url(../img/bg2.png);
 }
 
 #header2{
@@ -285,7 +240,6 @@ text-decoration:underline;
     height:50px;
     padding-top:10px;
     text-align:center;
-    background:url('../img/footer.png') repeat-x
 }
 .myfeedlist{
     margin-left:65px;
@@ -422,7 +376,7 @@ background-image: -webkit-gradient(linear, left bottom, left top, color-stop(0, 
     -webkit-box-shadow:inset 0px 0px 0px #ccc;
     border: 1px solid #aaa;
     padding-left:20px;
-    background:#aaa;
+    background:#ddd;
     -webkit-transition: all 0.7s ease 0s;
 }
 
@@ -444,7 +398,6 @@ background-image: -webkit-gradient(linear, left bottom, left top, color-stop(0, 
     position:fixed;
     height:60px;
     bottom:0px;
-    background:url('../img/footer.png') repeat-x;
     width:830px;
 }
 .toaddfeedsbtn{
@@ -751,7 +704,6 @@ z-index: 100000000000000000000;
         z-index: 101; 
         padding: 30px 40px 34px;
         border-radius: 5px;
-        
-    }
+        }
 
     

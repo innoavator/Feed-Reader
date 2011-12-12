@@ -16,22 +16,11 @@ body {
 #wrapper {
     margin: auto;
     width: 830px;
-/*	height:600px; */
+	height:600px; 
     position: relative;
     opacity: 1;
 }
-.dark-background{
-	background:url('../img/bg_center.jpg');
-}
-.light-background{
-	background-image : -webkit-gradient(
-				 linear,
-				 left bottom,
-				 left top,
-				 color-stop(0, rgb(240,240,240)),
-				 color-stop(1, rgb(251,250,255))
-				 )
-}
+
 #minimize {
     display: block;
     position: absolute;
@@ -56,15 +45,13 @@ body {
 
 /* Scrollable area */
 .scrollable {
-    overflow: hidden;
-	width:830px;
 	height:600px;
-	background:url('../img/bg_center.jpg');
+	overflow:hidden;
 	
 }
 
 /* Offset content inside of scrollable area so that it doesn't hug the scrollbar */
-
+    
     
 /* Custom CSS scrollbar */
 ::-webkit-scrollbar {

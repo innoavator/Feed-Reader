@@ -1,6 +1,6 @@
 // FeedEngine File
 var FeedEngine = {
-	checkFeed : function(url,feedobj,imgsrc){
+	checkFeed : function(url,feedobj,caption,imgsrc){
 					      try{
 						  var feed = new google.feeds.Feed(url);
 						  }catch(err){
@@ -11,14 +11,14 @@ var FeedEngine = {
 						  feed.setResultFormat(google.feeds.Feed.JSON_FORMAT);
 						  feed.load(function(result) 
 						  {
-							if($(feedobj).find('img').attr('src') != imgsrc)
+							if($(feedobj).find('.feedimage').attr('src') != imgsrc)
 							{
 								if (!result.error) 
 								{	
 									var feed_name = FeedController.addFeed(result.feed);
 									if(feed_name !=0 )
 									{	
-										FeedViewer.showSuccessfulSubscription(feed_name,url,feedobj,imgsrc);
+										FeedViewer.showSuccessfulSubscription(feed_name,url,feedobj,caption);
 										FeedViewer.initialiseMyFeeds();
 									}
 								}
@@ -27,7 +27,7 @@ var FeedEngine = {
 									//FeedEngine.searchFeed(url);
 									$("#searchbox").find('input:text').val("");
 									$("#searchbox img").css("opacity","0");
-									$("#error-message").html("Sorry, We could not find feeds at this url.").fadeIn().delay(2000).fadeOut(400);
+									$("#error-message").fadeOut('fast',function(){$(this).html("Sorry, We could not find feeds at this url.")}).fadeIn().delay(1200).fadeOut('fast',function(){$(this).html("Click on the feed from the categories given below or enter the URL of the desired feed of your wish")}).fadeIn();
 								}
 						   	 }
 						  

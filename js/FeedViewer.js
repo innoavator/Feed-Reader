@@ -27,14 +27,15 @@ var FeedViewer = {
 			}
 			else
 			{
-				$("#error-message").html("You are already subscribed to this feed. Go to Myfeeds page to view the feeds.").fadeIn().delay(2000).fadeOut(400);			}
+				$("#error-message").fadeOut('fast',function(){$(this).html("<b>You are already subscribed to this feed. Go to Myfeeds page to view the feeds.</b>")}).delay(1000).fadeOut('fast',function(){$(this).html("Click on the feed from the categories given below or enter the URL of the desired feed of your wish")}).fadeIn();	}
         }
 		else{
 			$("#searchbox").find('input:text').val("");
 			FeedEngine.searchFeed(feed_url);
-			$("#error-message").html("Please Enter a Valid Url").fadeIn().delay(2000).fadeOut(400);
+			$("#error-message").fadeOut('fast',function(){$(this).html("<b>Please Enter a Valid Url!!!</b>")}).fadeIn().delay(1000).fadeOut('fast',function(){$(this).html("Click on the feed from the categories given below or enter the URL of the desired feed of your wish")}).fadeIn();
 		}
 		 });
+		 
 		$(".textSlide a").live('click',function()
 		{
 			console.log("Link clicked");
@@ -51,40 +52,81 @@ var FeedViewer = {
 			$("#stage li").each(function(i){
 			if(myFeedsList.indexOf($(this).attr('data-id')) != -1)
 			{
-				$(this).css("opacity","0.5");
+				$('.caption',this).html('You are subscribed to '+$('img',this).attr('title')+'<br>'+'<img class="subscbdimg" src="img/done.png">');
+				$(this).css('cursor','default');
+				$('.caption',this).animate({'opacity': 1,'margin-top': -60 }, 200);
+		        $('img',this).animate({'opacity': 0.1}, 200);
+				$('.subscbdimg').animate({'opacity': 1}, 200)
+				
+				$(this).hover(function(){
+				
+				$('.caption',this).fadeOut(200,function(){$(this).html('Unsubscribe?'+'<img class="unsub" style="display:block" src="img/unsub1.png">').css('margin-top','-55px')}).stop(true, true).fadeIn(200);}
+				
+				,function(){$('.caption',this).fadeOut(200,function(){$(this).html('You are subscribed to '+$(this).parent().find('.feedimage').attr('title')+'<br>'+'<img class="subscbdimg" src="img/done.png">').css('margin-top','-60px')}).stop(0,true, true).fadeIn(200);}
+				
+				);
+				
 			}
 			});
 		}
-		
+			
+		$('.grimg li').mouseenter(function() {
+			var feed_url = $(this).attr('data-id');
+			if(FeedController.issubscribed(feed_url) == 0){
+				$(this).css('cursor','pointer');
+        $('.caption',this).html('Click me to subscribe to '+$('img',this).attr('title'));	
+		$('.caption',this).stop(true,true).animate({'opacity': 1,'margin-top': -60}, 200);
+        $('img',this).stop(true,true).animate({'opacity': 0.1}, 200);}
+		$('.subscbdimg').css('opacity','1');
+    }).mouseleave(function() {
+		var feed_url = $(this).attr('data-id');
+		if(FeedController.issubscribed(feed_url) == 0){
+		$(this).css('cursor','pointer');
+        $('.caption',this).stop(0,true,true).animate({'opacity': 0}, 200);
+		$('img',this).stop(0,true,true).animate({'opacity': 1}, 200);}
+			
+    });
 		$("#stage li").live('click',function(){
-			var imgsrc = $(this).find('img').attr('src');
+			var caption = $(this).find('.caption');
 			var feedobj = $(this);
 			
 			var feed_url = $(this).attr('data-id');
 			if(FeedController.issubscribed(feed_url) == 0)
 			{
-				subscriptionTimer = setTimeout(function(){FeedViewer.showSubscriptionTimeout(feedobj,imgsrc)},15000);
-				$(this).find('img').attr('src','img/addfeed.gif');
-				FeedEngine.checkFeed(feed_url,feedobj,imgsrc);
-			}
+				subscriptionTimer = setTimeout(function(){FeedViewer.showSubscriptionTimeout(feedobj,caption)},15000);
+				$('.caption',this).html('<img src="img/addfeed.gif">'+'<br>'+'Subscribing. Please Wait...');
+			$('.caption',this).animate({'opacity': 1, 'margin-top': -80 }, 200);
+		        $('img',this).animate({'opacity': 0.1}, 200);
+		//	FeedController.issubscribed(feed_url) = 1;//correct the hover and leave thingy
+			//$(this).mouseleave(function(e) {$('.caption',this).html('Subscribing. Please Wait...'+'<img src="img/addfeed.gif">');
+		//	$(this).css('cursor','pointer');});
+			//////////////////////////////////////////////////////////////
+    
+				FeedEngine.checkFeed(feed_url,feedobj,caption);
+				}
 			else
 			{
-				$("#error-message").html("You are already subscribed to this feed.Go to Myfeeds Page to view feeds.").fadeIn().delay(2000).fadeOut(400);
+				$("#error-message").fadeOut('fast',function(){$(this).html("<b>You are already subscribed to this feed. Go to Myfeeds page to view the feeds.</b>")}).fadeIn('fast').delay(1000).fadeOut('fast',function(){$(this).html("Click on the feed from the categories given below or enter the URL of the desired feed of your wish")}).fadeIn();
 			}
 		});
-		$(".filter li").live('click',function(){
+		$(".filter a").live('click',function(){
 				
 				if($(this).attr('class') == 'selected')
 					return;
-				$(".filter li").removeClass('selected');
+				$(".filter a").removeClass('selected');
+				var multiple=$(this).attr('class');
 				$(this).addClass('selected');
-				var field = $(this).find('a').attr('data-value');
+				var field = $(this).attr('data-value');
+				var finval=multiple*830*(-1)+6;
+				$("#container").animate({'margin-left': finval}, 300);
 				//$("#stage div").slideUp("slow");
 				//$("#"+field+"-feeds").slideDown("slow");
-				$("#stage div").css('display','none');
-				//$("#"+field+"-feeds").show("slow");
-				$("#"+field+"-feeds").css('display','block').show(0);
+				/*$("#stagediv").fadeOut('fast',function(){$(this).css('display','none')});
+				$("#"+field+"-feeds").delay(250).fadeIn('fast',function(){$(this).css('display','block').show(0)});
+				//$("#"+field+"-feeds").show("slow");*/
+				
 		});
+            
 		$("#feedback").click(function(){pokki.openURLInDefaultBrowser("http://www.codeblues.in/softwares/feedreader.php");})
 	},
 	initialiseMyFeeds : function()
@@ -122,6 +164,7 @@ var FeedViewer = {
 				}
 				
 		});
+		
 		$(".feedl").live('mouseenter',function(){
 			$(this).find('.unsub').css('display','block');		
 			});
@@ -184,24 +227,24 @@ var FeedViewer = {
 		
 			});
 	},
-	showSubscriptionTimeout : function(feedobj,imgsrc)
+	showSubscriptionTimeout : function(feedobj,caption)
 	{
 	//	clearTimeout(subscriptionTimer);
-		if($(feedobj).find('img').attr('src') != imgsrc)
+		if($(feedobj).find('.caption')!= caption)
 		{
 			{
 				$("#searchbox").find('input:text').val("");
-				$(feedobj).find('img').attr('src',imgsrc);
-				$("#error-message").html("Connection Timeout. May be you are not connected to Internet").fadeIn().delay(500).fadeOut(400);
+				$(feedobj).find('.caption').html(caption);
+				$("#error-message").fadeOut('fast',function(){$(this).html("<b>Connection Timeout. May be you are not connected to Internet</b>")}).fadeIn().delay(1200).fadeOut('fast',function(){$(this).html("Click on the feed from the categories given below or enter the URL of the desired feed of your wish")}).fadeIn();
 			}
 		}
 	},
-	showSuccessfulSubscription : function(feed_name,url,feedobj,imgsrc)
+	showSuccessfulSubscription : function(feed_name,url,feedobj,caption)
 	{
 			if(feedobj != null)
 			{
-				$(feedobj).find('img').attr('src',imgsrc);
-				$(feedobj).css("opacity","0.5");
+				$(feedobj).find('.caption').html(caption);
+				//$(feedobj).css("opacity","0.5");
 			}
 			else
 			{
@@ -212,7 +255,7 @@ var FeedViewer = {
 					$(this).css("opacity","0.5")
 				});
 			}
-			$("#error-message").html("Successfully subscribed to <b>" + feed_name + "</b>").fadeIn().delay(500).fadeOut(0);
+			$("#error-message").fadeOut('fast',function(){$(this).html("<b>Successfully subscribed to " + feed_name + "</b>")}).fadeIn().delay(1200).fadeOut('fast',function(){$(this).html("Click on the feed from the categories given below or enter the URL of the desired feed of your wish")}).fadeIn();
 		},
 	searchMyFeeds : function(feedname)
 	{
@@ -238,5 +281,6 @@ var FeedViewer = {
 		}
 	}
 	
-	
-}
+};
+
+    
