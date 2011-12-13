@@ -24,6 +24,7 @@ html{
 }
 
 #header{
+	font-family:'Tahoma';
     padding: 40px 0 10px 30px;
 }
 #header img{
@@ -114,7 +115,7 @@ html{
     margin-left:-3px;
     border-radius:10px 10px 0 0; 
     text-decoration:none;
-    padding:6px 8px 3px 8px;
+    padding:6px 8px 2px 8px;
     -webkit-transition: all 0.05s ease 0s;
 }
 .filter li a:hover{
@@ -132,6 +133,22 @@ html{
 .filter li a.selected{
 	text-decoration:none;
 	cursor:default;
+}
+#youtube{
+	background:url('../img/youtube.png');
+	width:50px;
+	height:23px;
+	border-radius:5px;
+	position:absolute;
+	right:20px;
+	margin-top:-25px;
+	cursor:pointer;
+}
+#youtube:hover{
+	background:url('../img/youtube.png') 0 -24px;
+}
+#youtube:active{
+	background:url('../img/youtube.png') 0 -48px;
 }
 /*----------------------------
     AddFeeds Content Area

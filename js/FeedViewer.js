@@ -7,7 +7,6 @@ var FeedViewer = {
 //		FeedViewer.addKeyboardControls();
 		ReaderViewer.initialise();
 		ReaderViewer.initialiseHeadlineView();
-		
 		$("#tomyfeedsbtn").click(function(){modes.switchToMode(1);});
 		$("#tomyfeedsbtn2").click(function(){modes.switchToMode(1);});
 		$(".toaddfeedsbtn").click(function(){modes.switchToMode(0);});
