@@ -20,11 +20,11 @@ html{
     color:#fff;
     text-shadow:0 2px 5px #333;
     height:600px;
-	width:830px;
+    width:830px;
+    font-family:"Tahoma";
 }
 
 #header{
-	font-family:'Tahoma';
     padding: 40px 0 10px 30px;
 }
 #header img{
@@ -39,9 +39,8 @@ html{
     float:right;
     margin-top: -30px;
     margin-right:30px;
-	font-size:12px;
-    font-family:"Tahoma";
-	font-weight:bold;
+    font-size:12px;
+    font-weight:bold;
 }
 #searchbox input[type="text"]{
     text-shadow: 0 2px 5px #000;    
@@ -95,20 +94,20 @@ html{
 .filter{
     margin-top:14px;
     margin-left:20px;
-	background-image: -webkit-gradient(radial, center bottom, 0, center bottom, 490, color-stop(0, #303030), color-stop(1, #000000));
-	border-radius:10px 10px 0 0; 
-	width:655px;
-	height:26px;
+    background-image: -webkit-gradient(radial, center bottom, 0, center bottom, 490, color-stop(0, #505050), color-stop(1, #303030));
+    border-radius:10px 10px 0 0; 
+    width:655px;
+    height:26px;
 }
 .filter li{
     float:left;
-	font-size:13px;
+    font-size:13px;
     list-style:none;
-	margin-left:10px;
-	margin-top:6px;
-	text-shadow:0 2px 3px #111;
-	font-family:"Trebuchet MS";
-	font-weight:bold;
+    margin-left:10px;
+    margin-top:6px;
+    text-shadow:0 2px 3px #111;
+    font-family:"Trebuchet MS";
+    font-weight:bold;
 }
 .filter li a{
     color:#fff;
@@ -124,42 +123,42 @@ html{
     text-shadow:0 -2px 15px #888;
 }
 .filter li a.selected{
-	border-radius:10px 10px 0 0;
-	background-image: -webkit-gradient(linear, left bottom, left top, color-stop(0, #FCFCFC), color-stop(1, #D1D1D1));
-	color:#333;
-	padding-top:10px;
-	text-shadow:none;
+    border-radius:10px 10px 0 0;
+    background-image: -webkit-gradient(linear, left bottom, left top, color-stop(0, #FCFCFC), color-stop(1, #D1D1D1));
+    color:#333;
+    padding-top:10px;
+    text-shadow:none;
 }
 .filter li a.selected{
-	text-decoration:none;
-	cursor:default;
+    text-decoration:none;
+    cursor:default;
 }
 #youtube{
-	background:url('../img/youtube.png');
-	width:50px;
-	height:23px;
-	border-radius:5px;
-	position:absolute;
-	right:20px;
-	margin-top:-25px;
-	cursor:pointer;
+    background:url('../img/youtube.png');
+    width:50px;
+    height:23px;
+    border-radius:5px;
+    position:absolute;
+    right:20px;
+    margin-top:-25px;
+    cursor:pointer;
 }
 #youtube:hover{
-	background:url('../img/youtube.png') 0 -24px;
+    background:url('../img/youtube.png') 0 -24px;
 }
 #youtube:active{
-	background:url('../img/youtube.png') 0 -48px;
+    background:url('../img/youtube.png') 0 -48px;
 }
 /*----------------------------
     AddFeeds Content Area
 -----------------------------*/
 #container{
-    margin-left:6px;
+    margin-left:10px;
     position:relative;
     width:10000px;
     height:390px;
     overflow:auto;
-    margin-top:5px;
+    margin-top:25px;
 }
 .fdkadiv{
     float:left;
@@ -170,8 +169,8 @@ html{
     text-align:center;
     padding:auto;
     margin:auto;
-    width:150px;
-    height:80px;
+    width:155px;
+    height:89px;
     color:white;
     font-size:12px;
     font-weight:bold;
@@ -180,7 +179,7 @@ html{
     opacity:0;
 }
 .subscbdimg{
-	position:absolute;
+    position:absolute;
     width:32px;
     height:22px;
     float:right;
@@ -188,10 +187,10 @@ html{
     top:-5px;
 }
 .grimg li{
-    width:154px;
-    height:86px;
+    width:160px;
+    height:89px;
     position:relative;
-    margin:15px 25px 25px 25px;
+    margin:15px 15px 65px 25px;
     list-style:none;
     display:block;
     float:left;
@@ -201,8 +200,10 @@ html{
     -webkit-transition-duration:.2s;
     -webkit-box-shadow:0 3px 7px #333;
 }
-.grimg li img{
+.feedimage{
     z-index:100;
+    width:160px;
+    height:89px;
     border-radius:7px;
 }
 .grimg li:hover{
@@ -219,24 +220,6 @@ html{
     bottom:-25px;
     left:0%;
     width:100%;
-}
-
-#feedback{
-    position:relative;
-    margin-left:50px;
-    top:20px;
-    color:#000;
-    padding:5px;
-    cursor:pointer;
-    border-radius:5px;
-    background:url(../img/arrow.png) -10px 0px no-repeat;
-}
-#feedback:hover{
-    color:#222;
-    background:url('../img/arrow.png') -10px -30px no-repeat;
-}
-#feedback:active{
-    background:url('../img/arrow.png') -10px -60px no-repeat;
 }
 /*----------------------------
     MyFeeds Content Area/////////////////////////////////////////////
@@ -412,14 +395,16 @@ background-image: -webkit-gradient(linear, left bottom, left top, color-stop(0, 
 ////////////////////////////////////*/
 
 #footer{
-    position:fixed;
+    position:absolute;
     height:60px;
-    bottom:0px;
+    bottom:-8px;
+    color:#eee;
+    font-weight:bold;
     width:830px;
+    font-size:15px;
 }
 .toaddfeedsbtn{
-    font-family:'Segoe UI',Arial, sans-serif;
-    color:#333;
+    
     text-shadow: none;
     margin-left: 40px;
     margin-top: 15px;
@@ -431,8 +416,7 @@ background-image: -webkit-gradient(linear, left bottom, left top, color-stop(0, 
     background:url('../img/arrow2.png') 0 0 no-repeat;
 }
 #tomyfeedsbtn2{
-    font-family:'Segoe UI',Arial, sans-serif;
-    color:#333;
+    
     text-shadow: none;
     margin-left: 5px;
     margin-top: 15px;
@@ -444,41 +428,57 @@ background-image: -webkit-gradient(linear, left bottom, left top, color-stop(0, 
     background:url('../img/arrow2.png') 0 0 no-repeat;
 }
 #tomyfeedsbtn2:hover,.toaddfeedsbtn:hover{
-    color:#444;
+
     background:url('../img/arrow2.png') 0 -30px no-repeat;
+	color:#fff;
 }
 
 #tomyfeedsbtn2:active,.toaddfeedsbtn:active{
 
     background:url('../img/arrow2.png') 0 -60px no-repeat;
+	color:#ddd;
 }
-
 
 #tomyfeedsbtn
 {
     cursor:pointer;
-    color:#333;
     text-shadow: none;
-    font-family:'Segoe UI',Arial, sans-serif;
     margin-right: 40px;
-    margin-top: 15px;
-    width: 90px;
     float:right;
-    font-size:15px;
-    padding:4px 5px 6px 10px;
+    padding:11px 12px 13px 47px;
     background:url('../img/arrow.png') 0 0 no-repeat;
 }
 
 #tomyfeedsbtn:hover
 {   
-    color:#444;
-    background:url('../img/arrow.png') 0 -30px no-repeat;
+    background:url('../img/arrow.png') 0 -42px no-repeat;
+	color:#fff;
 }
 #tomyfeedsbtn:active
 {
-    background:url('../img/arrow.png') 0 -60px no-repeat;
+    background:url('../img/arrow.png') 0 -84px no-repeat;
+	color:#ddd;
 }
 
+#feedback{
+    float:left;
+    position:relative;
+    margin-left:50px;
+    padding:12px 6px 11px 50px;
+    font-weight:bold;
+    cursor:pointer;
+    background:url('../img/feedback.png') 0 0 no-repeat;
+}
+#feedback:hover
+{   
+    color:#fff;
+    background:url('../img/feedback.png') 0 -42px no-repeat;
+}
+#feedback:active
+{
+    color:#ddd;
+    background:url('../img/feedback.png') 0 -84px no-repeat;
+}
 /*--------------------------------------------------------
                 Feed View Area CSS/////////////////////////////////////////////////
 ----------------------------------------------------------*/
@@ -550,7 +550,7 @@ margin-bottom:15px;
     /////////////////////////////////////////////////////////*/
 
 #headlview {
-    font-family:'Segoe UI',Arial, sans-serif;
+    
     border-radius: 4px;
     text-shadow: none;
     color:#fff;
@@ -585,7 +585,7 @@ margin-bottom:15px;
     background:#111;
 }
 #rdrheadl{
-    font-family:'Segoe UI',Arial, sans-serif;
+    
     font-size:14px;
     color:#fff;
     text-shadow: none;

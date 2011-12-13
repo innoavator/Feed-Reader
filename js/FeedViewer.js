@@ -116,7 +116,7 @@ var FeedViewer = {
 				var multiple=$(this).attr('class');
 				$(this).addClass('selected');
 				var field = $(this).attr('data-value');
-				var finval=multiple*830*(-1)+6;
+				var finval=multiple*830*(-1)+10;
 				$("#container").animate({'margin-left': finval}, 300);
 				//$("#stage div").slideUp("slow");
 				//$("#"+field+"-feeds").slideDown("slow");
