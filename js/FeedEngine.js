@@ -48,7 +48,7 @@ var FeedEngine = {
 						{
 							modes.switchToMode(2);
 						//	console.log("feed engine showfeed");
-							ReaderViewer.renderFeed(result.feed,0,10);
+							ReaderViewer.renderFeed(result.feed,0,10,true);
 						}
 						else
 						{
@@ -74,7 +74,7 @@ var FeedEngine = {
 							console.log(result);
 							console.log("Length of feed : " + result.feed.entries.length);
 							if(result.feed.entries.length > minindex)
-								ReaderViewer.renderFeed(result.feed,minindex,maxindex);
+								ReaderViewer.renderFeed(result.feed,minindex,maxindex,false);
 							else
 							{
 								switchToLoadingView(false);

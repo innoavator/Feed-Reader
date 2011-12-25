@@ -530,7 +530,20 @@ background-image: -webkit-gradient(linear, left bottom, left top, color-stop(0, 
 {
     background:url('../img/arrow.png') 0 -60px no-repeat;
 }
-
+.readerFooterElem
+{
+	font-family:'Segoe UI',Arial, sans-serif;
+    color:#888;
+    text-shadow: none;
+    margin-left: 10px;
+    margin-top: 15px;
+    width: 100px;
+    float:left;
+    font-size:12px;
+    padding:4px 0 6px 22px;
+	display:none;
+   /* background:url('../img/arrow2.png') 0 0 no-repeat; */
+}
 /*--------------------------------------------------------
                 Feed View Area CSS/////////////////////////////////////////////////
 ----------------------------------------------------------*/
