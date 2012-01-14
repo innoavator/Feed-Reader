@@ -16,16 +16,16 @@ html{
     
 }
 #addfeedsdiv{
-    background:url(../img/bg-body.png) repeat-x;
+    background:url(../img/bg-body2.png) repeat-x;
     color:#fff;
     text-shadow:0 2px 5px #333;
     height:600px;
     width:830px;
-    font-family:"Tahoma";
 }
 
 #header{
     padding: 40px 0 10px 30px;
+    text-shadow:0 2px 5px #333;
 }
 #header img{
     vertical-align:middle;
@@ -38,7 +38,7 @@ html{
 #addFeedsForm{
     float:right;
     margin-top: -30px;
-    margin-right:30px;
+    margin-right:52px;
     font-size:12px;
     font-weight:bold;
 }
@@ -61,16 +61,18 @@ html{
 }
 #searchbox input[type="text"]:hover{
     background:#ddd;
+	border-color:#999;
 }
 #searchbox input[type="text"]:focus{
     background:#eee;
     -webkit-transition: all 0.7s ease 0s;
 }
 
-#searchbox #srchglass{
+#searchbox .srchglass{
     float: right;
     margin-top: -14px;
     margin-left:14px;
+	margin-right:-20px;
 }/*
 #searchbox input[type="submit"]:hover
 {
@@ -92,11 +94,11 @@ html{
     Addfeeds Menu Bar 
 -----------------------------*/
 .filter{
-    margin-top:14px;
-    margin-left:20px;
-    background-image: -webkit-gradient(radial, center bottom, 0, center bottom, 490, color-stop(0, #505050), color-stop(1, #303030));
+    margin-top:10px;
+    margin-left:51px;
+    background-image: -webkit-gradient(radial, center bottom, 0, center bottom, 490, color-stop(0, #808070), color-stop(1, #707070));
     border-radius:10px 10px 0 0; 
-    width:655px;
+    width:727px;
     height:26px;
 }
 .filter li{
@@ -105,14 +107,14 @@ html{
     list-style:none;
     margin-left:10px;
     margin-top:6px;
-    text-shadow:0 2px 3px #111;
+    text-shadow:0 2px 3px #333;
     font-family:"Trebuchet MS";
     font-weight:bold;
 }
 .filter li a{
     color:#fff;
-    margin-left:-3px;
-    border-radius:10px 10px 0 0; 
+    margin-left:-2px;
+    border-radius:2px 2px 0 0; 
     text-decoration:none;
     padding:6px 8px 2px 8px;
     -webkit-transition: all 0.05s ease 0s;
@@ -124,7 +126,7 @@ html{
 }
 .filter li a.selected{
     border-radius:10px 10px 0 0;
-    background-image: -webkit-gradient(linear, left bottom, left top, color-stop(0, #FCFCFC), color-stop(1, #D1D1D1));
+    background-image: -webkit-gradient(linear, left bottom, left top, color-stop(0, #eee), color-stop(1, #D1D1D1));
     color:#333;
     padding-top:10px;
     text-shadow:none;
@@ -139,8 +141,8 @@ html{
     height:23px;
     border-radius:5px;
     position:absolute;
-    right:20px;
-    margin-top:-25px;
+    right:70px;
+    margin-top:-24px;
     cursor:pointer;
 }
 #youtube:hover{
@@ -152,13 +154,18 @@ html{
 /*----------------------------
     AddFeeds Content Area
 -----------------------------*/
-#container{
-    margin-left:10px;
+#boxing{
+	  margin-left:51px;
     position:relative;
-    width:10000px;
+    width:727px;
     height:390px;
-    overflow:auto;
+    overflow-x:hidden;
     margin-top:25px;
+}
+#container{
+	margin-left:8px;
+	width:10000px;
+
 }
 .fdkadiv{
     float:left;
@@ -190,7 +197,7 @@ html{
     width:160px;
     height:89px;
     position:relative;
-    margin:15px 15px 65px 25px;
+    margin:15px 10px 65px 8px;
     list-style:none;
     display:block;
     float:left;
@@ -228,22 +235,19 @@ html{
  #myfeedsdiv{
     position:fixed;
     font-weight:800;
+	height:600px;
     width: 830px;
     color:#fff;
-    font:14px/1.3 'Segoe UI',Arial, sans-serif;
-    text-shadow: 0 2px 5px #000;
+	background:url(../img/bg-body2.png);
 }
 
-#header2{
-    color:#fff;
-    text-shadow: 0 2px 5px #000;
-    height:50px;
-    padding-top:10px;
-    text-align:center;
-}
 .myfeedlist{
-    margin-left:65px;
-    height:480px;
+	font:14px/1.3 'Segoe UI',Arial, sans-serif;
+	text-shadow: 0 2px 5px #000;
+    margin-left:60px;
+	margin-top:20px;
+    height:425px;
+	width:717px;
     list-style:none;
     overflow:auto;
 }
@@ -261,7 +265,7 @@ html{
 
 .feedl
 {   
-    margin :20px 25px 5px 15px; 
+    margin :10px 15px 5px 25px; 
     text-align:center;
     border-radius: 5px;
     width:100px;
@@ -275,6 +279,7 @@ html{
     word-wrap:break-word;
     box-shadow: 1px 1px 2px #888;
     text-shadow: none;
+	cursor:pointer;
     
 }
 .myfeedlist li p{
@@ -294,7 +299,6 @@ html{
     width:28px;
 }
 
-
 .color0{
 background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0, #DA8200), color-stop(1, #EABA00));
 }
@@ -308,11 +312,13 @@ background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0, 
 }
 
 .color1{
+	-webkit-transition: margin 0.25s ease-out;
 background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0, #38879E), color-stop(1, #4FBAC7));
 }
 .color1:hover
 {
-    background-image: -webkit-gradient(linear, left bottom, left top, color-stop(0, #38879E), color-stop(1, #4FBAC7));
+	
+   background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0, #4FBAC7), color-stop(1, #38879E));
     cursor:pointer;
 }
 .color1:active
@@ -320,15 +326,15 @@ background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0, 
 }
 
 .color2{
-background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0, #779E39), color-stop(1, #9EBE4B));
+background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0, #60802E), color-stop(1, #9EBE4B));
 }
 .color2:hover
 {
-    background-image: -webkit-gradient(linear, left bottom, left top, color-stop(0, #779E39), color-stop(1, #9EBE4B));
+    background-image: -webkit-gradient(linear, left bottom, left top, color-stop(0, #60802E), color-stop(1, #9EBE4B));
     cursor:pointer;
 }
 .color2:active
-{background-image: -webkit-gradient(radial, center top, 0, center top, 100, color-stop(0, #9EBE4B), color-stop(1, #779E39));
+{background-image: -webkit-gradient(radial, center top, 0, center top, 100, color-stop(0, #9EBE4B), color-stop(1, #60802E));
 }
 
 .color3{
@@ -356,6 +362,7 @@ background-image: -webkit-gradient(linear, left bottom, left top, color-stop(0, 
 {background-image: -webkit-gradient(radial, center top, 0, center top, 100, color-stop(0, #DA5534), color-stop(1, #8A2F2F));
 }
 
+
 /*----------------------------
     SearchBox in MyFeeds Page
 -----------------------------*/
@@ -363,32 +370,35 @@ background-image: -webkit-gradient(linear, left bottom, left top, color-stop(0, 
 #feedsearch{
     position:static;
     float:right;
-    margin-top: 20px;
     text-shadow: 0 2px 5px #000;    
-    margin-right:20px;
     border-radius:10px;
     outline:none;
     padding: 3px;
     width:220px;
-    font-size: 12px;
     color: #000;
     text-shadow:none;
     -webkit-box-shadow:inset 0px 0px 0px #ccc;
     border: 1px solid #aaa;
-    padding-left:20px;
-    background:#ddd;
+    padding-left:22px;
+    background:#ccc;
     -webkit-transition: all 0.7s ease 0s;
+    margin-top: -35px;
+    margin-right:52px;
+    font-size:12px;
 }
-
+#feedsearch:hover{
+   background:#ddd;
+	border-color:#999;
+}
 #feedsearch:focus{
-    background:#fff;
+    background:#eee;
     -webkit-transition: all 0.7s ease 0s;
 }
 
-#srchglass{
+#myfeedsdiv .srchglass{
     float: right;
-    margin-top: 24px;
-    margin-right: -20px;
+    margin-top: -30px;
+    margin-right: 278px;
 }
 /*///////////////////////////////////
         FOOTER
@@ -397,46 +407,40 @@ background-image: -webkit-gradient(linear, left bottom, left top, color-stop(0, 
 #footer{
     position:absolute;
     height:60px;
-    bottom:-8px;
-    color:#eee;
-    font-weight:bold;
+    bottom:-3px;
+	color:#444;
+	font-weight:100;
+	font-family:"Arial Rounded MT Bold";
     width:830px;
     font-size:15px;
 }
 .toaddfeedsbtn{
-    
+    cursor:pointer;
     text-shadow: none;
     margin-left: 40px;
-    margin-top: 15px;
-    width: 90px;
     float:left;
-    font-size:15px;
-    cursor:pointer;
-    padding:4px 0 6px 22px;
+    padding:6px 14px 5px 25px;
     background:url('../img/arrow2.png') 0 0 no-repeat;
 }
 #tomyfeedsbtn2{
     
-    text-shadow: none;
-    margin-left: 5px;
-    margin-top: 15px;
-    width: 90px;
-    float:left;
-    font-size:15px;
     cursor:pointer;
-    padding:4px 0 6px 22px;
+    text-shadow: none;
+    margin-left: 40px;
+    float:left;
+    padding:6px 12px 5px 27px;
     background:url('../img/arrow2.png') 0 0 no-repeat;
 }
 #tomyfeedsbtn2:hover,.toaddfeedsbtn:hover{
 
     background:url('../img/arrow2.png') 0 -30px no-repeat;
-	color:#fff;
+	color:#333;
 }
 
 #tomyfeedsbtn2:active,.toaddfeedsbtn:active{
 
     background:url('../img/arrow2.png') 0 -60px no-repeat;
-	color:#ddd;
+	color:#666;
 }
 
 #tomyfeedsbtn
@@ -445,39 +449,39 @@ background-image: -webkit-gradient(linear, left bottom, left top, color-stop(0, 
     text-shadow: none;
     margin-right: 40px;
     float:right;
-    padding:11px 12px 13px 47px;
+    padding:6px 27px 5px 12px;
     background:url('../img/arrow.png') 0 0 no-repeat;
 }
 
 #tomyfeedsbtn:hover
 {   
-    background:url('../img/arrow.png') 0 -42px no-repeat;
-	color:#fff;
+    background:url('../img/arrow.png') 0 -30px no-repeat;
+	color:#333;
 }
 #tomyfeedsbtn:active
 {
-    background:url('../img/arrow.png') 0 -84px no-repeat;
-	color:#ddd;
+    background:url('../img/arrow.png') 0 -60px no-repeat;
+	color:#666;
 }
 
 #feedback{
     float:left;
     position:relative;
     margin-left:50px;
-    padding:12px 6px 11px 50px;
-    font-weight:bold;
+	text-shadow: none;
+    padding:6px 18px 5px 18px;
     cursor:pointer;
     background:url('../img/feedback.png') 0 0 no-repeat;
 }
 #feedback:hover
 {   
-    color:#fff;
-    background:url('../img/feedback.png') 0 -42px no-repeat;
+    color:#444;
+    background:url('../img/feedback.png') 0 -30px no-repeat;
 }
 #feedback:active
 {
-    color:#ddd;
-    background:url('../img/feedback.png') 0 -84px no-repeat;
+    color:#666;
+    background:url('../img/feedback.png') 0 -60px no-repeat;
 }
 /*--------------------------------------------------------
                 Feed View Area CSS/////////////////////////////////////////////////
