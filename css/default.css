@@ -59,16 +59,20 @@ body {
 	width: 8px;
     height: 8px;
     border-radius: 5px;
-    background: none;
+	background:none;
 }
 ::-webkit-scrollbar-track:vertical { 
     background: none; 
+	width:2px;
+	margin:30px 0 30px 0;
+    border-radius: 7px 0 0 7px;
 }
 ::-webkit-scrollbar-thumb {
-    width: 8px; height: 20px;
-    background: #bbb;
-    border-radius: 5px;
+    width: 2px;
+    height:20px;
+    background: #555;
+    border-radius: 7px 0 0 7px;
 }
 ::-webkit-scrollbar-button: { 
-    display: none; 
+    display:none; 
 }

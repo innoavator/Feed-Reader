@@ -38,7 +38,7 @@ html{
 #addFeedsForm{
     float:right;
     margin-top: -30px;
-    margin-right:52px;
+    margin-right:32px;
     font-size:12px;
     font-weight:bold;
 }
@@ -65,6 +65,7 @@ html{
 }
 #searchbox input[type="text"]:focus{
     background:#eee;
+	width:230px;
     -webkit-transition: all 0.7s ease 0s;
 }
 
@@ -73,16 +74,7 @@ html{
     margin-top: -14px;
     margin-left:14px;
 	margin-right:-20px;
-}/*
-#searchbox input[type="submit"]:hover
-{
-    background: url("../img/submit.png") 0 -30px no-repeat;
 }
-
-#searchbox input[type="submit"]:active
-{
-    background: url("../img/submit.png") bottom right no-repeat;
-}*/
 #error-message{
     position:relative;
     text-align:center;
@@ -95,10 +87,10 @@ html{
 -----------------------------*/
 .filter{
     margin-top:10px;
-    margin-left:51px;
+    margin-left:31px;
     background-image: -webkit-gradient(radial, center bottom, 0, center bottom, 490, color-stop(0, #808070), color-stop(1, #707070));
     border-radius:10px 10px 0 0; 
-    width:727px;
+    width:769px;
     height:26px;
 }
 .filter li{
@@ -155,16 +147,16 @@ html{
     AddFeeds Content Area
 -----------------------------*/
 #boxing{
-	  margin-left:51px;
+	  margin-left:31px;
     position:relative;
-    width:727px;
+    width:769px;
     height:390px;
     overflow-x:hidden;
     margin-top:25px;
 }
 #container{
-	margin-left:8px;
 	width:10000px;
+	margin-left:5px;
 
 }
 .fdkadiv{
@@ -197,8 +189,9 @@ html{
     width:160px;
     height:89px;
     position:relative;
-    margin:15px 10px 65px 8px;
+    margin:15px 15px 65px 15px;
     list-style:none;
+
     display:block;
     float:left;
     border-radius:7px;
@@ -206,6 +199,18 @@ html{
     background:#333;
     -webkit-transition-duration:.2s;
     -webkit-box-shadow:0 3px 7px #333;
+}
+#container .unsub{
+    position:relative;
+    width:32px;
+    height:32px;
+    float:right;
+    right:-15px;
+    top:-45px;
+	margin-left:-32px;
+    background:url('../img/unsub.png') no-repeat; 
+    cursor:pointer;
+	display:none;
 }
 .feedimage{
     z-index:100;
@@ -242,30 +247,32 @@ html{
 }
 
 .myfeedlist{
-	font:14px/1.3 'Segoe UI',Arial, sans-serif;
-	text-shadow: 0 2px 5px #000;
-    margin-left:60px;
-	margin-top:20px;
-    height:425px;
-	width:717px;
-    list-style:none;
-    overflow:auto;
+	font: 14px/1.3 'Segoe UI',Arial, sans-serif;
+	text-shadow: 0 2px 5px black;
+	margin-left: 40px;
+	margin-top: 18px;
+	height: 429px;
+	width: 760px;
+	list-style: none;
+	overflow: auto;
+	overflow-x: hidden;
 }
-.unsub{
-    position:absolute;
+.myfeedlist .unsub{
+    position:relative;
     width:32px;
     height:32px;
     float:right;
     right:-15px;
     top:-10px;
+	margin-left:-32px;
     background:url('../img/unsub.png') no-repeat; 
     cursor:pointer;
-    display:none; 
+	display:none;
 }
 
 .feedl
 {   
-    margin :10px 15px 5px 25px; 
+    margin :12px 10px 10px 14px; 
     text-align:center;
     border-radius: 5px;
     width:100px;
@@ -292,13 +299,14 @@ html{
 }
 
 .myfeedlist li img{
-    position:relative;
+    position:static;
     border-radius:4px;
     margin-top:10px;
     height:28px;
     width:28px;
 }
 
+#myfeedsdiv ::-webkit-scrollbar-track:vertical { background:#eee;}
 .color0{
 background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0, #DA8200), color-stop(1, #EABA00));
 }
@@ -383,11 +391,11 @@ background-image: -webkit-gradient(linear, left bottom, left top, color-stop(0, 
     background:#ccc;
     -webkit-transition: all 0.7s ease 0s;
     margin-top: -35px;
-    margin-right:52px;
+    margin-right:32px;
     font-size:12px;
 }
 #feedsearch:hover{
-   background:#ddd;
+  	background:#ddd;
 	border-color:#999;
 }
 #feedsearch:focus{
@@ -398,7 +406,7 @@ background-image: -webkit-gradient(linear, left bottom, left top, color-stop(0, 
 #myfeedsdiv .srchglass{
     float: right;
     margin-top: -30px;
-    margin-right: 278px;
+    margin-right: 258px;
 }
 /*///////////////////////////////////
         FOOTER
@@ -417,16 +425,16 @@ background-image: -webkit-gradient(linear, left bottom, left top, color-stop(0, 
 .toaddfeedsbtn{
     cursor:pointer;
     text-shadow: none;
-    margin-left: 40px;
+    margin-left: 50px;
     float:left;
     padding:6px 14px 5px 25px;
     background:url('../img/arrow2.png') 0 0 no-repeat;
 }
 #tomyfeedsbtn2{
-    
+    margin-top:-5px;
     cursor:pointer;
     text-shadow: none;
-    margin-left: 40px;
+    margin-left: 50px;
     float:left;
     padding:6px 12px 5px 27px;
     background:url('../img/arrow2.png') 0 0 no-repeat;
@@ -447,7 +455,7 @@ background-image: -webkit-gradient(linear, left bottom, left top, color-stop(0, 
 {
     cursor:pointer;
     text-shadow: none;
-    margin-right: 40px;
+    margin-right: 50px;
     float:right;
     padding:6px 27px 5px 12px;
     background:url('../img/arrow.png') 0 0 no-repeat;
@@ -488,19 +496,13 @@ background-image: -webkit-gradient(linear, left bottom, left top, color-stop(0, 
 ----------------------------------------------------------*/
 #readerviewdiv{
 
-    height:530px;
+    height:590px;
     padding: 5px 0 10px 0; 
     position: relative;
     font: normal 12px Helvetica, Arial, sans-serif;
     text-shadow:0 -1px 0 white;
     text-align: left;
-    background-image : -webkit-gradient(
-                                 linear,
-                                 left bottom,
-                                 left top,
-                                 color-stop(0, rgb(240,240,240)),
-                                 color-stop(1, rgb(251,250,255))
-                                 )
+    background-image : url(../img/bg-body.png);
     }
 #page-wrap,{
     width: 830px;
@@ -512,7 +514,6 @@ background-image: -webkit-gradient(linear, left bottom, left top, color-stop(0, 
     font:15px Georgia, Serif;
 }
 .textSlide{
-    /*height:500px;*/
     overflow:hidden;
     padding:10px 30px;
     color:#000;
@@ -555,66 +556,65 @@ margin-bottom:15px;
 
 #headlview {
     
-    border-radius: 4px;
+    border-radius: 0px;
     text-shadow: none;
     color:#fff;
-    margin-right: 10px;
-    margin-top: 10px;
-    width: 160px;
+    margin-right: 40px;
+    margin-top: -10px;
+    width: 229px;
     text-align:center;
     font-size:15px;
     float: right;
-    padding: 6px;
+    padding: 11px 30px 11px 10px;
     position: relative;
     display: inline-block;
     cursor:pointer;
-    background: url("../img/gbutton.png") no-repeat -2px 1px;
+    background: url("../img/ybutton.png") no-repeat;
      /*--Declare X and Y axis base for sub navigation--*/
 }
 
 #headlview:hover{
-    background: url("../img/gbutton.png") no-repeat -2px -33px;
+    background: url("../img/ybutton.png") no-repeat 0 -39px;
 }
 
 #headlview:active{
-    background: url("../img/gbutton.png") no-repeat -2px -66px;
+    background: url("../img/ybutton.png") no-repeat 0 -80px;
 }
 #rdrheadl li:hover
 {
     background: #555;
-    cursor: pointer;
 }
 #headlactions:hover
 {
     background:#111;
+	cursor:default;
 }
 #rdrheadl{
-    
+	bottom:95px;
     font-size:14px;
     color:#fff;
     text-shadow: none;
     text-align:left;
-    list-style: none;
-    position: absolute;
+	list-style:none;
+    position: fixed;
     right:0px ; 
-    bottom: 100px;
-    background: #222;
+    background: #777;
     display: none; 
-    width:270px;
+	margin-right:40px;
     max-height: 400px;
     overflow-y:auto;
     overflow-x:hidden;
     border: 1px 1px 0 1px solid #111;
+	cursor:pointer;
 }
 #rdrheadl li h2{
     font-weight: 100;
 }
 #rdrheadl li, #headlactions{
-    padding:10px 0px 10px 10px;
-    border-top:solid 1px #333;
-    font-size: 10px;
-    width:260px;
-    clear: both;
+    padding:10px 5px 10px 5px;
+    border-bottom:solid 1px #333;
+    font-size: 9px;
+    width:258px;
 }
 
 ,
@@ -622,6 +622,7 @@ html #rdrheadl li a {
     float: left;
     width: 50px;    
     padding-left: 55px;
+	cursor:pointer;
 }
 
 /* next and previous*/
@@ -629,8 +630,9 @@ html #rdrheadl li a {
 #headlactions{
     background-color:#555;
     position:fixed;
-    bottom:60px;
-    height:20px;
+    bottom:59px;
+    height:15px;
+	border-top:solid 1px #333;
 }
 #headlactions img{
     padding-left:105px;
@@ -673,22 +675,21 @@ html #rdrheadl li a {
     margin-top:-5px;
 }
 
-#minimizeHeadlines {
-display: block;
+#rdrheadl #minimizeHeadlines {
 position: fixed;
-margin-left: 250px;
+margin-top:0px;
+margin-left: 247px;
 width: 21px;
 height: 12px;
 cursor: pointer;
 background: #444 url(../img/minimize.png) 0px -2px no-repeat;
 border-bottom-left-radius: 3px;
-z-index: 100000000000000000000;
 -webkit-transition: background-color 0.3s linear;
 }
-#minimizeHeadlines:hover {
+#rdrheadl #minimizeHeadlines:hover {
     background-color: #000;
 }
-#minimizeHeadlines:active {
+#rdrheadl #minimizeHeadlines:active {
     background-position: 0px -1px;
 }
  /*----------------------------------------
@@ -726,5 +727,3 @@ z-index: 100000000000000000000;
         padding: 30px 40px 34px;
         border-radius: 5px;
         }
-
-    
