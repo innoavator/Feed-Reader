@@ -42,7 +42,7 @@ var FeedController = {
 			for(i=0;i<list.length;i++)
 			{
 				if(list[i] == url){
-					console.log(url + " and " + list[i] + " match");
+				//	console.log(url + " and " + list[i] + " match");
 					list.splice(i,1);
 					break;
 				}
@@ -77,7 +77,7 @@ var FeedController = {
 			for(i=0;i<list.length;i++)
 			{
 				if(list[i] == url){
-					console.log(url + " and " + list[i] + " match");
+		//			console.log(url + " and " + list[i] + " match");
 					return 1;
 				}
 			}

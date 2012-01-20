@@ -89,3 +89,17 @@ function switchToLoadingView(cond)
 		$("#headlactions").find('img').hide();
 	}
 }
+function showSubscribedFeed(icon)
+{
+	$('.caption',icon).html('You are subscribed to '+$(icon).find('img').attr('title')+'<br>'+'<img class="subscbdimg" src="img/done.png">');
+	$(icon).css('cursor','default');
+	$('.caption',icon).animate({'opacity': 1,'margin-top': -60 }, 200);
+	$('img',icon).animate({'opacity': 0.1}, 200);
+	$('.subscbdimg').animate({'opacity': 1}, 200)
+}
+function showUnsubscribedFeed(icon)
+{
+	$(this).css('cursor','pointer');
+    $('.caption',icon).stop(0,true,true).animate({'opacity': 0}, 200);
+	$('img',icon).stop(0,true,true).animate({'opacity': 1}, 200);
+}
