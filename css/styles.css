@@ -42,7 +42,7 @@ html{
     font-size:12px;
     font-weight:bold;
 }
-#searchbox input[type="text"]{
+#searchbox input[type="search"]{
     text-shadow: 0 2px 5px #000;    
     float:right;
     border-radius:10px;
@@ -53,22 +53,44 @@ html{
     font-size: 12px;
     color: #000;
     text-shadow:none;
+	-webkit-appearance: none;
     -webkit-box-shadow:inset 0px 0px 0px #ccc;
     border: 1px solid #aaa;
     padding-left:22px;
     background:#ccc;
     -webkit-transition: all 0.7s ease 0s;
 }
-#searchbox input[type="text"]:hover{
+#searchbox input[type="search"]:hover{
     background:#ddd;
 	border-color:#999;
 }
-#searchbox input[type="text"]:focus{
+#searchbox input[type="search"]:focus{
     background:#eee;
 	width:230px;
     -webkit-transition: all 0.7s ease 0s;
 }
-
+#searchbox input[type="submit"]{
+	float:right;
+    color: #333;
+    font-weight:bold;
+    font-size: 12px;
+	position:relative;
+	width:50px;
+	top:-5px;
+	height:24px;
+	border-radius:10px;
+	border:none;
+	margin-left:5px;
+	background:url(../img/feedback.png) -1px  -3px;
+}
+#searchbox input[type="submit"]:hover{
+	background:url(../img/feedback.png) -1px  -32px;
+	cursor:pointer;
+}
+#searchbox input[type="submit"]:active{
+	background:url(../img/feedback.png) -1px -63px;
+	cursor:pointer;
+}
 #searchbox .srchglass{
     float: right;
     margin-top: -14px;
@@ -80,7 +102,7 @@ html{
     text-align:center;
     margin-top:10px;
     color:black;
-    text-shadow:none;s
+    text-shadow:none;
 }
 /*----------------------------
     Addfeeds Menu Bar 
@@ -337,31 +359,28 @@ background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0, 
 }
 
 .color1{
-	-webkit-transition: margin 0.25s ease-out;
-background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0, #38879E), color-stop(1, #4FBAC7));
-}
-.color1:hover
-{
-	
-   background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0, #4FBAC7), color-stop(1, #38879E));
-    cursor:pointer;
-}
-.color1:active
-{background-image: -webkit-gradient(radial, center top, 0, center top, 100, color-stop(0, #4FBAC7), color-stop(1, #38879E));
-}
-
-.color2{
 background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0, #60802E), color-stop(1, #9EBE4B));
 }
-.color2:hover
+.color1:hover
 {
     background-image: -webkit-gradient(linear, left bottom, left top, color-stop(0, #60802E), color-stop(1, #9EBE4B));
     cursor:pointer;
 }
-.color2:active
+.color1:active
 {background-image: -webkit-gradient(radial, center top, 0, center top, 100, color-stop(0, #9EBE4B), color-stop(1, #60802E));
 }
 
+.color4{
+background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0, #BE7F2C), color-stop(1, #CCC739));
+}
+.color4:hover
+{
+    background-image: -webkit-gradient(linear, left bottom, left top, color-stop(0, #BE7F2C), color-stop(1, #CCC739));
+    cursor:pointer;
+}
+.color4:active
+{background-image: -webkit-gradient(radial, center top, 0, center top, 100, color-stop(0, #CCC739), color-stop(1, #BE7F2C));
+}
 .color3{
 background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0, #924650), color-stop(1, #C46674));
 }
@@ -374,16 +393,16 @@ background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0, 
 {background-image: -webkit-gradient(radial, center top, 0, center top, 100, color-stop(0, #C46674 ), color-stop(1,#924650));
 }
 
-.color4{
+.color2{
 background-image: -webkit-gradient(linear, left bottom, left top, color-stop(0, #DA5534), color-stop(1, #8A2F2F));
 }
-.color4:hover
+.color2:hover
 {
     background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0, #DA5534), color-stop(1, #8A2F2F));
     cursor:pointer;
 }
 
-.color4:active
+.color2:active
 {background-image: -webkit-gradient(radial, center top, 0, center top, 100, color-stop(0, #DA5534), color-stop(1, #8A2F2F));
 }
 
@@ -393,23 +412,23 @@ background-image: -webkit-gradient(linear, left bottom, left top, color-stop(0, 
 -----------------------------*/
 
 #feedsearch{
-    position:static;
-    float:right;
     text-shadow: 0 2px 5px #000;    
+    float:right;
     border-radius:10px;
     outline:none;
-    padding: 3px;
-    width:220px;
+    padding: 2px 2px 2px 18px;
+	margin-right:30px;
+    margin-top:-34px;
+    width:245px;
+    font-size: 12px;
     color: #000;
     text-shadow:none;
+	-webkit-appearance: none;
     -webkit-box-shadow:inset 0px 0px 0px #ccc;
     border: 1px solid #aaa;
-    padding-left:22px;
     background:#ccc;
     -webkit-transition: all 0.7s ease 0s;
-    margin-top: -35px;
-    margin-right:32px;
-    font-size:12px;
+
 }
 #feedsearch:hover{
   	background:#ddd;
@@ -421,7 +440,9 @@ background-image: -webkit-gradient(linear, left bottom, left top, color-stop(0, 
 }
 
 #myfeedsdiv .srchglass{
-    float: right;
+right:0px;
+	position:absolute;
+	z-index:100000000000;
     margin-top: -30px;
     margin-right: 258px;
 }
@@ -573,29 +594,29 @@ margin-bottom:15px;
 
 #headlview {
     
-    border-radius: 0px;
+    border-radius: 5px;
     text-shadow: none;
     color:#fff;
-    margin-right: 40px;
-    margin-top: -10px;
-    width: 229px;
+    margin-right: 70px;
+    margin-top: -3px;
+    width: 160px;
     text-align:center;
     font-size:15px;
     float: right;
-    padding: 11px 30px 11px 10px;
+    padding: 6px 22px 6px 19px;
     position: relative;
     display: inline-block;
     cursor:pointer;
-    background: url("../img/ybutton.png") no-repeat;
+    background: url("../img/gbutton.png") 0 -2px no-repeat;
      /*--Declare X and Y axis base for sub navigation--*/
 }
 
 #headlview:hover{
-    background: url("../img/ybutton.png") no-repeat 0 -39px;
+    background: url("../img/gbutton.png") no-repeat 0 -35px;
 }
 
 #headlview:active{
-    background: url("../img/ybutton.png") no-repeat 0 -80px;
+    background: url("../img/gbutton.png") no-repeat 0 -70px;
 }
 #rdrheadl li:hover
 {
@@ -607,7 +628,7 @@ margin-bottom:15px;
 	cursor:default;
 }
 #rdrheadl{
-	bottom:95px;
+	bottom:91px;
     font-size:14px;
     color:#fff;
     text-shadow: none;
@@ -615,7 +636,7 @@ margin-bottom:15px;
 	list-style:none;
     position: fixed;
     right:0px ; 
-    background: #777;
+    background: #666;
     display: none; 
 	margin-right:40px;
     max-height: 400px;
@@ -647,9 +668,10 @@ html #rdrheadl li a {
 #headlactions{
     background-color:#555;
     position:fixed;
-    bottom:59px;
+    bottom:55px;
     height:15px;
 	border-top:solid 1px #333;
+	border-radius:0 0 5px 5px;
 }
 #headlactions img{
     padding-left:105px;
