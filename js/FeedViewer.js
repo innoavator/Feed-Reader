@@ -59,7 +59,7 @@ var FeedViewer = {
 			if(FeedController.issubscribed(feed_url) == 0)
 			{
 				$(this).css('cursor','pointer');
-        		$('.caption',this).html('Click me to subscribe to '+$('img',this).attr('title'));	
+        		$('.caption',this).html('Click me to subscribe to '+$(this).find('img').attr('title'));	
 				$('.caption',this).stop(true,true).animate({'opacity': 1,'margin-top': -60}, 200);
         		$('img',this).stop(true,true).animate({'opacity': 0.1}, 200);
 			}
@@ -82,9 +82,15 @@ var FeedViewer = {
 				}
 				else
 				{
+<<<<<<< HEAD
 					$('.caption',this).fadeOut(200,function(){
 						$(this).html('You are subscribed to '+$(this).parent().find('.feedimage').attr('title')+'<br>'+'<img class="subscbdimg" src="img/done.png">').css('margin-top','-60px')}).stop(0,true, true).fadeIn(200); 
 					
+=======
+					/*$('.caption',this).fadeOut(200,function(){
+						$(this).html('You are subscribed to '+$(this).parent().find('.feedimage').attr('title')+'<br>'+'<img class="subscbdimg" src="img/done.png">').css('margin-top','-60px')}).stop(0,true, true).fadeIn(200); */
+					$('.caption',this).html('You are subscribed to '+$(this).find('.feedimage').attr('title')+'<br>'+'<img class="subscbdimg" src="img/done.png">').css('margin-top','-60px');
+>>>>>>> 6a69589be83196aa2d2769bac3d41c11e62f8dad
 
 				}
 			}
@@ -105,7 +111,7 @@ var FeedViewer = {
 				var feed_url = $(this).attr('data-id');
 				if(FeedController.issubscribed(feed_url) == 0)
 				{
-					/*subscriptionTimer = setTimeout(function(){FeedViewer.showSubscriptionTimeout(feedobj,caption)},200);*/
+					subscriptionTimer = setTimeout(function(){FeedViewer.showSubscriptionTimeout(feedobj,caption)},15000);
 					$('.caption',this).html('<img src="img/addfeed.gif">'+'<br>'+'Subscribing. Please Wait...');
 				$('.caption',this).animate({'opacity': 1, 'margin-top': -80 }, 200);
 					$('img',this).animate({'opacity': 0.1}, 200);
