@@ -82,9 +82,9 @@ var FeedViewer = {
 				}
 				else
 				{
-					/*$('.caption',this).fadeOut(200,function(){
-						$(this).html('You are subscribed to '+$(this).parent().find('.feedimage').attr('title')+'<br>'+'<img class="subscbdimg" src="img/done.png">').css('margin-top','-60px')}).stop(0,true, true).fadeIn(200); */
-					$('.caption',this).html('You are subscribed to '+$(this).parent().find('.feedimage').attr('title')+'<br>'+'<img class="subscbdimg" src="img/done.png">').css('margin-top','-60px');
+					$('.caption',this).fadeOut(200,function(){
+						$(this).html('You are subscribed to '+$(this).parent().find('.feedimage').attr('title')+'<br>'+'<img class="subscbdimg" src="img/done.png">').css('margin-top','-60px')}).stop(0,true, true).fadeIn(200); 
+					/*$('.caption',this).html('You are subscribed to '+$(this).parent().find('.feedimage').attr('title')+'<br>'+'<img class="subscbdimg" src="img/done.png">').css('margin-top','-60px');*/
 
 				}
 			}
@@ -105,7 +105,7 @@ var FeedViewer = {
 				var feed_url = $(this).attr('data-id');
 				if(FeedController.issubscribed(feed_url) == 0)
 				{
-					subscriptionTimer = setTimeout(function(){FeedViewer.showSubscriptionTimeout(feedobj,caption)},15000);
+					/*subscriptionTimer = setTimeout(function(){FeedViewer.showSubscriptionTimeout(feedobj,caption)},200);*/
 					$('.caption',this).html('<img src="img/addfeed.gif">'+'<br>'+'Subscribing. Please Wait...');
 				$('.caption',this).animate({'opacity': 1, 'margin-top': -80 }, 200);
 					$('img',this).animate({'opacity': 0.1}, 200);
