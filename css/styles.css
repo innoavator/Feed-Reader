@@ -127,31 +127,14 @@ html{
     text-decoration:none;
     cursor:default;
 }
-/*-------------------------------------------------------------*/
-/*		Youtube Search                                          */
-/*--------------------------------------------------------------*/
-#youtubebtn{
-    background:url('../img/youtube.png');
-    width:50px;
-    height:23px;
-    border-radius:5px;
-    position:absolute;
-    right:70px;
-    margin-top:-24px;
-    cursor:pointer;
-}
-#youtube:hover{
-    background:url('../img/youtube.png') 0 -24px;
-}
-#youtube:active{
-    background:url('../img/youtube.png') 0 -48px;
-}
+
  /************** Youtube Search API ********************/
 #youtubeResultsul {
 	margin-left:5px;
-	height:350px;
+	height:360px;
 /*	background-color:green; */
 	overflow-y:auto;
+	width:182px;
 }
 #youtubeResultsul li{
 	margin: 5px 10px 5px 15px; 
