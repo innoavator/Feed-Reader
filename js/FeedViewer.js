@@ -69,7 +69,7 @@ var FeedViewer = {
 						$(this).html('Click to Unsubscribe').css('margin-top','-55px')}).stop(true, true).fadeIn(200);
 			
 			}
-				$('.subscbdimg').css('opacity','1');
+				//$('.subscbdimg').css('opacity','1');
     		
 			},function() 
 			{
@@ -91,6 +91,13 @@ var FeedViewer = {
 		);
 		// Attach handlers for click on feedIcons
 		$("#stage li").live('click',function(){
+			
+			if($(this).attr('class') == "youtubeResultsli")
+			{
+				var link =  $(this).attr('link');
+				FeedViewer.showVideo(link);	
+				return;
+			}
 			var caption = $(this).find('.caption');
 			if(caption.html()!="Click to Unsubscribe")
 			{
@@ -258,6 +265,41 @@ var FeedViewer = {
 				$(this).fadeIn("slow");;
 			});
 		}
+	},
+	renderVideos : function(videoData){
+		
+		console.log(videoData);
+		$("#youtubeResultsul").empty();
+		var content = videoData.feed.entry;
+		var i = 0;
+		for(i = 0;i<content.length;i++)
+		{
+			var idarr = (content[i].id.$t).split("/");
+			var url = idarr[idarr.length - 1];
+			var li = $("<li>").attr('link','http://www.youtube.com/embed/'+url+'?autoplay=1').attr('class','youtubeResultsli');
+			$(li).append("<img src = '"+content[i].media$group.media$thumbnail[0].url+"'/>");
+			$("#youtubeResultsul").append(li);
+			//console.log(content[i].media$thumbnail); */
+		}
+		//$("#youtubeResultsul").append(ul);
+	},
+	showVideo : function(videoUrl)
+	{
+	//	$('.youtubeResultsli').hide("slow");
+/*		var str = '<iframe class="Video-IFrame-YouTube" src="http://www.youtube.com/embed/' + videoUrl + '?';
+	//	if (Autoplay == "On") Str2 += 'autoplay=1';
+		str += '&html5=1&showinfo=0" frameborder="0" allowfullscreen></iframe>';
+		console.log(str); */
+/*		var str = '<a href = "#" onClick="FeedViewer.closeVideo()">Close</a>';
+		str += '<iframe class="youtube-player" type="text/html" width="580" height="320" src="'+videoUrl+'" frameborder="0"></iframe>';
+		$('#youtube-feeds').append(str);*/
+		$(".youtube-player").attr('src',videoUrl);
+	},
+	closeVideo : function()
+	{
+/*		$("#youtube-feeds").find('iframe').remove();
+		$("#youtube-feeds").find('a').remove();
+		$('.youtubeResultsli').show("slow"); */
 	}
 	
 };

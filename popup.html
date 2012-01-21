@@ -55,7 +55,7 @@
            <div><h1 id='header'><img src="img/doublearrow.png"/>ADD FEEDS:</h1>
            <div id="searchbox">
                  <form id="addFeedsForm">Add/Search:
-                    <input type="text" placeholder="Press Enter after you are done...."></input>
+                    <input type="text" placeholder="Press Enter after you are done...." onKeyUp = "FeedEngine.getVideos(this.value);return false;"></input>
                     <img class="srchglass" src="img/search-dark.png"/>
                  </form>
        </div><!--searchbox div end--></div>
@@ -65,15 +65,15 @@
                         <li ><a class="selected 0" href="#" data-value="news">News</a></li>
                         <li ><a class=" 1" href="#" data-value="busi">Business</a></li>
             
-                        <li><a href="#" class=" 2"data-value="enti">Entertainment</a></li>
-                        <li><a href="#" class=" 3"data-value="comic">Comics</a></li>
-            			<li><a href="#" class=" 4"data-value="food">Food</a></li>
-                        <li><a href="#" class=" 5"data-value="tech">Technology</a></li>
-       	                  <li><a href="#" class=" 6"data-value="science">Science</a></li>
-                        <li><a href="#" class=" 7"data-value="sports">Sports</a></li>
-                       
+                        <li><a href="#" class=" 2" data-value="enti">Entertainment</a></li>
+                        <li><a href="#" class=" 3" data-value="comic">Comics</a></li>
+            			<li><a href="#" class=" 4" data-value="food">Food</a></li>
+                        <li><a href="#" class=" 5" data-value="tech">Technology</a></li>
+       	                <li><a href="#" class=" 6" data-value="science">Science</a></li>
+                        <li><a href="#" class=" 7" data-value="sports">Sports</a></li>
+                        <li><a href="#" class=" 8" data-value="youtube"><div id='youtubebtn'></div></a></li>
                         </ul>
-                        <div id='youtube'></div>
+                       
                         <div id="error-message">Click on the feed from the categories given below or enter the URL of the desired feed of your wish</div>
     <div id="boxing">
 	<div id="container">
@@ -164,8 +164,15 @@
              <li data-id="http://www.goal.com/en-india/feeds/news?fmt=rss" class="sports"><img src="assets/img/shots/goal.png" alt="Goal.com" title="Goal.com"class='feedimage'/><div class='caption'></div><div class='fdname'>Goal.com</div></li>
              <li data-id="http://feeds1.nytimes.com/nyt/rss/Sports" class="sports"><img src="assets/img/shots/nytsports.png" alt="New York Times: Sports" title="New York Times: Sports"class='feedimage'/><div class='caption'></div><div class='fdname'>New York Times: Sports</div></li>
             </div>
-             
-           </ul>
+             <div id="youtube-feeds" class="fdkadiv">
+             <div id="youtubeplayer">
+                <iframe class="youtube-player" type="text/html" width="580" height="360" src="http://www.youtube.com/embed/YR12Z8f1Dh8?autoplay=0" frameborder="0"></iframe>  
+             </div>
+             <ul id="youtubeResultsul">
+             </ul>
+    
+            </div>
+          </ul>
         </div>
        </div>
      

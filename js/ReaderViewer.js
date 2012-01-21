@@ -13,7 +13,6 @@ var ReaderViewer = {
 				 infiniteSlides      : false,
 				onSlideComplete: function(slider) {
 				}
-			
 		}); 
 	},
 	initialiseHeadlineView : function()

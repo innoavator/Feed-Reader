@@ -127,7 +127,10 @@ html{
     text-decoration:none;
     cursor:default;
 }
-#youtube{
+/*-------------------------------------------------------------*/
+/*		Youtube Search                                          */
+/*--------------------------------------------------------------*/
+#youtubebtn{
     background:url('../img/youtube.png');
     width:50px;
     height:23px;
@@ -142,6 +145,37 @@ html{
 }
 #youtube:active{
     background:url('../img/youtube.png') 0 -48px;
+}
+ /************** Youtube Search API ********************/
+#youtubeResultsul {
+	margin-left:5px;
+	height:350px;
+/*	background-color:green; */
+	overflow-y:auto;
+}
+#youtubeResultsul li{
+	margin: 5px 10px 5px 15px; 
+	width:140px;
+	height:90px;
+	padding:0px;
+}
+
+.youtubeResultsli img {
+	height : 90px;
+	width:140px;
+}
+.Video-IFrame-YouTube {
+	/*margin: 5px 40px 0 40px;*/ 
+	width: 620px;
+	height: 360px;
+	background: transparent;
+	margin-top:-10px;
+/*	margin:auto; */
+	}
+#youtubeplayer {
+	float:left;
+	width:70%;
+	height:320px; 
 }
 /*----------------------------
     AddFeeds Content Area
