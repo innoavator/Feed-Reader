@@ -131,10 +131,10 @@ html{
  /************** Youtube Search API ********************/
 #youtubeResultsul {
 	margin-left:5px;
-	height:360px;
+	height:350px;
 /*	background-color:green; */
 	overflow-y:auto;
-	width:182px;
+	width:183px;
 }
 #youtubeResultsul li{
 	margin: 5px 10px 5px 15px; 
