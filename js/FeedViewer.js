@@ -59,7 +59,7 @@ var FeedViewer = {
 			if(FeedController.issubscribed(feed_url) == 0)
 			{
 				$(this).css('cursor','pointer');
-        		$('.caption',this).html('Click me to subscribe to '+$('img',this).attr('title'));	
+        		$('.caption',this).html('Click me to subscribe to '+$(this).find('img').attr('title'));	
 				$('.caption',this).stop(true,true).animate({'opacity': 1,'margin-top': -60}, 200);
         		$('img',this).stop(true,true).animate({'opacity': 0.1}, 200);
 			}
@@ -84,7 +84,7 @@ var FeedViewer = {
 				{
 					/*$('.caption',this).fadeOut(200,function(){
 						$(this).html('You are subscribed to '+$(this).parent().find('.feedimage').attr('title')+'<br>'+'<img class="subscbdimg" src="img/done.png">').css('margin-top','-60px')}).stop(0,true, true).fadeIn(200); */
-					$('.caption',this).html('You are subscribed to '+$(this).parent().find('.feedimage').attr('title')+'<br>'+'<img class="subscbdimg" src="img/done.png">').css('margin-top','-60px');
+					$('.caption',this).html('You are subscribed to '+$(this).find('.feedimage').attr('title')+'<br>'+'<img class="subscbdimg" src="img/done.png">').css('margin-top','-60px');
 
 				}
 			}
