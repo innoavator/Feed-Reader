@@ -12,8 +12,30 @@ var ReaderViewer = {
 				 toggleArrows        : true, 
 				 infiniteSlides      : false,
 				onSlideComplete: function(slider) {
+					FeedController.saveAsRead($("#feedurldiv").html(),$(".activePage div").find('a').first().attr('href'));
+					$("#readMessage").fadeIn("slow");
+				},
+				onSlideInit: function(slider) {
+					$("#unreadMessage").fadeOut("slow");
+					$("#readMessage").fadeOut("slow");
 				}
-		}); 
+			});
+			$("#viewOptionsBox").change(function(){
+				console.log("Option changed");
+				window.localStorage.setItem("readMode",$(this).val());
+				});
+			$("#readMessage").find('img').click(function(){
+				FeedController.removeFromRead($("#feedurldiv").html(),$(".activePage div").find('a').first().attr('href'));
+				$("#readMessage").fadeOut("slow",function(){
+				$("#unreadMessage").fadeIn("slow");
+				});
+			});
+			$("#unreadMessage").find('img').click(function(){
+				FeedController.saveAsRead($("#feedurldiv").html(),$(".activePage div").find('a').first().attr('href'));
+				$("#unreadMessage").fadeOut("slow",function(){
+				$("#readMessage").fadeIn("slow");
+				});
+			});
 	},
 	initialiseHeadlineView : function()
 	{
@@ -37,7 +59,7 @@ var ReaderViewer = {
 			else
 			{
 				console.log("Rendering feed");
-				ReaderViewer.renderFeed(temp_feed,endindex,endindex+10);
+				ReaderViewer.renderFeed(temp_feed,endindex,endindex+10,false);
 			}
 		});
 		
@@ -49,7 +71,7 @@ var ReaderViewer = {
 			if(temp_feed.entries.length < startindex - 10)
 				FeedEngine.loadHeadlines($("#feedurldiv").html(),startindex,startindex-10,startindex);
 			else
-				ReaderViewer.renderFeed(temp_feed,startindex-10,startindex);
+				ReaderViewer.renderFeed(temp_feed,startindex-10,startindex,false);
 	    });
 		
 		//Click on headlines event
@@ -60,22 +82,28 @@ var ReaderViewer = {
 		
 		$("#headlactions a").live('click',function(){FeedViewer.loadAllFeeds( $("#rdrheadl").attr('start'));});
 	},
-	renderFeed : function(feeds,minindex,maxindex){
+	renderFeed : function(feeds,minindex,maxindex,isFirstTime){
 		
 		temp_feed = feeds;
 		$("#slider").empty();
 		$("#rdrheadl").empty();
 		var content = feeds.entries;
+		$("#viewOptionsBox option").attr("selected","");
+		if(window.localStorage.getItem("readMode") == SHOWALL)
+			$("#viewOptionsBox").val("1");
+		else
+			$("#viewOptionsBox").val("0");
 		var length = 0;
 		for(var i = 0;i<content.length;i++)
 			length+= content[i].content.length;
 //		if(length/10 >200)
-			ReaderViewer.renderSliderFeed(temp_feed,minindex,maxindex);
+			ReaderViewer.renderSliderFeed(temp_feed,minindex,maxindex,isFirstTime);
 //		else
 //			ReaderViewer.renderScrollFeed(feeds);
 		switchToLoadingView(false);
 		loadingFinished = true;
 		$("#loadingScreen").css('visibility','hidden').css('display','none');
+		$("#readMessage").fadeIn("slow");
 	},
 	renderScrollFeed : function(feeds){
 		
@@ -99,7 +127,7 @@ var ReaderViewer = {
 			$("#slider").append(lielement);
 		}
 	},
-	renderSliderFeed : function(feeds,minindex,maxindex){
+	renderSliderFeed : function(feeds,minindex,maxindex,isFirstTime){
 		
 		$("#feedurldiv").html(feeds.feedUrl);
 		$("#rdrheadl").append('<div id = "minimizeHeadlines"></div>');
@@ -108,6 +136,17 @@ var ReaderViewer = {
 		var feedContent = feeds.entries;
 		for(i= minindex;i<maxindex;i++)
 		{
+			if(isFirstTime)
+			{
+				if(window.localStorage.getItem("readMode") == SHOWUNREAD)
+				{
+					if(FeedController.isRead(feeds.feedUrl,feedContent[i].link))
+					{
+						i++;
+						continue;
+					}
+				}
+			}
 			if(feedContent[i] == null)
 			{
 				$("#hnext").hide();break;
@@ -145,7 +184,7 @@ var ReaderViewer = {
 		temp_feed = feeds;
 		var start_index = parseInt($("#rdrheadl").attr('startindex'));
 		//ReaderViewer.renderHeadlines( start_index + 10);
-		ReaderViewer.renderFeed(temp_feed,start_index+10,start_index+0);
+		ReaderViewer.renderFeed(temp_feed,start_index+10,start_index+0,false);
 	},
 	
 	renderHeadlines : function(startentry)
