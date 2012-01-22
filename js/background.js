@@ -40,7 +40,7 @@ var FeedLoader = {
 //		console.log("Loading all feeds");
 		unreadCount = 0;
 		var list = FeedLoader.myFeedList.get();
-		if(list!=null)
+		if(list!=null && list!="")
 		{	
 			var myFeeds = list.split(",");
 			console.log(myFeeds.length);
@@ -52,8 +52,9 @@ var FeedLoader = {
 		}
 		else
 		{
+			pokki.removeIconBadge();
 			console.log("Setting to 0");
-			pokki.setIconBadge(0);
+			
 		}
 		setTimeout("FeedLoader.loadAllFeeds()",5000);
 	}
