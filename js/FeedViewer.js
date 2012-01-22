@@ -55,21 +55,21 @@ var FeedViewer = {
 				showSubscribedFeed($(this));
 			});
 		}
-		
-		$('#stage li').hover(function() 
+				
+		$('.grimg li').hover(function() 
 		{
 			var feed_url = $(this).attr('data-id');
 			if(FeedController.issubscribed(feed_url) == 0)
 			{
 				$(this).css('cursor','pointer');
         		$('.caption',this).html('Click me to subscribe to '+$('img',this).attr('title'));	
-				$('.caption',this).stop(true,true).animate({'opacity': 1,'margin-top': -60}, 200);
-        		$('img',this).stop(true,true).animate({'opacity': 0.1}, 200);
+				$('.caption',this).stop(true,true).animate({'opacity': 1,'margin-top': -60}, 50);
+        		$('img',this).stop(true,true).animate({'opacity': 0.1}, 100);
 			}
 			else
 			{
-				$('.caption',this).fadeOut(200,function(){
-						$(this).html('Click to Unsubscribe').css('margin-top','-55px')}).stop(true, true).fadeIn(200);
+				$('.caption',this).fadeOut(100,function(){
+						$(this).html('Click to Unsubscribe').css('margin-top','-55px')}).stop(true, true).fadeIn(50);
 			
 			}
 				//$('.subscbdimg').css('opacity','1');
@@ -80,20 +80,21 @@ var FeedViewer = {
 				if(FeedController.issubscribed(feed_url) == 0)
 				{
 					$(this).css('cursor','pointer');
-        			$('.caption',this).stop(0,true,true).animate({'opacity': 0}, 200);
+        			$('.caption',this).stop(0,true,true).animate({'opacity': 0}, 50);
 					$('img',this).stop(0,true,true).animate({'opacity': 1}, 200);
 				}
 				else
 				{
-					$('.caption',this).fadeOut(200,function(){
-						$(this).html('You are subscribed to '+$(this).parent().find('.feedimage').attr('title')+'<br>'+'<img class="subscbdimg" src="img/done.png">').css('margin-top','-60px')}).stop(0,true, true).fadeIn(200); 
+					$('.caption',this).fadeOut(100,function(){
+						$(this).html('You are subscribed to '+$(this).parent().find('.feedimage').attr('title')+'<br>'+'<img class="subscbdimg" src="img/done.png">').css('margin-top','-60px')}).stop(0,true, true).fadeIn(50); 
 					
 
 				}
 			}
 		);
+		
 		// Attach handlers for click on feedIcons
-		$("#stage li").live('click',function(){
+		$(".grimg li").live('click',function(){
 			
 			if($(this).attr('class') == "youtubeResultsli")
 			{
@@ -110,8 +111,10 @@ var FeedViewer = {
 				{
 					/*subscriptionTimer = setTimeout(function(){FeedViewer.showSubscriptionTimeout(feedobj,caption)},200);*/
 					$('.caption',this).html('<img src="img/addfeed.gif">'+'<br>'+'Subscribing. Please Wait...');
-				$('.caption',this).animate({'opacity': 1, 'margin-top': -80 }, 200);
+				$('.caption',this).animate({'opacity': 1, 'margin-top': -80 }, 50);
+				
 					$('img',this).animate({'opacity': 0.1}, 200);
+					$('.caption img',this).animate({'opacity': 1}, 0);
 					FeedEngine.checkFeed(feed_url,feedobj);
 				}
 				else
@@ -199,7 +202,7 @@ var FeedViewer = {
 				var title = JSON.parse(feedinfo).title;
 				var imagesource=getDomain(list[i])+"/favicon.ico";
 				var randomnumber=Math.floor(Math.random()*5);
-				$("#myfeedsdiv .myfeedlist").append("<li><div class='feedl color"+randomnumber+"' rel = " +list[i] +"><div class='unsub'></div><img class='faviconimg' src='"+imagesource+"'/><p>"+title.substring(0,25)+"</p></div></li>"); 
+				$("#myfeedsdiv .myfeedlist").append("<li><div class='feedl color"+randomnumber+"' rel = " +list[i] +"><div class='unsub'></div><img class='faviconimg' src='"+imagesource+"'/><p>"+title.substring(0,25)+"</p></div><div class='readunread'>No New Feeds</div></li>"); 
 			}
 		
 	},
@@ -282,6 +285,7 @@ var FeedViewer = {
 			var url = idarr[idarr.length - 1];
 			var li = $("<li>").attr('link','http://www.youtube.com/embed/'+url+'?autoplay=1').attr('class','youtubeResultsli');
 			$(li).append("<img src = '"+content[i].media$group.media$thumbnail[0].url+"'/>");
+			$(li).append("<div class='utubecaption'>"+"arbitaasd asd asd asda sda sd asd asd asd asda aapaaa</div>");
 			$("#youtubeResultsul").append(li);
 			//console.log(content[i].media$thumbnail); */
 		}
@@ -307,5 +311,14 @@ var FeedViewer = {
 	}
 	
 };
-
-    
+    				$("#youtubeResultsul li").live('mouseenter',function(){
+			$('.utubecaption',this).stop(true,true).animate({'opacity': 1, 'z-index':100000}, 50);
+			
+			$('img',this).stop(true,true).animate({'opacity': 0.1, 'z-index':10}, 100)});
+			
+		$("#youtubeResultsul li").live('mouseleave',function(){
+			$('.utubecaption',this).stop(0,true,true).animate({'opacity': 0, 'z-index':100000}, 50);
+			
+				$('img',this).stop(0,true,true).animate({'opacity': 1, 'z-index':10}, 100);});
+				
+			
