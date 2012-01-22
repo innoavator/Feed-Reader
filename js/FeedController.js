@@ -141,6 +141,54 @@ var FeedController = {
 //console.log(namesList);
 		return namesList;
 		
+	},
+	saveAsRead : function(feedSourceUrl,feedUrl)
+	{
+		var feed = new LocalStore(feedSourceUrl);
+		var feedinfo = JSON.parse(feed.get());
+		var readList = feedinfo.readFeeds;
+		if(readList == null)
+		{
+			readList = feedUrl;
+		}else
+		{
+			if(readList.indexOf(feedUrl) == -1)
+				readList+= "," + feedUrl;
+		}
+		feedinfo.readFeeds = readList;
+		console.log(feedinfo);
+		feed.set(JSON.stringify(feedinfo));
+	},
+	removeFromRead : function(feedSourceUrl,feedUrl)
+	{
+		var feed = new LocalStore(feedSourceUrl);
+		var feedinfo = JSON.parse(feed.get());
+		var readList = feedinfo.readFeeds;
+		if(readList!=null)
+		{
+			readList = readList.split(",");
+			for(i=0;i<readList.length;i++)
+			{
+				if(readList[i] == feedUrl){
+				//	console.log(url + " and " + list[i] + " match");
+					readList.splice(i,1);
+					break;
+				}
+			}
+			feedinfo.readFeeds = readList.toString();
+		}
+		feed.set(JSON.stringify(feedinfo));
+	},
+	isRead : function(feedSourceUrl,feedUrl)
+	{
+		var feed = new LocalStore(feedSourceUrl);
+		var feedinfo = JSON.parse(feed.get());
+		var readList = feedinfo.readFeeds;
+		if(readList == null)
+		return false;
+		if(readList.indexOf(feedUrl) == -1)
+			return false;
+		return true;
 	}
 }
 

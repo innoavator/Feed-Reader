@@ -1,3 +1,4 @@
+var unreadCount = 0;
 var FeedLoader = {
 	myFeedList : new LocalStore('myFeeds'),
 	initialise : function(){
@@ -6,7 +7,8 @@ var FeedLoader = {
 	setFeedIntervals : function(){
 	//	console.log("Setting intervals : " + url);
 //		t=setTimeout("FeedLoader.loadFeed(" +"'" +url+"'" + ",10)",5000*12);
-		t=setTimeout("FeedLoader.loadAllFeeds()",5000*12);  //heres the comment
+		t=setTimeout("FeedLoader.loadAllFeeds()",5000);  //heres the comment
+		//FeedLoader.loadAllFeeds();
 	},
 	loadFeed : function(url,numEntries) {
 				//	  console.log("LoadFeed : " + url);
@@ -20,32 +22,33 @@ var FeedLoader = {
 					  {
 					  	if (!result.error) {
 						//console.log(result);
-						//var result = pokki.rpc('update_feed('  + JSON.stringify((result.feed)) + ')');
-						var feed = new LocalStore(url);
-						var feedinfo = JSON.parse(feed.get());
-				//		console.log("Feed of " + url + " : "  + feedinfo);
-						if(feedinfo.headlines == null)
-							feedinfo.headlines = new Array();
-						for(var i = 0;i<10;i++)
+						//var result = pokki.rpc('update_feed('  + JSON.stringify((result.feed)) + ')')
+						/*if(feedinfo.headlines == null)
+							feedinfo.headlines = new Array(); */
+						for(var i = 0;i<result.feed.entries.length;i++)
 						{
-							feedinfo.headlines[i] = result.feed.entries[i].title;
+							//console.log(result.feed.entries[i].link);
+							if(!FeedController.isRead(url,result.feed.entries[i].link))
+								unreadCount++;
 						}
-						feed.set(JSON.stringify(feedinfo));
+							console.log(unreadCount);
+							pokki.setIconBadge(unreadCount);							
 						}
   					  });
 	},
 	loadAllFeeds : function() {
 //		console.log("Loading all feeds");
+		unreadCount = 0;
 		var list = FeedLoader.myFeedList.get();
 		if(list!=null)
 		{	
 			var myFeeds = list.split(",");
 			for(var i = 0;i<myFeeds.length;i++)
 			{
-				FeedLoader.loadFeed(myFeeds[i],10);
+				FeedLoader.loadFeed(myFeeds[i],20);
 			}
 		}
-		
+		setTimeout("FeedLoader.loadAllFeeds()",5000*12);
 	}
 	
 };

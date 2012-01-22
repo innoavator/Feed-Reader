@@ -134,6 +134,7 @@ var ReaderViewer = {
 		$("#rdrheadl").attr('startindex',minindex);
 		$("#rdrheadl").attr('endindex',maxindex);
 		var feedContent = feeds.entries;
+		var unreadcount=0;
 		for(i= minindex;i<maxindex;i++)
 		{
 			if(isFirstTime)
@@ -147,6 +148,7 @@ var ReaderViewer = {
 					}
 				}
 			}
+			unreadcount++;
 			if(feedContent[i] == null)
 			{
 				$("#hnext").hide();break;
@@ -178,6 +180,8 @@ var ReaderViewer = {
 		$("#rdrheadl").append('<li id = "headlactions"><div id="hprev"></div>'
 							 +' <img src = "img/barload.gif"/>'//+'<a href = "#">View All</a>'
 							 + '<div id="hnext"></div></li>');
+		if(unreadcount ==0)
+		$("#slider").append("<li class='panel1'><div class='quoteSlide'><h2>You have no unread feeds.</h2></div></li>");
 	},
 	registerHeadlines : function(result,feeds)
 	{
