@@ -10,8 +10,10 @@ var FeedViewer = {
 		$("#tomyfeedsbtn2").click(function(){modes.switchToMode(1);});
 		$(".toaddfeedsbtn").click(function(){modes.switchToMode(0);});
 		
-		$("#addFeedsForm").submit(function(){								   
-		var feed_url = encodeURI($("input:first").val());
+		$("#addFeedsForm").submit(function(){
+			console.log("Form submitted");
+		var feed_url = encodeURI($(this).find("input")[1].value);
+		console.log(feed_url);
 		var regexp = /(ftp|http|https):\/\/(\w+:{0,1}\w*@)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%@!\-\/]))?/
 		if(regexp.test(feed_url))
 		{
@@ -20,17 +22,18 @@ var FeedViewer = {
 			
 			if(FeedController.issubscribed(feed_url) == 0)
 			{
-				$("#searchbox").find('img').css('opacity',1);
-				FeedEngine.checkFeed(feed_url,null,"");
+				FeedEngine.checkFeed(feed_url,null);
 			}
 			else
 			{
-				$("#error-message").fadeOut('fast',function(){$(this).html("<b>You are already subscribed to this feed. Go to Myfeeds page to view the feeds.</b>")}).delay(1000).fadeOut('fast',function(){$(this).html("Click on the feed from the categories given below or enter the URL of the desired feed of your wish")}).fadeIn();	}
+				showMessage("<b>You are already subscribed to this feed. Go to Myfeeds page to view the feeds.</b>");
+			/*	$("#error-message").fadeOut('fast',function(){$(this).html("<b>You are already subscribed to this feed. Go to Myfeeds page to view the feeds.</b>")}).delay(1000).fadeOut('fast',function(){$(this).html("Click on the feed from the categories given below or enter the URL of the desired feed of your wish")}).fadeIn(); */	
+			} 
         }
 		else{
-			$("#searchbox").find('input:text').val("");
+			$("#searchbox").find('input')[1].value = "";
 			FeedEngine.searchFeed(feed_url);
-			$("#error-message").fadeOut('fast',function(){$(this).html("<b>Please Enter a Valid Url!!!</b>")}).fadeIn().delay(1000).fadeOut('fast',function(){$(this).html("Click on the feed from the categories given below or enter the URL of the desired feed of your wish")}).fadeIn();
+			showMessage("<b>Please Enter a Valid Url!!!</b>");
 		}
 		 });
 		 
@@ -109,7 +112,7 @@ var FeedViewer = {
 					$('.caption',this).html('<img src="img/addfeed.gif">'+'<br>'+'Subscribing. Please Wait...');
 				$('.caption',this).animate({'opacity': 1, 'margin-top': -80 }, 200);
 					$('img',this).animate({'opacity': 0.1}, 200);
-					FeedEngine.checkFeed(feed_url,feedobj,caption);
+					FeedEngine.checkFeed(feed_url,feedobj);
 				}
 				else
 				{
@@ -224,7 +227,7 @@ var FeedViewer = {
 			}
 		}
 	},
-	showSuccessfulSubscription : function(feed_name,url,feedobj,caption)
+	showSuccessfulSubscription : function(feed_name,url,feedobj)
 	{
 			if(feedobj != null)
 			{
@@ -234,15 +237,16 @@ var FeedViewer = {
 			}
 			else
 			{
-				$("#searchbox").find('input:text').val("");
-				$("#addFeedsForm img").css('opacity',0);
+				$("#searchbox").find('input')[1].value = "";
 				$("#stage li").each(function(){
 					if($(this).attr('data-id') == url)
-					$(this).css("opacity","0.5")
+						showSubscribedFeed($(this));
 				});
 			}
-			$("#error-message").fadeOut('fast',function(){$(this).html("<b>Successfully subscribed to " + feed_name + "</b>")}).fadeIn().delay(1200).fadeOut('fast',function(){$(this).html("Click on the feed from the categories given below or enter the URL of the desired feed of your wish")}).fadeIn();
+			showMessage("<b>Successfully subscribed to " + feed_name + "</b>");
+		/*	$("#error-message").fadeOut('fast',function(){$(this).html("<b>Successfully subscribed to " + feed_name + "</b>")}).fadeIn().delay(1200).fadeOut('fast',function(){$(this).html("Click on the feed from the categories given below or enter the URL of the desired feed of your wish")}).fadeIn(); */
 		},
+		
 	searchMyFeeds : function(feedname)
 	{
 		feedname = feedname.toLowerCase();

@@ -43,12 +43,19 @@ var FeedLoader = {
 		if(list!=null)
 		{	
 			var myFeeds = list.split(",");
+			console.log(myFeeds.length);
 			for(var i = 0;i<myFeeds.length;i++)
 			{
+				console.log(myFeeds[i]);
 				FeedLoader.loadFeed(myFeeds[i],20);
 			}
 		}
-		setTimeout("FeedLoader.loadAllFeeds()",5000*12);
+		else
+		{
+			console.log("Setting to 0");
+			pokki.setIconBadge(0);
+		}
+		setTimeout("FeedLoader.loadAllFeeds()",5000);
 	}
 	
 };

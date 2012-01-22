@@ -32,16 +32,12 @@ var modes = {
 						}
 					});
 				}
-/*				if(nextstate == 1)
+				if(nextstate == modes.myFeedsMode)
 				{
-					console.log(FeedController.getFeedNames());
-					$( "#myfeedssearchbox" ).autocomplete({
-						
-						source: FeedController.getFeedNames()
-					}); 
-				}*/
+					console.log("Focusing");
+					$("#feedsearch").focus();
+				}
 				modes.currentmode = nextstate;
-		//		console.log("Mode changed to " + nextstate);
 			}
 };
 function display_message(message)
@@ -102,4 +98,8 @@ function showUnsubscribedFeed(icon)
 	$(this).css('cursor','pointer');
     $('.caption',icon).stop(0,true,true).animate({'opacity': 0}, 200);
 	$('img',icon).stop(0,true,true).animate({'opacity': 1}, 200);
+}
+function showMessage(msg)
+{
+	$("#error-message").fadeOut('fast',function(){$(this).html(msg)}).fadeIn().delay(1000).fadeOut('fast',function(){$(this).html("Click on the feed from the categories given below or enter the URL of the desired feed of your wish")}).fadeIn();
 }

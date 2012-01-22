@@ -55,7 +55,8 @@
            <div><h1 id='header'><img src="img/doublearrow.png"/>ADD FEEDS:</h1>
            <div id="searchbox">
                  <form id="addFeedsForm">Add/Search:
-                    <input type="submit" value="Paste" id="pasteFeedbtn" /><input type="submit" value="Add" id="addFeedbtn" /></span><input type="search" placeholder="Press Enter after you are done...." onKeyUp = "FeedEngine.getVideos(this.value);return false;"></input>
+            <!--        <input type="submit" value="Paste" id="pasteFeedbtn" /> --><input type="submit" value="Add" id="addFeedbtn" /></span>
+            	<input type="search" placeholder="Press Enter after you are done...." onKeyUp = "FeedEngine.getVideos(this.value);return false;" ></input>
                     <img class="srchglass" src="img/search-dark.png"/>
                  </form>
        </div><!--searchbox div end--></div>
@@ -181,7 +182,8 @@
 	  
 	  
 	  <div id = "myfeedsdiv"  style="visibility:hidden">  
-      	<div><h1 id='header'><img src="img/doublearrow.png"/>MY FEEDS:</h1><form><input id = "feedsearch" type = "search" placeholder="Search Feed Here...." onKeyUp="FeedViewer.searchMyFeeds(this.value);return false;"><img class="srchglass" src="img/search-dark.png"></form>
+      	<div><h1 id='header'><img src="img/doublearrow.png"/>MY FEEDS:</h1><form>
+        <input id = "feedsearch" type = "search"  placeholder="Search Feed Here...." onKeyUp="FeedViewer.searchMyFeeds(this.value);return false;"><img class="srchglass" src="img/search-dark.png" ></form>
          <ol class='myfeedlist'>
       
       </ol><div id='footer'>
