@@ -136,6 +136,10 @@ var FeedViewer = {
 				var multiple=$(this).attr('class');
 				$(this).addClass('selected');
 				var field = $(this).attr('data-value');
+				if(field == "youtube")
+					$("#error-message").html("Search in the SearchBox above for Youtube Videos.");
+				else
+					$("#error-message").html("Click on the feed from the categories given below or enter the URL of the desired feed of your wish");
 				var finval=multiple*830*(-1)+5;
 				$("#container").animate({'margin-left': finval}, 300);
 		});
@@ -148,7 +152,10 @@ var FeedViewer = {
 		$('.faviconimg').error(function() {
   			$(this).attr("src", "img/defaultfavicon.png");
   		});
-		$(".feedl").live('click',function(){
+		
+		//Attach handler forunsubscribing feeds
+		
+		$(".feedl").live('click',function(event){
 				event.stopPropagation();
 				if(loadingFinished)
 				{
@@ -166,9 +173,9 @@ var FeedViewer = {
 		$(".feedl").live('mouseleave',function(){
 				$(this).find('.unsub').css('display','none');
 			});
-		//Attach handler forunsubscribing feeds
-		$(".unsub").bind('click',function(){
-			event.stopPropagation();
+		$(".unsub").live('click',function(event){
+		    event.stopPropagation();
+			//console.log("Unsub button clicked");
 			if(modes.currentmode == modes.myFeedsMode)
 				url = $(this).parent().attr('rel');
 			if(FeedController.removeFeed($(this).parent().attr('rel')))
@@ -180,7 +187,7 @@ var FeedViewer = {
 					});
 			}
 		});
-			
+		
 	},
 	renderMyFeeds : function(){
 		
