@@ -98,7 +98,7 @@ var FeedEngine = {
 			console.log("Fetching youtube videos\n");
 			$.ajax({
 			  method: "get",
-			  url: "http://gdata.youtube.com/feeds/api/videos?max-results=9&alt=json&q="+query,
+			  url: "http://gdata.youtube.com/feeds/api/videos?max-results=15&alt=json&q="+query,
 			  success: function(result){
 				FeedViewer.renderVideos(result);
 		  	  },

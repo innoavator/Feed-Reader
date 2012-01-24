@@ -25,10 +25,7 @@ var FeedViewer = {
 				FeedEngine.checkFeed(feed_url,null);
 			}
 			else
-			{
-				showMessage("<b>You are already subscribed to this feed. Go to Myfeeds page to view the feeds.</b>");
-			/*	$("#error-message").fadeOut('fast',function(){$(this).html("<b>You are already subscribed to this feed. Go to Myfeeds page to view the feeds.</b>")}).delay(1000).fadeOut('fast',function(){$(this).html("Click on the feed from the categories given below or enter the URL of the desired feed of your wish")}).fadeIn(); */	
-			} 
+				showMessage("<b>You are already subscribed to this feed. Go to Myfeeds page to view the feeds.</b>"); 
         }
 		else{
 			$("#searchbox").find('input')[1].value = "";
@@ -70,10 +67,7 @@ var FeedViewer = {
 			{
 				$('.caption',this).fadeOut(100,function(){
 						$(this).html('Click to Unsubscribe').css('margin-top','-55px')}).stop(true, true).fadeIn(50);
-			
-			}
-				//$('.subscbdimg').css('opacity','1');
-    		
+				}
 			},function() 
 			{
 				var feed_url = $(this).attr('data-id');
@@ -146,7 +140,15 @@ var FeedViewer = {
 				var finval=multiple*830*(-1)+5;
 				$("#container").animate({'margin-left': finval}, 300);
 		});
-            
+        // Youtube results captions
+		$("#youtubeResultsul li").live('mouseenter',function(){
+			$('.utubecaption',this).stop(true,true).animate({'opacity': 1, 'z-index':100000}, 50);
+			$('img',this).stop(true,true).animate({'opacity': 0.1, 'z-index':10}, 100)});
+		$("#youtubeResultsul li").live('mouseleave',function(){
+			$('.utubecaption',this).stop(0,true,true).animate({'opacity': 0, 'z-index':100000}, 50);
+			$('img',this).stop(0,true,true).animate({'opacity': 1, 'z-index':10}, 100);});
+				
+			
 		$("#feedback").click(function(){pokki.openURLInDefaultBrowser("http://www.codeblues.in/softwares/feedreader.php");})
 	},
 	initialiseMyFeeds : function()
@@ -292,7 +294,7 @@ var FeedViewer = {
 			var url = idarr[idarr.length - 1];
 			var li = $("<li>").attr('link','http://www.youtube.com/embed/'+url+'?autoplay=1').attr('class','youtubeResultsli');
 			$(li).append("<img src = '"+content[i].media$group.media$thumbnail[0].url+"'/>");
-			$(li).append("<div class='utubecaption'>"+"arbitaasd asd asd asda sda sd asd asd asd asda aapaaa</div>");
+			$(li).append("<div class='utubecaption'>"+content[i].media$group.media$title.$t+"</div>");
 			$("#youtubeResultsul").append(li);
 			//console.log(content[i].media$thumbnail); */
 		}
@@ -316,16 +318,13 @@ var FeedViewer = {
 		$("#youtube-feeds").find('a').remove();
 		$('.youtubeResultsli').show("slow"); */
 	}
-	
+	,
+	updateFeedCount : function(urlObj)
+	{
+		$(".feedl").each(function(i){  
+			if($(this).attr('rel') == urlObj.url)
+				$(this).parent().find(".readunread").html(urlObj.count);
+			});
+	}
 };
-    				$("#youtubeResultsul li").live('mouseenter',function(){
-			$('.utubecaption',this).stop(true,true).animate({'opacity': 1, 'z-index':100000}, 50);
-			
-			$('img',this).stop(true,true).animate({'opacity': 0.1, 'z-index':10}, 100)});
-			
-		$("#youtubeResultsul li").live('mouseleave',function(){
-			$('.utubecaption',this).stop(0,true,true).animate({'opacity': 0, 'z-index':100000}, 50);
-			
-				$('img',this).stop(0,true,true).animate({'opacity': 1, 'z-index':10}, 100);});
-				
-			
+    		

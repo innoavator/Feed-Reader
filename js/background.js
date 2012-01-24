@@ -8,9 +8,7 @@ var FeedLoader = {
 		t=setTimeout("FeedLoader.loadAllFeeds()",5000);  //heres the comment
 	},
 	loadFeed : function(url,numEntries) {
-				//	  console.log("LoadFeed : " + url);
-				//	  console.log(url);
-				//	  console.log(numEntries);
+					  var counter = 0;
 					  var feed = new google.feeds.Feed(url);
   					  feed.includeHistoricalEntries();
   					  feed.setNumEntries(numEntries);
@@ -22,13 +20,17 @@ var FeedLoader = {
 						//var result = pokki.rpc('update_feed('  + JSON.stringify((result.feed)) + ')')
 						/*if(feedinfo.headlines == null)
 							feedinfo.headlines = new Array(); */
-						for(var i = 0;i<result.feed.entries.length;i++)
-						{
-							//console.log(result.feed.entries[i].link);
-							if(!FeedController.isRead(url,result.feed.entries[i].link))
-								unreadCount++;
-						}
-														
+							for(var i = 0;i<result.feed.entries.length;i++)
+							{
+								//console.log(result.feed.entries[i].link);
+								if(!FeedController.isRead(url,result.feed.entries[i].link))
+									counter++;
+							}
+							unreadCount+=counter;
+							var countObj = new Object();
+							countObj.count = counter;
+							countObj.url = url;
+						    pokki.rpc('FeedViewer.updateFeedCount('+JSON.stringify(countObj)+')');								
 						}
   					  });
 	},
@@ -48,7 +50,7 @@ var FeedLoader = {
 		}
 		else
 			pokki.removeIconBadge();
-		setTimeout("FeedLoader.loadAllFeeds()",5000*12*5);    // Wait for 5 mins before nexr poll
+		setTimeout("FeedLoader.loadAllFeeds()",5000);    // Wait for 5 mins before nexr poll
 	}
 	
 };
