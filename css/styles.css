@@ -168,6 +168,7 @@ html{
 .youtubeResultsli img {
 	height : 90px;
 	width:140px;
+	border-radius:5px;
 }
 .Video-IFrame-YouTube {
 	/*margin: 5px 40px 0 40px;*/ 
@@ -186,13 +187,28 @@ html{
     AddFeeds Content Area
 -----------------------------*/
 #boxing{
-	  margin-left:31px;
+	margin-left:31px;
     position:relative;
     width:769px;
     height:390px;
     overflow-x:hidden;
     margin-top:25px;
 }
+
+.utubecaption{
+    text-align:center;
+    margin:auto;
+    width:138px;
+    color:white;
+    font-size:12px;
+    font-weight:bold;
+    margin-top:-92px;
+	padding:24px 1px;
+    opacity:0;
+	border-radius:5px;
+	background:#333;
+}
+
 #container{
 	width:10000px;
 	margin-left:5px;
@@ -230,7 +246,7 @@ html{
     position:relative;
     margin:15px 15px 65px 15px;
     list-style:none;
-
+	cursor:pointer;
     display:block;
     float:left;
     border-radius:7px;
@@ -311,9 +327,9 @@ html{
 
 .feedl
 {   
-    margin :12px 10px 10px 14px; 
+    margin :12px 10px 35px 14px; 
     text-align:center;
-    border-radius: 5px;
+    border-radius: 5px 5px 0 0;
     width:100px;
     height:85px;
     position:relative;
@@ -327,6 +343,23 @@ html{
     text-shadow: none;
 	cursor:pointer;
     
+}
+.readunread{
+	margin-bottom:-18px;
+	float:left;
+	background:white;
+	width:98px;
+	height:16px;
+	margin-top:97px;
+	margin-left:-110px;
+	border:solid 1px #bbb;
+	color:#333;
+	cursor:default;
+	text-align:center;
+	text-shadow:none;
+	border-radius:0 0 5px 5px;
+	box-shadow: 1px 1px 2px #888;
+	font-size:12px;
 }
 .myfeedlist li p{
     max-width:100px;
