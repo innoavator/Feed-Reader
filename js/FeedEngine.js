@@ -96,11 +96,19 @@ var FeedEngine = {
 		if($(selectedli).attr('data-value') == "youtube")
 		{
 			console.log("Fetching youtube videos\n");
-			$.ajax({
+			jQTubeUtil.suggest(query,function(response){ 
+				var html = "";
+				for(sug in response.suggestions)
+				{
+					var suggestion = response.suggestions[sug];
+					console.log(suggestion);
+				}
+		});
+			
+		/*	$.ajax({
 			  method: "get",
-			  url: "http://gdata.youtube.com/feeds/api/videos?max-results=12&alt=json&q="+query,
+			  url: "http://gdata.youtube.com/feeds/api/videos?max-results=12&alt=json&format=1&q="+query,
 			  success: function(result){
-				  
 				FeedViewer.listVideos(result);
 		  	  },
 			  
@@ -109,7 +117,7 @@ var FeedEngine = {
 			  error: function( objAJAXRequest, strError ){
 				$("#youtube-feeds").empty().text("Error! Type: " +strError);
 	  			}
-			});
+			}); */
 		}
 	},
 	

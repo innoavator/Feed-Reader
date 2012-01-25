@@ -7,6 +7,14 @@ var FeedViewer = {
 		FeedViewer.initialiseYoutubeFeeds();
 		ReaderViewer.initialise();
 		ReaderViewer.initialiseHeadlineView();
+		//Initialise Youtube Autosuggest
+			jQTubeUtil.init({
+		key: "AI39si7Br60Mhmvnb0iGT_DckKttQdd_8ghDOs_UQIcmb3wDhwAnZlkPe9lqp1llOv9rZNGqdKcdP8BdHRDOMaY4Mu0Xh3op9g",
+		orderby: "viewCount",  // *optional -- "viewCount" is set by default
+		time: "this_month",   // *optional -- "this_month" is set by default
+		maxResults: 10   // *optional -- defined as 10 results by default
+	});
+		
 		$("#tomyfeedsbtn").click(function(){FeedViewer.renderMyFeeds();modes.switchToMode(1);});
 		$("#tomyfeedsbtn2").click(function(){modes.switchToMode(1);});
 		$(".toaddfeedsbtn").click(function(){modes.switchToMode(0);});
@@ -349,7 +357,7 @@ var FeedViewer = {
 		{
 			var idarr = (content[i].id.$t).split("/");
 			var url = idarr[idarr.length - 1];
-			var li = $("<li>").attr('link','http://www.youtube.com/embed/'+url+'?autoplay=1').attr('class','videolistitem');
+			var li = $("<li>").attr('link','http://www.youtube.com/v/'+url+'?autoplay=1&feature=player_embedded').attr('class','videolistitem');
 			$(li).append("<img src = '"+content[i].media$group.media$thumbnail[0].url+"'/>");
 			$(li).append("<div class='utubecaption'>"+content[i].media$group.media$title.$t+"</div>");
 			$(".videoslist").append(li);
