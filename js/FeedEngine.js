@@ -98,9 +98,10 @@ var FeedEngine = {
 			console.log("Fetching youtube videos\n");
 			$.ajax({
 			  method: "get",
-			  url: "http://gdata.youtube.com/feeds/api/videos?max-results=15&alt=json&q="+query,
+			  url: "http://gdata.youtube.com/feeds/api/videos?max-results=12&alt=json&q="+query,
 			  success: function(result){
-				FeedViewer.renderVideos(result);
+				  
+				FeedViewer.listVideos(result);
 		  	  },
 			  
 			  timeout: (15 * 1000),
@@ -110,6 +111,25 @@ var FeedEngine = {
 	  			}
 			});
 		}
+	},
+	
+	showVideos: function(query)
+	{
+			$.ajax({
+			  method: "get",
+			  url: query,
+			  
+			  success: function(result){
+				FeedViewer.listVideos(result);
+		  	  	},
+				timeout: (15 * 000),
+			  dataType : "json"	,
+			  error: function( objAJAXRequest, strError ){
+				$(".vidcat").empty().text("Error! Type: " +strError);
+	  			}
+				
+			  });
+			
 	},
 	
 	searchFeed : function(query)

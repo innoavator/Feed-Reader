@@ -104,6 +104,13 @@ html{
     color:black;
     text-shadow:none;
 }
+
+#loadingurl{
+	position:absolute;
+	top:45px;
+	right:450px;
+	opacity:0;
+}
 /*----------------------------
     Addfeeds Menu Bar 
 -----------------------------*/
@@ -150,39 +157,6 @@ html{
     cursor:default;
 }
 
- /************** Youtube Search API ********************/
-#youtubeResultsul {
-	margin-left:5px;
-	height:350px;
-/*	background-color:green; */
-	overflow-y:auto;
-	width:183px;
-}
-#youtubeResultsul li{
-	margin: 5px 10px 5px 15px; 
-	width:140px;
-	height:90px;
-	padding:0px;
-}
-
-.youtubeResultsli img {
-	height : 90px;
-	width:140px;
-	border-radius:5px;
-}
-.Video-IFrame-YouTube {
-	/*margin: 5px 40px 0 40px;*/ 
-	width: 620px;
-	height: 360px;
-	background: transparent;
-	margin-top:-10px;
-/*	margin:auto; */
-	}
-#youtubeplayer {
-	float:left;
-	width:70%;
-	height:320px; 
-}
 /*----------------------------
     AddFeeds Content Area
 -----------------------------*/
@@ -191,25 +165,10 @@ html{
     position:relative;
     width:769px;
     height:390px;
-    overflow-x:hidden;
-    margin-top:25px;
+    overflow:hidden;
 }
-
-.utubecaption{
-    text-align:center;
-    margin:auto;
-    width:138px;
-    color:white;
-    font-size:12px;
-    font-weight:bold;
-    margin-top:-92px;
-	padding:24px 1px;
-    opacity:0;
-	border-radius:5px;
-	background:#333;
-}
-
 #container{
+
 	width:10000px;
 	margin-left:5px;
 
@@ -241,6 +200,7 @@ html{
     top:-5px;
 }
 .grimg li{
+	top:20px;
     width:160px;
     height:89px;
     position:relative;
@@ -287,6 +247,112 @@ html{
     bottom:-25px;
     left:0%;
     width:100%;
+}
+ /************** Youtube Search API ********************/
+ .grimg #youtube-feeds{
+ 	width: 1590px; 
+ 	height: 390px;
+} 
+
+#youtube-feeds a{
+	color:black;
+	text-decoration:none;
+}
+#youtube-feeds a:visited{
+	color:black;
+}
+.grimg #youtube-feeds li{
+ 	top:5px;
+	width:auto;
+    height:auto;
+    position:relative;
+    margin:auto;
+    list-style:none;
+    display:block;
+    float:left;
+    border-radius:0;
+    background:none;
+    -webkit-box-shadow:none;
+ }
+ .grimg #youtube-feeds li:hover{
+    -webkit-box-shadow:none;
+	cursor:auto;
+}
+.vidcat img{
+	height:110px;
+	border-radius:10px;
+}
+#videosbox{
+	width: 645px;
+}
+#youtube-feeds #firstpage{
+	width: 765px;
+	height: 380px;
+}
+#vcatlist{
+	float:right;
+	width:100px;
+	margin:20px 16px 0px 0;
+}
+.grimg #vcatlist li{
+	padding:10px 0 10px 0;
+	background:#ddd;
+	width:101px;
+	text-align:center;
+	cursor:pointer;
+}
+.grimg #vcatlist a{
+	text-decoration:none;
+}
+.grimg #youtube-feeds .videolistitem{
+	margin:8px;
+	float:left;
+	width:145px;
+	border-radius:10px;
+	height:110px;
+    	-webkit-transition-duration:0.2s;
+}
+.grimg #youtube-feeds .videolistitem:hover{
+	-webkit-box-shadow:0 3px 7px #333;
+	cursor:pointer;
+
+}
+.utubecaption{
+    text-align:center;
+    width:145px;
+    color:white;
+    font-size:12px;
+    font-weight:bold;
+	margin;auto;
+    margin-top:-112px;
+	height:80px;
+	padding:auto;	
+	opacity:0;
+	padding-top:30px;
+	border-radius:10px;
+	background:#333;
+	z-index:1000000000000;
+}
+#secondpage{
+	position:absolute;
+	top:0;
+	right: 0px;
+	width: 760px;
+}
+.Video-IFrame-YouTube {
+	/*margin: 5px 40px 0 40px;*/ 
+	width: 620px;
+	height: 360px;
+	background: transparent;
+	margin-top:-10px;
+/*	margin:auto; */
+	;
+	right: -1006px;
+}
+#youtubeplayer {
+	margin-left: 85px;
+	width: 580px;
+	height: 360px; 
 }
 /*----------------------------
     MyFeeds Content Area/////////////////////////////////////////////
@@ -346,6 +412,7 @@ html{
 }
 .readunread{
 	margin-bottom:-18px;
+
 	float:left;
 	background:white;
 	width:98px;
@@ -501,6 +568,7 @@ right:0px;
     padding:6px 14px 5px 25px;
     background:url('../img/arrow2.png') 0 0 no-repeat;
 }
+
 #tomyfeedsbtn2{
     margin-top:-5px;
     cursor:pointer;
@@ -805,11 +873,3 @@ border-bottom-left-radius: 3px;
     position:absolute;
     z-index:101; 
 }
-
-.reveal-modal {
-        visibility: hidden;
-        position: absolute;
-        z-index: 101; 
-        padding: 30px 40px 34px;
-        border-radius: 5px;
-        }

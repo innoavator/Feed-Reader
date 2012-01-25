@@ -75,7 +75,7 @@
                         <li><a href="#" class=" 8" data-value="youtube">YouTube</a></li>
                         </ul>
                        
-                        <div id="error-message">Click on the feed from the categories given below or enter the URL of the desired feed of your wish</div>
+                        <div id="error-message">Click on the feed from the categories given below or enter the URL of the desired feed of your wish</div><img id='loadingurl' src="img/loader.gif"/>
     <div id="boxing">
 	<div id="container">
        
@@ -166,11 +166,27 @@
              <li data-id="http://feeds1.nytimes.com/nyt/rss/Sports" class="sports"><img src="assets/img/shots/nytsports.png" alt="New York Times: Sports" title="New York Times: Sports"class='feedimage'/><div class='caption'></div><div class='fdname'>New York Times: Sports</div></li>
             </div>
              <div id="youtube-feeds" class="fdkadiv">
+             <div id="firstpage">
+             <ul id='videosbox'>
+             	<li class='vidcat'>
+                	<ul class='videoslist'>
+                    </ul>
+                </li></ul>
+                <ul id='vcatlist'>
+             	<li><a href="#" class=" RF selected" data-value="http://gdata.youtube.com/feeds/api/standardfeeds/recently_featured?max-results=12&alt=json">Recently Featured</a></li>
+                <li><a href="#" class=" TR" data-value="http://gdata.youtube.com/feeds/api/standardfeeds/top_rated?max-results=12&alt=json">Top Rated</a></li>
+                <li><a href="#" class=" MR" data-value="http://gdata.youtube.com/feeds/api/standardfeeds/most_recent?max-results=12&alt=json">Most Recent</a></li>
+                <li><a href="#" class=" MF" data-value="http://gdata.youtube.com/feeds/api/standardfeeds/top_favorites?max-results=12&alt=json">Top Favorites</a></li>
+                <li><a href="#" class=" YTT" data-value="https://gdata.youtube.com/feeds/api/standardfeeds/on_the_web?max-results=12&alt=json">YouTube Trends</a></li>
+               
+             </ul>
+                </div>
+             <div id="secondpage">
              <div id="youtubeplayer">
                 <iframe class="youtube-player" type="text/html" width="580" height="360" src="" frameborder="0"></iframe>  
              </div>
-             <ul id="youtubeResultsul">
-             </ul>
+             <div id="backbutton"><a href="#">Back</a></div>
+             </div>
     
             </div>
           </ul>
@@ -183,7 +199,7 @@
 	  
 	  <div id = "myfeedsdiv"  style="visibility:hidden">  
       	<div><h1 id='header'><img src="img/doublearrow.png"/>MY FEEDS:</h1><form>
-        <input id = "feedsearch" type = "search"  placeholder="Search Feed Here...." onKeyUp="FeedViewer.searchMyFeeds(this.value);return false;"><img class="srchglass" src="img/search-dark.png" ></form>
+        <input id = "feedsearch" type = "search"  placeholder="Search Feed Here...." autofocus onKeyUp="FeedViewer.searchMyFeeds(this.value);return false;"><img class="srchglass" src="img/search-dark.png" ></form>
          <ol class='myfeedlist'>
       
       </ol><div id='footer'>
