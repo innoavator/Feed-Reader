@@ -250,10 +250,10 @@ html{
 }
  /************** Youtube Search API ********************/
  .grimg #youtube-feeds{
- 	width: 1590px; 
+ 	max-width: 765px; 
  	height: 390px;
+ 	overflow: hidden;
 } 
-
 #youtube-feeds a{
 	color:black;
 	text-decoration:none;
@@ -334,9 +334,9 @@ html{
 	z-index:1000000000000;
 }
 #secondpage{
-	position:absolute;
-	top:0;
-	right: 0px;
+	position: relative;
+	top: -375px;
+	right: -830px;
 	width: 760px;
 }
 .Video-IFrame-YouTube {

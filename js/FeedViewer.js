@@ -186,7 +186,7 @@ var FeedViewer = {
 		$('.videolistitem').live('click', function(){
 				
 				var link =  $(this).attr('link');console.log(link);
-				$("#youtube-feeds").animate({'margin-left': -830}, 300);
+				$("#forscroll").animate({'margin-left': -830}, 300);
 				if($('.youtube-player').attr('src')==link){
 					
 				return;
@@ -196,7 +196,7 @@ var FeedViewer = {
 				return;}
 			});
 		$('#backbutton').live('click', function(){
-			$("#youtube-feeds").animate({'margin-left': 0}, 300);
+			$("#forscroll").animate({'margin-left': 0}, 300);
 		});
 		$('#vcatlist a').live('click',function(){
 				
