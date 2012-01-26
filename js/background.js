@@ -48,7 +48,7 @@ var FeedLoader = {
 		}
 		else
 			pokki.removeIconBadge();
-		setTimeout("FeedLoader.loadAllFeeds()",5000*12);    // Wait for 5 mins before nexr poll
+		setTimeout("FeedLoader.loadAllFeeds()",5000*12*5);    // Wait for 5 mins before nexr poll
 	}
 	
 };

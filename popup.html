@@ -35,6 +35,8 @@
             <script type = "text/javascript" src="js/Utils.js"></script>
             <script type = "text/javascript" src="js/Globals.js"></script>
             <script type='text/javascript' src='js/lib/jQuery.jQTubeUtil.js'></script>
+            <script type='text/javascript' src='js/lib/jquery.autocomplete-min.js'></script>
+            
             <!-- FeedReader View -->
     		<link rel="stylesheet" href="css/anythingslider.css">  
             <script type="text/javascript" src="js/jquery.anythingslider.js"></script>
@@ -56,12 +58,13 @@
            <div><h1 id='header'><img src="img/doublearrow.png"/>ADD FEEDS:</h1>
            <div id="searchbox">
                  <form id="addFeedsForm">Add/Search:
-            <!--        <input type="submit" value="Paste" id="pasteFeedbtn" /> --><input type="submit" value="Add" id="addFeedbtn" /></span>
-            	<input type="search" placeholder="Press Enter after you are done...." onKeyUp = "FeedEngine.getVideos(this.value);return false;" ></input>
+           		<input type="submit" value="Add" id="addFeedbtn" /></span>
+            	<input type="search" id="addFeedsSearchBox" placeholder="Press Enter after you are done...."></input>
                     <img class="srchglass" src="img/search-dark.png"/>
                  </form>
+            	  
        </div><!--searchbox div end--></div>
-           	 
+           	
                        <ul class="filter">
                         
                         <li ><a class="selected 0" href="#" data-value="news">News</a></li>
