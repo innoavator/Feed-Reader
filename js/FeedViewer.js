@@ -168,7 +168,6 @@ var FeedViewer = {
 	
 		var selectedli= $('#vcatlist li .selected');
 		FeedEngine.showVideos($(selectedli).attr('data-value'));
-		console.log($(selectedli).attr('data-value'));
 	},
 	initialiseMyFeeds : function()
 	{
@@ -270,9 +269,10 @@ var FeedViewer = {
 					continue;
 				}
 				var title = JSON.parse(feedinfo).title;
+				var unreadCount = JSON.parse(feedinfo).unreadCount;
 				var imagesource=getDomain(list[i])+"/favicon.ico";
 				var randomnumber=Math.floor(Math.random()*5);
-				$("#myfeedsdiv .myfeedlist").append("<li><div class='feedl color"+randomnumber+"' rel = " +list[i] +"><div class='unsub'></div><img class='faviconimg' src='"+imagesource+"'/><p>"+title.substring(0,25)+"</p></div><div class='readunread'>No New Feeds</div></li>"); 
+				$("#myfeedsdiv .myfeedlist").append("<li><div class='feedl color"+randomnumber+"' rel = " +list[i] +"><div class='unsub'></div><img class='faviconimg' src='"+imagesource+"'/><p>"+title.substring(0,25)+"</p></div><div class='readunread'>"+unreadCount+"</div></li>"); 
 			}
 		
 	},
@@ -402,9 +402,14 @@ var FeedViewer = {
 	,
 	updateFeedCount : function(urlObj)
 	{
+		console.log("Updating feeds");
+		console.log(urlObj.url);
 		$(".feedl").each(function(i){  
-			if($(this).attr('rel') == urlObj.url)
+			if(($(this).attr('rel')).localeCompare(urlObj.url) == 0)
+			{
+				console.log("Url match");
 				$(this).parent().find(".readunread").html(urlObj.count);
+			}
 			});
 	},
 	

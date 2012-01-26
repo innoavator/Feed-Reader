@@ -90,6 +90,7 @@ var FeedController = {
 		var feedobj = new Object();
 		feedobj.link = feedinfo.link;
 		feedobj.title = feedinfo.title;
+		feedobj.unreadCount = 20;
 		feedobj.headlines = new Array();
 		for(var i = 0;i<feedinfo.entries.length;i++)
 		{

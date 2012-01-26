@@ -2,10 +2,7 @@ var unreadCount = 0;
 var FeedLoader = {
 	myFeedList : new LocalStore('myFeeds'),
 	initialise : function(){
-		google.load("feeds", "1");
-	},
-	setFeedIntervals : function(){
-		t=setTimeout("FeedLoader.loadAllFeeds()",5000);  //heres the comment
+		google.load("feeds", "1",{"callback" : FeedLoader.loadAllFeeds});
 	},
 	loadFeed : function(url,numEntries) {
 					  var counter = 0;
@@ -16,10 +13,6 @@ var FeedLoader = {
   					  feed.load(function(result) 
 					  {
 					  	if (!result.error) {
-						//console.log(result);
-						//var result = pokki.rpc('update_feed('  + JSON.stringify((result.feed)) + ')')
-						/*if(feedinfo.headlines == null)
-							feedinfo.headlines = new Array(); */
 							for(var i = 0;i<result.feed.entries.length;i++)
 							{
 								//console.log(result.feed.entries[i].link);
@@ -27,15 +20,20 @@ var FeedLoader = {
 									counter++;
 							}
 							unreadCount+=counter;
+							var feedStore = new LocalStore(url);
+							var feedinfo = JSON.parse(feedStore.get());
+							feedinfo.unreadCount = counter;
+							feedStore.set(JSON.stringify(feedinfo));
 							var countObj = new Object();
 							countObj.count = counter;
 							countObj.url = url;
+							console.log("Updating feed Count");
 						    pokki.rpc('FeedViewer.updateFeedCount('+JSON.stringify(countObj)+')');								
 						}
   					  });
 	},
 	loadAllFeeds : function() {
-//		console.log("Loading all feeds");
+		console.log("Loading all feeds");
 		if(unreadCount > 0)
         	pokki.setIconBadge(unreadCount);
 		unreadCount = 0;
@@ -50,7 +48,7 @@ var FeedLoader = {
 		}
 		else
 			pokki.removeIconBadge();
-		setTimeout("FeedLoader.loadAllFeeds()",5000);    // Wait for 5 mins before nexr poll
+		setTimeout("FeedLoader.loadAllFeeds()",5000*12);    // Wait for 5 mins before nexr poll
 	}
 	
 };
