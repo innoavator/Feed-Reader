@@ -115,7 +115,6 @@ var FeedViewer = {
 				var feed_url = $(this).attr('data-id');
 				if(FeedController.issubscribed(feed_url) == 0)
 				{
-					/*subscriptionTimer = setTimeout(function(){FeedViewer.showSubscriptionTimeout(feedobj,caption)},200);*/
 					$('.caption',this).html('<img src="img/addfeed.gif">'+'<br>'+'Subscribing. Please Wait...');
 				$('.caption',this).animate({'opacity': 1, 'margin-top': -80 }, 50);
 				
@@ -150,7 +149,7 @@ var FeedViewer = {
 					$("#error-message").html("Search in the SearchBox above for Youtube Videos.");
 				else
 					$("#error-message").html("Click on the feed from the categories given below or enter the URL of the desired feed of your wish");
-				var finval=multiple*830*(-1)+5;
+				var finval=multiple*830*(-1)+35;
 				$("#container").animate({'margin-left': finval}, 300);
 		});
         // Youtube results captions
@@ -195,17 +194,34 @@ var FeedViewer = {
 				
 				var link =  $(this).attr('link');console.log(link);
 				$("#forscroll").animate({'margin-left': -830}, 300);
+				
+				if($('#gotoplayer').css('display')=='none')
+					$('#gotoplayer').css('display','block');
+				
+				if($('#closevideo').css('display')=='none')
+					$('#closevideo').css('display','block');
+				
 				if($('.youtube-player').attr('src')==link){
-					
 				return;
 					}
 					else
-					{FeedViewer.showVideo(link);	
-				return;}
+					{FeedViewer.showVideo(link);
+							
+				return;
+					$('#firstpage')}
 			});
+			$('#closevideo').live('click',function (){
+				$('.youtube-player').attr('src',"");
+				$('#gotoplayer').css('display','none');
+				$("#forscroll").animate({'margin-left': 0}, 300);
+				});
+			$('#gotoplayer').live('click',function(){
+				$("#forscroll").animate({'margin-left': -830}, 300);
+				});
 		$('#backbutton').live('click', function(){
 			$("#forscroll").animate({'margin-left': 0}, 300);
 		});
+		
 		$('#vcatlist a').live('click',function(){
 				
 				if($(this).attr('class') == 'selected')

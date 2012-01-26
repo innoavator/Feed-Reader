@@ -119,7 +119,7 @@ html{
     margin-left:31px;
     background-image: -webkit-gradient(radial, center bottom, 0, center bottom, 490, color-stop(0, #808070), color-stop(1, #707070));
     border-radius:10px 10px 0 0; 
-    width:769px;
+    width:682px;
     height:26px;
 }
 .filter li{
@@ -161,16 +161,16 @@ html{
     AddFeeds Content Area
 -----------------------------*/
 #boxing{
-	margin-left:31px;
+	/*margin-left:31px;*/
     position:relative;
-    width:769px;
+    width:830px;
     height:390px;
     overflow:hidden;
 }
 #container{
 
 	width:10000px;
-	margin-left:5px;
+	margin-left:35px;
 
 }
 .fdkadiv{
@@ -190,6 +190,7 @@ html{
     margin-top:-60px;
     z-index:1001;
     opacity:0;
+
 }
 .subscbdimg{
     position:absolute;
@@ -199,7 +200,7 @@ html{
     right:-12px;
     top:-5px;
 }
-.grimg li{
+.tosubscr{
 	top:20px;
     width:160px;
     height:89px;
@@ -233,7 +234,7 @@ html{
     height:89px;
     border-radius:7px;
 }
-.grimg li:hover{
+.tosubscr:hover{
     cursor:pointer; 
     -webkit-transition-duration:.2s;
     -webkit-box-shadow:0 2px 15px #444;
@@ -248,78 +249,99 @@ html{
     left:0%;
     width:100%;
 }
- /************** Youtube Search API ********************/
+ /************** Youtube API ********************/
  .grimg #youtube-feeds{
- 	max-width: 765px; 
+ 	max-width: 830px; 
  	height: 390px;
  	overflow: hidden;
+ 	margin-left: -33px;
 } 
 #youtube-feeds a{
-	color:black;
 	text-decoration:none;
 }
 #youtube-feeds a:visited{
-	color:black;
 }
-.grimg #youtube-feeds li{
- 	top:5px;
-	width:auto;
-    height:auto;
-    position:relative;
-    margin:auto;
-    list-style:none;
-    display:block;
-    float:left;
-    border-radius:0;
-    background:none;
-    -webkit-box-shadow:none;
- }
- .grimg #youtube-feeds li:hover{
-    -webkit-box-shadow:none;
-	cursor:auto;
+/************************firstpage******************/
+#firstpage{
+	width: 820px;
+	height: 380px;
+	margin-left:5px;
+	margin-top:5px;
+	border:solid 1px black;
 }
 .vidcat img{
 	height:110px;
 	border-radius:10px;
 }
 #videosbox{
-	width: 645px;
-}
-#youtube-feeds #firstpage{
-	width: 765px;
-	height: 380px;
+	width: 584px;
+	margin-top: 00px;
+	margin-left:5px;
+	border:solid 1px black;
+	height:330px;
+	float:right
 }
 #vcatlist{
-	float:right;
-	width:100px;
-	margin:20px 16px 0px 0;
+	float:left;
+	margin-left: 20px;
+	list-style:none;
+	margin-top: 40px;
 }
-.grimg #vcatlist li{
-	padding:10px 0 10px 0;
+#vcatlist li {
+	margin-bottom:50px;
+}
+#vcatlist li a{
 	background:#ddd;
-	width:101px;
+	margin-bottom:10px;
+	border:solid 1px black;
 	text-align:center;
 	cursor:pointer;
+	padding:20px;
+	width:150px;
+	-webkit-transition-duration:0.2s;
+	 -webkit-box-shadow:0 3px 7px #333;
+	text-shadow:none;
+	font-weight:bold;
+	color:#111;
 }
-.grimg #vcatlist a{
-	text-decoration:none;
+#vcatlist li a:hover{
+	-webkit-box-shadow:none;
+	color:#000;
+	text-shadow: 0px 3px 5px #888;
 }
-.grimg #youtube-feeds .videolistitem{
-	margin:8px;
+#vcatlist .selected{
+	cursor:default;
+	 -webkit-box-shadow:none;
+}
+#vcatlist .selected:hover{
+	text-shadow:none;
+}
+.videolistitem{
 	float:left;
-	width:145px;
+	width: 146px;
 	border-radius:10px;
 	height:110px;
     	-webkit-transition-duration:0.2s;
 }
-.grimg #youtube-feeds .videolistitem:hover{
-	-webkit-box-shadow:0 3px 7px #333;
+#gotoplayer{
+	color:black;
+	position:relative;
+	float:right;
+	background:red;
+	width:100px;
+	text-align:center;
+	padding:30px 0 30px 0;
+	margin-right:50px;
+	display:none;
+	cursor: pointer;
+}
+.videolistitem:hover{
 	cursor:pointer;
 
 }
 .utubecaption{
     text-align:center;
-    width:145px;
+    width:146px;
     color:white;
     font-size:12px;
     font-weight:bold;
@@ -333,11 +355,27 @@ html{
 	background:#333;
 	z-index:1000000000000;
 }
+
+/**************************second page*****************/
 #secondpage{
 	position: relative;
 	top: -375px;
 	right: -830px;
-	width: 760px;
+	width: 765px;
+}
+#backbutton{
+	cursor:pointer;
+	background:url(../img/feedbutton.png)no-repeat;
+	width: 45px;
+	font-size:15px;
+	text-align:center;
+	color:black;	
+	margin: 80px 0px 2px 5px;;
+	padding: 50px 0 80px 0;
+}
+#backbutton:hover{
+	background:url(../img/feedbutton.png) 0 -140px no-repeat;
+	
 }
 .Video-IFrame-YouTube {
 	/*margin: 5px 40px 0 40px;*/ 
@@ -345,14 +383,29 @@ html{
 	height: 360px;
 	background: transparent;
 	margin-top:-10px;
-/*	margin:auto; */
-	;
 	right: -1006px;
 }
 #youtubeplayer {
-	margin-left: 85px;
+	margin-left: 97px;
 	width: 580px;
 	height: 360px; 
+	float: none;
+	position: absolute;
+	top: -75px;
+}
+#closevideo{
+	float:right;
+	margin:-210px 55px;
+	color:black;
+	background:url(../img/unsub1.png);
+	cursor:pointer;
+	opacity:.5;
+	height:32px;
+	width:32px;
+}
+#closevideo:hover
+{
+	opacity:1;
 }
 /*----------------------------
     MyFeeds Content Area/////////////////////////////////////////////
