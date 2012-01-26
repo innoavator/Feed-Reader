@@ -14,6 +14,11 @@ var FeedViewer = {
 		time: "this_month",   // *optional -- "this_month" is set by default
 		maxResults: 10   // *optional -- defined as 10 results by default
 	});
+			$("#addFeedsSearchBox").autocomplete({
+			source: availableTags
+		});
+	
+	
 		
 		$("#tomyfeedsbtn").click(function(){FeedViewer.renderMyFeeds();modes.switchToMode(1);});
 		$("#tomyfeedsbtn2").click(function(){modes.switchToMode(1);});
@@ -21,6 +26,12 @@ var FeedViewer = {
 		
 		$("#addFeedsForm").submit(function(){
 			console.log("Form submitted");
+		var selectedli = $(".filter .selected");
+		if($(selectedli).attr('data-value') == "youtube")
+		{
+			FeedEngine.getVideos($(this).find("input")[1].value);
+			return;
+		}
 		var feed_url = encodeURI($(this).find("input")[1].value);
 		console.log(feed_url);
 		var regexp = /(ftp|http|https):\/\/(\w+:{0,1}\w*@)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%@!\-\/]))?/
