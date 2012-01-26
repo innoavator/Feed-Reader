@@ -205,12 +205,13 @@ var FeedViewer = {
 					}
 					else
 					{FeedViewer.showVideo(link);
-							
+						$(this).find('.nowplaying').css('display','block');			
 				return;
 					$('#firstpage')}
 			});
 			$('#closevideo').live('click',function (){
 				$('.youtube-player').attr('src',"");
+				$('.nowplaying').css('display','none');
 				$('#gotoplayer').css('display','none');
 				$("#forscroll").animate({'margin-left': 0}, 300);
 				});
@@ -226,6 +227,7 @@ var FeedViewer = {
 				if($(this).attr('class') == 'selected')
 					return;
 				$("#vcatlist a").removeClass('selected');
+				$("#videosbox").css('background','url(img/feedsload.gif) 280px 150px no-repeat #111');			
 				var multiple=$(this).attr('class');
 				$(this).addClass('selected');
 					$('.videoslist').empty();
@@ -368,6 +370,7 @@ var FeedViewer = {
 	{
 		console.log(videoData);
 		$(".videoslist").empty();
+		
 		var content = videoData.feed.entry;
 		var i = 0;
 		for(i = 0;i<content.length;i++)
@@ -376,10 +379,13 @@ var FeedViewer = {
 			var url = idarr[idarr.length - 1];
 			var li = $("<li>").attr('link','http://www.youtube.com/v/'+url+'?autoplay=1&feature=player_embedded').attr('class','videolistitem');
 			$(li).append("<img src = '"+content[i].media$group.media$thumbnail[0].url+"'/>");
-			$(li).append("<div class='utubecaption'>"+content[i].media$group.media$title.$t+"</div>");
+			$(li).append("<div class='utubecaption'>"+content[i].media$group.media$title.$t+"</div>");$(li).append("<div class='nowplaying'></div>");
+			var link=$('.youtube-player').attr('src');
+				$('.videolistitem[link="'+link+'"]').find('.nowplaying').css('display','block');
 			$(".videoslist").append(li);
 			//console.log(content[i].media$thumbnail); */
 		}
+		$("#videosbox").css('background','#111');
 	},
 	showVideo : function(videoUrl)
 	{
