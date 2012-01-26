@@ -229,6 +229,7 @@ var FeedViewer = {
 				$("#vcatlist a").removeClass('selected');
 				var multiple=$(this).attr('class');
 				$(this).addClass('selected');
+					$('.videoslist').empty();
 				var field = $(this).attr('data-value');
 				FeedEngine.showVideos(field);
 		});

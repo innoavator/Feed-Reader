@@ -133,7 +133,7 @@ var FeedEngine = {
 				timeout: (15 * 000),
 			  dataType : "json"	,
 			  error: function( objAJAXRequest, strError ){
-				$(".vidcat").empty().text("Error! Type: " +strError);
+				$(".videoslist").empty().text("Error! Type: " +strError);
 	  			}
 				
 			  });

@@ -117,7 +117,7 @@ html{
 .filter{
     margin-top:10px;
     margin-left:31px;
-    background-image: -webkit-gradient(radial, center bottom, 0, center bottom, 490, color-stop(0, #808070), color-stop(1, #707070));
+    background-image: -webkit-gradient(radial, center bottom, 0, center bottom, 490, color-stop(0, #85d003), color-stop(1, #68b402));
     border-radius:10px 10px 0 0; 
     width:682px;
     height:26px;
@@ -141,7 +141,7 @@ html{
     -webkit-transition: all 0.05s ease 0s;
 }
 .filter li a:hover{
-    background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0, #333333), color-stop(1, #3D3D3D));
+    background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0, #499600), color-stop(1, #6eb901));
     
     text-shadow:0 -2px 15px #888;
 }
@@ -190,6 +190,9 @@ html{
     margin-top:-60px;
     z-index:1001;
     opacity:0;
+
+
+
 
 }
 .subscbdimg{
@@ -255,6 +258,9 @@ html{
  	height: 390px;
  	overflow: hidden;
  	margin-left: -33px;
+}
+.grimg #youtube-feeds ul{
+	list-style:none;
 } 
 #youtube-feeds a{
 	text-decoration:none;
@@ -267,61 +273,100 @@ html{
 	height: 380px;
 	margin-left:5px;
 	margin-top:5px;
-	border:solid 1px black;
-}
-.vidcat img{
-	height:110px;
-	border-radius:10px;
-}
-#videosbox{
-	width: 584px;
-	margin-top: 00px;
-	margin-left:5px;
-	border:solid 1px black;
-	height:330px;
-	float:right
+	
 }
 #vcatlist{
-	float:left;
-	margin-left: 20px;
+	margin-top:10px;
+	float:right;
+	margin-right:-10px;
 	list-style:none;
-	margin-top: 40px;
+	background:white;
+	width:170px;
+	height:348px;
+	padding-top:10px;
+	border-radius:20px 0 0 20px;
+	border:solid 1px #777;
+}
+#vcatlist span{
+	text-align:center;
+	margin-left:25px;
+	margin-top:-5px;
+	color:#222;
+	font-size:15px;
+	font-family:tahoma;
+	text-shadow:0 2px 6px #ccc;
+	font-weight:bold;
 }
 #vcatlist li {
-	margin-bottom:50px;
+	width:118px;
+	margin-top:10px;
+	margin-left:5px;
 }
 #vcatlist li a{
-	background:#ddd;
-	margin-bottom:10px;
-	border:solid 1px black;
+	background:#ccc;
+	margin-bottom:7px;
 	text-align:center;
 	cursor:pointer;
-	padding:20px;
-	width:150px;
-	-webkit-transition-duration:0.2s;
-	 -webkit-box-shadow:0 3px 7px #333;
+	padding:18px 20px 18px 20px;
+	font-size:12px;
+	width:100%;
+	float:left;
+	-webkit-transition-duration:.2s;
+	 -webkit-box-shadow:0 4px 6px #999;
 	text-shadow:none;
 	font-weight:bold;
 	color:#111;
+	border-radius:0 30px 0 30px ;
 }
 #vcatlist li a:hover{
-	-webkit-box-shadow:none;
+	background:#ddd;
+	-webkit-transition-duration:.2s;
 	color:#000;
-	text-shadow: 0px 3px 5px #888;
+	-webkit-box-shadow:0 3px 4px #333;
+	text-shadow: 0px 3px 3px #bbb;
+	border-radius: 00px 0 0px 30px ;
 }
 #vcatlist .selected{
+	-webkit-transition-duration:.2s;
 	cursor:default;
+	background:#111;
 	 -webkit-box-shadow:none;
+	width:126px;
+	color:#fff;
+	border-radius: 30px 0 0px 30px ;
+	
 }
 #vcatlist .selected:hover{
 	text-shadow:none;
+	background:#111;
+	color:#fff;
+	-webkit-box-shadow:none;
+	border-radius: 30px 0 0px 30px ;
+}
+.vidcat img{
+	height:110px;
+	position:static;
+	border-radius: 5px;
+}
+
+#videosbox{
+	background:#111;
+	border-radius:0 10px 10px 0;
+	width: 625px;
+	height:360px;
+	float:right;
+	margin:10px 10px;
 }
 .videolistitem{
+	position:relative;
+	margin:5px;
 	float:left;
-	width: 146px;
-	border-radius:10px;
+	width:146px;
 	height:110px;
+	border-radius:00px;
     	-webkit-transition-duration:0.2s;
+	background-color:#999;
+	background:url(../img/vdoload.gif)70px 55px no-repeat;
 }
 #gotoplayer{
 	color:black;
@@ -337,23 +382,23 @@ html{
 }
 .videolistitem:hover{
 	cursor:pointer;
-
 }
 .utubecaption{
     text-align:center;
-    width:146px;
+    width:140px;
     color:white;
-    font-size:12px;
+    font-size:10px;
     font-weight:bold;
 	margin;auto;
-    margin-top:-112px;
+    margin-top:-114px;
+	margin-left:-2px;
 	height:80px;
-	padding:auto;	
+	padding:30px 3px 0 3px;	
 	opacity:0;
-	padding-top:30px;
 	border-radius:10px;
-	background:#333;
+	background:#000;
 	z-index:1000000000000;
+	border:solid 2px white;
 }
 
 /**************************second page*****************/
@@ -407,6 +452,7 @@ html{
 {
 	opacity:1;
 }
+
 /*----------------------------
     MyFeeds Content Area/////////////////////////////////////////////
 -----------------------------*/
