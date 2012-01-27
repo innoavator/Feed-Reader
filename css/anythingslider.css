@@ -11,7 +11,7 @@
 /* change the ID to match your slider */
 #slider {
 	width: 100%;
-	min-height:490px;
+	min-height:511px;
 	/*height:100%;*/
 	
 	list-style: none;
@@ -82,7 +82,7 @@ div.anythingSlider {
 	margin: 0 auto;
 	overflow: visible !important; /* needed for Opera and Safari */
 	position: relative;
-	padding: 23px 40px 28px 40px;
+	padding: 10px 40px 28px 29px;
 }
 /* anythingSlider viewport window */
 div.anythingSlider .anythingWindow {
@@ -90,8 +90,8 @@ div.anythingSlider .anythingWindow {
 //	overflow-x:hidden;
 	border-radius:12px;
 	position: relative;
-	width: 100%;
-	height:498px;
+	width: 771px;
+	height: 511px;
 }
 /* anythingSlider base (original element) */
 .anythingBase {
@@ -113,6 +113,8 @@ div.anythingSlider .anythingWindow {
 	overflow-x:hidden;
 	float: left;
 	padding: 0;
+	width:771px;
+	height:511px;
 	margin: 0;
 }
 .anythingBase .panel.vertical {
@@ -128,7 +130,7 @@ div.anythingSlider .arrow {
 div.anythingSlider .arrow a {
 	display: block;
 	height: 140px;
-	margin: -70px -10px 0 -10px; /* half height of image */
+	margin: -70px -0px 0 -12px; /* half height of image */
 	width: 45px;
 	text-align: center;
 	outline: 0;

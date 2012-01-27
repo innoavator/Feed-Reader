@@ -112,22 +112,23 @@ html{
 	opacity:0;
 }
 #youtubeSuggestions{
-	background-color:black;
+	background-color:#444;
 	color:white;
 	float:right;
-	left:530px;
+	left:529px;
 	top:70px;
 	position:absolute;
 	list-style:none;
 	z-index: 1000;
 	text-shadow:none;
-	width:210px;
+	width:208px;
 	display:none;
 }
 #youtubeSuggestions li{
 	height:20px;
 	cursor:pointer;
-	border:1px solid;
+	border:1px solid #999;
+	border-top:none;
 	}
 #youtubeSuggestions li:hover{
 background-color:#06F;
@@ -454,7 +455,7 @@ background-color:#06F;
 }
 #backbutton{
 	cursor:pointer;
-	background:url(../img/feedbutton.png)no-repeat;
+	background:url(../img/feedbutton.png) 0 -140px no-repeat;
 	width: 45px;
 	font-size:15px;
 	text-align:center;
@@ -463,7 +464,7 @@ background-color:#06F;
 	padding: 50px 0 80px 0;
 }
 #backbutton:hover{
-	background:url(../img/feedbutton.png) 0 -140px no-repeat;
+	background:url(../img/feedbutton.png) no-repeat;
 	
 }
 .Video-IFrame-YouTube {
@@ -614,15 +615,15 @@ background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0, 
 }
 
 .color4{
-background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0, #BE7F2C), color-stop(1, #CCC739));
+background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0, #38879E), color-stop(1, #4FBAC7));
 }
 .color4:hover
 {
-    background-image: -webkit-gradient(linear, left bottom, left top, color-stop(0, #BE7F2C), color-stop(1, #CCC739));
+    background-image: -webkit-gradient(linear, left bottom, left top, color-stop(0, #38879E), color-stop(1, #4FBAC7));
     cursor:pointer;
 }
 .color4:active
-{background-image: -webkit-gradient(radial, center top, 0, center top, 100, color-stop(0, #CCC739), color-stop(1, #BE7F2C));
+{background-image: -webkit-gradient(radial, center top, 0, center top, 100, color-stop(0, #4FBAC7), color-stop(1, #38879E));
 }
 .color3{
 background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0, #924650), color-stop(1, #C46674));
@@ -778,14 +779,22 @@ right:0px;
 	font-family:'Segoe UI',Arial, sans-serif;
     color:#888;
     text-shadow: none;
-    margin-left: 10px;
-    margin-top: 15px;
-    width: 100px;
+	margin:-8px 20px 0 15px ;
+    width: 125px;
     float:left;
     font-size:12px;
     padding:4px 0 6px 22px;
 	display:none;
    /* background:url('../img/arrow2.png') 0 0 no-repeat; */
+}
+#viewOptionsBox{
+	border-radius:8px;
+	outline:none;
+}
+.readerFooterElem img
+{
+	vertical-align:middle;
+	margin-left:5px;
 }
 /*--------------------------------------------------------
                 Feed View Area CSS/////////////////////////////////////////////////
@@ -835,7 +844,7 @@ margin-bottom:15px;
 -webkit-animation-duration: 1000ms, 300ms;
 -webkit-animation-delay: 0ms, 1000ms;
 }
-.textSlide             { padding: 10px 30px;overflow:scroll }
+.textSlide             { padding: 15px 0px 0 10px; overflow-y: scroll;}
 .textSlide h3          { font: 20px Georgia, Serif; }
 .textSlide h4          { text-transform: uppercase; font: 15px Georgia, Serif; margin: 10px 0; }
 .textSlide ul          { list-style: disc; margin: 0; padding-left: 20px; }
