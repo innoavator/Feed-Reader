@@ -11,7 +11,7 @@ var FeedViewer = {
 		key: "AI39si7Br60Mhmvnb0iGT_DckKttQdd_8ghDOs_UQIcmb3wDhwAnZlkPe9lqp1llOv9rZNGqdKcdP8BdHRDOMaY4Mu0Xh3op9g",
 		orderby: "viewCount",  // *optional -- "viewCount" is set by default
 		time: "this_month",   // *optional -- "this_month" is set by default
-		maxResults: 10   // *optional -- defined as 10 results by default
+		maxResults: 5   // *optional -- defined as 10 results by default
 	});
 		
 		$("#tomyfeedsbtn").click(function(){FeedViewer.renderMyFeeds();modes.switchToMode(1);});
@@ -273,6 +273,7 @@ var FeedViewer = {
 			$("#myfeedsdiv .myfeedlist").empty();
 			var list = FeedController.getMyFeeds();
 			if(list == null) return;
+			var totalUnreadCount = 0;
 			for(var i =0;i<list.length;i++)
 			{
 				var feed = new LocalStore(list[i]);
@@ -284,10 +285,12 @@ var FeedViewer = {
 				}
 				var title = JSON.parse(feedinfo).title;
 				var unreadCount = JSON.parse(feedinfo).unreadCount;
+				totalUnreadCount+=unreadCount;
 				var imagesource=getDomain(list[i])+"/favicon.ico";
 				var randomnumber=Math.floor(Math.random()*5);
 				$("#myfeedsdiv .myfeedlist").append("<li><div class='feedl color"+randomnumber+"' rel = " +list[i] +"><div class='unsub'></div><img class='faviconimg' src='"+imagesource+"'/><p>"+title.substring(0,25)+"</p></div><div class='readunread'>"+unreadCount+"</div></li>"); 
 			}
+			pokki.setIconBadge(totalUnreadCount);
 		
 	},
 	addKeyboardControls : function(){
