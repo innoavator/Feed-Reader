@@ -13,7 +13,7 @@ var ReaderViewer = {
 				 infiniteSlides      : false,
 				onSlideComplete: function(slider) {
 					FeedController.saveAsRead($("#feedurldiv").html(),$(".activePage div").find('a').first().attr('href'));
-					$("#readMessage").fadeIn("slow");
+					$("#readMessage").fadeIn(10);
 				},
 				onSlideInit: function(slider) {
 					$("#unreadMessage").fadeOut("slow");
@@ -23,17 +23,19 @@ var ReaderViewer = {
 			$("#viewOptionsBox").change(function(){
 				console.log("Option changed");
 				window.localStorage.setItem("readMode",$(this).val());
+				$("#loadingScreen").css('visibility','visible').css('display','block');
+					FeedEngine.showFeed($("#feedurldiv").html());
 				});
 			$("#readMessage").find('img').click(function(){
 				FeedController.removeFromRead($("#feedurldiv").html(),$(".activePage div").find('a').first().attr('href'));
-				$("#readMessage").fadeOut("slow",function(){
-				$("#unreadMessage").fadeIn("slow");
+				$("#readMessage").fadeOut("fast",function(){
+				$("#unreadMessage").fadeIn("fast");
 				});
 			});
 			$("#unreadMessage").find('img').click(function(){
 				FeedController.saveAsRead($("#feedurldiv").html(),$(".activePage div").find('a').first().attr('href'));
-				$("#unreadMessage").fadeOut("slow",function(){
-				$("#readMessage").fadeIn("slow");
+				$("#unreadMessage").fadeOut("fast",function(){
+				$("#readMessage").fadeIn("fast");
 				});
 			});
 	},
@@ -181,7 +183,11 @@ var ReaderViewer = {
 							 +' <img src = "img/barload.gif"/>'//+'<a href = "#">View All</a>'
 							 + '<div id="hnext"></div></li>');
 		if(unreadcount ==0)
-		$("#slider").append("<li class='panel1'><div class='quoteSlide'><h2>You have no unread feeds.</h2></div></li>");
+		{
+			$("#slider").empty();
+			$("#slider").html("<div class='textSlide'><center><h2 style='margin-top:50px;'>You have no unread feeds.</h2></center></div>");
+			$("#slider").anythingSlider();
+		}
 	},
 	registerHeadlines : function(result,feeds)
 	{
