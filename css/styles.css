@@ -901,29 +901,30 @@ margin-bottom:15px;
 }
 #rdrheadl li:hover
 {
-    background: #555;
+    background: #aaa;
+	color:brown;
 }
 #headlactions:hover
 {
-    background:#111;
+    background:#aaa;
 	cursor:default;
 }
 #rdrheadl{
 	bottom:91px;
     font-size:14px;
-    color:#fff;
+	color: #222;
     text-shadow: none;
     text-align:left;
 	list-style:none;
     position: fixed;
     right:0px ; 
-    background: #666;
+	background: #eee;
     display: none; 
 	margin-right:40px;
     max-height: 400px;
     overflow-y:auto;
     overflow-x:hidden;
-    border: 1px 1px 0 1px solid #111;
+    border: 1px solid #888;
 	cursor:pointer;
 }
 #rdrheadl li h2{
@@ -933,7 +934,7 @@ margin-bottom:15px;
     padding:10px 5px 10px 5px;
     border-bottom:solid 1px #333;
     font-size: 9px;
-    width:258px;
+    width:260px;
 }
 
 ,
@@ -947,11 +948,11 @@ html #rdrheadl li a {
 /* next and previous*/
 
 #headlactions{
-    background-color:#555;
+    background-color:#aaa;
     position:fixed;
     bottom:55px;
     height:15px;
-	border-top:solid 1px #333;
+	border:solid 1px #333;
 	border-radius:0 0 5px 5px;
 }
 #headlactions img{
@@ -998,8 +999,8 @@ html #rdrheadl li a {
 
 #rdrheadl #minimizeHeadlines {
 position: fixed;
-margin-top:0px;
-margin-left: 247px;
+margin-top:-1px;
+margin-left: 250px;
 width: 21px;
 height: 12px;
 cursor: pointer;
