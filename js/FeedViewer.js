@@ -40,9 +40,9 @@ var FeedViewer = {
 				$('#loadingurl').css('opacity',1);
 			}
 			else
-				$('#loadingurl').css('opacity',0);
-				showMessage("<b>You are already subscribed to this feed. Go to Myfeeds page to view the feeds.</b>"); $('#loadingurl').css('opacity',0);
-        }
+				{$('#loadingurl').css('opacity',0);
+				showMessage("<b>You are already subscribed to this feed. Go to Myfeeds page to view the feeds.</b>");
+        }}
 		else{
 			$('#loadingurl').css('opacity',0);
 			$("#searchbox").find('input')[1].value = "";
