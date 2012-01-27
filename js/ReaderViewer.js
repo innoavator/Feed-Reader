@@ -96,8 +96,8 @@ var ReaderViewer = {
 		else
 			$("#viewOptionsBox").val("0");
 		var length = 0;
-		for(var i = 0;i<content.length;i++)
-			length+= content[i].content.length;
+/*		for(var i = 0;i<content.length;i++)
+			length+= content[i].content.length; */
 //		if(length/10 >200)
 			ReaderViewer.renderSliderFeed(temp_feed,minindex,maxindex,isFirstTime);
 //		else
@@ -106,6 +106,7 @@ var ReaderViewer = {
 		loadingFinished = true;
 		$("#loadingScreen").css('visibility','hidden').css('display','none');
 		$("#readMessage").fadeIn("slow");
+		$("#unreadMessage").fadeOut("fast");
 	},
 	renderScrollFeed : function(feeds){
 		

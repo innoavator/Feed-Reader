@@ -40,7 +40,7 @@ var FeedEngine = {
 					  inFetchingState = true;
 					  var feed = new google.feeds.Feed(url);
 					  feed.includeHistoricalEntries();
-  					  feed.setNumEntries(10);
+  					  feed.setNumEntries(20);
   					  feed.setResultFormat(google.feeds.Feed.JSON_FORMAT);
   					  feed.load(function(result) 
 					  {
@@ -49,7 +49,7 @@ var FeedEngine = {
 						{
 							modes.switchToMode(2);
 						//	console.log("feed engine showfeed");
-							ReaderViewer.renderFeed(result.feed,0,10,true);
+							ReaderViewer.renderFeed(result.feed,0,20,true);
 						}
 						else
 						{
