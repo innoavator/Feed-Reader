@@ -111,6 +111,27 @@ html{
 	right:450px;
 	opacity:0;
 }
+#youtubeSuggestions{
+	background-color:black;
+	color:white;
+	float:right;
+	left:530px;
+	top:70px;
+	position:absolute;
+	list-style:none;
+	z-index: 1000;
+	text-shadow:none;
+	width:210px;
+	display:none;
+}
+#youtubeSuggestions li{
+	height:20px;
+	cursor:pointer;
+	border:1px solid;
+	}
+#youtubeSuggestions li:hover{
+background-color:#06F;
+}
 /*----------------------------
     Addfeeds Menu Bar 
 -----------------------------*/

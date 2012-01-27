@@ -42,7 +42,6 @@ var FeedController = {
 			for(i=0;i<list.length;i++)
 			{
 				if(list[i] == url){
-				//	console.log(url + " and " + list[i] + " match");
 					list.splice(i,1);
 					break;
 				}
@@ -53,7 +52,6 @@ var FeedController = {
 	},
 	listFeeds : function()
 	{
-		console.log(FeedController.myFeedList.get());
 		return (FeedController.myFeedList.get());
 	},
 	getMyFeeds : function()
@@ -77,7 +75,6 @@ var FeedController = {
 			for(i=0;i<list.length;i++)
 			{
 				if(list[i] == url){
-		//			console.log(url + " and " + list[i] + " match");
 					return 1;
 				}
 			}
@@ -110,7 +107,6 @@ var FeedController = {
 		var feedinfo = JSON.parse(feed.get());
 		if (feedinfo == null)
 		return;
-		//console.log("Feed of " + url + " : "  + feedinfo);
 		if(feedinfo.headlines == null)
 			return "No Headlines";
 		else
@@ -139,7 +135,6 @@ var FeedController = {
 				namesList[i] = feedinfo.title;
 			}
 		}
-//console.log(namesList);
 		return namesList;
 		
 	},
@@ -157,7 +152,6 @@ var FeedController = {
 				readList+= "," + feedUrl;
 		}
 		feedinfo.readFeeds = readList;
-		console.log(feedinfo);
 		feed.set(JSON.stringify(feedinfo));
 	},
 	removeFromRead : function(feedSourceUrl,feedUrl)
@@ -171,7 +165,6 @@ var FeedController = {
 			for(i=0;i<readList.length;i++)
 			{
 				if(readList[i] == feedUrl){
-				//	console.log(url + " and " + list[i] + " match");
 					readList.splice(i,1);
 					break;
 				}

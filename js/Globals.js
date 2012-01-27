@@ -8,8 +8,8 @@ var inFetchingState = false;
 var STACK_SIZE = 2000;
 var SHOWALL = 1;
 var SHOWUNREAD  = 0;
-
-	var availableTags = [
+var youtubeSuggestions = new Array();
+/*	var availableTags = [
 			"ActionScript",
 			"AppleScript",
 			"Asp",
@@ -31,4 +31,4 @@ var SHOWUNREAD  = 0;
 			"Python",
 			"Ruby",
 			"Scala",
-			"Scheme" ];
+			"Scheme" ];*/

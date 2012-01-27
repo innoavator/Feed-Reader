@@ -1,4 +1,3 @@
-
 var FeedViewer = {
 	initialise : function()
 	{
@@ -14,11 +13,6 @@ var FeedViewer = {
 		time: "this_month",   // *optional -- "this_month" is set by default
 		maxResults: 10   // *optional -- defined as 10 results by default
 	});
-			$("#addFeedsSearchBox").autocomplete({
-			source: availableTags
-		});
-	
-	
 		
 		$("#tomyfeedsbtn").click(function(){FeedViewer.renderMyFeeds();modes.switchToMode(1);});
 		$("#tomyfeedsbtn2").click(function(){modes.switchToMode(1);});
@@ -75,7 +69,13 @@ var FeedViewer = {
 				showSubscribedFeed($(this));
 			});
 		}
-				
+		//Youtube suggest click
+		$("#youtubeSuggestions li").live('click',function(){
+			var query = $(this).text();
+			$("#youtubeSuggestions").css('display','none');
+			$("#searchbox").find('input')[1].value =query;
+			FeedEngine.getVideos(query);
+			});
 		$('.grimg li').hover(function() 
 		{
 			var selectedli = $(".filter .selected");

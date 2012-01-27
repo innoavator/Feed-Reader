@@ -35,8 +35,7 @@
             <script type = "text/javascript" src="js/Utils.js"></script>
             <script type = "text/javascript" src="js/Globals.js"></script>
             <script type='text/javascript' src='js/lib/jQuery.jQTubeUtil.js'></script>
-            <script type='text/javascript' src='js/lib/jquery.autocomplete-min.js'></script>
-            
+
             <!-- FeedReader View -->
     		<link rel="stylesheet" href="css/anythingslider.css">  
             <script type="text/javascript" src="js/jquery.anythingslider.js"></script>
@@ -59,10 +58,22 @@
            <div id="searchbox">
                  <form id="addFeedsForm">Add/Search:
            		<input type="submit" value="Add" id="addFeedbtn" /></span>
-            	<input type="search" id="addFeedsSearchBox" placeholder="Press Enter after you are done...."></input>
+         <!--   	<select name="country" id="country_hidden_select" class="editable-select" disabled="" style="visibility: hidden; display: none; ">
+                  <option>Denmark</option>
+                  <option selected="selected">Sweden, selected</option>
+                  <option>Norway</option>
+        
+                  <option>Finland</option>
+                  <option>Iceland</option>
+                <option>Germany, value added programmatically</option></select>
+           -->     <input type="search" id="addFeedsSearchBox"  class= "editable-select" placeholder="Press Enter after you are done...." onKeyUp="FeedEngine.getYoutubeSuggestions(this.value);return false;"></input>
                     <img class="srchglass" src="img/search-dark.png"/>
                  </form>
-            	  
+                 <ul id="youtubeSuggestions">
+                 <li>1000</li>
+                 <li>2000</li>
+                 </ul>
+            	 
        </div><!--searchbox div end--></div>
            	
                        <ul class="filter">
