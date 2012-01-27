@@ -395,7 +395,7 @@ var FeedViewer = {
 		{
 			var idarr = (content[i].id.$t).split("/");
 			var url = idarr[idarr.length - 1];
-			var li = $("<li>").attr('link','http://www.youtube.com/v/'+url+'?autoplay=1&feature=player_embedded').attr('class','videolistitem');
+			var li = $("<li>").attr('link','http://www.youtube.com/embed/'+url+'?autoplay=1&feature=player_embedded').attr('class','videolistitem');
 			$(li).append("<img src = '"+content[i].media$group.media$thumbnail[0].url+"'/>");
 			$(li).append("<div class='utubecaption'>"+content[i].media$group.media$title.$t+"</div>");$(li).append("<div class='nowplaying'></div>");
 			var link=$('.youtube-player').attr('src');
