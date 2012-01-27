@@ -536,12 +536,11 @@ background-color:#06F;
 }
 
 .feedl
-{   
-    margin :12px 10px 35px 14px; 
+{   margin: 15px 10px 15px 14px; 
     text-align:center;
-    border-radius: 5px 5px 0 0;
+       border-radius: 5px;
     width:100px;
-    height:85px;
+       height: 95px;
     position:relative;
     float:left;
     font-size:14px;
@@ -555,22 +554,23 @@ background-color:#06F;
     
 }
 .readunread{
-	margin-bottom:-18px;
 
-	float:left;
-	background:white;
-	width:98px;
+	float: right;
+	background:#444;
 	height:16px;
-	margin-top:97px;
-	margin-left:-110px;
 	border:solid 1px #bbb;
-	color:#333;
-	cursor:default;
+	color:#fff;	
 	text-align:center;
 	text-shadow:none;
-	border-radius:0 0 5px 5px;
+	border-radius:5px;
 	box-shadow: 1px 1px 2px #888;
 	font-size:12px;
+	position: absolute;
+	bottom: 0;
+	width:20px;
+
+	right: 0;
+
 }
 .myfeedlist li p{
     max-width:100px;
@@ -772,6 +772,7 @@ right:0px;
 #feedback:active
 {
     color:#666;
+
     background:url('../img/feedback.png') 0 -60px no-repeat;
 }
 .readerFooterElem

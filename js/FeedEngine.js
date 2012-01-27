@@ -27,7 +27,8 @@ var FeedEngine = {
 									//FeedEngine.searchFeed(url);
 									$("#searchbox").find('input:text').val("");
 									$("#searchbox img").css("opacity","0");
-									show("Sorry, We could not find feeds at this url.");
+									$('#loadingurl').css('opacity',0);
+									showMessage("Sorry, We could not find feeds at this url.");
 								}
 						   	 }
 						  

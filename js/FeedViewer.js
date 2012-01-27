@@ -41,7 +41,7 @@ var FeedViewer = {
 			}
 			else
 				$('#loadingurl').css('opacity',0);
-				showMessage("<b>You are already subscribed to this feed. Go to Myfeeds page to view the feeds.</b>"); 
+				showMessage("<b>You are already subscribed to this feed. Go to Myfeeds page to view the feeds.</b>"); $('#loadingurl').css('opacity',0);
         }
 		else{
 			$('#loadingurl').css('opacity',0);
@@ -136,7 +136,7 @@ var FeedViewer = {
 				else
 				{
 					$('#loadingurl').css('opacity',0);
-					$("#error-message").fadeOut('fast',function(){$(this).html("<b>You are already subscribed to this feed. Go to Myfeeds page to view the feeds.</b>")}).fadeIn('fast').delay(1000).fadeOut('fast',function(){$(this).html("Click on the feed from the categories given below or enter the URL of the desired feed of your wish")}).fadeIn();
+					$("#error-message").fadeOut('fast',function(){$(this).html("<b>You are already subscribed to this feed. Go to Myfeeds page to view the feeds.</b>")}).fadeIn('fast').delay(1000).fadeOut('fast',function(){$(this).html("Click on the feed from the categories given below or enter the URL of the desired feed of your wish")}).fadeIn();$('#loadingurl').css('opacity',0);
 				}
 			}
 			else
@@ -183,9 +183,7 @@ var FeedViewer = {
 	initialiseMyFeeds : function()
 	{
 		FeedViewer.renderMyFeeds();
-		$('.faviconimg').error(function() {
-  			$(this).attr("src", "img/defaultfavicon.png");
-  		});
+		
 		
 		//Attach handler forunsubscribing feeds
 		
@@ -288,10 +286,15 @@ var FeedViewer = {
 				totalUnreadCount+=unreadCount;
 				var imagesource=getDomain(list[i])+"/favicon.ico";
 				var randomnumber=Math.floor(Math.random()*5);
-				$("#myfeedsdiv .myfeedlist").append("<li><div class='feedl color"+randomnumber+"' rel = " +list[i] +"><div class='unsub'></div><img class='faviconimg' src='"+imagesource+"'/><p>"+title.substring(0,25)+"</p></div><div class='readunread'>"+unreadCount+"</div></li>"); 
+				$("#myfeedsdiv .myfeedlist").append("<li><div class='feedl color"+randomnumber+"' rel = " +list[i] +"><div class='unsub'></div><img class='faviconimg' src='"+imagesource+"'/><p>"+title.substring(0,25)+"</p><div class='readunread'>"+unreadCount+"</div></div></li>"); 
 			}
 			pokki.setIconBadge(totalUnreadCount);
-		
+		$('.faviconimg').error(function() {
+			
+  			$(this).attr("src", "img/defaultfavicon.png");
+			
+  			
+  		});
 	},
 	addKeyboardControls : function(){
 		$(document).keyup(function(e){
@@ -318,6 +321,7 @@ var FeedViewer = {
 			}
 		}
 	},
+	
 	showSuccessfulSubscription : function(feed_name,url,feedobj)
 	{
 			if(feedobj != null)
