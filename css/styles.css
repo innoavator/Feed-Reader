@@ -910,8 +910,8 @@ margin-bottom:15px;
 	cursor:default;
 }
 #rdrheadl{
-	bottom:91px;
-    font-size:14px;
+	bottom: 90px;
+	font-size: 14px;
 	color: #222;
     text-shadow: none;
     text-align:left;
@@ -954,6 +954,7 @@ html #rdrheadl li a {
     height:15px;
 	border:solid 1px #333;
 	border-radius:0 0 5px 5px;
+    right: 40px;
 }
 #headlactions img{
     padding-left:105px;
@@ -998,15 +999,15 @@ html #rdrheadl li a {
 }
 
 #rdrheadl #minimizeHeadlines {
-position: fixed;
-margin-top:-1px;
-margin-left: 250px;
-width: 21px;
-height: 12px;
-cursor: pointer;
-background: #444 url(../img/minimize.png) 0px -2px no-repeat;
-border-bottom-left-radius: 3px;
--webkit-transition: background-color 0.3s linear;
+	position: fixed;
+	margin-top:-1px;
+	margin-left: 250px;
+	width: 21px;
+	height: 12px;
+	cursor: pointer;
+	background: #444 url(../img/minimize.png) 0px -2px no-repeat;
+	border-bottom-left-radius: 3px;
+	-webkit-transition: background-color 0.3s linear;
 }
 #rdrheadl #minimizeHeadlines:hover {
     background-color: #000;
