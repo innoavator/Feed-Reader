@@ -63,6 +63,8 @@ var FeedEngine = {
 	loadHeadlines : function(url,num,minindex,maxindex){
 		
 		//console.log("Load headlines : " + url + " , "  + num);
+		if(minindex < 0)
+			minindex = 0;
 		var feed = new google.feeds.Feed(url);
 					   feed.includeHistoricalEntries();
   					  feed.setNumEntries(num);

@@ -138,6 +138,7 @@ var ReaderViewer = {
 		$("#rdrheadl").attr('endindex',maxindex);
 		var feedContent = feeds.entries;
 		var unreadcount=0;
+		var counter = 0;
 		for(i= minindex;i<maxindex;i++)
 		{
 			if(isFirstTime)
@@ -151,13 +152,14 @@ var ReaderViewer = {
 					}
 				}
 			}
+			counter++;
 			unreadcount++;
 			if(feedContent[i] == null)
 			{
 				$("#hnext").hide();break;
 			}
 			var lielement = $('<li>').attr('class','panel' + (i+1));
-			var headlineli = $('<li>').attr('slideno',i).attr('link',feedContent[i].link);
+			var headlineli = $('<li>').attr('slideno',counter-1).attr('link',feedContent[i].link);
 			var wrapdiv = $('<div>');
 			var divelement = $('<div>').attr('class','textSlide');
 			var title = "<a href = '" + feedContent[i].link + "'><h2>" + feedContent[i].title + "</h2></a>";
