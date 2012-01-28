@@ -53,15 +53,15 @@ var ReaderViewer = {
 			var startindex = parseInt($("#rdrheadl").attr('startindex'));
 			var endindex = parseInt($("#rdrheadl").attr('endindex'));
 			console.log(" Temp feed length : " + temp_feed.entries.length);
-			if(temp_feed.entries.length < startindex + 19)
+			if(temp_feed.entries.length < endindex + 19)
 			{
 				console.log("Loading headlines");
-				FeedEngine.loadHeadlines($("#feedurldiv").html(), endindex+20,endindex,endindex+10);
+				FeedEngine.loadHeadlines($("#feedurldiv").html(),endindex+NO_OF_FEEDS,endindex,endindex+NO_OF_FEEDS);
 			}
 			else
 			{
 				console.log("Rendering feed");
-				ReaderViewer.renderFeed(temp_feed,endindex,endindex+10,false);
+				ReaderViewer.renderFeed(temp_feed,endindex,endindex+NO_OF_FEEDS,false);
 			}
 		});
 		
@@ -70,19 +70,19 @@ var ReaderViewer = {
 			switchToLoadingView(true);
 			var startindex = parseInt($("#rdrheadl").attr('startindex'));
 			var endindex = parseInt($("#rdrheadl").attr('endindex'));
-			if(temp_feed.entries.length < startindex - 10)
-				FeedEngine.loadHeadlines($("#feedurldiv").html(),startindex,startindex-10,startindex);
+			if(temp_feed.entries.length < startindex - NO_OF_FEEDS)
+				FeedEngine.loadHeadlines($("#feedurldiv").html(),startindex,startindex-NO_OF_FEEDS,startindex);
 			else
-				ReaderViewer.renderFeed(temp_feed,startindex-10,startindex,false);
+				ReaderViewer.renderFeed(temp_feed,startindex-NO_OF_FEEDS,startindex,false);
 	    });
 		
 		//Click on headlines event
 		$("#rdrheadl li").live('click',function(){
-			var slideno = $(this).attr('slideno') %10 + 1;
+			var slideno = $(this).attr('slideno') %NO_OF_FEEDS + 1;
 			$('#slider').anythingSlider(slideno);
 			});
 		
-		$("#headlactions a").live('click',function(){FeedViewer.loadAllFeeds( $("#rdrheadl").attr('start'));});
+	//	$("#headlactions a").live('click',function(){FeedViewer.loadAllFeeds( $("#rdrheadl").attr('startindex'));});
 	},
 	renderFeed : function(feeds,minindex,maxindex,isFirstTime){
 		
@@ -189,8 +189,8 @@ var ReaderViewer = {
 			$("#slider").html("<div class='textSlide'><center><h2 style='margin-top:50px;'>You have no unread feeds.</h2></center></div>");
 			$("#slider").anythingSlider();
 		}
-	},
-	registerHeadlines : function(result,feeds)
+	}
+/*	registerHeadlines : function(result,feeds)
 	{
 		temp_feed = feeds;
 		var start_index = parseInt($("#rdrheadl").attr('startindex'));
@@ -242,5 +242,5 @@ var ReaderViewer = {
 			$("#hnext").hide();
 		switchToLoadingView(false);
 	}
-
+*/
 }
