@@ -9,6 +9,9 @@ function load() {
 	console.log('Popup page is loaded.');
 	Atom = new App();
 	
+	$('#loader').fadeOut(1000);
+	$('#loadercontainer').fadeOut(1000); 
+	$(".scrollable").css('opacity',1);
 	//  FeedEngine.initialise();
 
 }

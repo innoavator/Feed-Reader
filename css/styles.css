@@ -32,6 +32,57 @@ html{
     margin-top:-4px;    
     padding-right:4px;
 }
+ /*----------------------------------------
+    Loading Screen
+------------------------------------------*/
+#loadingScreen{
+/*  opacity : 0; */
+    visibility: hidden;
+    position: absolute;
+    height:100%;
+    width:100%;
+    background:#000;
+    background:rgba(0,0,0,.8); 
+    top:0px;
+    left:0; 
+    text-align:center;
+    color:#FFF;
+    vertical-align:middle;
+    text-shadow:none;
+    font-size:18px;
+    padding-top:200px;
+}
+#loadingScreen img{
+    margin:auto;
+    top:30%;
+    left:45%;
+    position:absolute;
+    z-index:101; 
+}
+
+#loader{
+	width:830px;
+	height:600px;
+	position:absolute;
+	background:url('../img/cover.png');
+	z-index:1200;
+	top:0;
+}
+#loadercontainer{
+	width:700px;
+	margin:160px 175px;
+	
+	}
+#loadercontainer h1{
+	padding-left:15px;
+	font-size:50px;
+	color:#111;
+	text-shadow:4px 4px 5px #ccc;
+	font-family:"Comic Sans MS", cursive;
+	}
+#loadercontainer img{
+	vertical-align:middle;
+}
 /*----------------------------
     SearchBox in AddFeeds Page
 -----------------------------*/
@@ -985,8 +1036,6 @@ html #rdrheadl li a {
     background:url('../img/prev.png') 0 -50px no-repeat;
 }
 
-
-
 #hnext{
     width:25px;
 
@@ -1014,31 +1063,4 @@ html #rdrheadl li a {
 }
 #rdrheadl #minimizeHeadlines:active {
     background-position: 0px -1px;
-}
- /*----------------------------------------
-    Loading Screen
-------------------------------------------*/
-#loadingScreen{
-/*  opacity : 0; */
-    visibility: hidden;
-    position: absolute;
-    height:100%;
-    width:100%;
-    background:#000;
-    background:rgba(0,0,0,.8); 
-    top:0px;
-    left:0; 
-    text-align:center;
-    color:#FFF;
-    vertical-align:middle;
-    text-shadow:none;
-    font-size:18px;
-    padding-top:200px;
-}
-#loadingScreen img{
-    margin:auto;
-    top:30%;
-    left:45%;
-    position:absolute;
-    z-index:101; 
 }

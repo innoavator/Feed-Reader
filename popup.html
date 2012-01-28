@@ -50,23 +50,15 @@
   <div id="wrapper">
    	<div id = "minimize">
     <a href="#"></a><br>
-    </div>
-    	<div class="scrollable">
+    </div><div id="loader">
+	  <div id="loadercontainer"><img src="img/pageload.gif" style="padding-left:10px;"/><br><br><h1>Loading</h1></div></div>
+    	<div class="scrollable" style="opacity:0">
    		   <!-- Add feeds Box -->
            <div id = "addfeedsdiv">
            <div><h1 id='header'><img src="img/doublearrow.png"/>ADD FEEDS:</h1>
            <div id="searchbox">
-                 <form id="addFeedsForm">Add/Search:
-           		<input type="submit" value="Add" id="addFeedbtn" /></span>
-         <!--   	<select name="country" id="country_hidden_select" class="editable-select" disabled="" style="visibility: hidden; display: none; ">
-                  <option>Denmark</option>
-                  <option selected="selected">Sweden, selected</option>
-                  <option>Norway</option>
-        
-                  <option>Finland</option>
-                  <option>Iceland</option>
-                <option>Germany, value added programmatically</option></select>
-           -->     <input type="search" id="addFeedsSearchBox"  class= "editable-select" placeholder="Press Enter after you are done...." onKeyUp="FeedEngine.getYoutubeSuggestions(this.value);return false;"></input>
+                 <form id="addFeedsForm"><span>Add Feeds:</span>
+           		<input type="submit" value="Go" id="addFeedbtn" /></span> <input type="search" id="addFeedsSearchBox"  class= "editable-select" placeholder="Press Enter after you are done...." onKeyUp="FeedEngine.getYoutubeSuggestions(this.value);return false;"></input>
                     <img class="srchglass" src="img/search-dark.png"/>
                  </form>
                  <ul id="youtubeSuggestions">
@@ -141,7 +133,7 @@
              
              <div id="food-feeds" class="fdkadiv">
              <li data-id="http://www.101cookbooks.com/index.rdf" class="food tosubscr tosubscr"><img src="assets/img/shots/101cookbook.png" alt="101 Cookbooks" title="101 Cookbooks"class='feedimage'/><div class='caption'></div><div class='fdname'>101 Cookbooks</div></li>
-      <!--       <li data-id="http://www.laraferroni.com/category/cookandeat/feed/" class="food tosubscr"><img src="assets/img/shots/cookneat.png" alt="Cook & Eat" title="Cook & Eat"class='feedimage'/><div class='caption'></div><div class='fdname'>Lara Ferroni-Cook & Eat</div></li>  -->
+      
              <li data-id="http://www.slashfood.com/rss.xml" class="food tosubscr"><img src="assets/img/shots/huffpostfood.png" alt="Huffpost Food" title="Huffpost Food"class='feedimage'/><div class='caption'></div><div class='fdname'>Huffpost Food</div></li>
              
              <li data-id="http://feeds.seriouseats.com/seriouseatsfeaturesvideos" class="food tosubscr"><img src="assets/img/shots/seriouseats.png" alt="Serious Eats" title="Serious Eats"class='feedimage'/><div class='caption'></div><div class='fdname'>Serious Eats</div></li>
@@ -163,7 +155,7 @@
               <div id="science-feeds" class="fdkadiv">
               <li data-id="http://www.novaspivack.com/feed/rss" class="science tosubscr"><img src="assets/img/shots/minplnt.png" alt="MINDING THE PLANET" title="Minding the Planet"class='feedimage'/><div class='caption'></div><div class='fdname'>Minding the Planet</div></li> 
               <li data-id="http://news.nationalgeographic.com/index.rss" class="science tosubscr"><img src="assets/img/shots/natgeo.png" alt="NATGEO" title="National Geographic News"class='feedimage'/><div class='caption'></div><div class='fdname'>NatGeo News</div></li> 
-  <!--            <li data-id="http://cosmicvariance.com/feed/" class="science tosubscr"><img src="assets/img/shots/cosmvar.png" alt="COSMIC VARIANCE" title="Cosmic Variance"class='feedimage'/><div class='caption'></div><div class='fdname'>Cosmic Variance</div></li> -->
+
               <li data-id="http://www.space.com/syn/space.xml" class="science tosubscr"><img src="assets/img/shots/space.com.png" alt="SPACE.COM" title="Space.com"class='feedimage'/><div class='caption'></div><div class='fdname'>Space.com</div></li>   
               <li data-id="http://scienceblogs.com/cognitivedaily/atom.xml" class="science tosubscr"><img src="assets/img/shots/cogdaily.png" alt="COGNITIVE DAILY" title="Cognitive Daily"class='feedimage'/><div class='caption'></div><div class='fdname'>Cognitive Daily</div></li>
               <li data-id="http://www.newscientist.com/feed.ns?index=online-news" class="science tosubscr"><img src="assets/img/shots/newscien.png" alt="NEW SCIENTIST" title="New Scientist"class='feedimage'/><div class='caption'></div><div class='fdname'>New Scientist</div></li>
@@ -276,4 +268,3 @@
 			</script>
 </body>
 </html>
-

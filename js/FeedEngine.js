@@ -155,12 +155,6 @@ var FeedEngine = {
 		google.feeds.findFeeds(query,function(result){
 		if (!result.error) 
 		{
-			/*for (var i = 0; i < result.entries.length; i++) 
-			{
-				
-				//var entry = result.entries[i];
-				//html += '<p><a href="' + entry.url + '">' + entry.title + '</a></p>';
-			}*/
 			console.log(result);
 		}
 	});

@@ -185,4 +185,3 @@ var FeedController = {
 		return true;
 	}
 }
-

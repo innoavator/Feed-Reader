@@ -156,10 +156,13 @@ var FeedViewer = {
 				var multiple=$(this).attr('class');
 				$(this).addClass('selected');
 				var field = $(this).attr('data-value');
-				if(field == "youtube")
+				if(field == "youtube"){
 					$("#error-message").html("Search in the SearchBox above for Youtube Videos.");
-				else
+					$('#addFeedsForm').find('span').text('Search Youtube:');}
+				else{
 					$("#error-message").html("Click on the feed from the categories given below or enter the URL of the desired feed of your wish");
+					$('#addFeedsForm').find('span').text('Add Feeds:');
+					}
 				var finval=multiple*830*(-1)+35;
 				$("#container").animate({'margin-left': finval}, 300);
 		});
@@ -327,8 +330,7 @@ var FeedViewer = {
 			if(feedobj != null)
 			{
 				showSubscribedFeed(feedobj);
-				//$(feedobj).find('.caption').html(caption);
-				//$(feedobj).css("opacity","0.5");
+	
 			}
 			else
 			{
@@ -340,8 +342,7 @@ var FeedViewer = {
 			}
 			$('#loadingurl').css('opacity',0);
 			showMessage("<b>Successfully subscribed to " + feed_name + "</b>");
-		/*	$("#error-message").fadeOut('fast',function(){$(this).html("<b>Successfully subscribed to " + feed_name + "</b>")}).fadeIn().delay(1200).fadeOut('fast',function(){$(this).html("Click on the feed from the categories given below or enter the URL of the desired feed of your wish")}).fadeIn(); */
-		},
+			},
 		
 	searchMyFeeds : function(feedname)
 	{
@@ -356,34 +357,17 @@ var FeedViewer = {
 		else
 		{
 			$("#myfeedsdiv .feedl").each(function(i){
-		//	console.log($(this).text());
+		
 			
 			if(($(this).text().toLowerCase()).indexOf(feedname) == -1)
-				//$(this).css('display','none');
+				
 				$(this).fadeOut("fast");
 			else
 				$(this).fadeIn("slow");;
 			});
 		}
 	},
-/*	renderVideos : function(videoData){
-		
-		console.log(videoData);
-		$("videoslist").empty();
-		var content = videoData.feed.entry;
-		var i = 0;
-		for(i = 0;i<content.length;i++)
-		{
-			var idarr = (content[i].id.$t).split("/");
-			var url = idarr[idarr.length - 1];
-			var li = $("<li>").attr('link','http://www.youtube.com/embed/'+url+'?autoplay=1').attr('class','youtubeResultsli');
-			$(li).append("<img src = '"+content[i].media$group.media$thumbnail[0].url+"'/>");
-			$(li).append("<div class='utubecaption'>"+content[i].media$group.media$title.$t+"</div>");
-			$("videoslist").append(li);
-			//console.log(content[i].media$thumbnail); */
-		/*}
-		//$("#youtubeResultsul").append(ul);
-	},*/
+	
 	listVideos:	function(videoData)
 	{
 		console.log(videoData);
@@ -407,24 +391,9 @@ var FeedViewer = {
 	},
 	showVideo : function(videoUrl)
 	{
-	//	$('.youtubeResultsli').hide("slow");
-/*		var str = '<iframe class="Video-IFrame-YouTube" src="http://www.youtube.com/embed/' + videoUrl + '?';
-	//	if (Autoplay == "On") Str2 += 'autoplay=1';
-		str += '&html5=1&showinfo=0" frameborder="0" allowfullscreen></iframe>';
-		console.log(str); */
-/*		var str = '<a href = "#" onClick="FeedViewer.closeVideo()">Close</a>';
-		str += '<iframe class="youtube-player" type="text/html" width="580" height="320" src="'+videoUrl+'" frameborder="0"></iframe>';
-		$('#youtube-feeds').append(str);*/
 		$(".youtube-player").attr('src',videoUrl);
 			console.log(videoUrl);
 	},
-	closeVideo : function()
-	{
-/*		$("#youtube-feeds").find('iframe').remove();
-		$("#youtube-feeds").find('a').remove();
-		$('.youtubeResultsli').show("slow"); */
-	}
-	,
 	updateFeedCount : function(urlObj)
 	{
 		console.log("Updating feeds");
@@ -439,4 +408,3 @@ var FeedViewer = {
 	},
 	
 };
-    		
