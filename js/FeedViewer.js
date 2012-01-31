@@ -404,6 +404,6 @@ var FeedViewer = {
 				$(this).parent().find(".readunread").html(urlObj.count);
 			}
 			});
-	},
+	}
 	
 };
