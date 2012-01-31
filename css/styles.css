@@ -192,7 +192,7 @@ background-color:#06F;
     margin-left:31px;
     background-image: -webkit-gradient(radial, center bottom, 0, center bottom, 490, color-stop(0, #85d003), color-stop(1, #68b402));
     border-radius:10px 10px 0 0; 
-    width:682px;
+    width:771px;
     height:26px;
 }
 .filter li{
@@ -828,16 +828,21 @@ right:0px;
 }
 .readerFooterElem
 {
+	cursor:pointer;
 	font-family:'Segoe UI',Arial, sans-serif;
-    color:#888;
+    
+	color: #eee;
     text-shadow: none;
-	margin:-8px 25px 0 10px ;
-    width: 125px;
+	margin: -8px 26px 0 0;
+    
+	width: 135px;
     float:left;
     font-size:12px;
     padding:4px 0 6px 22px;
 	display:none;
    /* background:url('../img/arrow2.png') 0 0 no-repeat; */
+;
+	font-weight: bold;
 }
 #viewOptionsBox{
 	border: none;
@@ -861,6 +866,7 @@ right:0px;
 .readerFooterElem img
 {
 	vertical-align:middle;
+	margin-right: 5px;
 	margin-left:5px;
 }
 /*--------------------------------------------------------
@@ -892,6 +898,8 @@ right:0px;
     font-size: 15px;
     line-height: 160%;
     font-weight:100%;
+	padding: 20px 0px 20px 10px;
+	overflow-y: scroll;
 }
 .textSlide h2 a{
     font:bold 30px Helvetica, Sans-Serif;
@@ -911,7 +919,7 @@ margin-bottom:15px;
 -webkit-animation-duration: 1000ms, 300ms;
 -webkit-animation-delay: 0ms, 1000ms;
 }
-.textSlide             { padding: 15px 0px 0 10px; overflow-y: scroll;}
+.textSlide             {}
 .textSlide h3          { font: 20px Georgia, Serif; }
 .textSlide h4          { text-transform: uppercase; font: 15px Georgia, Serif; margin: 10px 0; }
 .textSlide ul          { list-style: disc; margin: 0; padding-left: 20px; }

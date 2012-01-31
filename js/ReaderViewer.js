@@ -47,7 +47,7 @@ var ReaderViewer = {
 		
 		// Click event for minimise button
 		$("#minimizeHeadlines").live('click',function(){ $("#rdrheadl").slideUp();});
-	    
+	   
 		// Click event for nextHeadlines button
 		$("#hnext").live('click',function(){
 			switchToLoadingView(true);
@@ -131,6 +131,7 @@ var ReaderViewer = {
 			$("#slider").append(lielement);
 		}
 	},
+	
 	renderSliderFeed : function(feeds,minindex,maxindex,isFirstTime){
 		
 		$("#feedurldiv").html(feeds.feedUrl);
@@ -248,3 +249,4 @@ var ReaderViewer = {
 	}
 */
 }
+ 
