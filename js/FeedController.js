@@ -142,6 +142,7 @@ var FeedController = {
 	{
 		var feed = new LocalStore(feedSourceUrl);
 		var feedinfo = JSON.parse(feed.get());
+		console.log(feedinfo);
 		var readList = feedinfo.readFeeds;
 		if(readList == null)
 		{
@@ -190,4 +191,3 @@ var FeedController = {
 		return true;
 	}
 }
-

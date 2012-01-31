@@ -32,6 +32,57 @@ html{
     margin-top:-4px;    
     padding-right:4px;
 }
+ /*----------------------------------------
+    Loading Screen
+------------------------------------------*/
+#loadingScreen{
+/*  opacity : 0; */
+    visibility: hidden;
+    position: absolute;
+    height:100%;
+    width:100%;
+    background:#000;
+    background:rgba(0,0,0,.8); 
+    top:0px;
+    left:0; 
+    text-align:center;
+    color:#FFF;
+    vertical-align:middle;
+    text-shadow:none;
+    font-size:18px;
+    padding-top:200px;
+}
+#loadingScreen img{
+    margin:auto;
+    top:30%;
+    left:45%;
+    position:absolute;
+    z-index:101; 
+}
+
+#loader{
+	width:830px;
+	height:600px;
+	position:absolute;
+	background:url('../img/cover.png');
+	z-index:1200;
+	top:0;
+}
+#loadercontainer{
+	width:700px;
+	margin:160px 175px;
+	
+	}
+#loadercontainer h1{
+	padding-left:15px;
+	font-size:50px;
+	color:#111;
+	text-shadow:4px 4px 5px #ccc;
+	font-family:"Comic Sans MS", cursive;
+	}
+#loadercontainer img{
+	vertical-align:middle;
+}
 /*----------------------------
     SearchBox in AddFeeds Page
 -----------------------------*/
@@ -780,7 +831,7 @@ right:0px;
 	font-family:'Segoe UI',Arial, sans-serif;
     color:#888;
     text-shadow: none;
-	margin:-8px 20px 0 15px ;
+	margin:-8px 25px 0 10px ;
     width: 125px;
     float:left;
     font-size:12px;
@@ -792,7 +843,7 @@ right:0px;
 	border: none;
 	background: -webkit-gradient(linear, left top, left bottom, from(#ebebeb), to(#cccccc));
 	padding: 5px 5px;
-	margin-top:-1px;
+	margin-top: -3px;
 	-webkit-border-radius: 5px;
 	text-shadow: #ffffff 0 1px 0;
 	color: #363636;
@@ -801,6 +852,8 @@ right:0px;
 	text-decoration: none;
 	border-radius:8px;
 	outline:none;
+	position: absolute;
+	margin-left: 170px;
 }
 #viewOptionsBox option{
 	background:#eee;
@@ -910,8 +963,8 @@ margin-bottom:15px;
 	cursor:default;
 }
 #rdrheadl{
-	bottom:91px;
-    font-size:14px;
+	bottom: 90px;
+	font-size: 14px;
 	color: #222;
     text-shadow: none;
     text-align:left;
@@ -954,6 +1007,7 @@ html #rdrheadl li a {
     height:15px;
 	border:solid 1px #333;
 	border-radius:0 0 5px 5px;
+    right: 40px;
 }
 #headlactions img{
     padding-left:105px;
@@ -984,8 +1038,6 @@ html #rdrheadl li a {
     background:url('../img/prev.png') 0 -50px no-repeat;
 }
 
-
-
 #hnext{
     width:25px;
 
@@ -998,46 +1050,19 @@ html #rdrheadl li a {
 }
 
 #rdrheadl #minimizeHeadlines {
-position: fixed;
-margin-top:-1px;
-margin-left: 250px;
-width: 21px;
-height: 12px;
-cursor: pointer;
-background: #444 url(../img/minimize.png) 0px -2px no-repeat;
-border-bottom-left-radius: 3px;
--webkit-transition: background-color 0.3s linear;
+	position: fixed;
+	margin-top:-1px;
+	margin-left: 250px;
+	width: 21px;
+	height: 12px;
+	cursor: pointer;
+	background: #444 url(../img/minimize.png) 0px -2px no-repeat;
+	border-bottom-left-radius: 3px;
+	-webkit-transition: background-color 0.3s linear;
 }
 #rdrheadl #minimizeHeadlines:hover {
     background-color: #000;
 }
 #rdrheadl #minimizeHeadlines:active {
     background-position: 0px -1px;
-}
- /*----------------------------------------
-    Loading Screen
-------------------------------------------*/
-#loadingScreen{
-/*  opacity : 0; */
-    visibility: hidden;
-    position: absolute;
-    height:100%;
-    width:100%;
-    background:#000;
-    background:rgba(0,0,0,.8); 
-    top:0px;
-    left:0; 
-    text-align:center;
-    color:#FFF;
-    vertical-align:middle;
-    text-shadow:none;
-    font-size:18px;
-    padding-top:200px;
-}
-#loadingScreen img{
-    margin:auto;
-    top:30%;
-    left:45%;
-    position:absolute;
-    z-index:101; 
 }
