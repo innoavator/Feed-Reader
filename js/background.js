@@ -24,11 +24,12 @@ var FeedLoader = {
 							var feedinfo = JSON.parse(feedStore.get());
 							feedinfo.unreadCount = counter;
 							feedStore.set(JSON.stringify(feedinfo));
-							var countObj = new Object();
+							/*var countObj = new Object();
 							countObj.count = counter;
 							countObj.url = url;
 							console.log("Updating feed Count");
-						    pokki.rpc('FeedViewer.updateFeedCount('+JSON.stringify(countObj)+')');								
+						    pokki.rpc('FeedViewer.updateFeedCount('+JSON.stringify(countObj)+')');
+							*/
 						}
   					  });
 	},

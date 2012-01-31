@@ -12,6 +12,7 @@ var ReaderViewer = {
 				 toggleArrows        : true, 
 				 infiniteSlides      : false,
 				onSlideComplete: function(slider) {
+					if(parseInt($("#rdrheadl").attr('startindex')) < NO_OF_FEEDS)
 						FeedController.saveAsRead($("#feedurldiv").html(),$(".activePage div").find('a').first().attr('href'));
 					$("#readMessage").fadeIn(10);
 				},
@@ -191,6 +192,7 @@ var ReaderViewer = {
 			$("#slider").html("<div class='textSlide'><center><h2 style='margin-top:50px;'>You have no unread feeds.</h2></center></div>");
 			$("#slider").anythingSlider();
 		}
+		FeedController.setUnreadCount($("#feedurldiv").html(),unreadcount);
 	}
 /*	registerHeadlines : function(result,feeds)
 	{

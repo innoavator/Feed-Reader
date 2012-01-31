@@ -1,4 +1,3 @@
-
 var FeedController = {
 	
 	myFeedList : new LocalStore('myFeeds'),
@@ -189,5 +188,18 @@ var FeedController = {
 		if(readList.indexOf(feedUrl) == -1)
 			return false;
 		return true;
+	},
+	setUnreadCount : function(feedUrl,count)
+	{
+		var feed = new LocalStore(feedUrl);
+		var feedinfo = JSON.parse(feed.get());
+		feedinfo.unreadCount = count;
+		feed.set(JSON.stringify(feedinfo));
+	},
+	getUnreadCount : function(feedUrl)
+	{
+		var feed = new LocalStore(feedUrl);
+		var feedinfo = JSON.parse(feed.get());
+		return feedinfo.unreadCount;
 	}
 }

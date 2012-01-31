@@ -103,3 +103,17 @@ function showMessage(msg)
 {
 	$("#error-message").fadeOut('fast',function(){$(this).html(msg)}).fadeIn().delay(1000).fadeOut('fast',function(){$(this).html("Click on the feed from the categories given below or enter the URL of the desired feed of your wish")}).fadeIn();
 }
+function updateUnreadCount()
+{
+	var totalCount = 0 ;
+	$(".feedl").each(function(){
+		var feedurl = $(this).attr('rel');
+		var feed = new LocalStore(feedurl);
+		var feedinfo = JSON.parse(feed.get());
+		$(this).parent().find(".readunread").html(feedinfo.unreadCount);
+		totalCount+=feedinfo.unreadCount;
+	});
+	console.log("From timer  " + totalCount);
+	pokki.setIconBadge(totalCount);
+	setTimeout("updateUnreadCount()",10000);
+}
