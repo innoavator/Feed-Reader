@@ -193,6 +193,10 @@ var FeedController = {
 	{
 		var feed = new LocalStore(feedUrl);
 		var feedinfo = JSON.parse(feed.get());
+		console.log(feedinfo);
+		if(feedinfo.unreadCount == null)
+			console.log("Unread Count is null");
+		else
 		feedinfo.unreadCount = count;
 		feed.set(JSON.stringify(feedinfo));
 	},
@@ -203,3 +207,4 @@ var FeedController = {
 		return feedinfo.unreadCount;
 	}
 }
+
