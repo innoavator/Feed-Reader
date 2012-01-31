@@ -15,7 +15,7 @@ var FeedViewer = {
 	});
 		
 		$("#tomyfeedsbtn").click(function(){FeedViewer.renderMyFeeds();modes.switchToMode(1);});
-		$("#tomyfeedsbtn2").click(function(){modes.switchToMode(1);});
+		$("#tomyfeedsbtn2").click(function(){FeedViewer.renderMyFeeds();modes.switchToMode(1);});
 		$(".toaddfeedsbtn").click(function(){modes.switchToMode(0);});
 		
 		$("#addFeedsForm").submit(function(){
@@ -183,7 +183,6 @@ var FeedViewer = {
 	initialiseMyFeeds : function()
 	{
 		FeedViewer.renderMyFeeds();
-		
 		
 		//Attach handler forunsubscribing feeds
 		

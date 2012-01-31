@@ -146,10 +146,14 @@ var FeedController = {
 		if(readList == null)
 		{
 			readList = feedUrl;
+			feedinfo.unreadCount--;
 		}else
 		{
 			if(readList.indexOf(feedUrl) == -1)
+			{
 				readList+= "," + feedUrl;
+				feedinfo.unreadCount--;
+			}
 		}
 		feedinfo.readFeeds = readList;
 		feed.set(JSON.stringify(feedinfo));
@@ -166,6 +170,7 @@ var FeedController = {
 			{
 				if(readList[i] == feedUrl){
 					readList.splice(i,1);
+					feedinfo.unreadCount++;
 					break;
 				}
 			}

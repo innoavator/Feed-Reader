@@ -12,7 +12,7 @@ var ReaderViewer = {
 				 toggleArrows        : true, 
 				 infiniteSlides      : false,
 				onSlideComplete: function(slider) {
-					FeedController.saveAsRead($("#feedurldiv").html(),$(".activePage div").find('a').first().attr('href'));
+						FeedController.saveAsRead($("#feedurldiv").html(),$(".activePage div").find('a').first().attr('href'));
 					$("#readMessage").fadeIn(10);
 				},
 				onSlideInit: function(slider) {
