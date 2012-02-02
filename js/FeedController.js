@@ -147,6 +147,7 @@ var FeedController = {
 		if(readList == null)
 		{
 			readList = feedUrl;
+			console.log("Successfully added to  null");
 			if(feedinfo.unreadCount>0)
 			feedinfo.unreadCount--;
 		}else
@@ -156,6 +157,7 @@ var FeedController = {
 				readList+= "," + feedUrl;
 				if(feedinfo.unreadCount>0)
 					feedinfo.unreadCount--;
+				console.log("Successfully added");
 			}
 		}
 		feedinfo.readFeeds = readList;

@@ -153,13 +153,14 @@ var ReaderViewer = {
 				{
 					if(FeedController.isRead(feeds.feedUrl,feedContent[i].link))
 					{
-						i++;
+						console.log("Already read : " + i);
 						continue;
 					}
 				}
 			}
-			if(counter == 0)
+			if(isFirstTime && counter==0)
 				FeedController.saveAsRead($("#feedurldiv").html(),feedContent[i].link); 
+			console.log("i : " + i + "counter : " + counter);
 			counter++;
 			unreadcount++;
 			if(feedContent[i] == null)
@@ -190,23 +191,29 @@ var ReaderViewer = {
 			$(".textSlide a").addClass("nivoZoom center");
 			$("#rdrheadl").append(headlineli);
 		}
+		
+	
 		$("#rdrheadl").append('<li id = "headlactions"><div id="hprev"></div>'
 							 +' <img src = "img/barload.gif"/>'//+'<a href = "#">View All</a>'
 							 + '<div id="hnext"></div></li>');
 		if(unreadcount ==0)
 		{
+			console.log("Unread count is 0");
 			$("#slider").empty();
 			$("#slider").html("<div class='textSlide'><center><h2 style='margin-top:50px;'>You have no unread feeds.</h2></center></div>");
 			$("#slider").anythingSlider();
-			if(parseInt($("#rdrheadl").attr('startindex')) != 0)
-			{
-				$("#readMessage").fadeOut("fast");
-				$("#unreadMessage").fadeOut("fast");	
-			}
+			console.log("Fading out");
+			$("#readMessage").fadeOut("fast");
+			$("#unreadMessage").fadeOut("fast");	
 		}
-		if(parseInt($("#rdrheadl").attr('startindex')) == 0)
+		else if(parseInt($("#rdrheadl").attr('startindex')) == 0)
 		{
 			$("#readMessage").fadeIn("slow");
+			$("#unreadMessage").fadeOut("fast");
+		}
+		if(!isFirstTime)
+		{
+			$("#readMessage").fadeOut("fast");
 			$("#unreadMessage").fadeOut("fast");
 		}
 	}

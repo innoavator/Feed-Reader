@@ -6,7 +6,6 @@ var FeedViewer = {
 		FeedViewer.initialiseYoutubeFeeds();
 		ReaderViewer.initialise();
 		ReaderViewer.initialiseHeadlineView();
-		setTimeout("updateUnreadCount()",10000);
 		//Initialise Youtube Autosuggest
 			jQTubeUtil.init({
 		key: "AI39si7Br60Mhmvnb0iGT_DckKttQdd_8ghDOs_UQIcmb3wDhwAnZlkPe9lqp1llOv9rZNGqdKcdP8BdHRDOMaY4Mu0Xh3op9g",
