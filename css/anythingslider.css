@@ -11,7 +11,7 @@
 /* change the ID to match your slider */
 #slider {
 	width: 100%;
-	height:100%;
+	min-height: 520px; 
 	/*height:100%;*/
 	
 	list-style: none;
@@ -29,6 +29,7 @@
 /* slider window - top & bottom borders, default state */
 div.anythingSlider .anythingWindow {
 	border-top: 3px solid #777;
+	border-radius:10px;
 	border-bottom: 3px solid #777;
 }
 /* Navigation buttons, default state */
@@ -79,18 +80,20 @@ div.anythingSlider .start-stop:hover, div.anythingSlider .start-stop.hover {
 /* Overall Wrapper: 45px right & left padding for the arrows, 28px @ bottom for navigation */
 div.anythingSlider {
 	display: block;
-	margin: -5px 0 0 3px;
+	margin-top: -3px;
+	margin-left:3px;
 	overflow: visible !important; /* needed for Opera and Safari */
 	position: relative;
+	padding: 00px 00px 0 00px;
 }
 /* anythingSlider viewport window */
 div.anythingSlider .anythingWindow {
 	overflow: hidden;
 //	overflow-x:hidden;
-	border-radius:12px;
+	
 	position: relative;
 	width: 823px;
-	height: 525px;
+	height: 100%;
 }
 /* anythingSlider base (original element) */
 .anythingBase {
@@ -112,9 +115,8 @@ div.anythingSlider .anythingWindow {
 	overflow-x:hidden;
 	float: left;
 	padding: 0;
-	width:820px;
-	height:525px;
 	margin: 0;
+	width: 823px;
 }
 .anythingBase .panel.vertical {
 	float: none;
@@ -129,10 +131,9 @@ div.anythingSlider .arrow {
 div.anythingSlider .arrow a {
 	display: block;
 	height: 140px;
-	margin: -70px -0px 0 -12px; /* half height of image */
+	margin: -70px 0 0 0; /* half height of image */
 	width: 45px;
 	text-align: center;
-	opacity:0.7;
 	outline: 0;
 	background: url(../img/feedbutton.png) no-repeat;
 }
