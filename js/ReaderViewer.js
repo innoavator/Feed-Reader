@@ -198,19 +198,22 @@ var ReaderViewer = {
 							 + '<div id="hnext"></div></li>');
 		if(unreadcount ==0)
 		{
+			console.log("Unread count is 0");
 			$("#slider").empty();
 			$("#slider").html("<div class='textSlide'><center><h2 style='margin-top:50px;'>You have no unread feeds.</h2></center></div>");
 			$("#slider").anythingSlider();
-			if(parseInt($("#rdrheadl").attr('startindex')) != 0)
-			{
-				console.log("Fading out");
-				$("#readMessage").fadeOut("fast");
-				$("#unreadMessage").fadeOut("fast");	
-			}
+			console.log("Fading out");
+			$("#readMessage").fadeOut("fast");
+			$("#unreadMessage").fadeOut("fast");	
 		}
 		else if(parseInt($("#rdrheadl").attr('startindex')) == 0)
 		{
 			$("#readMessage").fadeIn("slow");
+			$("#unreadMessage").fadeOut("fast");
+		}
+		if(!isFirstTime)
+		{
+			$("#readMessage").fadeOut("fast");
 			$("#unreadMessage").fadeOut("fast");
 		}
 	}
