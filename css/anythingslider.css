@@ -84,7 +84,6 @@ div.anythingSlider {
 	margin-left:3px;
 	overflow: visible !important; /* needed for Opera and Safari */
 	position: relative;
-	padding: 00px 00px 0 00px;
 }
 /* anythingSlider viewport window */
 div.anythingSlider .anythingWindow {
@@ -130,25 +129,25 @@ div.anythingSlider .arrow {
 }
 div.anythingSlider .arrow a {
 	display: block;
-	height: 140px;
+	height: 80px;
 	margin: -70px 0 0 0; /* half height of image */
-	width: 45px;
+	width: 42px;
 	text-align: center;
 	outline: 0;
-	opacity:0.7;
+	opacity:0.5;
 	background: url(../img/feedbutton.png) no-repeat;
 }
 /* hide text, target the span so IE7 doesn't text-indent the link */
 div.anythingSlider .arrow a span { display: block; text-indent: -9999px; }
 /* back arrow */
-div.anythingSlider .back { left: 0px; }
+div.anythingSlider .back { margin-left: -4px; }
 div.anythingSlider .back a { background-position: left top; }
 div.anythingSlider .back a:hover, div.anythingSlider .back a.hover { background-position: left -140px; }
 div.anythingSlider .back.disabled { display: none; } /* disabled arrows, hide or reduce opacity: opacity: .5; filter: alpha(opacity=50); */
 /* forward arrow */
-div.anythingSlider .forward { right: 0px; }
-div.anythingSlider .forward a { background-position: right top; }
-div.anythingSlider .forward a:hover, div.anythingSlider .forward a.hover { background-position: right -140px;}
+div.anythingSlider .forward { margin-right: -5px; }
+div.anythingSlider .forward a { background-position: -42px top; }
+div.anythingSlider .forward a:hover, div.anythingSlider .forward a.hover { background-position: -42px -140px;}
 div.anythingSlider .forward.disabled { display: none; } /* disabled arrows, hide or reduce opacity: opacity: .5; filter: alpha(opacity=50); */
 
 /* Navigation Links */

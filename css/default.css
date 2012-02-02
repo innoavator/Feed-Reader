@@ -20,6 +20,7 @@ body {
 	height:600px; 
     position: relative;
     opacity: 1;
+	background:#111;
 }
 
 #minimize {

@@ -249,10 +249,10 @@ var FeedViewer = {
 		});
 	
 		$(".feedl").live('mouseenter',function(){
-			$(this).find('.unsub').css('display','block');		
+			$(this).find('.unsub').css('opacity','1');		
 			});
 		$(".feedl").live('mouseleave',function(){
-				$(this).find('.unsub').css('display','none');
+				$(this).find('.unsub').css('opacity','0');
 			});
 		$(".unsub").live('click',function(event){
 		    event.stopPropagation();

@@ -291,18 +291,6 @@ background-color:#06F;
     -webkit-transition-duration:.2s;
     -webkit-box-shadow:0 3px 7px #333;
 }
-#container .unsub{
-    position:relative;
-    width:32px;
-    height:32px;
-    float:right;
-    right:-15px;
-    top:-45px;
-	margin-left:-32px;
-    background:url('../img/unsub.png') no-repeat; 
-    cursor:pointer;
-	display:none;
-}
 .feedimage{
     z-index:100;
     width:160px;
@@ -329,7 +317,7 @@ background-color:#06F;
  	max-width: 830px; 
  	height: 390px;
  	overflow: hidden;
- 	margin-left: -33px;
+ 	margin-left: -35px;
 }
 .grimg #youtube-feeds ul{
 	list-style:none;
@@ -511,7 +499,7 @@ background-color:#06F;
 	font-size:15px;
 	text-align:center;
 	color:black;	
-	margin: 80px 0px 2px 5px;;
+	margin: 80px 0px 2px -4px;;
 	padding: 50px 0 80px 0;
 }
 #backbutton:hover{
@@ -583,7 +571,7 @@ background-color:#06F;
 	margin-left:-32px;
     background:url('../img/unsub.png') no-repeat; 
     cursor:pointer;
-	display:none;
+	opacity:0;
 }
 
 .feedl
@@ -893,12 +881,12 @@ right:0px;
 }
 .textSlide{
     overflow:hidden;
-    padding:10px 30px;
     color:#000;
+	width:770px;
     font-size: 15px;
     line-height: 160%;
     font-weight:100%;
-	padding: 20px 0px 20px 10px;
+	padding: 20px 0px 20px 30px;
 	overflow-y: scroll;
 }
 .textSlide h2 a{
