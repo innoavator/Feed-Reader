@@ -139,20 +139,23 @@ var FeedController = {
 	},
 	saveAsRead : function(feedSourceUrl,feedUrl)
 	{
+		console.log("Save as read request");
 		var feed = new LocalStore(feedSourceUrl);
 		var feedinfo = JSON.parse(feed.get());
-		console.log(feedinfo);
+		//console.log(feedinfo);
 		var readList = feedinfo.readFeeds;
 		if(readList == null)
 		{
 			readList = feedUrl;
+			if(feedinfo.unreadCount>0)
 			feedinfo.unreadCount--;
 		}else
 		{
 			if(readList.indexOf(feedUrl) == -1)
 			{
 				readList+= "," + feedUrl;
-				feedinfo.unreadCount--;
+				if(feedinfo.unreadCount>0)
+					feedinfo.unreadCount--;
 			}
 		}
 		feedinfo.readFeeds = readList;

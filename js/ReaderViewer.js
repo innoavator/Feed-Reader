@@ -12,13 +12,18 @@ var ReaderViewer = {
 				 toggleArrows        : true, 
 				 infiniteSlides      : false,
 				onSlideComplete: function(slider) {
-					if(parseInt($("#rdrheadl").attr('startindex')) < NO_OF_FEEDS)
+					if(parseInt($("#rdrheadl").attr('startindex')) == 0)
+					{
 						FeedController.saveAsRead($("#feedurldiv").html(),$(".activePage div").find('a').first().attr('href'));
-					$("#readMessage").fadeIn(10);
+						$("#readMessage").fadeIn(10);
+					}
 				},
 				onSlideInit: function(slider) {
-					$("#unreadMessage").fadeOut("slow");
-					$("#readMessage").fadeOut("slow");
+					if(parseInt($("#rdrheadl").attr('startindex')) == 0)
+					{
+						$("#unreadMessage").fadeOut("slow");
+						$("#readMessage").fadeOut("slow");
+					}
 				}
 			});
 			$("#viewOptionsBox").change(function(){
@@ -106,8 +111,7 @@ var ReaderViewer = {
 		switchToLoadingView(false);
 		loadingFinished = true;
 		$("#loadingScreen").css('visibility','hidden').css('display','none');
-		$("#readMessage").fadeIn("slow");
-		$("#unreadMessage").fadeOut("fast");
+
 	},
 	renderScrollFeed : function(feeds){
 		
@@ -154,6 +158,8 @@ var ReaderViewer = {
 					}
 				}
 			}
+			if(counter == 0)
+				FeedController.saveAsRead($("#feedurldiv").html(),feedContent[i].link); 
 			counter++;
 			unreadcount++;
 			if(feedContent[i] == null)
@@ -192,8 +198,17 @@ var ReaderViewer = {
 			$("#slider").empty();
 			$("#slider").html("<div class='textSlide'><center><h2 style='margin-top:50px;'>You have no unread feeds.</h2></center></div>");
 			$("#slider").anythingSlider();
+			if(parseInt($("#rdrheadl").attr('startindex')) != 0)
+			{
+				$("#readMessage").fadeOut("fast");
+				$("#unreadMessage").fadeOut("fast");	
+			}
 		}
-		FeedController.setUnreadCount($("#feedurldiv").html(),unreadcount);
+		if(parseInt($("#rdrheadl").attr('startindex')) == 0)
+		{
+			$("#readMessage").fadeIn("slow");
+			$("#unreadMessage").fadeOut("fast");
+		}
 	}
 /*	registerHeadlines : function(result,feeds)
 	{

@@ -395,12 +395,9 @@ var FeedViewer = {
 	},
 	updateFeedCount : function(urlObj)
 	{
-		console.log("Updating feeds");
-		console.log(urlObj.url);
 		$(".feedl").each(function(i){  
 			if(($(this).attr('rel')).localeCompare(urlObj.url) == 0)
 			{
-				console.log("Url match");
 				$(this).parent().find(".readunread").html(urlObj.count);
 			}
 			});
