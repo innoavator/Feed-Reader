@@ -135,6 +135,7 @@ div.anythingSlider .arrow a {
 	width: 45px;
 	text-align: center;
 	outline: 0;
+	opacity:0.7;
 	background: url(../img/feedbutton.png) no-repeat;
 }
 /* hide text, target the span so IE7 doesn't text-indent the link */
