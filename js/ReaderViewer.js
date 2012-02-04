@@ -216,6 +216,10 @@ var ReaderViewer = {
 			$("#readMessage").fadeOut("fast");
 			$("#unreadMessage").fadeOut("fast");
 		}
+		if(unreadcount == 0 && parseInt($("#rdrheadl").attr('startindex')) == 0)
+		{
+			FeedController.setUnreadCount($("#feedurldiv").html,0);
+		}
 	}
 /*	registerHeadlines : function(result,feeds)
 	{

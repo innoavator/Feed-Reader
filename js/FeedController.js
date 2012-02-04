@@ -157,7 +157,11 @@ var FeedController = {
 				readList+= "," + feedUrl;
 				if(feedinfo.unreadCount>0)
 					feedinfo.unreadCount--;
-				console.log("Successfully added");
+				console.log(feedUrl + " Successfully added");
+			}
+			else
+			{
+				console.log("Feedurl already present");
 			}
 		}
 		feedinfo.readFeeds = readList;
@@ -198,9 +202,11 @@ var FeedController = {
 	{
 		var feed = new LocalStore(feedUrl);
 		var feedinfo = JSON.parse(feed.get());
-		console.log(feedinfo);
-		if(feedinfo.unreadCount == null)
-			console.log("Unread Count is null");
+		if(feedinfo == null)
+		{
+			console.log("Feedinfo is null");
+			return;
+		}
 		else
 		feedinfo.unreadCount = count;
 		feed.set(JSON.stringify(feedinfo));
