@@ -292,6 +292,8 @@ var FeedViewer = {
 				}
 				var title = JSON.parse(feedinfo).title;
 				var unreadCount = JSON.parse(feedinfo).unreadCount;
+				if(unreadCount == null)
+				FeedController.initUnreadCount(list[i]);
 				totalUnreadCount+=unreadCount;
 				var imagesource=getDomain(list[i])+"/favicon.ico";
 				var randomnumber=Math.floor(Math.random()*5);

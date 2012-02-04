@@ -215,7 +215,22 @@ var FeedController = {
 	{
 		var feed = new LocalStore(feedUrl);
 		var feedinfo = JSON.parse(feed.get());
+		if(feedinfo.unreadCount == null)
+		FeedController.initUnreadCount(feedUrl);
 		return feedinfo.unreadCount;
+	},
+	initUnreadCount : function(feedUrl)
+	{
+		var feed = new LocalStore(feedUrl);
+		var feedinfo = JSON.parse(feed.get());
+		if(feedinfo == null)
+		{
+			console.log("Feedinfo is null");
+			return;
+		}
+		else
+		feedinfo.unreadCount = 20;
+		feed.set(JSON.stringify(feedinfo));
 	}
 }
 
