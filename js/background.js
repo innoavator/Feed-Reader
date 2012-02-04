@@ -6,7 +6,7 @@ var FeedLoader = {
 		FeedLoader.updateUnreadCount();
 	},
 	loadFeed : function(url,numEntries) {
-					  var counter = FeedController.getUnreadCount();;
+					  var counter = 0;//FeedController.getUnreadCount();;
 					  console.log("Counter from local Storage : " + counter);
 					  var feed = new google.feeds.Feed(url);
   					  feed.includeHistoricalEntries();
@@ -47,7 +47,7 @@ var FeedLoader = {
 				FeedLoader.loadFeed(myFeeds[i],20);
 			}
 		}
-		setTimeout("FeedLoader.loadAllFeeds()",5000*12*5);    // Wait for 5 mins before nexr poll
+		setTimeout("FeedLoader.loadAllFeeds()",5000*12);    // Wait for 5 mins before nexr poll
 	},
 	updateUnreadCount : function()
 	{
@@ -68,7 +68,7 @@ var FeedLoader = {
 			else
 				pokki.removeIconBadge();
 		}
-		setTimeout("FeedLoader.updateUnreadCount()",5000);
+		setTimeout("FeedLoader.updateUnreadCount()",5000*12*5);
 	}
 	
 };

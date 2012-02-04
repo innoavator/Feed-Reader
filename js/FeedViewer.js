@@ -13,13 +13,7 @@ var FeedViewer = {
 		time: "this_month",   // *optional -- "this_month" is set by default
 		maxResults: 5   // *optional -- defined as 10 results by default
 	});
-		$("#fullscreen-on").click(function(){
-										   var wrapper = document.body;
-  						wrapper.webkitRequestFullScreen(Element.ALLOW_KEYBOARD_INPUT);
-										   });
-		$("#fullscreen-off").click(function(){
-			document.webkitCancelFullScreen();
-			});
+		
 		$("#tomyfeedsbtn").click(function(){FeedViewer.renderMyFeeds();modes.switchToMode(1);});
 		$("#tomyfeedsbtn2").click(function(){FeedViewer.renderMyFeeds();modes.switchToMode(1);});
 		$(".toaddfeedsbtn").click(function(){modes.switchToMode(0);});

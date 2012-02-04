@@ -215,6 +215,8 @@ var FeedController = {
 	{
 		var feed = new LocalStore(feedUrl);
 		var feedinfo = JSON.parse(feed.get());
+		if(feedinfo == null)
+		  return 0;
 		if(feedinfo.unreadCount == null)
 		FeedController.initUnreadCount(feedUrl);
 		return feedinfo.unreadCount;

@@ -26,6 +26,10 @@ var ReaderViewer = {
 					}
 				}
 			});
+			if(window.localStorage.getItem("readMode") == null)
+				window.localStorage.setItem("readMode",SHOWUNREAD);
+			else
+				$("#viewOptionsBox").val(window.localStorage.getItem("readMode"));	
 			$("#viewOptionsBox").change(function(){
 				console.log("Option changed");
 				window.localStorage.setItem("readMode",$(this).val());
