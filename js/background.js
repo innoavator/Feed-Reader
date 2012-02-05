@@ -47,7 +47,7 @@ var FeedLoader = {
 				FeedLoader.loadFeed(myFeeds[i],20);
 			}
 		}
-		setTimeout("FeedLoader.loadAllFeeds()",5000*12);    // Wait for 5 mins before nexr poll
+		setTimeout("FeedLoader.loadAllFeeds()",5000*12*5);    // Wait for 5 mins before nexr poll
 	},
 	updateUnreadCount : function()
 	{
@@ -68,7 +68,7 @@ var FeedLoader = {
 			else
 				pokki.removeIconBadge();
 		}
-		setTimeout("FeedLoader.updateUnreadCount()",5000*12*5);
+		setTimeout("FeedLoader.updateUnreadCount()",5000*2);
 	}
 	
 };
