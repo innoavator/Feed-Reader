@@ -25,6 +25,7 @@ var FeedViewer = {
 		{
 			FeedEngine.getVideos($(this).find("input")[1].value);
 			return;
+			
 		}
 		var feed_url = encodeURI($(this).find("input")[1].value);
 		console.log(feed_url);
@@ -157,9 +158,12 @@ var FeedViewer = {
 				$(this).addClass('selected');
 				var field = $(this).attr('data-value');
 				if(field == "youtube"){
+					
+					$('#addFeedsForm img').attr('src','img/search-dark.png')
 					$("#error-message").html("Search in the SearchBox above for Youtube Videos.");
 					$('#addFeedsForm').find('span').text('Search Youtube:');}
 				else{
+					$('#addFeedsForm img').attr('src','img/add.png')
 					$("#error-message").html("Click on the feed from the categories given below or enter the URL of the desired feed of your wish");
 					$('#addFeedsForm').find('span').text('Add Feeds:');
 					}

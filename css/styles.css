@@ -117,7 +117,7 @@ html{
 }
 #searchbox input[type="search"]:focus{
     background:#eee;
-	width:230px;
+	width:250px;
     -webkit-transition: all 0.7s ease 0s;
 }
 #searchbox input[type="submit"]{
