@@ -25,7 +25,7 @@ html{
 
 #header{
     padding: 40px 0 10px 30px;
-    text-shadow:0 2px 5px #333;
+    text-shadow:0 2px 5px black;
 }
 #header img{
     vertical-align:middle;
