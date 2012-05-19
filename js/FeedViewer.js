@@ -167,7 +167,7 @@ var FeedViewer = {
 					$("#error-message").html("Click on the feed from the categories given below or enter the URL of the desired feed of your wish");
 					$('#addFeedsForm').find('span').text('Add Feeds:');
 					}
-				var finval=multiple*830*(-1)+35;
+				var finval=multiple*950*(-1)+40;
 				$("#container").animate({'margin-left': finval}, 300);
 		});
         // Youtube results captions
@@ -207,10 +207,10 @@ var FeedViewer = {
 		$('.videolistitem').live('click', function(){
 				
 				var link =  $(this).attr('link');console.log(link);
-				$("#forscroll").animate({'margin-left': -830}, 300);
+				$("#forscroll").animate({'margin-left': -950}, 300);
 				
-				if($('#gotoplayer').css('display')=='none')
-					$('#gotoplayer').css('display','block');
+				if($('#fwdbutton').css('display')=='none')
+					$('#fwdbutton').css('display','block');
 				
 				if($('#closevideo').css('display')=='none')
 					$('#closevideo').css('display','block');
@@ -228,11 +228,11 @@ var FeedViewer = {
 			$('#closevideo').live('click',function (){
 				$('.youtube-player').attr('src',"");
 				$('.nowplaying').css('display','none');
-				$('#gotoplayer').css('display','none');
+				$('#fwdbutton').css('display','none');
 				$("#forscroll").animate({'margin-left': 0}, 300);
 				});
-			$('#gotoplayer').live('click',function(){
-				$("#forscroll").animate({'margin-left': -830}, 300);
+			$('#fwdbutton').live('click',function(){
+				$("#forscroll").animate({'margin-left': -950}, 300);
 				});
 		$('#backbutton').live('click', function(){
 			$("#forscroll").animate({'margin-left': 0}, 300);

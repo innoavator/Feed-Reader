@@ -19,8 +19,8 @@ html{
     background:url(../img/bg-body2.png) repeat-x;
     color:#fff;
     text-shadow:0 2px 5px #333;
-    height:600px;
-    width:830px;
+    height:100%;
+    width:100%;
 }
 
 #header{
@@ -50,7 +50,7 @@ html{
     vertical-align:middle;
     text-shadow:none;
     font-size:18px;
-    padding-top:200px;
+    padding-top:33.33%;
 }
 #loadingScreen img{
     margin:auto;
@@ -61,15 +61,15 @@ html{
 }
 
 #loader{
-	width:830px;
-	height:600px;
+	width:100%;
+	height:100%;
 	position:absolute;
 	background:url('../img/cover.png');
 	z-index:1200;
 	top:0;
 }
 #loadercontainer{
-	width:700px;
+	width:84.33%;
 	margin:160px 175px;
 	
 	}
@@ -100,7 +100,7 @@ html{
     outline:none;
     padding: 3px;
     margin-top:-5px;
-    width:220px;
+    width: 250px;
     font-size: 12px;
     color: #000;
     text-shadow:none;
@@ -117,7 +117,7 @@ html{
 }
 #searchbox input[type="search"]:focus{
     background:#eee;
-	width:250px;
+	width:270px;
     -webkit-transition: all 0.7s ease 0s;
 }
 #searchbox input[type="submit"]{
@@ -163,23 +163,25 @@ html{
 	opacity:0;
 }
 #youtubeSuggestions{
-	background-color:#444;
-	color:white;
+	background-color:#eee;
+	color:#222;
 	float:right;
-	left:529px;
+	left:620px;
 	top:70px;
 	position:absolute;
 	list-style:none;
 	z-index: 1000;
 	text-shadow:none;
-	width:208px;
+	width:235px;
 	display:none;
 }
 #youtubeSuggestions li{
 	height:20px;
+	text-indent:5px;
 	cursor:pointer;
 	border:1px solid #999;
 	border-top:none;
+	left:10px;
 	}
 #youtubeSuggestions li:hover{
 background-color:#06F;
@@ -192,7 +194,7 @@ background-color:#06F;
     margin-left:31px;
     background-image: -webkit-gradient(radial, center bottom, 0, center bottom, 490, color-stop(0, #85d003), color-stop(1, #68b402));
     border-radius:10px 10px 0 0; 
-    width:771px;
+    width:93%;
     height:26px;
 }
 .filter li{
@@ -236,19 +238,20 @@ background-color:#06F;
 #boxing{
 	/*margin-left:31px;*/
     position:relative;
-    width:830px;
+    width:100%;
     height:390px;
     overflow:hidden;
 }
 #container{
 
 	width:10000px;
-	margin-left:35px;
+	margin-left:40px;
+	height:100%;
 
 }
 .fdkadiv{
     float:left;
-    width:830px;
+    width:950px;
     position:relative;
 }
 .caption{
@@ -277,10 +280,13 @@ background-color:#06F;
 }
 .tosubscr{
 	top:20px;
-    width:160px;
-    height:89px;
+    
+	width: 160px;
+    
+	height: 90px;
     position:relative;
-    margin:15px 15px 65px 15px;
+    
+	margin: 2% 3% 5% 3%;
     list-style:none;
 	cursor:pointer;
     display:block;
@@ -294,7 +300,7 @@ background-color:#06F;
 .feedimage{
     z-index:100;
     width:160px;
-    height:89px;
+    height:90px;
     border-radius:7px;
 }
 .tosubscr:hover{
@@ -314,11 +320,10 @@ background-color:#06F;
 }
  /************** Youtube API ********************/
  .grimg #youtube-feeds{
- 	max-width: 830px; 
+ 	max-width: 950px; 
  	height: 390px;
  	overflow: hidden;
- 	margin-left: -35px;
-}
+ 	margin-left: -40px;}
 .grimg #youtube-feeds ul{
 	list-style:none;
 } 
@@ -329,22 +334,22 @@ background-color:#06F;
 }
 /************************firstpage******************/
 #firstpage{
-	width: 820px;
+	width: 945px;
 	height: 380px;
 	margin-left:5px;
-	margin-top:15px;
+	margin-top: 15px;
+	text-shadow:none;
 	
 }
 #vcatlist{
-	margin-top:10px;
-	float:right;
-	margin-right:-15px;
+	float: left;
 	list-style:none;
 	background:white;
 	width:170px;
 	height:348px;
 	padding-top:10px;
 	border-radius:20px 0 0 20px;
+	margin-left: 70px;
 	border:solid 1px #777;
 	-webkit-box-shadow:-1px 4px 2px #ccc;
 }
@@ -425,9 +430,8 @@ background-color:#06F;
 	border-radius:0 10px 10px 0;
 	width: 625px;
 	height:360px;
-	float:right;
-	margin:10px 15px;
-	-webkit-box-shadow:-1px 4px 6px #999;
+	float: left;
+	-webkit-box-shadow:1px 4px 6px #999;
 }
 .videolistitem{
 	position:relative;
@@ -484,13 +488,28 @@ background-color:#06F;
 	z-index:1000000000000;
 	border:solid 2px white;
 }
-
+#fwdbutton{
+	cursor:pointer;
+	background:url(../img/feedbutton.png) -42px -140px no-repeat;
+	width: 42px;
+	font-size:15px;
+	position: relative;
+	text-align:center;
+	color:black;
+	margin: 85px 0px 2px 0px;
+	padding: 50px 0 80px 0;
+	float: right;
+	display:none;
+	}
+#fwdbutton:hover{
+	background:url(../img/feedbutton.png) -42px 0 no-repeat;
+}
 /**************************second page*****************/
 #secondpage{
 	position: relative;
 	top: -375px;
-	right: -830px;
-	width: 765px;
+	right: -950px;
+	width: 750px;
 }
 #backbutton{
 	cursor:pointer;
@@ -499,7 +518,7 @@ background-color:#06F;
 	font-size:15px;
 	text-align:center;
 	color:black;	
-	margin: 80px 0px 2px -1px;;
+	margin: 80px 0px 2px -1px;
 	padding: 50px 0 80px 0;
 }
 #backbutton:hover{
@@ -524,7 +543,7 @@ background-color:#06F;
 }
 #closevideo{
 	float:right;
-	margin: -234px -3px;
+	margin: -234px -17px;
 	color:black;
 	background:url(../img/unsub1.png);
 	cursor:pointer;
@@ -545,7 +564,7 @@ background-color:#06F;
     position:fixed;
     font-weight:800;
 	height:600px;
-    width: 830px;
+    width: 950px;
     color:#fff;
 	background:url(../img/bg-body3.png);
 }
@@ -556,7 +575,7 @@ background-color:#06F;
 	margin-left: 40px;
 	margin-top: 5px;
 	height: 443px;
-	width: 790px;
+	width: 910px;
 	list-style: none;
 	overflow: auto;
 	overflow-x: hidden;
@@ -702,7 +721,7 @@ background-image: -webkit-gradient(linear, left bottom, left top, color-stop(0, 
     padding: 2px 2px 2px 18px;
 	margin-right:30px;
     margin-top:-34px;
-    width:245px;
+    width:260px;
     font-size: 12px;
     color: #000;
     text-shadow:none;
@@ -727,7 +746,7 @@ right:0px;
 	position:absolute;
 	z-index:100000000000;
     margin-top: -30px;
-    margin-right: 258px;
+    margin-right: 271px;
 }
 /*///////////////////////////////////
         FOOTER
@@ -740,7 +759,7 @@ right:0px;
 	color:#444;
 	font-weight:100;
 	font-family:"Arial Rounded MT Bold";
-    width:830px;
+    width:950px;
     font-size:15px;
 }
 .toaddfeedsbtn{
