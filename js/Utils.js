@@ -100,3 +100,97 @@ function showMessage(msg)
 {
 	$("#error-message").fadeOut('fast',function(){$(this).html(msg)}).fadeIn().delay(1000).fadeOut('fast',function(){$(this).html("Click on the feed from the categories given below or enter the URL of the desired feed of your wish")}).fadeIn();
 }
+
+//===============================OAuth Util funcitons ====================================
+function loginToGoogle()
+{
+	console.log("Logging into google");
+	var redirect_uri = "https://www.example.com";
+	var url = "https://accounts.google.com/o/oauth2/auth?"
+			  +"scope=http://www.google.com/reader/api/&"
+			  +"response_type=token&"
+			  +"redirect_uri="+redirect_uri+"&"
+			  +"client_id=241567971408-oqc99hgb5al8kc7pl1h05iejl65r30ft.apps.googleusercontent.com&"
+			  +"access_type=offline";
+	url = encodeURI(url);
+	pokki.clearWebSheetCookies();
+	pokki.showWebSheet(url,512,400,
+						function(_url)
+						{
+							console.log("Opening websheet");
+								console.log(_url);
+							if(_url.indexOf(redirect_uri)!=-1)
+							{
+								var params = {}, queryString = location.hash.substring(1),regex = /([^&=]+)=([^&]*)/g, m;
+								while (m = regex.exec(queryString)) 
+								{
+									params[decodeURIComponent(m[1])] = decodeURIComponent(m[2]);
+									window.localStorage.setItem("access_token",queryString);
+									console.log(window.localStorage.getItem("access_token"));
+									console.log("Access token received");
+									break;
+								}
+								pokki.hideWebSheet();
+								
+							}
+							console.log("Returning true");
+							return true;
+						},
+						function(error)
+						{
+							if(error == user_abort)
+							{
+								console.log("User hit close button");
+							}
+							else{
+								console.log("Error occured");
+								pokki.hideWebSheet();
+							}
+						}
+					);
+	
+}
+
+function getData(url,data,callback)
+{
+	$.ajax(
+	({
+	  method: "get",
+	  url: url,
+	  data : data,
+	  success: callback,
+	  timeout: (15 * 1000),
+	  statusCode : {
+				401 : function(){
+					console.log("Authorization failure. Access_token expired.");
+					//Refresf access_token
+				}
+	  },
+	  error: function( objAJAXRequest, strError ){
+			console.log("Error : " + strError);
+		} 
+	}) 
+	); 
+}
+
+function postData(url,data,callback)
+{
+	$.ajax(
+	({
+	  method: "post",
+	  url: url,
+	  data : data,
+	  success: callback,
+	  timeout: (15 * 1000),
+	  statusCode : {
+				401 : function(){
+					console.log("Authorization failure. Access_token expired.");
+					//Refresf access_token
+				}
+	  },
+	  error: function( objAJAXRequest, strError ){
+			console.log("Error : " + strError);
+		} 
+	}) 
+	); 
+}
