@@ -221,7 +221,7 @@ var FeedViewer = {
 					else
 					{FeedViewer.showVideo(link);
 						$('.nowplaying').css('display','none');	
-						$(this).find('.nowplaying').css('display','block');			
+						$(this).find('.nowplaying').css('display','block');
 				return;
 					$('#firstpage')}
 			});
