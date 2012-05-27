@@ -581,15 +581,16 @@ background-color:#06F;
 }
 .myfeedlist .unsub{
     position:relative;
-    width:32px;
-    height:32px;
+    width: 14px;
+    height: 13px;
     float:right;
-    right:-15px;
-    top:-10px;
+	
+    top: 3px;
 	margin-left:-32px;
     background:url('../img/unsub.png') no-repeat; 
     cursor:pointer;
-	opacity:0;
+    opacity: .3;
+    right: 2px;
 }
 
 .feedl

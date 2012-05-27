@@ -251,11 +251,11 @@ var FeedViewer = {
 				FeedEngine.showVideos(field);
 		});
 	
-		$(".feedl").live('mouseenter',function(){
-			$(this).find('.unsub').css('opacity','1');		
+		$('.unsub').live('mouseenter',function(){
+			$(this).css('opacity','1');		
 			});
-		$(".feedl").live('mouseleave',function(){
-				$(this).find('.unsub').css('opacity','0');
+		$('.unsub').live('mouseleave',function(){
+				$(this).css('opacity','0.3');
 			});
 		$(".unsub").live('click',function(event){
 		    event.stopPropagation();
@@ -371,9 +371,22 @@ var FeedViewer = {
 			});
 		}
 	},
-	
 	listVideos:	function(videoData)
 	{
+		function secondsToTime(secs)
+	{
+		var hours = Math.floor(secs / (60 * 60));
+		var divisor_for_minutes = secs % (60 * 60);
+		var minutes = Math.floor(divisor_for_minutes / 60);
+		var divisor_for_seconds = divisor_for_minutes % 60;
+		var seconds = Math.ceil(divisor_for_seconds);
+		var obj = {
+			"h": hours,
+			"m": minutes,
+			"s": seconds
+		};
+		return obj;
+	}
 		console.log(videoData);
 		$(".videoslist").empty();
 		
@@ -385,11 +398,11 @@ var FeedViewer = {
 			var url = idarr[idarr.length - 1];
 			var li = $("<li>").attr('link','http://www.youtube.com/embed/'+url+'?autoplay=1&feature=player_embedded').attr('class','videolistitem');
 			$(li).append("<img src = '"+content[i].media$group.media$thumbnail[0].url+"'/>");
-			$(li).append("<div class='utubecaption'>"+content[i].media$group.media$title.$t+"</div>");$(li).append("<div class='nowplaying'></div>");
+			$(li).append("<div class='utubecaption'>"+content[i].media$group.media$title.$t+"<br>Duration: "+secondsToTime(content[i].media$group.yt$duration.seconds).h+"h "+secondsToTime(content[i].media$group.yt$duration.seconds).m+"m "+secondsToTime(content[i].media$group.yt$duration.seconds).s+"s"+"<br>-"+content[i].author[0].name.$t+"</div>");$(li).append("<div class='nowplaying'></div>");
 			var link=$('.youtube-player').attr('src');
 				$('.videolistitem[link="'+link+'"]').find('.nowplaying').css('display','block');
 			$(".videoslist").append(li);
-			//console.log(content[i].media$thumbnail); */
+			//console.log(content[i].media$thumbnail); 
 		}
 		$("#videosbox").css('background','#111');
 	},
