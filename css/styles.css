@@ -279,15 +279,12 @@ background-color:#06F;
 }
 .tosubscr{
 	top:20px;
-    
+    cursor:pointer; 
 	width: 160px;
-    
 	height: 90px;
     position:relative;
-    
 	margin: 2% 3% 5% 3%;
     list-style:none;
-	cursor:pointer;
     display:block;
     float:left;
     border-radius:7px;
@@ -303,7 +300,6 @@ background-color:#06F;
     border-radius:7px;
 }
 .tosubscr:hover{
-    cursor:pointer; 
     -webkit-transition-duration:.2s;
     -webkit-box-shadow:0 2px 15px #444;
 }

@@ -68,6 +68,8 @@ var FeedViewer = {
 			$("#stage li").each(function(i){
 			if(myFeedsList.indexOf($(this).attr('data-id')) != -1)
 				showSubscribedFeed($(this));
+			else
+				showUnsubscribedFeed($(this));
 			});
 		}
 		//Youtube suggest click
@@ -77,19 +79,20 @@ var FeedViewer = {
 			$("#searchbox").find('input')[1].value =query;
 			FeedEngine.getVideos(query);
 			});
+			
 		$('.grimg li').hover(function() 
 		{
 			var selectedli = $(".filter .selected");
+			$('.fdname', this).css('text-decoration', 'underline')
 		if($(selectedli).attr('data-value') != "youtube")
 			{var feed_url = $(this).attr('data-id');
-			if(FeedController.issubscribed(feed_url) == 0)
+			if($('.caption',this).html()== 'Click me to subscribe to '+$('img',this).attr('title'))
 			{
-				$(this).css('cursor','pointer');
-        		$('.caption',this).html('Click me to subscribe to '+$('img',this).attr('title'));	
 				$('.caption',this).stop(true,true).animate({'opacity': 1,'margin-top': -60}, 50);
         		$('img',this).stop(true,true).animate({'opacity': 0.1}, 100);
 			}
 			else
+			if(FeedController.issubscribed(feed_url) == 1)
 			{
 				$('.caption',this).fadeOut(100,function(){
 						$(this).html('Click to Unsubscribe').css('margin-top','-55px')}).stop(true, true).fadeIn(50);
@@ -97,15 +100,16 @@ var FeedViewer = {
 			}},function() 
 			{
 				var selectedli = $(".filter .selected");
+				$('.fdname', this).css('text-decoration', 'none')
 		if($(selectedli).attr('data-value') != "youtube"){
 				var feed_url = $(this).attr('data-id');
-				if(FeedController.issubscribed(feed_url) == 0)
+				if($('.caption',this).html()== 'Click me to subscribe to '+$('img',this).attr('title'))
 				{
-					$(this).css('cursor','pointer');
         			$('.caption',this).stop(0,true,true).animate({'opacity': 0}, 50);
 					$('img',this).stop(0,true,true).animate({'opacity': 1}, 200);
 				}
 				else
+				if(FeedController.issubscribed(feed_url) == 1)
 				{
 					
 					$('.caption',this).fadeOut(100,function(){
@@ -115,7 +119,6 @@ var FeedViewer = {
 				}
 			}
 			});
-		
 		// Attach handlers for click on feedIcons
 		$(".grimg li").live('click',function(){
 			var caption = $(this).find('.caption');var selectedli = $(".filter .selected");
@@ -125,20 +128,13 @@ var FeedViewer = {
 			{
 				var feedobj = $(this);
 				var feed_url = $(this).attr('data-id');
-				if(FeedController.issubscribed(feed_url) == 0)
-				{
 					$('.caption',this).html('<img src="img/addfeed.gif">'+'<br>'+'Subscribing. Please Wait...');
 				$('.caption',this).animate({'opacity': 1, 'margin-top': -80 }, 50);
 				
 					$('img',this).animate({'opacity': 0.1}, 200);
 					$('.caption img',this).animate({'opacity': 1}, 0);
 					FeedEngine.checkFeed(feed_url,feedobj);
-				}
-				else
-				{
-					$('#loadingurl').css('opacity',0);
-					$("#error-message").fadeOut('fast',function(){$(this).html("<b>You are already subscribed to this feed. Go to Myfeeds page to view the feeds.</b>")}).fadeIn('fast').delay(1000).fadeOut('fast',function(){$(this).html("Click on the feed from the categories given below or enter the URL of the desired feed of your wish")}).fadeIn();$('#loadingurl').css('opacity',0);
-				}
+				
 			}
 			else
 			{
