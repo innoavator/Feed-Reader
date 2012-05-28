@@ -221,7 +221,7 @@ background-color:#06F;
 }
 .filter li a.selected{
     border-radius:10px 10px 0 0;
-    background-image: -webkit-gradient(linear, left bottom, left top, color-stop(0, #eee), color-stop(1, #D1D1D1));
+    background-image: -webkit-gradient(linear, left bottom, left top, color-stop(0, #FAFAFA), color-stop(1, #D1D1D1));
     color:#333;
     padding-top:10px;
     text-shadow:none;
