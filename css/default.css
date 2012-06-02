@@ -7,7 +7,7 @@ body {
     font: normal 12px Helvetica, Arial, sans-serif;
     text-shadow: 0 -1px 0 #fff;
 	
-    font-family:"Tahoma";
+    font-family:"Century Gothic";
     /* use this to keep all text from being selectable to maintain a more app-like experience
     otherwise it's possible to highlight/select an entire pokki window  */
     -webkit-user-select: none;
