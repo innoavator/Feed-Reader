@@ -23,27 +23,7 @@ body {
 	background:#111;
 }
 
-#minimize {
-    display: block;
-    position: absolute;
-    top: 0px;
-    right: 0px;
-    width: 21px;
-    height: 12px;
-    cursor: pointer;
-    background: #333 url(../img/minimize.png) 0px -2px no-repeat;
-    border-bottom-left-radius: 3px;
-	z-index: 100000000000000000000;
-    -webkit-transition: background-color 0.3s linear;
-}
-#minimize:hover {
-    background-color: #555;
-}
-#minimize:active {
-    background-position: 0px -1px;
-}
-
-/* Main content */
+Main content */
 
 /* Scrollable area */
 .scrollable {
