@@ -1,10 +1,6 @@
 var App = function() {
     var unloaded = new LocalStore('unloaded');
     var splash_ran = unloaded.get() ? true : false;
-
-    // attach click event to minimize button
-    var minimize = document.getElementById('minimize');
-    minimize.addEventListener('click', pokki.closePopup);
     
     // Initialize whatever else needs to be initialized
      FeedController.initialise();
