@@ -216,7 +216,7 @@ background-color:#06F;
     margin-left:1px;
     border-radius:4px; 
     text-decoration:none;
-    padding:6px 10px 6px 10px;
+    padding:2px 10px;
     width:80px;
     -webkit-transition: all 0.05s ease 0s;
 }
@@ -225,9 +225,9 @@ background-color:#06F;
 }
 .filter li a.selected{
     border-radius: 5px;
-    background-image: -webkit-gradient(linear, left bottom, left top, color-stop(0, #dfdfdf), color-stop(1, #fff));
+    background:#eee; 
     color:#333;
-    padding:8px 10px;
+    padding: 4px 10px;
     text-decoration:none;
     cursor:default;
 }
@@ -478,7 +478,6 @@ background-color:#06F;
 	background:url(../img/utube.png) 0px -52px no-repeat;
 }
 .videolistitem:hover{
-
 	cursor:pointer;
 }
 .utubecaption{
@@ -487,16 +486,17 @@ background-color:#06F;
     color:white;
     font-size:10px;
     font-weight:bold;
-	margin;auto;
+    margin;auto;
     margin-top:-114px;
-	margin-left:-2px;
-	height:80px;
-	padding:30px 3px 0 3px;	
-	opacity:0;
-	border-radius:10px;
-	background:#000;
-	z-index:1000000000000;
-	border:solid 2px white;
+    margin-left:-2px;
+    height:90px;
+    padding:20px 3px 0 3px;	
+    opacity:0;
+    border-radius:10px;
+    background:#000;
+    z-index:1000000000000;
+    border:solid 2px white;
+    font-family:Century Gothic
 }
 #fwdbutton{
     cursor:pointer;
@@ -812,7 +812,13 @@ background-image: -webkit-gradient(linear, left bottom, left top, color-stop(0, 
 {   
     
        
-              background: #FF8000;
+              
+                            
+                                                        
+                                                                                                                
+                                                                                                                                                                                                                                
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                background: #FF8000;
     color:#fff;
 }
 #tomyfeedsbtn:active
