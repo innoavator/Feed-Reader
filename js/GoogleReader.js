@@ -5,8 +5,8 @@ var GoogleReader = {
 	
 	//Initialise the access_token
 	initialise : function() {
-		//this.access_token = window.localStorage.getItem("access_token");
-		this.access_token = "ya29.AHES6ZQ6bCXyl3aBuEhZLms8kvoZEkLa2kNkheeSNCwqfky7XZXQTQ";
+		this.access_token = window.localStorage.getItem("access_token");
+		//this.access_token = "ya29.AHES6ZQ6bCXyl3aBuEhZLms8kvoZEkLa2kNkheeSNCwqfky7XZXQTQ";
 	},
 	
 	//Get the subscription list of a user
@@ -15,4 +15,10 @@ var GoogleReader = {
 		console.log(SUBSCRIPTION_LIST_URL);
 		getData(SUBSCRIPTION_LIST_URL,data,ReaderController.handleSubscriptionList);
 	},
+	
+	subscribeToFeed : function()
+	{
+	
+	},
+	
 }

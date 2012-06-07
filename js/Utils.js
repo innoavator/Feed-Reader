@@ -105,27 +105,30 @@ function showMessage(msg)
 function loginToGoogle()
 {
 	console.log("Logging into google");
-	var redirect_uri = "https://www.example.com";
+	var redirect_uri = "http://www.codeblues.in";
 	var url = "https://accounts.google.com/o/oauth2/auth?"
 			  +"scope=http://www.google.com/reader/api/&"
 			  +"response_type=token&"
 			  +"redirect_uri="+redirect_uri+"&"
-			  +"client_id=241567971408-oqc99hgb5al8kc7pl1h05iejl65r30ft.apps.googleusercontent.com&"
-			  +"access_type=offline";
+			  +"client_id=241567971408-oqc99hgb5al8kc7pl1h05iejl65r30ft.apps.googleusercontent.com&";
 	url = encodeURI(url);
 	pokki.clearWebSheetCookies();
 	pokki.showWebSheet(url,512,400,
 						function(_url)
 						{
 							console.log("Opening websheet");
-								console.log(_url);
-							if(_url.indexOf(redirect_uri)!=-1)
+								console.log("Url : " + _url);
+							if(_url.indexOf(redirect_uri)==0)
 							{
-								var params = {}, queryString = location.hash.substring(1),regex = /([^&=]+)=([^&]*)/g, m;
+								console.log("redirecting...");
+								console.log("Url : " + _url);
+								var params = {}, queryString = _url.split("#")[1],regex = /([^&=]+)=([^&]*)/g, m;
+								console.log("Query string : " + queryString);
 								while (m = regex.exec(queryString)) 
 								{
 									params[decodeURIComponent(m[1])] = decodeURIComponent(m[2]);
-									window.localStorage.setItem("access_token",queryString);
+									console.log("Access token : " + params[decodeURIComponent(m[1])]);
+									window.localStorage.setItem("access_token",params[decodeURIComponent(m[1])]);
 									console.log(window.localStorage.getItem("access_token"));
 									console.log("Access token received");
 									break;
@@ -133,8 +136,12 @@ function loginToGoogle()
 								pokki.hideWebSheet();
 								
 							}
-							console.log("Returning true");
-							return true;
+							else
+							{
+								console.log("Returning true");
+								return true;
+							}
+							
 						},
 						function(error)
 						{
@@ -144,8 +151,8 @@ function loginToGoogle()
 							}
 							else{
 								console.log("Error occured");
-								pokki.hideWebSheet();
 							}
+							pokki.hideWebSheet();
 						}
 					);
 	

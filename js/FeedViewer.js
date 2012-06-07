@@ -1,6 +1,7 @@
 var FeedViewer = {
 	initialise : function()
 	{
+		pokki.clearWebSheetCookies();
 		FeedViewer.initialiseAddFeeds();
 		FeedViewer.initialiseMyFeeds();
 		FeedViewer.initialiseYoutubeFeeds();

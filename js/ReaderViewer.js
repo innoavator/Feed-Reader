@@ -3,7 +3,7 @@
 var ReaderViewer = {
 	
 	initialise : function(){
-		
+			
 			$('#slider').anythingSlider({
 				resizeContents      : true, 
 				navigationSize      : false,
