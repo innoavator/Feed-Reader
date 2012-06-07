@@ -1,16 +1,35 @@
 /* Google Reader Javascript Library */
 /* Author : Abhishek Choudhary(abhishek@codeblues.in) */
 
-var GoogleReader = {
+/* Brief documentation */
+/*  Feedid : the id of the feed source as recognised by Google.Its in the format feed/<feedurl>
+	Feedurl : the url of the feed source.
+*/
+var GoogleReader;
+
+GoogleReader = {
 	
 	access_token : "",
     api_token : "",
-  	
+	
+	tags : {
+		"like": "user/-/state/com.google/like",
+		"label": "user/-/label/",
+		"star": "user/-/state/com.google/starred",
+		"read": "user/-/state/com.google/read",
+		"fresh": "user/-/state/com.google/fresh",
+		"share": "user/-/state/com.google/broadcast",
+		"kept-unread": "user/-/state/com.google/kept-unread",
+		"reading-list": "user/-/state/com.google/reading-list"
+	},
 	/* Google Reader Feed URLS */
     SUBSCRIPTION_LIST_URL : "http://www.google.com/reader/api/0/subscription/list",
     SUBSCRIPTION_EDIT_URL : "http://www.google.com/reader/api/0/subscription/edit",
     API_TOKEN_URL : "http://www.google.com/reader/api/0/token",
-  
+	USER_INFO_URL : "http://www.google.com/reader/api/0/user-info",
+	MARK_ALL_READ_URL : "http://www.google.com/reader/api/0/mark-all-as-read",
+	EDIT_TAG_URL : "http://www.google.com/reader/api/0/edit-tag",
+	
 	//Initialise the access_token
 	initialise : function() 
 	{
@@ -27,6 +46,10 @@ var GoogleReader = {
 	  });
 	},
 	
+	getUserInfo : function(callback)
+	{
+		getData(this.USER_INFO_URL,null,callback);
+	},
 	//Get the subscription list of a user
 	getSubscriptionList : function(callback) 
 	{
@@ -59,7 +82,36 @@ var GoogleReader = {
         postData(this.SUBSCRIPTION_EDIT_URL,data,callback);	  
 	},
 	
-	/* Util Functions of the Google Reader Library */
+	addItemTag : function(feedid,itemid,tag,callback)
+	{
+		var data = "s="+feedid
+					+"&ac=edit-tags"
+					+"&async=true"
+					+"&a="+this.tags[tag]
+					+"&i="+itemid;
+		postData(this.EDIT_TAG_URL,data,callback);
+	},
+	
+	removeItemTag : function(feedid,itemid,tag,callback)
+	{
+		var data = "s="+feedid
+					+"&ac=edit-tags"
+					+"&async=true"
+					+"&r="+this.tags[tag]
+					+"&i="+itemid;
+		postData(this.EDIT_TAG_URL,data,callback);
+	},
+	
+	/*Mark All the items of a particular feed source as read */
+	markAllAsRead : function(feedid,callback)
+	{
+		var data = "s="+feedid;
+		this.postData(this.MARK_ALL_READ_URL,data,callback);
+	},
+	
+	/***************************************************************/
+	/*        Util Functions of the Google Reader Library          */ 
+	 /**************************************************************/
 	getData : function(url,data,callback)
 	{
 	    /* Make a get request to Google Reader */
@@ -67,6 +119,7 @@ var GoogleReader = {
 	      method: "get",
 	      url: url,
 	      data : data,
+		  dataType : "json",
 	      success: callback,
 	      timeout: (15 * 1000),
 	      statusCode : {
@@ -104,6 +157,5 @@ var GoogleReader = {
 		        } 
 	    }); 
     }
-	
 }
 
