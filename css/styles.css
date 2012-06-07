@@ -218,10 +218,11 @@ background-color:#06F;
     text-decoration:none;
     padding:2px 10px;
     width:80px;
-    -webkit-transition: all 0.05s ease 0s;
+    -webkit-transition: all 0.25s ease .05s;
 }
 .filter li a:hover{
-    background-image: -webkit-gradient(linear, left bottom, left top, color-stop(0, #555), color-stop(1, #555));   
+    background-image: -webkit-gradient(linear, left bottom, left top, color-stop(0, #555), color-stop(1, #555));  
+    
 }
 .filter li a.selected{
     border-radius: 5px;
@@ -548,9 +549,10 @@ background-color:#06F;
 #youtubeplayer {
 	margin-left: 155px;
 	width: 640px;
-	height: 390px;
+	height: 360px;
 	position: absolute;
 	top: -100px;
+	background:black
 }
 #closevideo{
     float:right;
@@ -801,25 +803,19 @@ background-image: -webkit-gradient(linear, left bottom, left top, color-stop(0, 
 #tomyfeedsbtn{
     cursor:pointer;
     text-shadow: none;
-    margin-right: 0px;
+    margin-top: -10px;
     float:right;
     background: #FF7200;
     padding:18px 35px 18px 35px;
-    border-radius:30px 0 0 0;
+    border-radius: 30px 0 0 30px;
+    -webkit-transition: all 0.5s ease 0s;
 }
 
 #tomyfeedsbtn:hover
-{   
-    
-       
-              
-                            
-                                                        
-                                                                                                                
-                                                                                                                                                                                                                                
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                background: #FF8000;
+{                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              background: #FF8000;
     color:#fff;
+    padding:18px 48px 18px 35px;
+    -webkit-transition: all 0.25s ease 0s;
 }
 #tomyfeedsbtn:active
 {
@@ -832,13 +828,19 @@ background-image: -webkit-gradient(linear, left bottom, left top, color-stop(0, 
     text-shadow: none;
     float:left;
     color:#222;
-    background: #eee;
-    padding:18px 35px;
-    border-radius:0 10px 0px 0;
+    background: #f1f1f1;
+    padding:18px 35px 28px 35px;
+    margin-top:-10px;
+    margin-left:10px;
+    border-radius:10px 10px 0px 0;
+    -webkit-transition: all 0.5s ease 0s;
 }
  
 #feedback:hover{
     background: #f9f9f9;
+    margin-top:-16px;
+    padding:18px 35px 34px 35px;
+    -webkit-transition: all 0.15s ease 0s;
 }
 #feedback:active{
     background: #ddd;
@@ -907,7 +909,7 @@ background-image: -webkit-gradient(linear, left bottom, left top, color-stop(0, 
 .textSlide{
     overflow:hidden;
     color:#000;
-	width:770px;
+	width:890px;
     font-size: 15px;
     line-height: 160%;
     font-weight:100%;

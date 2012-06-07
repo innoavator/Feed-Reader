@@ -211,7 +211,7 @@ var FeedViewer = {
 				if($('#closevideo').css('display')=='none')
 					$('#closevideo').css('display','block');
 				
-				if($('.youtube-player').attr('src')==link){
+				if($('#youtube-player').attr('src')==link){
 				return;
 					}
 					else
@@ -222,7 +222,7 @@ var FeedViewer = {
 					$('#firstpage')}
 			});
 			$('#closevideo').live('click',function (){
-				$('.youtube-player').attr('src',"");
+				$('#youtube-player').attr('src',"");
 				$('.nowplaying').css('display','none');
 				$('#fwdbutton').css('display','none');
 				$("#forscroll").animate({'margin-left': 0}, 300);
@@ -392,10 +392,11 @@ var FeedViewer = {
 		{
 			var idarr = (content[i].id.$t).split("/");
 			var url = idarr[idarr.length - 1];
-			var li = $("<li>").attr('link','http://www.youtube.com/embed/'+url+'?autoplay=1&feature=player_embedded').attr('class','videolistitem');
+			var li = $("<li>").attr('link','http://www.youtube.com/embed/'+url+'?autoplay=1&playerapiid=ytplayer&version=3&enablejsapi=1').attr('class','videolistitem');
+			
 			$(li).append("<img src = '"+content[i].media$group.media$thumbnail[0].url+"'/>");
 			$(li).append("<div class='utubecaption'>"+content[i].media$group.media$title.$t+"<br>Duration: "+secondsToTime(content[i].media$group.yt$duration.seconds).h+"h "+secondsToTime(content[i].media$group.yt$duration.seconds).m+"m "+secondsToTime(content[i].media$group.yt$duration.seconds).s+"s"+"<br>-"+content[i].author[0].name.$t+"</div>");$(li).append("<div class='nowplaying'></div>");
-			var link=$('.youtube-player').attr('src');
+			var link=$('#youtube-player').attr('src');
 				$('.videolistitem[link="'+link+'"]').find('.nowplaying').css('display','block');
 			$(".videoslist").append(li);
 			//console.log(content[i].media$thumbnail); 
@@ -404,7 +405,7 @@ var FeedViewer = {
 	},
 	showVideo : function(videoUrl)
 	{
-		$(".youtube-player").attr('src',videoUrl);
+		$("#youtube-player").attr('src',videoUrl);
 			console.log(videoUrl);
 	},
 	updateFeedCount : function(urlObj)

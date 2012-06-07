@@ -35,7 +35,6 @@
             <script type = "text/javascript" src="js/Utils.js"></script>
             <script type = "text/javascript" src="js/Globals.js"></script>
             <script type='text/javascript' src='js/lib/jQuery.jQTubeUtil.js'></script>
-
             <!-- FeedReader View -->
     		<link rel="stylesheet" href="css/anythingslider.css">  
             <script type="text/javascript" src="js/jquery.anythingslider.js"></script>
@@ -204,7 +203,7 @@
              <div id="secondpage">
              <div id="backbutton"></div>
              <div id="youtubeplayer">
-                <iframe class="youtube-player" type="text/html" width="640" height="390" src="" frameborder="0"></iframe>  
+                <iframe id="youtube-player" type="text/html" width="640" height="360" src="" frameborder="0" allowfullscreen onReady= "onPlayerReady(console.log('ready'));" onStateChange="onPlayerStateChange();"></iframe>  
              </div>
              <div id="closevideo"></div>             
              </div></div>
@@ -225,9 +224,6 @@
       
       </ol><div id='footer'>
       	<div class="toaddfeedsbtn">Add Feeds</div>
-    
-   
-  
     </div>
       </div></div>
       <div id = "readerviewdiv" style="visibility:hidden">
