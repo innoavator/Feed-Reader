@@ -154,50 +154,7 @@ function loginToGoogle()
 							}
 							pokki.hideWebSheet();
 						}
-					);
+			);
 	
 }
 
-function getData(url,data,callback)
-{
-	$.ajax(
-	({
-	  method: "get",
-	  url: url,
-	  data : data,
-	  success: callback,
-	  timeout: (15 * 1000),
-	  statusCode : {
-				401 : function(){
-					console.log("Authorization failure. Access_token expired.");
-					//Refresf access_token
-				}
-	  },
-	  error: function( objAJAXRequest, strError ){
-			console.log("Error : " + strError);
-		} 
-	}) 
-	); 
-}
-
-function postData(url,data,callback)
-{
-	$.ajax(
-	({
-	  method: "post",
-	  url: url,
-	  data : data,
-	  success: callback,
-	  timeout: (15 * 1000),
-	  statusCode : {
-				401 : function(){
-					console.log("Authorization failure. Access_token expired.");
-					//Refresf access_token
-				}
-	  },
-	  error: function( objAJAXRequest, strError ){
-			console.log("Error : " + strError);
-		} 
-	}) 
-	); 
-}
