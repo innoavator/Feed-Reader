@@ -46,10 +46,17 @@ GoogleReader = {
 	  });
 	},
 	
+	setTokens : function(tokendata)
+	{
+		console.log("Tokens received\n");
+		console.log(tokendata);
+	},
+	
 	getUserInfo : function(callback)
 	{
 		getData(this.USER_INFO_URL,null,callback);
 	},
+	
 	//Get the subscription list of a user
 	getSubscriptionList : function(callback) 
 	{
@@ -138,7 +145,7 @@ GoogleReader = {
 	{
 	  /* Send a post request to Google Reader*/
 	  $.ajax({
-	      method: "post",
+	      type: "POST",
 	      url: url,
 	      data : data,
 	      beforeSend: function(xhr) {

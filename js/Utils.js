@@ -108,9 +108,10 @@ function loginToGoogle()
 	var redirect_uri = "http://www.codeblues.in";
 	var url = "https://accounts.google.com/o/oauth2/auth?"
 			  +"scope=http://www.google.com/reader/api/&"
-			  +"response_type=token&"
+			  +"response_type=code&"
 			  +"redirect_uri="+redirect_uri+"&"
-			  +"client_id=241567971408-oqc99hgb5al8kc7pl1h05iejl65r30ft.apps.googleusercontent.com&";
+			  +"client_id=241567971408-oqc99hgb5al8kc7pl1h05iejl65r30ft.apps.googleusercontent.com&"
+			  +"access_type=offline";
 	url = encodeURI(url);
 	pokki.clearWebSheetCookies();
 	pokki.showWebSheet(url,512,400,
@@ -122,18 +123,42 @@ function loginToGoogle()
 							{
 								console.log("redirecting...");
 								console.log("Url : " + _url);
-								var params = {}, queryString = _url.split("#")[1],regex = /([^&=]+)=([^&]*)/g, m;
+								var params = {}, queryString = _url.split("?")[1],regex = /([^&=]+)=([^&]*)/g, m;
 								console.log("Query string : " + queryString);
 								while (m = regex.exec(queryString)) 
 								{
 									params[decodeURIComponent(m[1])] = decodeURIComponent(m[2]);
 									console.log("Access token : " + params[decodeURIComponent(m[1])]);
 									window.localStorage.setItem("access_token",params[decodeURIComponent(m[1])]);
-									console.log(window.localStorage.getItem("access_token"));
-									console.log("Access token received");
+									var code = params[decodeURIComponent(m[1])];
+									//console.log(window.localStorage.getItem("access_token"));
+									//console.log("Access token received");
+									//Get the access token and refresh token
+									var data = "code="+code+"&"
+												+"client_id=241567971408-oqc99hgb5al8kc7pl1h05iejl65r30ft.apps.googleusercontent.com&"
+												+"client_secret=HY11TSTGm7ydZrnkfwTHsUyK&"
+												+"redirect_uri="+redirect_uri+"&"
+												+"scope=&"
+												+"grant_type=authorization_code";
+									$.ajax({
+										type : "POST",
+										url : "https://accounts.google.com/o/oauth2/token",
+										data : data,
+										 beforeSend: function ( xhr ) {
+												xhr.overrideMimeType("text/plain; charset=x-user-defined");
+											},
+										success : function(tokens){
+													console.log("Tokens : " + tokens);
+												},
+										error : function(error){
+													console.log(error);
+												}
+									});
+									//GoogleReader.postData("https://accounts.google.com/o/oauth2/token",data,GoogleReader.setTokens);
+									
 									break;
 								}
-								pokki.hideWebSheet();
+								//pokki.hideWebSheet();
 								
 							}
 							else
@@ -145,12 +170,12 @@ function loginToGoogle()
 						},
 						function(error)
 						{
-							if(error == user_abort)
+							if(error == "user_abort")
 							{
 								console.log("User hit close button");
 							}
 							else{
-								console.log("Error occured");
+								console.log("Error occured" + error);
 							}
 							pokki.hideWebSheet();
 						}
