@@ -1,21 +1,50 @@
 // Global variable for our core app
 var Atom = false;
 
+// Register all the Event listeners
+window.addEventListener('DOMContentLoaded', load, false);
+pokki.addEventListener('popup_unload', unload);
+pokki.addEventListener('popup_hidden', hidden);
+pokki.addEventListener('popup_shown', shown);
+
 // Add listener for when the popup is first loaded
 // Perform popup page initiation and configuration
 // NOTE: DOMContentLoaded is the ideal event to listen for as it doesn't
 // wait for external resources (like images) to be loaded
 function load() {
 	console.log('Popup page is loaded.');
-	Atom = new App();
+	//Atom = new App();
 	
-	$('#loader').fadeOut(1000);
-	$('#loadercontainer').fadeOut(1000); 
-	$(".scrollable").css('opacity',1);
-	//  FeedEngine.initialise();
+	// attach click event to minimize button
+    var minimize = document.getElementById('minimize');
+    minimize.addEventListener('click', pokki.closePopup);
+    
+    // Initialize whatever else needs to be initialized
+     FeedController.initialise();
+	 FeedViewer.initialise();
+  	 modes.initialise();
+	 
+	 window.localStorage.setItem("isSyncOn","false");
+	 
+	 if(!window.localStorage.getItem("isSyncOn"))
+		window.localStorage.setItem("isSyncOn","false");
+	 IS_SYNC_ON = window.localStorage.getItem("isSyncOn");
+	 console.log("is sync on : " + IS_SYNC_ON);
+	 if(IS_SYNC_ON == "true"){
+		 console.log("Sync is on");
+		 continueLocal();
+	 }else
+	 {
+		 console.log("sync is off");
+		$("#loadercontainer").find("h1").hide(0);
+		$("#loadercontainer").find("a").css("display","inline");
+	 }
+	//$('#loader').fadeOut(1000);
+	//$('#loadercontainer').fadeOut(1000); 
+	//$(".scrollable").css('opacity',1);
+	  //FeedEngine.initialise();
 
 }
-window.addEventListener('DOMContentLoaded', load, false);
 
 // Add listener for when the page is unloaded by the platform 
 // This occurs due to inactivity or memory usage
@@ -27,7 +56,6 @@ function unload() {
 		Atom.onPopupUnload();
 	}
 }
-pokki.addEventListener('popup_unload', unload);
 
 // Add listener for when the popup window is showing
 function showing() {
@@ -42,15 +70,16 @@ pokki.addEventListener('popup_showing', showing);
 function shown() {
 if(Atom){};
 	setTimeout(function(){
-		$('#loadercontainer').fadeOut(400);
-    	$('#loader').fadeOut(500);},1000);
+		//$('#loadercontainer').fadeOut(400);
+    	//$('#loader').fadeOut(500);
+		},1000);
 	console.log('Popup window is visible.');
  	   
 /// Add listener for when the popup window is shown
 
 
 }
-pokki.addEventListener('popup_shown', shown);
+
 
 // Add listener for when the pop-up window is hidden
 function hidden() {
@@ -59,4 +88,3 @@ function hidden() {
     	Atom.onPopupHidden();
     }
 }
-pokki.addEventListener('popup_hidden', hidden);

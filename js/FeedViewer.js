@@ -289,7 +289,7 @@ var FeedViewer = {
 				{
 					i++;
 					continue;
-				}
+				}                 
 				var title = JSON.parse(feedinfo).title;
 				var unreadCount = JSON.parse(feedinfo).unreadCount;
 				if(unreadCount == null)
@@ -376,7 +376,6 @@ var FeedViewer = {
 	
 	listVideos:	function(videoData)
 	{
-		console.log(videoData);
 		$(".videoslist").empty();
 		
 		var content = videoData.feed.entry;

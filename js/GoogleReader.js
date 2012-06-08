@@ -11,7 +11,8 @@ GoogleReader = {
 	
 	access_token : "",
     api_token : "",
-	
+	refresh_token : "",
+	redirect_uri : "http://www.codeblues.in",
 	tags : {
 		"like": "user/-/state/com.google/like",
 		"label": "user/-/label/",
@@ -33,12 +34,84 @@ GoogleReader = {
 	//Initialise the access_token
 	initialise : function() 
 	{
-		//this.access_token = window.localStorage.getItem("access_token");
-		this.access_token = "ya29.AHES6ZQ4mHsRibLiA2VEYa08GPxcX-2uzy-2ThPhpAkp4Q";
-		this.getToken();
+		this.access_token = window.localStorage.getItem("access_token");
+		this.refresh_token = window.localStorage.getItem("refresh_token");
+		console.log("Access_token : " + this.access_token);
+		console.log("Refresh_token : " + this.refresh_token);
+		/*if(!this.refresh_token || this.refresh_token.length == 0)
+			this.loginViaOauth();
+		else
+			this.refreshAccessToken(); */
+		//this.access_token = "ya29.AHES6ZQ4mHsRibLiA2VEYa08GPxcX-2uzy-2ThPhpAkp4Q";
 	},
 	
-	getToken : function()
+	
+	/***************************************************************************************/
+	/*						Authentication                                                 */
+	/***************************************************************************************/
+	loginViaOauth : function(callback)
+	{
+		var url = "https://accounts.google.com/o/oauth2/auth?"
+			  +"scope=http://www.google.com/reader/api/&"
+			  +"response_type=code&"
+			  +"redirect_uri="+this.redirect_uri+"&"
+			  +"client_id=241567971408-oqc99hgb5al8kc7pl1h05iejl65r30ft.apps.googleusercontent.com&"
+			  +"access_type=offline&"
+			  +"approval_prompt=force";
+		url = encodeURI(url);
+		pokki.clearWebSheetCookies();
+		pokki.showWebSheet(url,512,400,function(_url)
+			{
+				if(_url.indexOf(GoogleReader.redirect_uri)==0)
+				{
+					console.log("redirecting...");
+					console.log("Url : " + _url);
+					var params = {}, queryString = _url.split("?")[1],regex = /([^&=]+)=([^&]*)/g, m;
+					console.log("Query string : " + queryString);
+					while (m = regex.exec(queryString)) 
+					{
+						params[decodeURIComponent(m[1])] = decodeURIComponent(m[2]);
+						var code = params[decodeURIComponent(m[1])];
+						//Get the access token and refresh token
+						var data = "code="+code+"&"
+									+"client_id=241567971408-oqc99hgb5al8kc7pl1h05iejl65r30ft.apps.googleusercontent.com&"
+									+"client_secret=HY11TSTGm7ydZrnkfwTHsUyK&"
+									+"redirect_uri="+GoogleReader.redirect_uri+"&"
+									+"scope=&"
+									+"grant_type=authorization_code";
+						$.ajax({
+							type : "POST",
+							url : "https://accounts.google.com/o/oauth2/token",
+							data : data,
+							dataType : "json",
+							success : function(tokens){
+										console.log(tokens);
+										GoogleReader.setTokens(tokens.access_token,tokens.refresh_token,callback);
+									},
+							error : function(error){
+										console.log(error);
+									}
+						});
+						break;
+					}pokki.hideWebSheet();
+				}
+				else{
+					console.log("Returning true : " + _url);
+					return true;
+				}
+			},
+			function(error){
+				if(error == "user_abort"){
+					console.log("User hit close button");
+				}else{
+					console.log("Error occured" + error);
+				}
+				pokki.hideWebSheet();
+			}
+		);
+		
+	},
+	getApiToken : function()
 	{
 	  $.get(GoogleReader.API_TOKEN_URL+"?access_token="+GoogleReader.access_token,function(token){
 	    GoogleReader.api_token = token;
@@ -46,10 +119,41 @@ GoogleReader = {
 	  });
 	},
 	
-	setTokens : function(tokendata)
+	//Get a new access token from the refresh token
+	refreshAccessToken : function()
 	{
-		console.log("Tokens received\n");
-		console.log(tokendata);
+		var data = "client_id=241567971408-oqc99hgb5al8kc7pl1h05iejl65r30ft.apps.googleusercontent.com&"
+					+"client_secret=HY11TSTGm7ydZrnkfwTHsUyK&"
+					+"refresh_token="+this.refresh_token+"&"
+					+"grant_type=refresh_token";
+		$.ajax({
+				type : "POST",
+				url : "https://accounts.google.com/o/oauth2/token",
+				data : data,
+				dataType : "json",
+				success : function(tokens){
+							console.log("Tokens : " + tokens);
+							GoogleReader.setTokens(tokens.access_token);
+						},
+				error : function(error){
+							console.log(error);
+						}
+			});
+	},
+	
+	setTokens : function(access_token,refresh_token,callback)
+	{
+		console.log("Access token : " + access_token);
+		this.access_token = access_token;
+		this.getApiToken();
+		window.localStorage.setItem("access_token",access_token);
+		if(refresh_token)
+		{
+			console.log("Setting refresh token");
+			window.localStorage.setItem("refresh_token",refresh_token);
+			this.refresh_token = refresh_token;
+		}
+		callback();
 	},
 	
 	getUserInfo : function(callback)
@@ -57,6 +161,9 @@ GoogleReader = {
 		getData(this.USER_INFO_URL,null,callback);
 	},
 	
+	/************************************************************************************/
+	/*								Feed Handling										*/
+	/************************************************************************************/
 	//Get the subscription list of a user
 	getSubscriptionList : function(callback) 
 	{
