@@ -209,7 +209,6 @@ background-color:#06F;
     text-shadow:0 2px 3px #333;
     font-family:Century Gothic;
     text-shadow:none;
-    
 }
 .filter li a{
     color:#fff;
@@ -257,11 +256,9 @@ background-color:#06F;
     overflow:hidden;
 }
 #container{
-
     width:10000px;
     margin-left:40px;
     height:100%;
-
 }
 .fdkadiv{
     float:left;
@@ -338,8 +335,6 @@ background-color:#06F;
 #youtube-feeds a{
 	text-decoration:none;
 }
-#youtube-feeds a:visited{
-}
 /************************firstpage******************/
 #firstpage{
 	width: 945px;
@@ -347,7 +342,6 @@ background-color:#06F;
 	margin-left:5px;
 	margin-top: 15px;
 	text-shadow:none;
-	
 }
 #forscroll{
     margin-top:-1px;
