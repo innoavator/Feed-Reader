@@ -24,7 +24,6 @@ function load() {
 	 FeedViewer.initialise();
   	 modes.initialise();
 	 
-	 window.localStorage.setItem("isSyncOn","false");
 	 
 	 if(!window.localStorage.getItem("isSyncOn"))
 		window.localStorage.setItem("isSyncOn","false");
@@ -36,7 +35,7 @@ function load() {
 	 }else
 	 {
 		 console.log("sync is off");
-		$("#loadercontainer").find("h1").hide(0);
+		$("#loadercontainer").find("h3").hide(0);
 		$("#loadercontainer").find("a").css("display","inline");
 	 }
 	//$('#loader').fadeOut(1000);

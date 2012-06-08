@@ -88,10 +88,10 @@ var FeedController = {
 		feedobj.title = feedinfo.title;
 		feedobj.unreadCount = 20;
 		feedobj.headlines = new Array();
-		for(var i = 0;i<feedinfo.entries.length;i++)
+	/*	for(var i = 0;i<feedinfo.entries.length;i++)
 		{
 			feedobj.headlines[i] = feedinfo.entries[i].title;
-		}
+		}*/
 		feed.set(JSON.stringify(feedobj));
 		return feedobj.title;
 	},
