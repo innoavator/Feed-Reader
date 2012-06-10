@@ -41,7 +41,6 @@ html{
     Loading Screen
 ------------------------------------------*/
 #loadingScreen{
-/*  opacity : 0; */
     visibility: hidden;
     position: absolute;
     height:830px;
@@ -123,7 +122,7 @@ html{
 }
 #searchbox input[type="search"]:focus{
     background:#eee;
-    width:270px;
+    width:330px;
     -webkit-transition: all 0.7s ease 0s;
 }
 #searchbox input[type="submit"]{
@@ -176,7 +175,7 @@ html{
 	list-style:none;
 	z-index: 1000;
 	text-shadow:none;
-	width:235px;
+	width:295px;
 	display:none;
 }
 #youtubeSuggestions li{
@@ -355,6 +354,7 @@ background-color:#06F;
 	padding-top:10px;
 	border-radius:20px 0 0 20px;
 	margin-left: 70px;
+	margin-top:-10px;
 	border:solid 1px #777;
 	-webkit-box-shadow: 0px 0px 6px #333;
 }
@@ -436,6 +436,7 @@ background-color:#06F;
 	width: 625px;
 	height:360px;
 	float: left;
+	margin-top:-10px;
 	-webkit-box-shadow: 0px 0px 6px #111;
 }
 .videolistitem{
@@ -530,10 +531,8 @@ background-color:#06F;
 }
 #backbutton:hover{
 	background:url(../img/feedbutton.png) no-repeat;
-	
 }
 .Video-IFrame-YouTube {
-	/*margin: 5px 40px 0 40px;*/ 
 	width: 620px;
 	height: 360px;
 	background: transparent;
@@ -797,18 +796,19 @@ background-image: -webkit-gradient(linear, left bottom, left top, color-stop(0, 
 #tomyfeedsbtn{
     cursor:pointer;
     text-shadow: none;
-    margin-top: -10px;
+    margin-top: -7px;
     float:right;
     background: #FF7200;
-    padding:18px 35px 18px 35px;
+    padding:18px 35px 15px 35px;
     border-radius: 30px 0 0 30px;
     -webkit-transition: all 0.5s ease 0s;
 }
 
 #tomyfeedsbtn:hover
-{                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              background: #FF8000;
+{
+	background: #FF8000;
     color:#fff;
-    padding:18px 48px 18px 35px;
+    padding:18px 48px 15px 35px;
     -webkit-transition: all 0.25s ease 0s;
 }
 #tomyfeedsbtn:active
@@ -823,8 +823,8 @@ background-image: -webkit-gradient(linear, left bottom, left top, color-stop(0, 
     float:left;
     color:#222;
     background: #f1f1f1;
-    padding:18px 35px 28px 35px;
-    margin-top:-10px;
+    padding:18px 35px 25px 35px;
+    margin-top:-7px;
     margin-left:10px;
     border-radius:10px 10px 0px 0;
     -webkit-transition: all 0.5s ease 0s;
@@ -832,8 +832,8 @@ background-image: -webkit-gradient(linear, left bottom, left top, color-stop(0, 
  
 #feedback:hover{
     background: #f9f9f9;
-    margin-top:-16px;
-    padding:18px 35px 34px 35px;
+    margin-top: -11px;
+    padding: 18px 35px 29px 35px;
     -webkit-transition: all 0.15s ease 0s;
 }
 #feedback:active{
@@ -855,7 +855,7 @@ background-image: -webkit-gradient(linear, left bottom, left top, color-stop(0, 
 }
 #viewOptionsBox{
 	border: none;
-	background: -webkit-gradient(linear, left top, left bottom, from(#ebebeb), to(#cccccc));
+	background: -webkit-gradient(linear, left top, left bottom, from(#ebebeb), to(#ccc));
 	padding: 5px 5px;
 	margin-top: -3px;
 	-webkit-border-radius: 5px;
