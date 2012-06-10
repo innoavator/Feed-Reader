@@ -54,11 +54,12 @@
    	<div id = "minimize">
     <a href="#"></a><br>
     </div><div id="loader">
-      <div id="loadercontainer">
+      <div id="loadercontainer" >
       	<img src="img/pageload.gif" style="padding-left:10px;"/><br><br>
-      	<a class="button green" onclick="Reader.syncWithGoogle();"  style="display:none" >Sync With Google Reader</a>
-        <a class="button green" onclick="continueLocal();" style="display:none" >No Thanks! Continue</a></br></br>
-        <h3>Loading ...</h3>
+      	<a class="button green" onClick="Reader.syncWithGoogle();"  style="display:none" >Sync With Google Reader</a>
+        <a class="button green" onClick="continueLocal();" style="display:none" >No Thanks! Continue</a></br></br>
+        <progress style="display:none;" max="100" id="syncProgressBar" ></progress><br><br>
+        <p style="margin-left:20px;"></p>
        </div>
      </div>
     	<div class="scrollable" style="opacity:0">

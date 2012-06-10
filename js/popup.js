@@ -24,7 +24,7 @@ function load() {
 	 FeedViewer.initialise();
   	 modes.initialise();
 	 
-	 
+	 window.localStorage.setItem("isSyncOn","false");
 	 if(!window.localStorage.getItem("isSyncOn"))
 		window.localStorage.setItem("isSyncOn","false");
 	 IS_SYNC_ON = window.localStorage.getItem("isSyncOn");

@@ -2,7 +2,7 @@
 /* Author : Abhishek Choudhary(abhishek@codeblues.in) */
 
 /* Brief documentation */
-/*  Feedid : the id of the feed source as recognised by Google.Its in the format feed/<feedurl>
+/*  Feedid : the id of the feed source as recognised by Google. Its in the format feed/<feedurl>
 	Feedurl : the url of the feed source.
 */
 var GoogleReader;

@@ -107,7 +107,19 @@ function continueLocal()
 	$('#loadercontainer').fadeOut(1000); 
 	$(".scrollable").css('opacity',1);	
 }
-function compare_subs(a,b)
+function showProgress(value,isRelative)
 {
-	return (a.id < b.id) ? -1 : 1;
+	if(!$("#syncProgressBar").attr("value"))
+		$("#syncProgressBar").attr("value",0);
+	if(isRelative == true)
+	{
+		var currValue = parseInt($("#syncProgressBar").attr("value"));
+		$("#syncProgressBar").attr("value",parseInt(value)+currValue);
+	}else
+		$("#syncProgressBar").attr("value",value);
+}
+
+function showLoaderMessage(msg)
+{
+	$("#loader").find('p').html(msg);
 }

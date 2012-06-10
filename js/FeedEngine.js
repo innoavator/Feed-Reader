@@ -49,6 +49,7 @@ var FeedEngine = {
 						{
 							modes.switchToMode(2);
 						//	console.log("feed engine showfeed");
+							console.log(result.feed);
 							ReaderViewer.renderFeed(result.feed,0,20,true);
 						}
 						else
