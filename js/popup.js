@@ -15,10 +15,7 @@ function load() {
 	console.log('Popup page is loaded.');
 	//Atom = new App();
 	
-	// attach click event to minimize button
-    var minimize = document.getElementById('minimize');
-    minimize.addEventListener('click', pokki.closePopup);
-    
+	// attach click event to minimize button    
     // Initialize whatever else needs to be initialized
      FeedController.initialise();
 	 FeedViewer.initialise();
