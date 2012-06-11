@@ -1,9 +1,34 @@
 var unreadCount = 0;
 var FeedLoader = {
 	myFeedList : new LocalStore('myFeeds'),
+	count : 1,
 	initialise : function(){
-		google.load("feeds", "1",{"callback" : FeedLoader.loadAllFeeds});
-		FeedLoader.updateUnreadCount();
+		pokki.addEventListener('context_menu',function(id){
+				if(id =="logoutbtn"){
+					window.localStorage.setItem("isSyncOn","false");
+					window.localStorage.setItem("access_token","");
+					window.localStorage.setItem("refresh_token","");
+				}
+			});
+		this.startPolling();	
+		 
+	},
+	startPolling : function()
+	{
+		if(window.localStorage.getItem("isSyncOn") && window.localStorage.getItem("isSyncOn")==true)
+		{	
+			console.log("Updating from google");
+			FeedLoader.updateFromGoogle();
+		}
+		else
+		{
+				google.load("feeds", "1",{"callback" : FeedLoader.loadAllFeeds});
+				if(FeedLoader.count == 1)
+					FeedLoader.updateUnreadCount();
+				else
+					FeedLoader.count =2;
+		}
+		setTimeout("FeedLoader.startPolling()",5000*12*5);
 	},
 	loadFeed : function(url,numEntries) {
 					  var counter = 0;//FeedController.getUnreadCount();;
@@ -47,7 +72,6 @@ var FeedLoader = {
 				FeedLoader.loadFeed(myFeeds[i],20);
 			}
 		}
-		setTimeout("FeedLoader.loadAllFeeds()",5000*12*5);    // Wait for 5 mins before nexr poll
 	},
 	updateUnreadCount : function()
 	{
@@ -69,6 +93,30 @@ var FeedLoader = {
 				pokki.removeIconBadge();
 		}
 		setTimeout("FeedLoader.updateUnreadCount()",5000*2);
+	},
+	
+	updateFromGoogle : function()
+	{
+		console.log("Updating from Google..");
+		var totalCount = 0;
+		GoogleReader.getUnreadCount(function(data){
+			for(var feed in data.unreadcounts){
+				if((feed.id).indexOf("feed/") == 0)
+				{
+					var feedStore = new LocalStore((feed.id).substr(5));
+					var feedinfo = JSON.parse(feedStore.get());
+					feedinfo.unreadCount = feed.count;
+					feedStore.set(JSON.stringify(feedinfo));
+					totalCount+=feed.count;
+					console.log("Count :" + feed.count);
+				}
+			if(totalCount > 0)
+				pokki.setIconBadge(totalCount);
+			else
+				pokki.removeIconBadge();
+
+			}
+		});
 	}
 	
 };

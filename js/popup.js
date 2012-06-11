@@ -14,20 +14,26 @@ pokki.addEventListener('popup_shown', shown);
 function load() {
 	console.log('Popup page is loaded.');
 	//Atom = new App();
-	
+	pokki.resetContextMenu();
 	// attach click event to minimize button    
     // Initialize whatever else needs to be initialized
      FeedController.initialise();
 	 FeedViewer.initialise();
   	 modes.initialise();
-	 
-	 window.localStorage.setItem("isSyncOn","false");
+	 pokki.resetContextMenu();
 	 if(!window.localStorage.getItem("isSyncOn"))
-		window.localStorage.setItem("isSyncOn","false");
+	 	window.localStorage.setItem("isSyncOn","false");
 	 IS_SYNC_ON = window.localStorage.getItem("isSyncOn");
 	 console.log("is sync on : " + IS_SYNC_ON);
 	 if(IS_SYNC_ON == "true"){
 		 console.log("Sync is on");
+		 pokki.addContextMenuItem("Logout","logoutbtn");
+		 pokki.addEventListener('context_menu',function(id){
+				if(id =="logoutbtn"){
+					GoogleReader.logout();
+					pokki.resetContextMenu();
+				}
+			});
 		 continueLocal();
 	 }else
 	 {
