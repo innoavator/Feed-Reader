@@ -10,7 +10,10 @@
 		<script src="js/background.js"></script>
         <script src="js/FeedController.js"></script>
         <script type= "text/javascript">
-		FeedLoader.initialise();
+		$(document).ready(function(){
+			GoogleReader.initialise();
+			FeedLoader.initialise();
+		});
         </script>
 	</head>
 	<body>

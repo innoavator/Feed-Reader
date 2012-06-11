@@ -10,25 +10,17 @@ var FeedLoader = {
 					window.localStorage.setItem("refresh_token","");
 				}
 			});
-		this.startPolling();	
-		 
-	},
-	startPolling : function()
-	{
-		if(window.localStorage.getItem("isSyncOn") && window.localStorage.getItem("isSyncOn")==true)
-		{	
-			console.log("Updating from google");
-			FeedLoader.updateFromGoogle();
-		}
-		else
-		{
+			if(window.localStorage.getItem("isSyncOn") && window.localStorage.getItem("isSyncOn")=="true")
+			{	
+				console.log("Updating from google");
+				FeedLoader.updateFromGoogle();
+			}
+			else
+			{
+				console.log("Updating from local");
 				google.load("feeds", "1",{"callback" : FeedLoader.loadAllFeeds});
-				if(FeedLoader.count == 1)
-					FeedLoader.updateUnreadCount();
-				else
-					FeedLoader.count =2;
-		}
-		setTimeout("FeedLoader.startPolling()",5000*12*5);
+				FeedLoader.updateUnreadCount();
+			}
 	},
 	loadFeed : function(url,numEntries) {
 					  var counter = 0;//FeedController.getUnreadCount();;
@@ -72,6 +64,8 @@ var FeedLoader = {
 				FeedLoader.loadFeed(myFeeds[i],20);
 			}
 		}
+		if(GoogleReader.hasAuth == false)
+		setTimeout("FeedLoader.loadAllFeeds()",5000*12*5);
 	},
 	updateUnreadCount : function()
 	{
@@ -92,7 +86,9 @@ var FeedLoader = {
 			else
 				pokki.removeIconBadge();
 		}
-		setTimeout("FeedLoader.updateUnreadCount()",5000*2);
+		if(GoogleReader.hasAuth == false)
+		setTimeout("FeedLoader.updateUnreadCount()",5000*12);
+		
 	},
 	
 	updateFromGoogle : function()
@@ -100,23 +96,33 @@ var FeedLoader = {
 		console.log("Updating from Google..");
 		var totalCount = 0;
 		GoogleReader.getUnreadCount(function(data){
-			for(var feed in data.unreadcounts){
+			console.log(data.unreadcounts.length);
+			for(var i =0;i<data.unreadcounts.length;i++){
+				var feed = data.unreadcounts[i];
 				if((feed.id).indexOf("feed/") == 0)
 				{
 					var feedStore = new LocalStore((feed.id).substr(5));
 					var feedinfo = JSON.parse(feedStore.get());
-					feedinfo.unreadCount = feed.count;
-					feedStore.set(JSON.stringify(feedinfo));
-					totalCount+=feed.count;
-					console.log("Count :" + feed.count);
+					if(feedinfo){
+						feedinfo.unreadCount = feed.count;
+						feedStore.set(JSON.stringify(feedinfo));
+						totalCount+=feed.count;
+					}
+					console.log("Count : "+feed.count + " , Total Count :" + totalCount);
 				}
-			if(totalCount > 0)
+			}
+			console.log("Total : " + totalCount);
+			if(totalCount > 0 && totalCount<1000)
 				pokki.setIconBadge(totalCount);
+			else if(totalCount > 1000)
+				pokki.setIconBadge(999);
 			else
 				pokki.removeIconBadge();
-
-			}
+			if(GoogleReader.hasAuth() == true)
+				setTimeout("FeedLoader.updateFromGoogle()",5000*12);
+			
 		});
+		
 	}
 	
 };

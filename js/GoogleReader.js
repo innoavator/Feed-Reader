@@ -163,7 +163,12 @@ GoogleReader = {
 	{
 		getData(this.USER_INFO_URL,null,callback);
 	},
-	
+	hasAuth : function()
+	{
+		if(window.localStorage.getItem("refresh_token") && window.localStorage.getItem("refresh_token")!="")
+			return true;
+		return false;
+	},
 	logout : function(callback)
 	{
 		window.localStorage.setItem("isSyncOn","false");
@@ -204,9 +209,9 @@ GoogleReader = {
 	unsubscribe : function(feedurl,callback)
 	{
       	var data = "s=feed/"+feedurl+"&"
-             "ac=unsubscribe&"+
-             "T="+this.api_token;
-        postData(this.SUBSCRIPTION_EDIT_URL,data,callback);	  
+             +"ac=unsubscribe&"
+             +"T="+this.api_token;
+        this.postData(this.SUBSCRIPTION_EDIT_URL,data,callback);	  
 	},
 	
 	addItemTag : function(feedid,itemid,tag,callback)
@@ -231,7 +236,7 @@ GoogleReader = {
 	
 	getUnreadCount : function(callback)
 	{
-		var data = "output=json&output=json&client="+this.client;
+		var data = "output=json&output=json&access_token="+this.access_token+"&client="+this.client;
 		this.getData(this.UNREAD_COUNT_URL,data,callback);
 	},
 	

@@ -1,7 +1,6 @@
 var FeedViewer = {
 	initialise : function()
 	{
-		pokki.clearWebSheetCookies();
 		FeedViewer.initialiseAddFeeds();
 		FeedViewer.initialiseMyFeeds();
 		FeedViewer.initialiseYoutubeFeeds();
@@ -34,8 +33,8 @@ var FeedViewer = {
 		var regexp = /(ftp|http|https):\/\/(\w+:{0,1}\w*@)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%@!\-\/]))?/
 		if(regexp.test(feed_url))
 		{
-			if(feed_url.charAt(feed_url.length -1)=="/")
-				feed_url = feed_url.substring(0,feed_url.length -1);
+			//if(feed_url.charAt(feed_url.length -1)=="/")
+				//feed_url = feed_url.substring(0,feed_url.length -1);
 			
 			if(FeedController.issubscribed(feed_url) == 0)
 			{
@@ -82,8 +81,9 @@ var FeedViewer = {
 		$('.grimg li').hover(function() 
 		{
 			var selectedli = $(".filter .selected");
-		if($(selectedli).attr('data-value') != "youtube")
-			{var feed_url = $(this).attr('data-id');
+			if($(selectedli).attr('data-value') != "youtube")
+			{
+				var feed_url = $(this).attr('data-id');
 			if(FeedController.issubscribed(feed_url) == 0)
 			{
 				$(this).css('cursor','pointer');
@@ -99,7 +99,7 @@ var FeedViewer = {
 			}},function() 
 			{
 				var selectedli = $(".filter .selected");
-		if($(selectedli).attr('data-value') != "youtube"){
+			if($(selectedli).attr('data-value') != "youtube"){
 				var feed_url = $(this).attr('data-id');
 				if(FeedController.issubscribed(feed_url) == 0)
 				{
@@ -145,10 +145,11 @@ var FeedViewer = {
 			else
 			{
 				url = $(this).attr('data-id');
-				if(FeedController.removeFeed(url))
-				{
-					showUnsubscribedFeed($(this));
-				}
+				var obj = $(this);
+				Reader.unsubscribe(url,function(){
+					console.log("Feed unsubscription callback");
+					showUnsubscribedFeed(obj);
+				});
 			}
 		}});
 		$(".filter a").live('click',function(){
@@ -264,14 +265,15 @@ var FeedViewer = {
 			//console.log("Unsub button clicked");
 			if(modes.currentmode == modes.myFeedsMode)
 				url = $(this).parent().attr('rel');
-			if(FeedController.removeFeed($(this).parent().attr('rel')))
-			{
-					$(this).parent().hide("fast",function(){$(this).parent().remove();});
+			var obj = $(this);
+			Reader.unsubscribe($(this).parent().attr('rel'),function(){
+					console.log("Unsubscribing from feed\n");
+					$(obj).parent().hide("fast",function(){$(this).parent().remove();});
 					$("#stage li").each(function(){
 					if($(this).attr('data-id') == url)
 						showUnsubscribedFeed($(this));
 					});
-			}
+			});
 		});
 		
 	},
@@ -295,9 +297,13 @@ var FeedViewer = {
 				if(unreadCount == null)
 				FeedController.initUnreadCount(list[i]);
 				totalUnreadCount+=unreadCount;
+				console.log(list[i]);
 				var imagesource=getDomain(list[i])+"/favicon.ico";
 				var randomnumber=Math.floor(Math.random()*5);
-				$("#myfeedsdiv .myfeedlist").append("<li><div class='feedl color"+randomnumber+"' rel = " +list[i] +"><div class='unsub'></div><img class='faviconimg' src='"+imagesource+"'/><p>"+title.substring(0,25)+"</p><div class='readunread'>"+unreadCount+"</div></div></li>"); 
+				$("#myfeedsdiv .myfeedlist").append("<li><div class='feedl color"+randomnumber+"' rel = " +list[i] +" >"
+					+"<div class='unsub'></div>"
+					+"<img class='faviconimg' src='"+imagesource+"'/><p>"+title.substring(0,25)
+					+"</p><div class='readunread'>"+unreadCount+"</div></div></li>");
 			}
 			pokki.setIconBadge(totalUnreadCount);
 		$('.faviconimg').error(function() {
@@ -336,7 +342,6 @@ var FeedViewer = {
 			if(feedobj != null)
 			{
 				showSubscribedFeed(feedobj);
-	
 			}
 			else
 			{

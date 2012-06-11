@@ -123,3 +123,16 @@ function showLoaderMessage(msg)
 {
 	$("#loader").find('p').html(msg);
 }
+
+function addLogoutMenu()
+{
+	 pokki.resetContextMenu();
+		 pokki.addContextMenuItem("Logout","logoutbtn");
+		 pokki.addEventListener('context_menu',function(id){
+				if(id =="logoutbtn"){
+					GoogleReader.logout();
+					pokki.resetContextMenu();
+				}
+			});
+}
+

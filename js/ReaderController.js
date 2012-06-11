@@ -4,12 +4,17 @@ var Reader = {
 	{
 		window.localStorage.setItem("isSyncOn","true");
 		showLoaderMessage("Loading...");
-		GoogleReader.loginViaOauth(Reader.syncSubscriptions);
+		GoogleReader.loginViaOauth(function(response){
+			if(response == "OK"){
+				addLogoutMenu();
+				Reader.syncSubscriptions();
+			}
+			});
 	},
 	
 	syncSubscriptions : function()
 	{
-		$("#syncProgressBar").css("display","block");
+		$("#syncProgressBar").css("display","block");                                                                
 		showLoaderMessage("Fetching Google Reader Subscriptions...");
 		GoogleReader.getSubscriptionList(function(google_subs){
 		showLoaderMessage("Fetching Local Subscriptions...");
@@ -28,6 +33,8 @@ var Reader = {
 		{
 			for(var i=0;i<google_subs.length;i++)
 				google_subs[i].id = (google_subs[i].id).substr(5);
+			//if(google_subs[i].id.charAt(google_subs[i].id.length - 1) == "/")
+				//google_subs[i].id = (google_subs[i].id).substring(0,(google_subs[i].id).length -1);
 			(google_subs).sort(function(a,b){return (a.id < b.id) ? -1 : 1;});
 		}
 		var flag = false,i=0,j=0;
@@ -80,9 +87,35 @@ var Reader = {
 		continueLocal();
 		});
 	},
-	handleSubscriptionList : function(list)
+	
+	subscribe : function(feedinfo,feedobj)
 	{
-		console.log("Callback successful");
-		console.log(list);
+		//Subscribe to Feed Locally
+		console.log(feedinfo);
+		var feed_name = FeedController.addFeed(feedinfo);
+		console.log("Feed_Name : " + feed_name);
+		if(feed_name !=0 ){	
+			FeedViewer.showSuccessfulSubscription(feed_name,feedinfo.feedUrl,feedobj);
+			FeedViewer.initialiseMyFeeds();
+		}
+		//Subscribe on Google Reader
+		if(GoogleReader.hasAuth() == true)
+			GoogleReader.subscribe(feedinfo.feedUrl,feedinfo.title,false,function(){
+			console.log("Google reader subscription successful");
+		});
+	},
+	unsubscribe : function(url,callback)
+	{
+		console.log("Unsubscribe : " + url);
+		//Unsubscribe to feed locally
+		if(FeedController.removeFeed(url))
+			callback();
+		
+		//Unsubscribe from Google reader
+		if(GoogleReader.hasAuth() == true)
+		GoogleReader.unsubscribe(url,function(){
+			console.log("Feed Unsubscribed successfully");
+			});
 	}
+	
 }
