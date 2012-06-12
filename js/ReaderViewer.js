@@ -270,7 +270,7 @@ var ReaderViewer = {
 			var headlineli = $('<li>').attr('slideno',counter-1).attr('link',feedContent[i].id);
 			var wrapdiv = $('<div>');
 			var divelement = $('<div>').attr('class','textSlide');
-			var title = "<a href = '" + feedContent[i].canonical[0].href + "'><h2>" + feedContent[i].title + "</h2></a>";
+			var title = "<a href = '" + feedContent[i].alternate[0].href + "'><h2>" + feedContent[i].title + "</h2></a>";
 			$(headlineli).html("<h2>"+feedContent[i].title+"</h2>");
 			if(feedContent[i].author != null)
 				title+= "<h5 style='float:left'>"+feedContent[i].author+"</h5><br>";
