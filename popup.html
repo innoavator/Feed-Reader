@@ -51,12 +51,13 @@
 <body>
 
   <div id="wrapper">
-   	<div id="loader">
+	<div id="loader">
       <div id="loadercontainer">
       	<img src="img/pageload.gif" style="padding-left:10px;"/><br><br>
-      	<a class="button green" onclick="Reader.syncWithGoogle();"  style="display:none" >Sync With Google Reader</a>
-        <a class="button green" onclick="continueLocal();" style="display:none" >No Thanks! Continue</a></br></br>
-        <h3>Loading ...</h3>
+      	<a class="button green" onClick="Reader.syncWithGoogle();"  style="display:none" >Sync With Google Reader</a>
+        <a class="button green" onClick="continueLocal();" style="display:none" >No Thanks! Continue</a></br></br>
+        <progress style="display:none;" max="100" id="syncProgressBar" ></progress><br><br>
+        <p style="margin-left:20px;"></p>
        </div>
      </div>
     	<div class="scrollable" style="opacity:0">
@@ -189,7 +190,7 @@
              <li data-id="http://www.espncricinfo.com/rss/livescores.xml" class="sports tosubscr"><img src="img/feedimgs/cricinfo.png" alt="CRICINFO" title="Cricinfo"class='feedimage'/><div class='caption'></div><div class='fdname'>Cricinfo</div></li>
              <li data-id="http://sports.espn.go.com/espn/rss/news" class="sports tosubscr"><img src="img/feedimgs/espn.png" alt="ESPN" title="ESPN"class='feedimage'/><div class='caption'></div><div class='fdname'>ESPN</div></li>
              <li data-id="http://www.fifa.com/rss/index.xml" class="sports tosubscr"><img src="img/feedimgs/fifa.png" alt="FIFA" title="FIFA"class='feedimage'/><div class='caption'></div><div class='fdname'>FIFA</div></li>
-             <li data-id="http://www.goal.com/en-india/feeds/news?fmt=rss" class="sports tosubscr"><img src="img/feedimgs/goal.png" alt="Goal.com" title="Goal.com"class='feedimage'/><div class='caption'></div><div class='fdname'>Goal.com</div></li>
+             <li data-id="http://www.goal.com/en-india/feeds/news" class="sports tosubscr"><img src="img/feedimgs/goal.png" alt="Goal.com" title="Goal.com"class='feedimage'/><div class='caption'></div><div class='fdname'>Goal.com</div></li>
              <li data-id="http://feeds1.nytimes.com/nyt/rss/Sports" class="sports tosubscr"><img src="img/feedimgs/nytsports.png" alt="New York Times: Sports" title="New York Times: Sports"class='feedimage'/><div class='caption'></div><div class='fdname'>New York Times: Sports</div></li>
              <li data-id="http://sports.yahoo.com/top/rss.xml" class="sports tosubscr"><img src="img/feedimgs/ysport.png" alt="YAHOO SPORTS" title="Yahoo! Sports"class='feedimage'/><div class='caption'></div><div class='fdname'>Yahoo!: Sports</div></li>
             </div>
@@ -229,7 +230,6 @@
 		<div id='footer'>
 			<a id="feedback">Feedback</a>
 			<div id="tomyfeedsbtn">My Feeds</div>
-			<div onClick="Reader.syncSubscriptions();"><a>Get my subscriptions</a></div>
 		</div>
 	</div>  <!-- #addfeedsdiv end -->
 	  

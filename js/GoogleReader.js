@@ -2,7 +2,7 @@
 /* Author : Abhishek Choudhary(abhishek@codeblues.in) */
 
 /* Brief documentation */
-/*  Feedid : the id of the feed source as recognised by Google.Its in the format feed/<feedurl>
+/*  Feedid : the id of the feed source as recognised by Google. Its in the format feed/<feedurl>
 	Feedurl : the url of the feed source.
 */
 var GoogleReader;
@@ -13,6 +13,7 @@ GoogleReader = {
     api_token : "",
 	refresh_token : "",
 	redirect_uri : "http://www.codeblues.in",
+	client : "scroll",
 	tags : {
 		"like": "user/-/state/com.google/like",
 		"label": "user/-/label/",
@@ -30,7 +31,7 @@ GoogleReader = {
 	USER_INFO_URL : "http://www.google.com/reader/api/0/user-info",
 	MARK_ALL_READ_URL : "http://www.google.com/reader/api/0/mark-all-as-read",
 	EDIT_TAG_URL : "http://www.google.com/reader/api/0/edit-tag",
-	
+	UNREAD_COUNT_URL : "http://www.google.com/reader/api/0/unread-count",
 	//Initialise the access_token
 	initialise : function() 
 	{
@@ -162,6 +163,20 @@ GoogleReader = {
 	{
 		getData(this.USER_INFO_URL,null,callback);
 	},
+	hasAuth : function()
+	{
+		if(window.localStorage.getItem("refresh_token") && window.localStorage.getItem("refresh_token")!="")
+			return true;
+		return false;
+	},
+	logout : function(callback)
+	{
+		window.localStorage.setItem("isSyncOn","false");
+		window.localStorage.setItem("access_token","");
+		window.localStorage.setItem("refresh_token","");
+		this.access_token = "";
+		this.refresh_token = "";
+	},
 	
 	/************************************************************************************/
 	/*								Feed Handling										*/
@@ -194,9 +209,9 @@ GoogleReader = {
 	unsubscribe : function(feedurl,callback)
 	{
       	var data = "s=feed/"+feedurl+"&"
-             "ac=unsubscribe&"+
-             "T="+this.api_token;
-        postData(this.SUBSCRIPTION_EDIT_URL,data,callback);	  
+             +"ac=unsubscribe&"
+             +"T="+this.api_token;
+        this.postData(this.SUBSCRIPTION_EDIT_URL,data,callback);	  
 	},
 	
 	addItemTag : function(feedid,itemid,tag,callback)
@@ -217,6 +232,12 @@ GoogleReader = {
 					+"&r="+this.tags[tag]
 					+"&i="+itemid;
 		postData(this.EDIT_TAG_URL,data,callback);
+	},
+	
+	getUnreadCount : function(callback)
+	{
+		var data = "output=json&output=json&access_token="+this.access_token+"&client="+this.client;
+		this.getData(this.UNREAD_COUNT_URL,data,callback);
 	},
 	
 	/*Mark All the items of a particular feed source as read */

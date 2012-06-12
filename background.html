@@ -5,10 +5,15 @@
 		 <!-- Feeds Files -->
         <script type="text/javascript" src="https://www.google.com/jsapi"></script> 
         <script type="text/javascript" src="js/lib/LocalStore.js"></script>
+        <script type="text/javascript" src="js/lib/jquery.min.js"></script>
+        <script type="text/javascript" src="js/GoogleReader.js"></script>
 		<script src="js/background.js"></script>
         <script src="js/FeedController.js"></script>
         <script type= "text/javascript">
-		FeedLoader.initialise();
+		$(document).ready(function(){
+			GoogleReader.initialise();
+			FeedLoader.initialise();
+		});
         </script>
 	</head>
 	<body>

@@ -100,6 +100,14 @@ html{
 }
 .green.button, .green.button:visited { background-color: #91bd09; }
 
+#syncProgressBar{
+	height:30px;
+	width:400px;
+	margin:50px 0px 0px 20px;
+	 -webkit-appearance: none;
+  	background: orangered;
+}
+
 /*----------------------------
     SearchBox in AddFeeds Page
 -----------------------------*/

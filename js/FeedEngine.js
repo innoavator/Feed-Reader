@@ -1,6 +1,7 @@
 // FeedEngine File
 var FeedEngine = {
 	checkFeed : function(url,feedobj){
+						console.log("Checking feed");
 					      try{
 						  var feed = new google.feeds.Feed(url);
 						  }catch(err){
@@ -11,16 +12,12 @@ var FeedEngine = {
 						  feed.setResultFormat(google.feeds.Feed.JSON_FORMAT);
 						  feed.load(function(result) 
 						  {
-						//	if($(feedobj).find('.feedimage').attr('src') != imgsrc)
+							//if($(feedobj).find('.feedimage').attr('src') != imgsrc)
 							{
 								if (!result.error) 
 								{	
-									var feed_name = FeedController.addFeed(result.feed);
-									if(feed_name !=0 )
-									{	
-										FeedViewer.showSuccessfulSubscription(feed_name,url,feedobj);
-										FeedViewer.initialiseMyFeeds();
-									}
+									console.log("Feed found successfully");
+									Reader.subscribe(result.feed,feedobj);
 								}
 								else
 								{
@@ -49,6 +46,7 @@ var FeedEngine = {
 						{
 							modes.switchToMode(2);
 						//	console.log("feed engine showfeed");
+							console.log(result.feed);
 							ReaderViewer.renderFeed(result.feed,0,20,true);
 						}
 						else
