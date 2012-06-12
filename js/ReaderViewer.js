@@ -18,6 +18,8 @@ var ReaderViewer = {
 						Reader.markAsRead($("#feedurldiv").html(),$(".activePage").attr('id'),false);
 						$("#readMessage").fadeIn(10);
 					}
+					if((Reader.endindex - $(".activePage").find(".textSlide").attr("slide-no")) < 10)
+						console.log("Fetch 20 more feeds.");
 				},
 				onSlideInit: function(slider) {
 					if(parseInt($("#rdrheadl").attr('startindex')) == 0)
@@ -100,8 +102,6 @@ var ReaderViewer = {
 	renderGoogleFeed : function(feeds,minindex,maxindex,feedUrl)
 	{
 		temp_feed = feeds;
-		$("#slider").empty();
-		$("#rdrheadl").empty();
 		$("#feedurldiv").html(feedUrl);
 		$("#viewOptionsBox option").attr("selected","");
 		if(window.localStorage.getItem("readMode") == SHOWALL)
@@ -110,6 +110,7 @@ var ReaderViewer = {
 			$("#viewOptionsBox").val("0");
 		var length = 0;
 		ReaderViewer.renderSliderFeed(temp_feed,minindex,maxindex);
+		$("#slider").anythingSlider();
 		//Rendering finished. Stop the loading sign
 		switchToLoadingView(false);
 		loadingFinished = true;
@@ -119,39 +120,32 @@ var ReaderViewer = {
 	renderSliderFeed : function(feeds,minindex,maxindex){
 		
 		console.log(feeds);
+		if(feeds.items.length ==0)
+		{
+			$("#slider").html("<div class='textSlide'><center><h2 style='margin-top:50px;'>You have no unread feeds.</h2></center></div>");
+			$("#slider").anythingSlider();
+			$("#readMessage").fadeOut("fast");
+			$("#unreadMessage").fadeOut("fast");	
+			return;
+		}
+		
 		$("#rdrheadl").append('<div id = "minimizeHeadlines"></div>');
-		$("#rdrheadl").attr('startindex',minindex);
-		$("#rdrheadl").attr('endindex',maxindex);
+		//$("#rdrheadl").attr('startindex',minindex);
+		//$("#rdrheadl").attr('endindex',maxindex);
 		var feedContent = feeds.items;
-		var unreadcount=0;
-		var counter = 0;
 		for(i= minindex;i<maxindex;i++)
 		{
-			if(counter==0)
+			if(i==0)
 				Reader.markAsRead($("#feedurldiv").html(),feedContent[i].id); 
-			console.log("i : " + i + "counter : " + counter);
-			counter++;
-			unreadcount++;
-			ReaderViewer.appendItem(feedContent[i]);
-			ReaderViewer.appendHeadline(feedContent[i],counter);
-			$("#slider").anythingSlider();
+			ReaderViewer.appendItem(feedContent[i],i);
+			ReaderViewer.appendHeadline(feedContent[i],i);
 			$(".textSlide a").addClass("nivoZoom center");
 		}
 		
 		$("#rdrheadl").append('<li id = "headlactions"><div id="hprev"></div>'
 							 +' <img src = "img/barload.gif"/>'//+'<a href = "#">View All</a>'
 							 + '<div id="hnext"></div></li>');
-		/*if(unreadcount ==0)
-		{
-			console.log("Unread count is 0");
-			$("#slider").empty();
-			$("#slider").html("<div class='textSlide'><center><h2 style='margin-top:50px;'>You have no unread feeds.</h2></center></div>");
-			$("#slider").anythingSlider();
-			console.log("Fading out");
-			$("#readMessage").fadeOut("fast");
-			$("#unreadMessage").fadeOut("fast");	
-		}
-		else if(parseInt($("#rdrheadl").attr('startindex')) == 0)
+		/*else if(parseInt($("#rdrheadl").attr('startindex')) == 0)
 		{
 			$("#readMessage").fadeIn("slow");
 			$("#unreadMessage").fadeOut("fast");
@@ -164,11 +158,11 @@ var ReaderViewer = {
 		return;
 	},
 	
-	appendItem : function(feeditem)
+	appendItem : function(feeditem,counter)
 	{
 		var lielement = $('<li>').attr('class','panel' + (i+1)).attr("id",feeditem.id);
 		var wrapdiv = $('<div>');
-		var divelement = $('<div>').attr('class','textSlide');
+		var divelement = $('<div>').attr('class','textSlide').attr('slide-no',counter);
 		var title = "<a href = '" + feeditem.alternate[0].href + "'><h2>" + feeditem.title + "</h2></a>";
 		if(feeditem.author != null)
 			title+= "<h5 style='float:left'>"+feeditem.author+"</h5><br>";

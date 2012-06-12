@@ -38,6 +38,14 @@ var modes = {
 				modes.currentmode = nextstate;
 			}
 };
+function readerToMyFeeds()
+{
+	modes.switchToMode(1);
+	Reader.resetState();
+	FeedViewer.renderMyFeeds();
+	$("#slider").empty();
+	$("#rdrheadl").empty();
+}
 function display_message(message)
 {
 		 $('<div class="quick-alert">Alert! Watch me before it\'s too late!</div>')

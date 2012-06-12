@@ -1,6 +1,8 @@
 var Reader = {
 	
 	continuationToken : "",
+	startindex : 0,
+	endindex : 0,
 	syncWithGoogle : function()
 	{
 		window.localStorage.setItem("isSyncOn","true");
@@ -140,19 +142,15 @@ var Reader = {
 	
 	getFeedContent : function(feedUrl)
 	{
-		  if(GoogleReader.hasAuth() == true)
-		  {
-			  	var xt = "";
-			    if(window.localStorage.getItem("readMode") == SHOWUNREAD)
-					xt = "read";	
-			 	GoogleReader.getFeedContent(feedUrl,20,xt,"",function(result){
-			 	console.log(result);
+			var xt = "";
+			if(window.localStorage.getItem("readMode") == SHOWUNREAD)
+				xt = "read";	
+			GoogleReader.getFeedContent(feedUrl,20,xt,"",function(result){
+				console.log(result);
 				ReaderViewer.continuationToken = result.continuation;
 				modes.switchToMode(2);
-				ReaderViewer.renderGoogleFeed(result,0,20,feedUrl);				
-			 }); 
-			 
-		  }
+				ReaderViewer.renderGoogleFeed(result,0,result.items.length,feedUrl);				
+		  	});
 		  /*
 		  fetchTimer = setTimeout("FeedEngine.showTimeout()",10000);
 		  inFetchingState = true;
@@ -178,6 +176,12 @@ var Reader = {
 				loadingFinished = true;
 				}
 		  })*/
+	},
+	resetState : function()
+	{
+		this.continuationToken = "";
+		this.startindex = 0;
+		this.endindex = 0;
 	}
 	
 	
