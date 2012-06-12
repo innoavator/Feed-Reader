@@ -32,6 +32,8 @@ GoogleReader = {
 	MARK_ALL_READ_URL : "http://www.google.com/reader/api/0/mark-all-as-read",
 	EDIT_TAG_URL : "http://www.google.com/reader/api/0/edit-tag",
 	UNREAD_COUNT_URL : "http://www.google.com/reader/api/0/unread-count",
+	FEED_CONTENT_URL: "http://www.google.com/reader/api/0/stream/contents/feed/",
+	SUBS_CHECK_URL : "https://www.google.com/reader/api/0/subscribed",
 	//Initialise the access_token
 	initialise : function() 
 	{
@@ -146,6 +148,7 @@ GoogleReader = {
 	
 	setTokens : function(access_token,refresh_token,callback)
 	{
+		console.log("Callback in settoken : " + callback);
 		console.log("Access token : " + access_token);
 		GoogleReader.access_token = access_token;
 		this.getApiToken();
@@ -185,9 +188,27 @@ GoogleReader = {
 	getSubscriptionList : function(callback) 
 	{
 		var data = "output=json&access_token="+this.access_token;
-		this.getData(GoogleReader.SUBSCRIPTION_LIST_URL,data,callback);
+		this.getData(GoogleReader.SUBSCRIPTION_LIST_URL,data,callback,"json");
 	},
 	
+	getFeedContent : function(feedUrl,count,xttag,continuation,callback)
+	{
+		var data = "r=n"
+				   +"&access_token="+GoogleReader.access_token
+				   +"&n="+count
+				   +"&client="+this.client
+				   +"&c="+continuation;
+				   //+"&ck="+(new Date.getTime());
+		if(xttag != null && xttag.length!=0)
+			data+="&xt="+GoogleReader.tags[xttag];
+		this.getData(GoogleReader.FEED_CONTENT_URL+feedUrl,data,callback,"json");
+	},
+	
+	checkIfSubscribed : function(feedUrl,callback)
+	{
+		var data = "s=feed/"+feedUrl;
+		this.getData(GoogleReader.SUBS_CHECK_URL,data,callback);
+	},
 	/*Subscribe to the given feedurl. 
 	  @param feedurl  : the feedsource to subscribe to.
 	  @param recommendation : if subscribed from the recommendations, recommendation is true, else false.
@@ -250,20 +271,23 @@ GoogleReader = {
 	/***************************************************************/
 	/*        Util Functions of the Google Reader Library          */ 
 	 /**************************************************************/
-	getData : function(url,data,callback)
+	getData : function(url,data,callback,dataType)
 	{
+		if(!dataType)
+			dataType = "";
 	    /* Make a get request to Google Reader */
         $.ajax({
 	      method: "get",
 	      url: url,
 	      data : data,
-		  dataType : "json",
+		  dataType : dataType,
 	      success: callback,
 	      timeout: (15 * 1000),
 	      statusCode : {
 		        		    401 : function(){
 		      			    	console.log("Authorization failure. Access_token expired.");
 			    		    	GoogleReader.refreshAccessToken(function(result){
+								console.log("Final Result : " + result);
 								if(result == "OK")
 									GoogleReader.getData(url,data,callback);
 								//else
@@ -272,7 +296,8 @@ GoogleReader = {
 		    		    }
 	            },
 	      error: function( objAJAXRequest, strError ){
-			    console.log("Error : " + strError);
+			    //callback(strError,"NOK");
+				console.log("Error : " + strError);
 		    } 
 	    });  
 	},
@@ -296,6 +321,7 @@ GoogleReader = {
 				        }
 	            },
 	      error: function( objAJAXRequest, strError ){
+			  
 			    console.log("Error : " + strError);
 		        } 
 	    }); 

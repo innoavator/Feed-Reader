@@ -203,7 +203,7 @@ var FeedViewer = {
 					loadingFinished = false;
 					$("#loadingScreen").css('visibility','visible').css('display','block');
 					var url = ($(this).attr("rel"));
-					FeedEngine.showFeed(url);
+					Reader.getFeedContent(url);
 				}
 				
 		});

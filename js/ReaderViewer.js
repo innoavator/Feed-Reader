@@ -14,7 +14,7 @@ var ReaderViewer = {
 				onSlideComplete: function(slider) {
 					if(parseInt($("#rdrheadl").attr('startindex')) == 0)
 					{
-						FeedController.saveAsRead($("#feedurldiv").html(),$(".activePage div").find('a').first().attr('href'));
+						Reader.markAsRead($("#feedurldiv").html(),$(".activePage div").find('a').first().attr('href'));
 						$("#readMessage").fadeIn(10);
 					}
 				},
@@ -34,10 +34,10 @@ var ReaderViewer = {
 				console.log("Option changed");
 				window.localStorage.setItem("readMode",$(this).val());
 				$("#loadingScreen").css('visibility','visible').css('display','block');
-					FeedEngine.showFeed($("#feedurldiv").html());
+					Reader.getFeedContent($("#feedurldiv").html());
 				});
 			$("#readMessage").find('img').click(function(){
-				FeedController.removeFromRead($("#feedurldiv").html(),$(".activePage div").find('a').first().attr('href'));
+				Reader.keepUnread($("#feedurldiv").html(),$(".activePage div").find('a').first().attr('href'));
 				$("#readMessage").fadeOut("fast",function(){
 				$("#unreadMessage").fadeIn("fast");
 				});
@@ -140,7 +140,7 @@ var ReaderViewer = {
 		}
 	},
 	
-	renderSliderFeed : function(feeds,minindex,maxindex,isFirstTime){
+/*	renderSliderFeed : function(feeds,minindex,maxindex,isFirstTime){
 		
 		$("#feedurldiv").html(feeds.feedUrl);
 		$("#rdrheadl").append('<div id = "minimizeHeadlines"></div>');
@@ -224,59 +224,102 @@ var ReaderViewer = {
 		{
 			FeedController.setUnreadCount($("#feedurldiv").html,0);
 		}
-	}
-/*	registerHeadlines : function(result,feeds)
-	{
-		temp_feed = feeds;
-		var start_index = parseInt($("#rdrheadl").attr('startindex'));
-		//ReaderViewer.renderHeadlines( start_index + 10);
-		ReaderViewer.renderFeed(temp_feed,start_index+10,start_index+0,false);
 	},
-	
-	renderHeadlines : function(startentry)
+	*/
+	renderGoogleFeed : function(feeds,minindex,maxindex,isFirstTime)
 	{
-		var isMoreFeed = true;
+		console.log("Rendering Google Feed");
+		temp_feed = feeds;
+		$("#slider").empty();
 		$("#rdrheadl").empty();
-		$("#rdrheadl").append('<div id = "minimizeHeadlines"></div>');
-		var start = parseInt(startentry,10);
-
-		if(temp_feed)
-		{
-			if(temp_feed.entries.length > start)
-			{
-		//		console.log(temp_feed.entries);
-				for(var i =start;i<start+10;i++)
-				{
-					if(temp_feed.entries[i] == null)
-						break;
-					var headlineli = $('<li>').attr('slideno',i).attr('link',temp_feed.entries[i].link);
-					$(headlineli).html("<h2>" + temp_feed.entries[i].title + "</h2>");
-					$("#rdrheadl").append(headlineli);
-				}
-			}
-			else
-			{
-				isMoreFeed = false;
-				$("#rdrheadl").append('<li><h2>Could not retrieve more feeds</h2></li>');
-			}
-		}
+		var content = feeds.items;
+		$("#viewOptionsBox option").attr("selected","");
+		if(window.localStorage.getItem("readMode") == SHOWALL)
+			$("#viewOptionsBox").val("1");
 		else
-		{
-			$("#rdrheadl").append('<li><h2>Failed to retrieve feeds</h2></li>');
-		}
-		$("#rdrheadl").append('<li id = "headlactions"><div id="hprev"></div>'
-							 +' <img src = "img/barload.gif"/>'//+<a href = "#">View All</a>'
-            				 + '<div id="hnext"></div></li>');
-		$("#rdrheadl").attr('start',start);
-		if(isMoreFeed)
-		{
-			if(start == 0)
-				$("#hprev").hide();
-		}
-		else
-			$("#hnext").hide();
+			$("#viewOptionsBox").val("0");
+		var length = 0;
+		console.log("Slider feed");
+		ReaderViewer.renderSliderFeed(temp_feed,minindex,maxindex,isFirstTime);
+		console.log("rendering finished");
 		switchToLoadingView(false);
+		loadingFinished = true;
+		$("#loadingScreen").css('visibility','hidden').css('display','none');
+	},
+	renderSliderFeed : function(feeds,minindex,maxindex,isFirstTime){
+		
+		$("#feedurldiv").html(feeds.feedUrl);
+		$("#rdrheadl").append('<div id = "minimizeHeadlines"></div>');
+		$("#rdrheadl").attr('startindex',minindex);
+		$("#rdrheadl").attr('endindex',maxindex);
+		var feedContent = feeds.items;
+		var unreadcount=0;
+		var counter = 0;
+		for(i= minindex;i<maxindex;i++)
+		{
+			if(isFirstTime && counter==0)
+				Reader.markAsRead($("#feedurldiv").html(),feedContent[i].link); 
+			console.log("i : " + i + "counter : " + counter);
+			counter++;
+			unreadcount++;
+			if(feedContent[i] == null)
+			{
+				$("#hnext").hide();break;
+			}
+			var lielement = $('<li>').attr('class','panel' + (i+1));
+			var headlineli = $('<li>').attr('slideno',counter-1).attr('link',feedContent[i].id);
+			var wrapdiv = $('<div>');
+			var divelement = $('<div>').attr('class','textSlide');
+			var title = "<a href = '" + feedContent[i].canonical[0].href + "'><h2>" + feedContent[i].title + "</h2></a>";
+			$(headlineli).html("<h2>"+feedContent[i].title+"</h2>");
+			if(feedContent[i].author != null)
+				title+= "<h5 style='float:left'>"+feedContent[i].author+"</h5><br>";
+			
+			var description = "<p>" + feedContent[i].summary.content + "</p>";
+			if(feedContent[i].publishedDate != null)
+			{
+				var date = "<h5 style='float:right;margin-top:3px;clear:both'>" + feedContent[i].published+"</h5>";
+				$(divelement).append(date);
+			}
+			$(divelement).append(title);
+			$(divelement).append(description);
+			$(wrapdiv).append(divelement);
+			$(lielement).append(wrapdiv);
+			$("#slider").append(lielement);
+			$("#slider").anythingSlider();
+			$(".textSlide a").addClass("nivoZoom center");
+			$("#rdrheadl").append(headlineli);
+		}
+		
+	
+		$("#rdrheadl").append('<li id = "headlactions"><div id="hprev"></div>'
+							 +' <img src = "img/barload.gif"/>'//+'<a href = "#">View All</a>'
+							 + '<div id="hnext"></div></li>');
+		if(unreadcount ==0)
+		{
+			console.log("Unread count is 0");
+			$("#slider").empty();
+			$("#slider").html("<div class='textSlide'><center><h2 style='margin-top:50px;'>You have no unread feeds.</h2></center></div>");
+			$("#slider").anythingSlider();
+			console.log("Fading out");
+			$("#readMessage").fadeOut("fast");
+			$("#unreadMessage").fadeOut("fast");	
+		}
+		else if(parseInt($("#rdrheadl").attr('startindex')) == 0)
+		{
+			$("#readMessage").fadeIn("slow");
+			$("#unreadMessage").fadeOut("fast");
+		}
+		if(!isFirstTime)
+		{
+			$("#readMessage").fadeOut("fast");
+			$("#unreadMessage").fadeOut("fast");
+		}
+		if(unreadcount == 0 && parseInt($("#rdrheadl").attr('startindex')) == 0)
+		{
+			FeedController.setUnreadCount($("#feedurldiv").html,0);
+		}
+		return;
 	}
-*/
 }
  

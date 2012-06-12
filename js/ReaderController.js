@@ -1,5 +1,6 @@
 var Reader = {
 	
+	continuationToken : "",
 	syncWithGoogle : function()
 	{
 		window.localStorage.setItem("isSyncOn","true");
@@ -116,6 +117,60 @@ var Reader = {
 		GoogleReader.unsubscribe(url,function(){
 			console.log("Feed Unsubscribed successfully");
 			});
+	},
+	
+	markAsRead : function(feedUrl,itemUrl)
+	{
+		/*if(GoogleReader.hasAuth() == true)
+			GoogleReader.addItemTag(feedUrl,itemUrl,"read");
+		FeedController.saveAsRead(feedUrl,itemUrl);*/
+	},
+	
+	keepUnread : function(feedUrl,itemUrl)
+	{
+		/*if(GoogleReader.hasAuth() == true)
+			GoogleReader.addItemTag(feedUrl,itemUrl,"kept-unread");
+		FeedController.removeFromRead(feedUrl,itemUrl); */
+	},
+	
+	getFeedContent : function(feedUrl)
+	{
+		  if(GoogleReader.hasAuth() == true)
+		  {
+			 	GoogleReader.getFeedContent(feedUrl,20,"","",function(result){
+			 	console.log(result);
+				ReaderViewer.continuationToken = result.continuation;
+				modes.switchToMode(2);
+				ReaderViewer.renderGoogleFeed(result,0,20,true);				
+			 }); 
+			 
+		  }
+		  /*
+		  fetchTimer = setTimeout("FeedEngine.showTimeout()",10000);
+		  inFetchingState = true;
+		  var feed = new google.feeds.Feed(url);
+		  feed.includeHistoricalEntries();
+		  feed.setNumEntries(20);
+		  feed.setResultFormat(google.feeds.Feed.JSON_FORMAT);
+		  feed.load(function(result) 
+		  {
+			  inFetchingState = false;
+				if (!result.error) 
+				{
+					modes.switchToMode(2);
+				//	console.log("feed engine showfeed");
+					console.log(result.feed);
+					ReaderViewer.renderFeed(result.feed,0,20,true);
+				}
+				else
+				{
+				$("#loadingScreen").html("Failed to retrieve Feed.").fadeIn().delay(2000).fadeOut(400);							
+				$("#loadingScreen").css('visibility','hidden').css('display','none');
+				$("#loadingScreen").html("<img src = 'img/feedsload.gif' />");
+				loadingFinished = true;
+				}
+		  })*/
 	}
+	
 	
 }
