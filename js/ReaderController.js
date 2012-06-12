@@ -3,6 +3,7 @@ var Reader = {
 	continuationToken : "",
 	startindex : 0,
 	endindex : 0,
+	refetchSent : 0,
 	syncWithGoogle : function()
 	{
 		window.localStorage.setItem("isSyncOn","true");
@@ -10,6 +11,8 @@ var Reader = {
 		GoogleReader.loginViaOauth(function(response){
 			if(response == "OK"){
 				addLogoutMenu();
+				//Start background polling for unread count
+				pokki.rpc('FeedLoader.updateFromGoogle()');
 				Reader.syncSubscriptions();
 			}
 			});
@@ -145,11 +148,14 @@ var Reader = {
 			var xt = "";
 			if(window.localStorage.getItem("readMode") == SHOWUNREAD)
 				xt = "read";	
-			GoogleReader.getFeedContent(feedUrl,20,xt,"",function(result){
+			GoogleReader.getFeedContent(feedUrl,20,xt,Reader.continuationToken,function(result){
 				console.log(result);
-				ReaderViewer.continuationToken = result.continuation;
+				Reader.continuationToken = result.continuation;
+				Reader.endindex+=result.items.length;
+				Reader.refetchSent = 0;
 				modes.switchToMode(2);
-				ReaderViewer.renderGoogleFeed(result,0,result.items.length,feedUrl);				
+				ReaderViewer.renderGoogleFeed(result,0,result.items.length,feedUrl);
+				console.log("Rendering feed");
 		  	});
 		  /*
 		  fetchTimer = setTimeout("FeedEngine.showTimeout()",10000);
@@ -182,6 +188,7 @@ var Reader = {
 		this.continuationToken = "";
 		this.startindex = 0;
 		this.endindex = 0;
+		this.refetchSent = 0;
 	}
 	
 	

@@ -3,13 +3,13 @@ var FeedLoader = {
 	myFeedList : new LocalStore('myFeeds'),
 	count : 1,
 	initialise : function(){
+		
 		pokki.addEventListener('context_menu',function(id){
-				if(id =="logoutbtn"){
-					window.localStorage.setItem("isSyncOn","false");
-					window.localStorage.setItem("access_token","");
-					window.localStorage.setItem("refresh_token","");
-				}
-			});
+			if(id =="logoutbtn"){
+				GoogleReader.logout();
+				pokki.resetContextMenu();
+			}
+		});
 			if(window.localStorage.getItem("isSyncOn") && window.localStorage.getItem("isSyncOn")=="true")
 			{	
 				console.log("Updating from google");

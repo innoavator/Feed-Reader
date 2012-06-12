@@ -39,9 +39,8 @@ GoogleReader = {
 	{
 		this.access_token = window.localStorage.getItem("access_token");
 		this.refresh_token = window.localStorage.getItem("refresh_token");
-		this.getApiToken();
-		console.log("Access_token : " + this.access_token);
-		console.log("Refresh_token : " + this.refresh_token);
+		if(this.access_token && this.refresh_token)
+			this.getApiToken();
 		/*if(!this.refresh_token || this.refresh_token.length == 0)
 			this.loginViaOauth();
 		else
@@ -198,8 +197,11 @@ GoogleReader = {
 				   +"&client="+this.client
 				   +"&c="+continuation;
 				   //+"&ck="+(new Date.getTime());
-		if(xttag != null && xttag.length!=0)
+		if(xttag != null && xttag.length!=0 && GoogleReader.hasAuth())
+		{
+			console.log("Fetching only unread feeds");
 			data+="&xt="+GoogleReader.tags[xttag];
+		}
 		else
 			data+="&n="+count;
 		this.getData(GoogleReader.FEED_CONTENT_URL+feedUrl,data,callback);

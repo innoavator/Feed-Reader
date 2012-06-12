@@ -13,13 +13,27 @@ var ReaderViewer = {
 				 infiniteSlides      : false,
 				onSlideComplete: function(slider) {
 					//Mark the feed as read.
+					var feedUrl = $("#feedurldiv").html();
+					var itemId = $(".activePage").attr('id');
+					var slide_no = $(".activePage").find(".textSlide").attr("slide-no");
 					if(GoogleReader.hasAuth() == true)
 					{
-						Reader.markAsRead($("#feedurldiv").html(),$(".activePage").attr('id'),false);
+						Reader.markAsRead(feedUrl,itemId,false);
 						$("#readMessage").fadeIn(10);
 					}
-					if((Reader.endindex - $(".activePage").find(".textSlide").attr("slide-no")) < 10)
-						console.log("Fetch 20 more feeds.");
+					//Fetch next 20 feeds
+					if(((Reader.endindex - slide_no) < 10) && (Reader.refetchSent == 0))
+					{
+						console.log("Time to fetch more feeds");
+						var unreadCount = FeedController.getUnreadCount(feedUrl);
+						if(!(window.localStorage.getItem("readMode") == SHOWUNREAD) || (unreadCount>Reader.endindex))
+						{
+							console.log("Fetch" + "more feeds.");
+							Reader.refetchSent = 1;
+							Reader.getFeedContent(feedUrl);
+						}
+							
+					}
 				},
 				onSlideInit: function(slider) {
 					if(parseInt($("#rdrheadl").attr('startindex')) == 0)
