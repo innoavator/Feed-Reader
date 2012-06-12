@@ -119,29 +119,37 @@ var Reader = {
 			});
 	},
 	
-	markAsRead : function(feedUrl,itemUrl)
+	markAsRead : function(feedUrl,itemUrl,toRemove)
 	{
-		/*if(GoogleReader.hasAuth() == true)
+		//Only mark on Google, Local data has been deprecated.
+		if(GoogleReader.hasAuth() == true)
+		if(toRemove)
+			GoogleReader.editItemTag(feedUrl,itemUrl,"read","kept-unread");
+		else
 			GoogleReader.addItemTag(feedUrl,itemUrl,"read");
-		FeedController.saveAsRead(feedUrl,itemUrl);*/
+		/*FeedController.saveAsRead(feedUrl,itemUrl);*/
 	},
 	
 	keepUnread : function(feedUrl,itemUrl)
 	{
-		/*if(GoogleReader.hasAuth() == true)
-			GoogleReader.addItemTag(feedUrl,itemUrl,"kept-unread");
-		FeedController.removeFromRead(feedUrl,itemUrl); */
+		//Only mark on Google, local data has been deprecated.
+		if(GoogleReader.hasAuth() == true)
+			GoogleReader.editItemTag(feedUrl,itemUrl,"kept-unread","read");
+		/*FeedController.removeFromRead(feedUrl,itemUrl); */
 	},
 	
 	getFeedContent : function(feedUrl)
 	{
 		  if(GoogleReader.hasAuth() == true)
 		  {
-			 	GoogleReader.getFeedContent(feedUrl,20,"","",function(result){
+			  	var xt = "";
+			    if(window.localStorage.getItem("readMode") == SHOWUNREAD)
+					xt = "read";	
+			 	GoogleReader.getFeedContent(feedUrl,20,xt,"",function(result){
 			 	console.log(result);
 				ReaderViewer.continuationToken = result.continuation;
 				modes.switchToMode(2);
-				ReaderViewer.renderGoogleFeed(result,0,20,true);				
+				ReaderViewer.renderGoogleFeed(result,0,20,feedUrl);				
 			 }); 
 			 
 		  }

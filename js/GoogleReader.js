@@ -188,20 +188,21 @@ GoogleReader = {
 	getSubscriptionList : function(callback) 
 	{
 		var data = "output=json&access_token="+this.access_token;
-		this.getData(GoogleReader.SUBSCRIPTION_LIST_URL,data,callback,"json");
+		this.getData(GoogleReader.SUBSCRIPTION_LIST_URL,data,callback);
 	},
 	
 	getFeedContent : function(feedUrl,count,xttag,continuation,callback)
 	{
 		var data = "r=n"
 				   +"&access_token="+GoogleReader.access_token
-				   +"&n="+count
 				   +"&client="+this.client
 				   +"&c="+continuation;
 				   //+"&ck="+(new Date.getTime());
 		if(xttag != null && xttag.length!=0)
 			data+="&xt="+GoogleReader.tags[xttag];
-		this.getData(GoogleReader.FEED_CONTENT_URL+feedUrl,data,callback,"json");
+		else
+			data+="&n="+count;
+		this.getData(GoogleReader.FEED_CONTENT_URL+feedUrl,data,callback);
 	},
 	
 	checkIfSubscribed : function(feedUrl,callback)
@@ -235,30 +236,42 @@ GoogleReader = {
         this.postData(this.SUBSCRIPTION_EDIT_URL,data,callback);	  
 	},
 	
-	addItemTag : function(feedid,itemid,tag,callback)
+	addItemTag : function(feedUrl,itemid,tag,callback)
 	{
-		var data = "s="+feedid
-					+"&ac=edit-tags"
+		var data = "s=feed/"+feedUrl
+					+"&ac=edit"
 					+"&async=true"
 					+"&a="+this.tags[tag]
-					+"&i="+itemid;
-		postData(this.EDIT_TAG_URL,data,callback);
+					+"&i="+itemid
+					+"&T="+this.api_token;
+		this.postData(this.EDIT_TAG_URL,data,callback);
 	},
 	
-	removeItemTag : function(feedid,itemid,tag,callback)
+	removeItemTag : function(feedUrl,itemid,tag,callback)
 	{
-		var data = "s="+feedid
-					+"&ac=edit-tags"
+		var data = "s=feed/"+feedUrl
+					+"&ac=edit"
 					+"&async=true"
 					+"&r="+this.tags[tag]
-					+"&i="+itemid;
-		postData(this.EDIT_TAG_URL,data,callback);
+					+"&i="+itemid
+					+"&T="+this.api_token;
+		this.postData(this.EDIT_TAG_URL,data,callback);
 	},
-	
+	editItemTag : function(feedUrl,itemid,a_tag,r_tag,callback)
+	{
+		var data = "s=feed/"+feedUrl
+					+"&ac=edit"
+					+"&async=true"
+					+"&a="+this.tags[a_tag]
+					+"&r="+this.tags[r_tag]
+					+"&i="+itemid
+					+"&T="+this.api_token;
+		this.postData(this.EDIT_TAG_URL,data,callback);
+	},
 	getUnreadCount : function(callback)
 	{
 		var data = "output=json&output=json&access_token="+this.access_token+"&client="+this.client;
-		this.getData(this.UNREAD_COUNT_URL,data,callback);
+		this.getData(this.UNREAD_COUNT_URL,data,callback,"json");
 	},
 	
 	/*Mark All the items of a particular feed source as read */
@@ -271,16 +284,14 @@ GoogleReader = {
 	/***************************************************************/
 	/*        Util Functions of the Google Reader Library          */ 
 	 /**************************************************************/
-	getData : function(url,data,callback,dataType)
+	getData : function(url,data,callback)
 	{
-		if(!dataType)
-			dataType = "";
 	    /* Make a get request to Google Reader */
         $.ajax({
 	      method: "get",
 	      url: url,
 	      data : data,
-		  dataType : dataType,
+		  dataType : "json",
 	      success: callback,
 	      timeout: (15 * 1000),
 	      statusCode : {
@@ -317,7 +328,11 @@ GoogleReader = {
 	      statusCode : {
 				            401 : function(){
 				    	    console.log("Authorization failure. Access_token expired.");
-				    	    //Refresf access_token
+				    	    GoogleReader.refreshAccessToken(function(result){
+								console.log("Final Result : " + result);
+								if(result == "OK")
+									GoogleReader.postData(url,data,callback);
+							});
 				        }
 	            },
 	      error: function( objAJAXRequest, strError ){

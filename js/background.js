@@ -119,7 +119,7 @@ var FeedLoader = {
 			else
 				pokki.removeIconBadge();
 			if(GoogleReader.hasAuth() == true)
-				setTimeout("FeedLoader.updateFromGoogle()",5000*12);
+				setTimeout("FeedLoader.updateFromGoogle()",5000*3);
 			
 		});
 		

@@ -12,9 +12,10 @@ var ReaderViewer = {
 				 toggleArrows        : true, 
 				 infiniteSlides      : false,
 				onSlideComplete: function(slider) {
-					if(parseInt($("#rdrheadl").attr('startindex')) == 0)
+					//Mark the feed as read.
+					if(GoogleReader.hasAuth() == true)
 					{
-						Reader.markAsRead($("#feedurldiv").html(),$(".activePage div").find('a').first().attr('href'));
+						Reader.markAsRead($("#feedurldiv").html(),$(".activePage").attr('id'),false);
 						$("#readMessage").fadeIn(10);
 					}
 				},
@@ -30,6 +31,7 @@ var ReaderViewer = {
 				window.localStorage.setItem("readMode",SHOWUNREAD);
 			else
 				$("#viewOptionsBox").val(window.localStorage.getItem("readMode"));	
+			
 			$("#viewOptionsBox").change(function(){
 				console.log("Option changed");
 				window.localStorage.setItem("readMode",$(this).val());
@@ -37,13 +39,13 @@ var ReaderViewer = {
 					Reader.getFeedContent($("#feedurldiv").html());
 				});
 			$("#readMessage").find('img').click(function(){
-				Reader.keepUnread($("#feedurldiv").html(),$(".activePage div").find('a').first().attr('href'));
+				Reader.keepUnread($("#feedurldiv").html(),$(".activePage").attr('id'));
 				$("#readMessage").fadeOut("fast",function(){
 				$("#unreadMessage").fadeIn("fast");
 				});
 			});
 			$("#unreadMessage").find('img').click(function(){
-				FeedController.saveAsRead($("#feedurldiv").html(),$(".activePage div").find('a').first().attr('href'));
+				Reader.markAsRead($("#feedurldiv").html(),$(".activePage").attr('id'),true);
 				$("#unreadMessage").fadeOut("fast",function(){
 				$("#readMessage").fadeIn("fast");
 				});
@@ -94,161 +96,29 @@ var ReaderViewer = {
 		
 	//	$("#headlactions a").live('click',function(){FeedViewer.loadAllFeeds( $("#rdrheadl").attr('startindex'));});
 	},
-	renderFeed : function(feeds,minindex,maxindex,isFirstTime){
-		
-		temp_feed = feeds;
-		$("#slider").empty();
-		$("#rdrheadl").empty();
-		var content = feeds.entries;
-		$("#viewOptionsBox option").attr("selected","");
-		if(window.localStorage.getItem("readMode") == SHOWALL)
-			$("#viewOptionsBox").val("1");
-		else
-			$("#viewOptionsBox").val("0");
-		var length = 0;
-/*		for(var i = 0;i<content.length;i++)
-			length+= content[i].content.length; */
-//		if(length/10 >200)
-			ReaderViewer.renderSliderFeed(temp_feed,minindex,maxindex,isFirstTime);
-//		else
-//			ReaderViewer.renderScrollFeed(feeds);
-		switchToLoadingView(false);
-		loadingFinished = true;
-		$("#loadingScreen").css('visibility','hidden').css('display','none');
-
-	},
-	renderScrollFeed : function(feeds){
-		
-		$("#slider").css('width','600px');
-		var feedContent = feeds.entries;
-		for(i= 0;i<feedContent.length;i++)
-		{
-			var lielement = $('<li>');
-			var title = "<a href = '" + feedContent[i].link + "'><h3>" + feedContent[i].title + "</h3></a>";
-			if(feedContent[i].author != null)
-				title+= "<h5 style='float:left'>"+feedContent[i].author+"</h5><br>";
-			
-			var description = "<p>" + feedContent[i].content + "</p>";
-			if(feedContent[i].publishedDate != null)
-			{
-				var date = "<h5 style='float:right;margin-top:3px;clear:both'>" + feedContent[i].publishedDate+"</h5>";
-				$(lielement).append(date);
-			}
-			$(lielement).append(title);
-			$(lielement).append(description);
-			$("#slider").append(lielement);
-		}
-	},
 	
-/*	renderSliderFeed : function(feeds,minindex,maxindex,isFirstTime){
-		
-		$("#feedurldiv").html(feeds.feedUrl);
-		$("#rdrheadl").append('<div id = "minimizeHeadlines"></div>');
-		$("#rdrheadl").attr('startindex',minindex);
-		$("#rdrheadl").attr('endindex',maxindex);
-		var feedContent = feeds.entries;
-		var unreadcount=0;
-		var counter = 0;
-		for(i= minindex;i<maxindex;i++)
-		{
-			if(isFirstTime)
-			{
-				if(window.localStorage.getItem("readMode") == SHOWUNREAD)
-				{
-					if(FeedController.isRead(feeds.feedUrl,feedContent[i].link))
-					{
-						console.log("Already read : " + i);
-						continue;
-					}
-				}
-			}
-			if(isFirstTime && counter==0)
-				FeedController.saveAsRead($("#feedurldiv").html(),feedContent[i].link); 
-			console.log("i : " + i + "counter : " + counter);
-			counter++;
-			unreadcount++;
-			if(feedContent[i] == null)
-			{
-				$("#hnext").hide();break;
-			}
-			var lielement = $('<li>').attr('class','panel' + (i+1));
-			var headlineli = $('<li>').attr('slideno',counter-1).attr('link',feedContent[i].link);
-			var wrapdiv = $('<div>');
-			var divelement = $('<div>').attr('class','textSlide');
-			var title = "<a href = '" + feedContent[i].link + "'><h2>" + feedContent[i].title + "</h2></a>";
-			$(headlineli).html("<h2>"+feedContent[i].title+"</h2>");
-			if(feedContent[i].author != null)
-				title+= "<h5 style='float:left'>"+feedContent[i].author+"</h5><br>";
-			
-			var description = "<p>" + feedContent[i].content + "</p>";
-			if(feedContent[i].publishedDate != null)
-			{
-				var date = "<h5 style='float:right;margin-top:3px;clear:both'>" + feedContent[i].publishedDate+"</h5>";
-				$(divelement).append(date);
-			}
-			$(divelement).append(title);
-			$(divelement).append(description);
-			$(wrapdiv).append(divelement);
-			$(lielement).append(wrapdiv);
-			$("#slider").append(lielement);
-			$("#slider").anythingSlider();
-			$(".textSlide a").addClass("nivoZoom center");
-			$("#rdrheadl").append(headlineli);
-		}
-		
-	
-		$("#rdrheadl").append('<li id = "headlactions"><div id="hprev"></div>'
-							 +' <img src = "img/barload.gif"/>'//+'<a href = "#">View All</a>'
-							 + '<div id="hnext"></div></li>');
-		if(unreadcount ==0)
-		{
-			console.log("Unread count is 0");
-			$("#slider").empty();
-			$("#slider").html("<div class='textSlide'><center><h2 style='margin-top:50px;'>You have no unread feeds.</h2></center></div>");
-			$("#slider").anythingSlider();
-			console.log("Fading out");
-			$("#readMessage").fadeOut("fast");
-			$("#unreadMessage").fadeOut("fast");	
-		}
-		else if(parseInt($("#rdrheadl").attr('startindex')) == 0)
-		{
-			$("#readMessage").fadeIn("slow");
-			$("#unreadMessage").fadeOut("fast");
-		}
-		if(!isFirstTime)
-		{
-			$("#readMessage").fadeOut("fast");
-			$("#unreadMessage").fadeOut("fast");
-		}
-		if(unreadcount == 0 && parseInt($("#rdrheadl").attr('startindex')) == 0)
-		{
-			FeedController.setUnreadCount($("#feedurldiv").html,0);
-		}
-	},
-	*/
-	renderGoogleFeed : function(feeds,minindex,maxindex,isFirstTime)
+	renderGoogleFeed : function(feeds,minindex,maxindex,feedUrl)
 	{
-		console.log("Rendering Google Feed");
 		temp_feed = feeds;
 		$("#slider").empty();
 		$("#rdrheadl").empty();
-		var content = feeds.items;
+		$("#feedurldiv").html(feedUrl);
 		$("#viewOptionsBox option").attr("selected","");
 		if(window.localStorage.getItem("readMode") == SHOWALL)
 			$("#viewOptionsBox").val("1");
 		else
 			$("#viewOptionsBox").val("0");
 		var length = 0;
-		console.log("Slider feed");
-		ReaderViewer.renderSliderFeed(temp_feed,minindex,maxindex,isFirstTime);
-		console.log("rendering finished");
+		ReaderViewer.renderSliderFeed(temp_feed,minindex,maxindex);
+		//Rendering finished. Stop the loading sign
 		switchToLoadingView(false);
 		loadingFinished = true;
 		$("#loadingScreen").css('visibility','hidden').css('display','none');
 	},
-	renderSliderFeed : function(feeds,minindex,maxindex,isFirstTime){
+	
+	renderSliderFeed : function(feeds,minindex,maxindex){
 		
-		$("#feedurldiv").html(feeds.feedUrl);
+		console.log(feeds);
 		$("#rdrheadl").append('<div id = "minimizeHeadlines"></div>');
 		$("#rdrheadl").attr('startindex',minindex);
 		$("#rdrheadl").attr('endindex',maxindex);
@@ -257,45 +127,21 @@ var ReaderViewer = {
 		var counter = 0;
 		for(i= minindex;i<maxindex;i++)
 		{
-			if(isFirstTime && counter==0)
-				Reader.markAsRead($("#feedurldiv").html(),feedContent[i].link); 
+			if(counter==0)
+				Reader.markAsRead($("#feedurldiv").html(),feedContent[i].id); 
 			console.log("i : " + i + "counter : " + counter);
 			counter++;
 			unreadcount++;
-			if(feedContent[i] == null)
-			{
-				$("#hnext").hide();break;
-			}
-			var lielement = $('<li>').attr('class','panel' + (i+1));
-			var headlineli = $('<li>').attr('slideno',counter-1).attr('link',feedContent[i].id);
-			var wrapdiv = $('<div>');
-			var divelement = $('<div>').attr('class','textSlide');
-			var title = "<a href = '" + feedContent[i].alternate[0].href + "'><h2>" + feedContent[i].title + "</h2></a>";
-			$(headlineli).html("<h2>"+feedContent[i].title+"</h2>");
-			if(feedContent[i].author != null)
-				title+= "<h5 style='float:left'>"+feedContent[i].author+"</h5><br>";
-			
-			var description = "<p>" + feedContent[i].summary.content + "</p>";
-			if(feedContent[i].publishedDate != null)
-			{
-				var date = "<h5 style='float:right;margin-top:3px;clear:both'>" + feedContent[i].published+"</h5>";
-				$(divelement).append(date);
-			}
-			$(divelement).append(title);
-			$(divelement).append(description);
-			$(wrapdiv).append(divelement);
-			$(lielement).append(wrapdiv);
-			$("#slider").append(lielement);
+			ReaderViewer.appendItem(feedContent[i]);
+			ReaderViewer.appendHeadline(feedContent[i],counter);
 			$("#slider").anythingSlider();
 			$(".textSlide a").addClass("nivoZoom center");
-			$("#rdrheadl").append(headlineli);
 		}
 		
-	
 		$("#rdrheadl").append('<li id = "headlactions"><div id="hprev"></div>'
 							 +' <img src = "img/barload.gif"/>'//+'<a href = "#">View All</a>'
 							 + '<div id="hnext"></div></li>');
-		if(unreadcount ==0)
+		/*if(unreadcount ==0)
 		{
 			console.log("Unread count is 0");
 			$("#slider").empty();
@@ -314,12 +160,37 @@ var ReaderViewer = {
 		{
 			$("#readMessage").fadeOut("fast");
 			$("#unreadMessage").fadeOut("fast");
-		}
-		if(unreadcount == 0 && parseInt($("#rdrheadl").attr('startindex')) == 0)
-		{
-			FeedController.setUnreadCount($("#feedurldiv").html,0);
-		}
+		}*/
 		return;
+	},
+	
+	appendItem : function(feeditem)
+	{
+		var lielement = $('<li>').attr('class','panel' + (i+1)).attr("id",feeditem.id);
+		var wrapdiv = $('<div>');
+		var divelement = $('<div>').attr('class','textSlide');
+		var title = "<a href = '" + feeditem.alternate[0].href + "'><h2>" + feeditem.title + "</h2></a>";
+		if(feeditem.author != null)
+			title+= "<h5 style='float:left'>"+feeditem.author+"</h5><br>";
+		var description = "<p>" + feeditem.summary.content + "</p>";
+		if(feeditem.publishedDate != null)
+		{
+			var date = "<h5 style='float:right;margin-top:3px;clear:both'>" + (new Date(feedContent[i].published)).toLocaleString()+"</h5>";
+			$(divelement).append(date);
+		}
+		$(divelement).append(title);
+		$(divelement).append(description);
+		$(wrapdiv).append(divelement);
+		$(lielement).append(wrapdiv);
+		$("#slider").append(lielement);
+
+	},
+	appendHeadline : function(feeditem,counter)
+	{
+		var headlineli = $('<li>').attr('slideno',counter-1).attr('link',feeditem.id);
+		$(headlineli).html("<h2>"+feeditem.title+"</h2>");
+		$("#rdrheadl").append(headlineli);
 	}
+	
 }
  
