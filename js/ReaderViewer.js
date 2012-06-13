@@ -21,26 +21,11 @@ var ReaderViewer = {
 						Reader.markAsRead(feedUrl,itemId,false);
 						$("#readMessage").fadeIn(10);
 					}
-					//Fetch next 20 feeds
-					if(((Reader.endindex - slide_no) < 10) && (Reader.refetchSent == 0))
-					{
-						console.log("Time to fetch more feeds");
-						var unreadCount = FeedController.getUnreadCount(feedUrl);
-						if(!(window.localStorage.getItem("readMode") == SHOWUNREAD) || (unreadCount>Reader.endindex))
-						{
-							console.log("Fetch" + "more feeds.");
-							Reader.refetchSent = 1;
-							Reader.getFeedContent(feedUrl);
-						}
-							
-					}
+					 Reader.getNextContent(feedUrl,slide_no);
 				},
 				onSlideInit: function(slider) {
-					if(parseInt($("#rdrheadl").attr('startindex')) == 0)
-					{
 						$("#unreadMessage").fadeOut("slow");
 						$("#readMessage").fadeOut("slow");
-					}
 				}
 			});
 			if(window.localStorage.getItem("readMode") == null)
@@ -75,41 +60,14 @@ var ReaderViewer = {
 		// Click event for minimise button
 		$("#minimizeHeadlines").live('click',function(){ $("#rdrheadl").slideUp();});
 	   
-		// Click event for nextHeadlines button
-		$("#hnext").live('click',function(){
-			switchToLoadingView(true);
-			var startindex = parseInt($("#rdrheadl").attr('startindex'));
-			var endindex = parseInt($("#rdrheadl").attr('endindex'));
-			console.log(" Temp feed length : " + temp_feed.entries.length);
-			if(temp_feed.entries.length < endindex + 19)
-			{
-				console.log("Loading headlines");
-				FeedEngine.loadHeadlines($("#feedurldiv").html(),endindex+NO_OF_FEEDS,endindex,endindex+NO_OF_FEEDS);
-			}
-			else
-			{
-				console.log("Rendering feed");
-				ReaderViewer.renderFeed(temp_feed,endindex,endindex+NO_OF_FEEDS,false);
-			}
-		});
-		
-		//Click event for prev headlines button
-		$("#hprev").live('click',function(){
-			switchToLoadingView(true);
-			var startindex = parseInt($("#rdrheadl").attr('startindex'));
-			var endindex = parseInt($("#rdrheadl").attr('endindex'));
-			if(temp_feed.entries.length < startindex - NO_OF_FEEDS)
-				FeedEngine.loadHeadlines($("#feedurldiv").html(),startindex,startindex-NO_OF_FEEDS,startindex);
-			else
-				ReaderViewer.renderFeed(temp_feed,startindex-NO_OF_FEEDS,startindex,false);
-	    });
-		
 		//Click on headlines event
 		$("#rdrheadl li").live('click',function(){
-			var slideno = $(this).attr('slideno') %NO_OF_FEEDS + 1;
+			var slideno = $(this).attr('slideno');
 			$('#slider').anythingSlider(slideno);
 			});
-		
+		$("#rdrheadl li").live('mouseenter focus mousedown',function(){
+			Reader.getNextContent($("#feedurldiv").html(),$(this).attr('slideno'));
+		 })
 	//	$("#headlactions a").live('click',function(){FeedViewer.loadAllFeeds( $("#rdrheadl").attr('startindex'));});
 	},
 	
@@ -117,17 +75,26 @@ var ReaderViewer = {
 	{
 		temp_feed = feeds;
 		$("#feedurldiv").html(feedUrl);
-		$("#viewOptionsBox option").attr("selected","");
-		if(window.localStorage.getItem("readMode") == SHOWALL)
-			$("#viewOptionsBox").val("1");
-		else
-			$("#viewOptionsBox").val("0");
+		if(GoogleReader.hasAuth() == true)
+		{
+			$("#viewOptionsBox option").attr("selected","");
+			$("#viewOptionsBox").css("display:block");
+			if(window.localStorage.getItem("readMode") == SHOWALL)
+				$("#viewOptionsBox").val("1");
+			else
+				$("#viewOptionsBox").val("0");
+		}else
+		{
+			console.log("Display none");
+			$("#viewOptionsBox").css("display","none");
+		}
 		var length = 0;
 		ReaderViewer.renderSliderFeed(temp_feed,minindex,maxindex);
 		$("#slider").anythingSlider();
+		$(".textSlide a").addClass("nivoZoom center");
+		loadingFinished = true;
 		//Rendering finished. Stop the loading sign
 		switchToLoadingView(false);
-		loadingFinished = true;
 		$("#loadingScreen").css('visibility','hidden').css('display','none');
 	},
 	
@@ -144,37 +111,25 @@ var ReaderViewer = {
 		}
 		
 		$("#rdrheadl").append('<div id = "minimizeHeadlines"></div>');
-		//$("#rdrheadl").attr('startindex',minindex);
-		//$("#rdrheadl").attr('endindex',maxindex);
 		var feedContent = feeds.items;
-		for(i= minindex;i<maxindex;i++)
+		for(i= 0;i<maxindex-minindex;i++)
 		{
 			if(i==0)
 				Reader.markAsRead($("#feedurldiv").html(),feedContent[i].id); 
-			ReaderViewer.appendItem(feedContent[i],i);
-			ReaderViewer.appendHeadline(feedContent[i],i);
-			$(".textSlide a").addClass("nivoZoom center");
+			ReaderViewer.appendItem(feedContent[i],i+minindex);
+			ReaderViewer.appendHeadline(feedContent[i],i+minindex);
 		}
 		
-		$("#rdrheadl").append('<li id = "headlactions"><div id="hprev"></div>'
-							 +' <img src = "img/barload.gif"/>'//+'<a href = "#">View All</a>'
-							 + '<div id="hnext"></div></li>');
-		/*else if(parseInt($("#rdrheadl").attr('startindex')) == 0)
-		{
-			$("#readMessage").fadeIn("slow");
-			$("#unreadMessage").fadeOut("fast");
-		}
-		if(!isFirstTime)
-		{
-			$("#readMessage").fadeOut("fast");
-			$("#unreadMessage").fadeOut("fast");
-		}*/
-		return;
+		/*$("#rdrheadl").append('<li id = "headlactions"><div id="hprev"></div>'
+							 +' <img src = "img/barload.gif" style="opacity:0;"/>'//+'<a href = "#">View All</a>'
+							 + '<div id="hnext"></div></li>'); */
 	},
 	
 	appendItem : function(feeditem,counter)
 	{
-		var lielement = $('<li>').attr('class','panel' + (i+1)).attr("id",feeditem.id);
+		console.log("Counter : " + counter);
+		console.log(feeditem);
+		var lielement = $('<li>').attr('class','panel' + parseInt(counter)).attr("id",feeditem.id);
 		var wrapdiv = $('<div>');
 		var divelement = $('<div>').attr('class','textSlide').attr('slide-no',counter);
 		var title = "<a href = '" + feeditem.alternate[0].href + "'><h2>" + feeditem.title + "</h2></a>";
@@ -195,9 +150,10 @@ var ReaderViewer = {
 	},
 	appendHeadline : function(feeditem,counter)
 	{
-		var headlineli = $('<li>').attr('slideno',counter-1).attr('link',feeditem.id);
+		var headlineli = $('<li>').attr('slideno',counter+1).attr('link',feeditem.id);
 		$(headlineli).html("<h2>"+feeditem.title+"</h2>");
-		$("#rdrheadl").append(headlineli);
+		//$("#rdrheadl").append(headlineli).insertBefore("#headlactions");
+		$(headlineli).insertBefore("#headlactions");
 	}
 	
 }

@@ -143,21 +143,24 @@ var Reader = {
 		/*FeedController.removeFromRead(feedUrl,itemUrl); */
 	},
 	
-	getFeedContent : function(feedUrl)
+	getFeedContent : function(feedUrl,callback)
 	{
-			var xt = "";
-			if(window.localStorage.getItem("readMode") == SHOWUNREAD)
-				xt = "read";	
-			GoogleReader.getFeedContent(feedUrl,20,xt,Reader.continuationToken,function(result){
-				console.log(result);
-				Reader.continuationToken = result.continuation;
-				Reader.endindex+=result.items.length;
-				Reader.refetchSent = 0;
-				modes.switchToMode(2);
-				ReaderViewer.renderGoogleFeed(result,0,result.items.length,feedUrl);
-				console.log("Rendering feed");
-		  	});
-		  /*
+		console.log("Getting feed content");		
+		var xt = "";
+		if(window.localStorage.getItem("readMode") == SHOWUNREAD)
+			xt = "read";	
+		GoogleReader.getFeedContent(feedUrl,20,xt,Reader.continuationToken,function(result){
+			if(callback) callback();
+			Reader.continuationToken = result.continuation;
+			var previndex = Reader.endindex;
+			Reader.endindex+=result.items.length;
+			Reader.refetchSent = 0;
+			modes.switchToMode(2);
+			ReaderViewer.renderGoogleFeed(result,previndex,Reader.endindex,feedUrl);
+			console.log("Rendering feed");
+		});
+	  
+	  /*
 		  fetchTimer = setTimeout("FeedEngine.showTimeout()",10000);
 		  inFetchingState = true;
 		  var feed = new google.feeds.Feed(url);
@@ -182,6 +185,23 @@ var Reader = {
 				loadingFinished = true;
 				}
 		  })*/
+	},
+	getNextContent : function(feedUrl,slide_no)
+	{
+		if(((Reader.endindex - slide_no) < 10) && (Reader.refetchSent == 0) && Reader.endindex <90)
+		{
+			console.log("Time to fetch more feeds");
+			var unreadCount = FeedController.getUnreadCount(feedUrl);
+			if(!(GoogleReader.hasAuth()) || !(window.localStorage.getItem("readMode") == SHOWUNREAD) || (unreadCount>Reader.endindex))
+			{
+				Reader.refetchSent = 1;
+				$("#headlactions").find('img').show();
+				Reader.getFeedContent(feedUrl,function(){
+					$("#headlactions").find('img').hide();
+				});
+			}
+				
+		}
 	},
 	resetState : function()
 	{

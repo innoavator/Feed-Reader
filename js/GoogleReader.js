@@ -192,6 +192,7 @@ GoogleReader = {
 	
 	getFeedContent : function(feedUrl,count,xttag,continuation,callback)
 	{
+		feedUrl = encodeURIComponent(feedUrl);
 		var data = "r=n"
 				   +"&access_token="+GoogleReader.access_token
 				   +"&client="+this.client
@@ -240,6 +241,7 @@ GoogleReader = {
 	
 	addItemTag : function(feedUrl,itemid,tag,callback)
 	{
+		feedUrl = encodeURIComponent(feedUrl);
 		var data = "s=feed/"+feedUrl
 					+"&ac=edit"
 					+"&async=true"
@@ -251,6 +253,7 @@ GoogleReader = {
 	
 	removeItemTag : function(feedUrl,itemid,tag,callback)
 	{
+		feedUrl = encodeURIComponent(feedUrl);
 		var data = "s=feed/"+feedUrl
 					+"&ac=edit"
 					+"&async=true"
@@ -261,6 +264,7 @@ GoogleReader = {
 	},
 	editItemTag : function(feedUrl,itemid,a_tag,r_tag,callback)
 	{
+		feedUrl = encodeURIComponent(feedUrl);
 		var data = "s=feed/"+feedUrl
 					+"&ac=edit"
 					+"&async=true"

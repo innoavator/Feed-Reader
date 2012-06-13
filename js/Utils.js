@@ -44,7 +44,7 @@ function readerToMyFeeds()
 	Reader.resetState();
 	FeedViewer.renderMyFeeds();
 	$("#slider").empty();
-	$("#rdrheadl").empty();
+	$("#rdrheadl li").not('#headlactions').remove();
 }
 function display_message(message)
 {
@@ -86,7 +86,7 @@ function switchToLoadingView(cond)
 		{
 			$("#hprev").hide();
 		}
-			
+		console.log("Hiding the loading of headlines.");
 		$("#hnext").show();
 		$("#headlactions").find('img').hide();
 	}

@@ -284,7 +284,6 @@ var FeedViewer = {
 			$("#myfeedsdiv .myfeedlist").empty();
 			var list = FeedController.getMyFeeds();
 			if(list == null) return;
-			var totalUnreadCount = 0;
 			for(var i =0;i<list.length;i++)
 			{
 				var feed = new LocalStore(list[i]);
@@ -293,21 +292,25 @@ var FeedViewer = {
 				{
 					i++;
 					continue;
-				}                 
+				}
 				var title = JSON.parse(feedinfo).title;
-				var unreadCount = JSON.parse(feedinfo).unreadCount;
-				if(unreadCount == null)
-				FeedController.initUnreadCount(list[i]);
-				totalUnreadCount+=unreadCount;
-				console.log(list[i]);
+				if(GoogleReader.hasAuth() == true)
+				{
+					var unreadCount = JSON.parse(feedinfo).unreadCount;
+					//if(unreadCount == null)
+					//FeedController.initUnreadCount(list[i]);
+				}
 				var imagesource=getDomain(list[i])+"/favicon.ico";
 				var randomnumber=Math.floor(Math.random()*5);
+				if(GoogleReader.hasAuth() == true)
+					var countstr = "<div class='readunread'>"+unreadCount+"</div></div></li>";
+				else
+					var countstr = "";
 				$("#myfeedsdiv .myfeedlist").append("<li><div class='feedl color"+randomnumber+"' rel = " +list[i] +" >"
 					+"<div class='unsub'></div>"
-					+"<img class='faviconimg' src='"+imagesource+"'/><p>"+title.substring(0,25)
-					+"</p><div class='readunread'>"+unreadCount+"</div></div></li>");
+					+"<img class='faviconimg' src='"+imagesource+"'/><p>"+title.substring(0,25)+"</p>"+countstr);
+				
 			}
-			pokki.setIconBadge(totalUnreadCount);
 		$('.faviconimg').error(function() {
 			
   			$(this).attr("src", "img/defaultfavicon.png");
