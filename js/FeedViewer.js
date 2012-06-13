@@ -81,6 +81,7 @@ var FeedViewer = {
 		$('.grimg li').hover(function() 
 		{
 			var selectedli = $(".filter .selected");
+			$('.fdname', this).css('text-decoration', 'underline')
 			if($(selectedli).attr('data-value') != "youtube")
 			{
 				var feed_url = $(this).attr('data-id');
@@ -99,6 +100,7 @@ var FeedViewer = {
 			}},function() 
 			{
 				var selectedli = $(".filter .selected");
+				$('.fdname', this).css('text-decoration', 'none')
 			if($(selectedli).attr('data-value') != "youtube"){
 				var feed_url = $(this).attr('data-id');
 				if(FeedController.issubscribed(feed_url) == 0)
@@ -254,11 +256,11 @@ var FeedViewer = {
 				FeedEngine.showVideos(field);
 		});
 	
-		$(".feedl").live('mouseenter',function(){
-			$(this).find('.unsub').css('opacity','1');		
+		$('.unsub').live('mouseenter',function(){
+			$(this).css('opacity','1');		
 			});
-		$(".feedl").live('mouseleave',function(){
-				$(this).find('.unsub').css('opacity','0');
+		$('.unsub').live('mouseleave',function(){
+				$(this).css('opacity','0.3');
 			});
 		$(".unsub").live('click',function(event){
 		    event.stopPropagation();
