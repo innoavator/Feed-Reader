@@ -38,6 +38,14 @@ var modes = {
 				modes.currentmode = nextstate;
 			}
 };
+function readerToMyFeeds()
+{
+	modes.switchToMode(1);
+	Reader.resetState();
+	FeedViewer.renderMyFeeds();
+	$("#slider").empty();
+	$("#rdrheadl").empty();
+}
 function display_message(message)
 {
 		 $('<div class="quick-alert">Alert! Watch me before it\'s too late!</div>')
@@ -127,12 +135,6 @@ function showLoaderMessage(msg)
 function addLogoutMenu()
 {
 	 pokki.resetContextMenu();
-		 pokki.addContextMenuItem("Logout","logoutbtn");
-		 pokki.addEventListener('context_menu',function(id){
-				if(id =="logoutbtn"){
-					GoogleReader.logout();
-					pokki.resetContextMenu();
-				}
-			});
+	 pokki.addContextMenuItem("Logout","logoutbtn");
 }
 

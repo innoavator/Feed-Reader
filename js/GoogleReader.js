@@ -32,14 +32,15 @@ GoogleReader = {
 	MARK_ALL_READ_URL : "http://www.google.com/reader/api/0/mark-all-as-read",
 	EDIT_TAG_URL : "http://www.google.com/reader/api/0/edit-tag",
 	UNREAD_COUNT_URL : "http://www.google.com/reader/api/0/unread-count",
+	FEED_CONTENT_URL: "http://www.google.com/reader/api/0/stream/contents/feed/",
+	SUBS_CHECK_URL : "https://www.google.com/reader/api/0/subscribed",
 	//Initialise the access_token
 	initialise : function() 
 	{
 		this.access_token = window.localStorage.getItem("access_token");
 		this.refresh_token = window.localStorage.getItem("refresh_token");
-		this.getApiToken();
-		console.log("Access_token : " + this.access_token);
-		console.log("Refresh_token : " + this.refresh_token);
+		if(this.access_token && this.refresh_token)
+			this.getApiToken();
 		/*if(!this.refresh_token || this.refresh_token.length == 0)
 			this.loginViaOauth();
 		else
@@ -146,6 +147,7 @@ GoogleReader = {
 	
 	setTokens : function(access_token,refresh_token,callback)
 	{
+		console.log("Callback in settoken : " + callback);
 		console.log("Access token : " + access_token);
 		GoogleReader.access_token = access_token;
 		this.getApiToken();
@@ -188,6 +190,28 @@ GoogleReader = {
 		this.getData(GoogleReader.SUBSCRIPTION_LIST_URL,data,callback);
 	},
 	
+	getFeedContent : function(feedUrl,count,xttag,continuation,callback)
+	{
+		var data = "r=n"
+				   +"&access_token="+GoogleReader.access_token
+				   +"&client="+this.client
+				   +"&c="+continuation;
+				   //+"&ck="+(new Date.getTime());
+		if(xttag != null && xttag.length!=0 && GoogleReader.hasAuth())
+		{
+			console.log("Fetching only unread feeds");
+			data+="&xt="+GoogleReader.tags[xttag];
+		}
+		else
+			data+="&n="+count;
+		this.getData(GoogleReader.FEED_CONTENT_URL+feedUrl,data,callback);
+	},
+	
+	checkIfSubscribed : function(feedUrl,callback)
+	{
+		var data = "s=feed/"+feedUrl;
+		this.getData(GoogleReader.SUBS_CHECK_URL,data,callback);
+	},
 	/*Subscribe to the given feedurl. 
 	  @param feedurl  : the feedsource to subscribe to.
 	  @param recommendation : if subscribed from the recommendations, recommendation is true, else false.
@@ -214,30 +238,42 @@ GoogleReader = {
         this.postData(this.SUBSCRIPTION_EDIT_URL,data,callback);	  
 	},
 	
-	addItemTag : function(feedid,itemid,tag,callback)
+	addItemTag : function(feedUrl,itemid,tag,callback)
 	{
-		var data = "s="+feedid
-					+"&ac=edit-tags"
+		var data = "s=feed/"+feedUrl
+					+"&ac=edit"
 					+"&async=true"
 					+"&a="+this.tags[tag]
-					+"&i="+itemid;
-		postData(this.EDIT_TAG_URL,data,callback);
+					+"&i="+itemid
+					+"&T="+this.api_token;
+		this.postData(this.EDIT_TAG_URL,data,callback);
 	},
 	
-	removeItemTag : function(feedid,itemid,tag,callback)
+	removeItemTag : function(feedUrl,itemid,tag,callback)
 	{
-		var data = "s="+feedid
-					+"&ac=edit-tags"
+		var data = "s=feed/"+feedUrl
+					+"&ac=edit"
 					+"&async=true"
 					+"&r="+this.tags[tag]
-					+"&i="+itemid;
-		postData(this.EDIT_TAG_URL,data,callback);
+					+"&i="+itemid
+					+"&T="+this.api_token;
+		this.postData(this.EDIT_TAG_URL,data,callback);
 	},
-	
+	editItemTag : function(feedUrl,itemid,a_tag,r_tag,callback)
+	{
+		var data = "s=feed/"+feedUrl
+					+"&ac=edit"
+					+"&async=true"
+					+"&a="+this.tags[a_tag]
+					+"&r="+this.tags[r_tag]
+					+"&i="+itemid
+					+"&T="+this.api_token;
+		this.postData(this.EDIT_TAG_URL,data,callback);
+	},
 	getUnreadCount : function(callback)
 	{
 		var data = "output=json&output=json&access_token="+this.access_token+"&client="+this.client;
-		this.getData(this.UNREAD_COUNT_URL,data,callback);
+		this.getData(this.UNREAD_COUNT_URL,data,callback,"json");
 	},
 	
 	/*Mark All the items of a particular feed source as read */
@@ -264,6 +300,7 @@ GoogleReader = {
 		        		    401 : function(){
 		      			    	console.log("Authorization failure. Access_token expired.");
 			    		    	GoogleReader.refreshAccessToken(function(result){
+								console.log("Final Result : " + result);
 								if(result == "OK")
 									GoogleReader.getData(url,data,callback);
 								//else
@@ -272,7 +309,8 @@ GoogleReader = {
 		    		    }
 	            },
 	      error: function( objAJAXRequest, strError ){
-			    console.log("Error : " + strError);
+			    //callback(strError,"NOK");
+				console.log("Error : " + strError);
 		    } 
 	    });  
 	},
@@ -292,10 +330,15 @@ GoogleReader = {
 	      statusCode : {
 				            401 : function(){
 				    	    console.log("Authorization failure. Access_token expired.");
-				    	    //Refresf access_token
+				    	    GoogleReader.refreshAccessToken(function(result){
+								console.log("Final Result : " + result);
+								if(result == "OK")
+									GoogleReader.postData(url,data,callback);
+							});
 				        }
 	            },
 	      error: function( objAJAXRequest, strError ){
+			  
 			    console.log("Error : " + strError);
 		        } 
 	    }); 

@@ -16,7 +16,7 @@ var FeedViewer = {
 	});
 		
 		$("#tomyfeedsbtn").click(function(){FeedViewer.renderMyFeeds();modes.switchToMode(1);});
-		$("#tomyfeedsbtn2").click(function(){FeedViewer.renderMyFeeds();modes.switchToMode(1);});
+		$("#tomyfeedsbtn2").click(function(){readerToMyFeeds();});
 		$(".toaddfeedsbtn").click(function(){modes.switchToMode(0);});
 		
 		$("#addFeedsForm").submit(function(){
@@ -203,7 +203,7 @@ var FeedViewer = {
 					loadingFinished = false;
 					$("#loadingScreen").css('visibility','visible').css('display','block');
 					var url = ($(this).attr("rel"));
-					FeedEngine.showFeed(url);
+					Reader.getFeedContent(url);
 				}
 				
 		});

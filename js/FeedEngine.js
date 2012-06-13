@@ -45,7 +45,6 @@ var FeedEngine = {
 					  	if (!result.error) 
 						{
 							modes.switchToMode(2);
-						//	console.log("feed engine showfeed");
 							console.log(result.feed);
 							ReaderViewer.renderFeed(result.feed,0,20,true);
 						}
@@ -58,6 +57,7 @@ var FeedEngine = {
 						}
 					  })
 	},
+	
 	loadHeadlines : function(url,num,minindex,maxindex){
 		
 		//console.log("Load headlines : " + url + " , "  + num);
