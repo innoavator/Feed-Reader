@@ -445,7 +445,7 @@ background-color:#06F;
 	width: 625px;
 	height:360px;
 	float: left;
-	-webkit-box-shadow: 3px 4px 6px #999;
+	-webkit-box-shadow: 4px 4px 6px #999;
 }
 .videolistitem{
 	position:relative;
