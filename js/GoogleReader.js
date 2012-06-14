@@ -190,7 +190,7 @@ GoogleReader = {
 		this.getData(GoogleReader.SUBSCRIPTION_LIST_URL,data,callback);
 	},
 	
-	getFeedContent : function(feedUrl,count,xttag,continuation,callback)
+	getFeedContent : function(feedUrl,count,xttag,continuation,callback,fallback)
 	{
 		feedUrl = encodeURIComponent(feedUrl);
 		var data = "r=n"
@@ -205,7 +205,7 @@ GoogleReader = {
 		}
 		else
 			data+="&n="+count;
-		this.getData(GoogleReader.FEED_CONTENT_URL+feedUrl,data,callback);
+		this.getData(GoogleReader.FEED_CONTENT_URL+feedUrl,data,callback,fallback);
 	},
 	
 	checkIfSubscribed : function(feedUrl,callback)
@@ -290,7 +290,7 @@ GoogleReader = {
 	/***************************************************************/
 	/*        Util Functions of the Google Reader Library          */ 
 	 /**************************************************************/
-	getData : function(url,data,callback)
+	getData : function(url,data,callback,fallback)
 	{
 	    /* Make a get request to Google Reader */
         $.ajax({
@@ -314,6 +314,8 @@ GoogleReader = {
 	            },
 	      error: function( objAJAXRequest, strError ){
 			    //callback(strError,"NOK");
+				if(fallback)
+					fallback(strError);
 				console.log("Error : " + strError);
 		    } 
 	    });  

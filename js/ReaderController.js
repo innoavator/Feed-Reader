@@ -143,22 +143,24 @@ var Reader = {
 		/*FeedController.removeFromRead(feedUrl,itemUrl); */
 	},
 	
-	getFeedContent : function(feedUrl,callback)
+	getFeedContent : function(feedUrl,callback,fallback)
 	{
 		console.log("Getting feed content");		
 		var xt = "";
 		if(window.localStorage.getItem("readMode") == SHOWUNREAD)
 			xt = "read";	
-		GoogleReader.getFeedContent(feedUrl,20,xt,Reader.continuationToken,function(result){
-			if(callback) callback();
-			Reader.continuationToken = result.continuation;
-			var previndex = Reader.endindex;
-			Reader.endindex+=result.items.length;
-			Reader.refetchSent = 0;
-			modes.switchToMode(2);
-			ReaderViewer.renderGoogleFeed(result,previndex,Reader.endindex,feedUrl);
-			console.log("Rendering feed");
-		});
+		GoogleReader.getFeedContent(feedUrl,20,xt,Reader.continuationToken,
+				function(result){
+					if(callback) callback();
+					Reader.continuationToken = result.continuation;
+					var previndex = Reader.endindex;
+					Reader.endindex+=result.items.length;
+					Reader.refetchSent = 0;
+					modes.switchToMode(2);
+					ReaderViewer.renderGoogleFeed(result,previndex,Reader.endindex,feedUrl);
+					console.log("Rendering feed");
+				},
+				fallback);
 	  
 	  /*
 		  fetchTimer = setTimeout("FeedEngine.showTimeout()",10000);
@@ -198,6 +200,10 @@ var Reader = {
 				$("#headlactions").find('img').show();
 				Reader.getFeedContent(feedUrl,function(){
 					$("#headlactions").find('img').hide();
+				},function(){
+					$("#headlactions").find('img').hide();
+					$("#headlactions").find("h2").fadeIn().delay(2000).fadeOut("slow");
+					Reader.refetchSent = 0;
 				});
 			}
 				

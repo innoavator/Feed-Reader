@@ -92,7 +92,6 @@ var ReaderViewer = {
 		ReaderViewer.renderSliderFeed(temp_feed,minindex,maxindex);
 		$("#slider").anythingSlider();
 		$(".textSlide a").addClass("nivoZoom center");
-		loadingFinished = true;
 		//Rendering finished. Stop the loading sign
 		switchToLoadingView(false);
 		$("#loadingScreen").css('visibility','hidden').css('display','none');
@@ -100,7 +99,6 @@ var ReaderViewer = {
 	
 	renderSliderFeed : function(feeds,minindex,maxindex){
 		
-		console.log(feeds);
 		if(feeds.items.length ==0)
 		{
 			$("#slider").html("<div class='textSlide'><center><h2 style='margin-top:50px;'>You have no unread feeds.</h2></center></div>");
@@ -123,7 +121,6 @@ var ReaderViewer = {
 	
 	appendItem : function(feeditem,counter)
 	{
-		console.log(feeditem);
 		var lielement = $('<li>').attr('class','panel' + parseInt(counter)).attr("id",feeditem.id);
 		var wrapdiv = $('<div>');
 		var divelement = $('<div>').attr('class','textSlide').attr('slide-no',counter);
@@ -150,8 +147,22 @@ var ReaderViewer = {
 	{
 		var headlineli = $('<li>').attr('slideno',counter+1).attr('link',feeditem.id);
 		$(headlineli).html("<h2>"+feeditem.title+"</h2>");
-		//$("#rdrheadl").append(headlineli).insertBefore("#headlactions");
 		$(headlineli).insertBefore("#headlactions");
+	},
+	showFetchError : function(errorStr)
+	{
+		console.log("Error fetching feed : " + errorStr);
+		$("#loadingScreen").html("Error fetching feed : " + errorStr + "<br>Please try again later.")
+						.fadeIn().delay(1000)
+						.fadeOut(400,function(){
+								$("#loadingScreen").css('visibility','hidden').css('display','none');
+								$("#loadingScreen").html("<img src = 'img/feedsload.gif' />");
+						});
+	},
+	
+	showNextContentError : function(errorStr)
+	{
+		
 	}
 	
 }

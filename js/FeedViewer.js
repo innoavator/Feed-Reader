@@ -200,13 +200,10 @@ var FeedViewer = {
 		
 		$(".feedl").live('click',function(event){
 				event.stopPropagation();
-				if(loadingFinished)
-				{
-					loadingFinished = false;
-					$("#loadingScreen").css('visibility','visible').css('display','block');
-					var url = ($(this).attr("rel"));
-					Reader.getFeedContent(url);
-				}
+				$("#loadingScreen").css('visibility','visible').css('display','block');
+				var url = ($(this).attr("rel"));
+				Reader.getFeedContent(url,null,ReaderViewer.showFetchError);
+			
 				
 		});
 		$('.videolistitem').live('click', function(){
