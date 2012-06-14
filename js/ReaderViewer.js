@@ -119,15 +119,10 @@ var ReaderViewer = {
 			ReaderViewer.appendItem(feedContent[i],i+minindex);
 			ReaderViewer.appendHeadline(feedContent[i],i+minindex);
 		}
-		
-		/*$("#rdrheadl").append('<li id = "headlactions"><div id="hprev"></div>'
-							 +' <img src = "img/barload.gif" style="opacity:0;"/>'//+'<a href = "#">View All</a>'
-							 + '<div id="hnext"></div></li>'); */
 	},
 	
 	appendItem : function(feeditem,counter)
 	{
-		console.log("Counter : " + counter);
 		console.log(feeditem);
 		var lielement = $('<li>').attr('class','panel' + parseInt(counter)).attr("id",feeditem.id);
 		var wrapdiv = $('<div>');
@@ -135,7 +130,10 @@ var ReaderViewer = {
 		var title = "<a href = '" + feeditem.alternate[0].href + "'><h2>" + feeditem.title + "</h2></a>";
 		if(feeditem.author != null)
 			title+= "<h5 style='float:left'>"+feeditem.author+"</h5><br>";
-		var description = "<p>" + feeditem.summary.content + "</p>";
+		if(feeditem.summary)
+			var description = "<p>" + feeditem.summary.content + "</p>";
+		else if(feeditem.content)
+			var description = "<p>" + feeditem.content  +"</p>";
 		if(feeditem.publishedDate != null)
 		{
 			var date = "<h5 style='float:right;margin-top:3px;clear:both'>" + (new Date(feedContent[i].published)).toLocaleString()+"</h5>";

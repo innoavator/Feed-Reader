@@ -28,12 +28,15 @@ var FeedLoader = {
 				{
 					console.log(feed.id + " : " + feed.count);
 					FeedController.setUnreadCount((feed.id).substr(5),feed.count);
-					for(var j=0;j<myFeedsList.length;j++)
-						if(myFeedsList[j] == (feed.id).substr(5))
-						{
-							myFeedsList.splice(j, 1);
-							break;
-						}
+					if(myFeedsList != null)
+					{
+						for(var j=0;j<myFeedsList.length;j++)
+							if(myFeedsList[j] == (feed.id).substr(5))
+							{
+								myFeedsList.splice(j, 1);
+								break;
+							}
+					}
 					totalCount+=feed.count;
 				}
 			}

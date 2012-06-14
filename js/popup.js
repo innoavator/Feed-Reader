@@ -25,9 +25,7 @@ function load() {
 	 IS_SYNC_ON = window.localStorage.getItem("isSyncOn");
 	 console.log("is sync on : " + IS_SYNC_ON);
 	 if(IS_SYNC_ON == "true"){
-		 setTimeout(function(){
-				setInterval(Reader.syncSubscriptions(),5000*12*5);
-				},5000);
+		 setInterval(function(){Reader.syncSubscriptions()},5000*12*2);
 		 addLogoutMenu();
 		 continueLocal();
 		 
