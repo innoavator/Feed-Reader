@@ -8,7 +8,8 @@ var FeedController = {
 	addFeed : function(feedinfo)
 	{
 		var feed_name;
-		var url = feedinfo.feedUrl;
+		var url = feedinfo.id;
+		console.log(url);
 		var list = FeedController.myFeedList.get();
 		if( list == null || list =="")
 		{
@@ -82,7 +83,7 @@ var FeedController = {
 	},
 	registerFeed : function(feedinfo)
 	{
-		var feed = new LocalStore(feedinfo.feedUrl);
+		var feed = new LocalStore(feedinfo.id);
 		var feedobj = new Object();
 		feedobj.link = feedinfo.link;
 		feedobj.title = feedinfo.title;
@@ -200,6 +201,7 @@ var FeedController = {
 	},
 	setUnreadCount : function(feedUrl,count)
 	{
+		console.log("Setting unread count for : " + feedUrl);
 		var feed = new LocalStore(feedUrl);
 		var feedinfo = JSON.parse(feed.get());
 		if(feedinfo == null)

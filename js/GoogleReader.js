@@ -281,10 +281,11 @@ GoogleReader = {
 	},
 	
 	/*Mark All the items of a particular feed source as read */
-	markAllAsRead : function(feedid,callback)
+	markAllAsRead : function(feedUrl,callback)
 	{
-		var data = "s="+feedid;
-		this.postData(this.MARK_ALL_READ_URL,data,callback);
+		var data = "s=feed/"+feedUrl
+					+"&T="+this.api_token;
+		this.postData(this.MARK_ALL_READ_URL + "?client="+GoogleReader.client,data,callback);
 	},
 	
 	/***************************************************************/
@@ -307,16 +308,15 @@ GoogleReader = {
 								console.log("Final Result : " + result);
 								if(result == "OK")
 									GoogleReader.getData(url,data,callback);
-								//else
-									//callback(null);
-							});
-		    		    }
-	            },
-	      error: function( objAJAXRequest, strError ){
-			    //callback(strError,"NOK");
+								
+								});
+		    		    	}
+		  },
+	      error: function( xhr, ajaxOptions, errorStr ){
+				console.log("Error : " + errorStr);
+				console.log(xhr.status);
 				if(fallback)
-					fallback(strError);
-				console.log("Error : " + strError);
+					fallback(errorStr);
 		    } 
 	    });  
 	},
@@ -340,12 +340,11 @@ GoogleReader = {
 								console.log("Final Result : " + result);
 								if(result == "OK")
 									GoogleReader.postData(url,data,callback);
-							});
-				        }
-	            },
+								});
+							}
+				},
 	      error: function( objAJAXRequest, strError ){
-			  
-			    console.log("Error : " + strError);
+			  		console.log("Error : " + strError);
 		        } 
 	    }); 
     }

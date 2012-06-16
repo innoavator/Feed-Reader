@@ -97,7 +97,7 @@ function showSubscribedFeed(icon)
 	$(icon).css('cursor','default');
 	$('.caption',icon).animate({'opacity': 1,'margin-top': -60 }, 200);
 	$('img',icon).animate({'opacity': 0.1}, 200);
-	$('.subscbdimg').animate({'opacity': 1}, 200)
+	$('.subscbdimg').animate({'opacity': 1}, 200);
 }
 function showUnsubscribedFeed(icon)
 {
@@ -107,7 +107,7 @@ function showUnsubscribedFeed(icon)
 }
 function showMessage(msg)
 {
-	$("#error-message").fadeOut('fast',function(){$(this).html(msg)}).fadeIn().delay(1000).fadeOut('fast',function(){$(this).html("Click on the feed from the categories given below or enter the URL of the desired feed of your wish")}).fadeIn();
+	$("#error-message").fadeOut('fast',function(){$(this).html(msg)}).fadeIn().delay(2000).fadeOut('fast',function(){$(this).html("Click on the feed from the categories given below or enter the URL of the desired feed of your wish")}).fadeIn();
 }
 function continueLocal()
 {
@@ -132,9 +132,10 @@ function showLoaderMessage(msg)
 	$("#loader").find('p').html(msg);
 }
 
-function addLogoutMenu()
+function addContextMenu()
 {
 	 pokki.resetContextMenu();
 	 pokki.addContextMenuItem("Logout","logoutbtn");
+	 pokki.addContextMenuItem("Mark All As Read","markallasread");
 }
 

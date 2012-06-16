@@ -8,6 +8,9 @@ var FeedLoader = {
 			if(id =="logoutbtn"){
 				GoogleReader.logout();
 				pokki.resetContextMenu();
+			}else if(id == "markallasread")
+			{
+				FeedLoader.markAllAsRead();
 			}
 		});
 			if(window.localStorage.getItem("isSyncOn") && window.localStorage.getItem("isSyncOn")=="true")
@@ -40,7 +43,7 @@ var FeedLoader = {
 					totalCount+=feed.count;
 				}
 			}
-			for(var i =0;i<myFeedsList.length;i++)
+			for(var i =0;myFeedsList!=null && i<myFeedsList.length;i++)
 			{
 				FeedController.setUnreadCount(myFeedsList[i],0);
 			}
@@ -54,6 +57,16 @@ var FeedLoader = {
 				setTimeout("FeedLoader.updateFromGoogle()",5000*3);
 			
 		});
+		
+	},
+	markAllAsRead : function(){
+		console.log("Marking all as read");
+		var list = FeedController.getMyFeeds();
+		if(list)
+		{
+			for(var i=0;i<list.length;i++)
+				GoogleReader.markAllAsRead(list[i]);
+		}
 		
 	}
 };

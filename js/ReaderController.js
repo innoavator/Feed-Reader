@@ -10,7 +10,7 @@ var Reader = {
 		showLoaderMessage("Loading...");
 		GoogleReader.loginViaOauth(function(response){
 			if(response == "OK"){
-				addLogoutMenu();
+				addContextMenu();
 				//Start background polling for unread count
 				pokki.rpc('FeedLoader.updateFromGoogle()');
 				Reader.syncSubscriptions();
@@ -20,11 +20,14 @@ var Reader = {
 	
 	syncSubscriptions : function()
 	{
+		if(GoogleReader.hasAuth() != true)
+			return;
 		$("#syncProgressBar").css("display","block");                                                                
 		showLoaderMessage("Fetching Google Reader Subscriptions...");
 		GoogleReader.getSubscriptionList(function(google_subs){
 		showLoaderMessage("Fetching Local Subscriptions...");
 		var local_subs = FeedController.getMyFeeds();
+		var orig_local_subs = local_subs;
 		if(local_subs == null)
 			local_subs = new Array();
 		else
@@ -54,7 +57,7 @@ var Reader = {
 				//register Google subscripitons in local subscripitons
 				console.log("Register in Local : " + google_subs[i].id);
 				FeedController.addFeed({
-									    feedUrl:google_subs[i].id,
+									    id:google_subs[i].id,
 										link:google_subs[i].htmlUrl,
 										title:google_subs[i].title
 										});
@@ -69,14 +72,25 @@ var Reader = {
 				showProgress(incr,true);
 			}
 			while( j<local_subs.length && i<google_subs.length && local_subs[j]== google_subs[i].id){
-				i++;j++;
+					if(orig_local_subs[j] != local_subs[j])
+					{
+						// Unsubscribe the orig_local_sub
+						FeedController.removeFeed(orig_local_subs[j]);
+						//Subscribe the local_sub
+						FeedController.addFeed({
+							id:google_subs[i].id,
+							link:google_subs[i].htmlUrl,
+							title:google_subs[i].title
+							});
+					}
+					i++;j++;
 				showProgress(2*incr,true);
 			}
 		}
 		while(i<google_subs.length)
 		{
 			FeedController.addFeed({
-									    feedUrl:google_subs[i].id,
+									    id:google_subs[i].id,
 										link:google_subs[i].htmlUrl,
 										title:google_subs[i].title
 										});
@@ -94,21 +108,14 @@ var Reader = {
 		});
 	},
 	
-	subscribe : function(feedinfo,feedobj)
+	subscribe : function(feedinfo)
 	{
-		//Subscribe to Feed Locally
-		console.log(feedinfo);
-		var feed_name = FeedController.addFeed(feedinfo);
-		console.log("Feed_Name : " + feed_name);
-		if(feed_name !=0 ){	
-			FeedViewer.showSuccessfulSubscription(feed_name,feedinfo.feedUrl,feedobj);
-			FeedViewer.initialiseMyFeeds();
-		}
-		//Subscribe on Google Reader
+		/* Subscribe to Feed Locally */
+		FeedController.addFeed(feedinfo);
+	
+		/* Subscribe on Google Reader */
 		if(GoogleReader.hasAuth() == true)
-			GoogleReader.subscribe(feedinfo.feedUrl,feedinfo.title,false,function(){
-			console.log("Google reader subscription successful");
-		});
+			GoogleReader.subscribe(feedinfo.feedUrl,feedinfo.title,false);
 	},
 	unsubscribe : function(url,callback)
 	{

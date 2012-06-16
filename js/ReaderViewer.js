@@ -51,6 +51,11 @@ var ReaderViewer = {
 				$("#readMessage").fadeIn("fast");
 				});
 			});
+			
+			/* Hook Every link in the Reader Viewer to open in Default Browser*/
+			$(".textSlide a").live('click',function(){
+				pokki.openURLInDefaultBrowser($(this).attr("href"));
+			});
 	},
 	initialiseHeadlineView : function()
 	{
