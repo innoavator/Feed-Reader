@@ -169,32 +169,6 @@ var Reader = {
 					console.log("Rendering feed");
 				},
 				fallback);
-	  
-	  /*
-		  fetchTimer = setTimeout("FeedEngine.showTimeout()",10000);
-		  inFetchingState = true;
-		  var feed = new google.feeds.Feed(url);
-		  feed.includeHistoricalEntries();
-		  feed.setNumEntries(20);
-		  feed.setResultFormat(google.feeds.Feed.JSON_FORMAT);
-		  feed.load(function(result) 
-		  {
-			  inFetchingState = false;
-				if (!result.error) 
-				{
-					modes.switchToMode(2);
-				//	console.log("feed engine showfeed");
-					console.log(result.feed);
-					ReaderViewer.renderFeed(result.feed,0,20,true);
-				}
-				else
-				{
-				$("#loadingScreen").html("Failed to retrieve Feed.").fadeIn().delay(2000).fadeOut(400);							
-				$("#loadingScreen").css('visibility','hidden').css('display','none');
-				$("#loadingScreen").html("<img src = 'img/feedsload.gif' />");
-				loadingFinished = true;
-				}
-		  })*/
 	},
 	getNextContent : function(feedUrl,slide_no)
 	{

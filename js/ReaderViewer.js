@@ -126,6 +126,7 @@ var ReaderViewer = {
 	
 	appendItem : function(feeditem,counter)
 	{
+		console.log(feeditem);
 		var lielement = $('<li>').attr('class','panel' + parseInt(counter)).attr("id",feeditem.id);
 		var wrapdiv = $('<div>');
 		var divelement = $('<div>').attr('class','textSlide').attr('slide-no',counter);
@@ -134,6 +135,8 @@ var ReaderViewer = {
 			title+= "<h5 style='float:left'>"+feeditem.author+"</h5><br>";
 		if(feeditem.summary)
 			var description = "<p>" + feeditem.summary.content + "</p>";
+		else if(feeditem.content.content)
+			var description = "<p>" + feeditem.content.content  +"</p>";
 		else if(feeditem.content)
 			var description = "<p>" + feeditem.content  +"</p>";
 		if(feeditem.publishedDate != null)
