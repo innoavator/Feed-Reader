@@ -1,62 +1,5 @@
 // FeedEngine File
 var FeedEngine = {
-	checkFeed : function(url,feedobj){
-						console.log("Checking feed");
-					      try{
-						  var feed = new google.feeds.Feed(url);
-						  }catch(err){
-						  	//console.log(err);
-							console.log("Returning");
-							return;}
-						  feed.setNumEntries(10);
-						  feed.setResultFormat(google.feeds.Feed.JSON_FORMAT);
-						  feed.load(function(result) 
-						  {
-							//if($(feedobj).find('.feedimage').attr('src') != imgsrc)
-							{
-								if (!result.error) 
-								{	
-									console.log("Feed found successfully");
-									Reader.subscribe(result.feed,feedobj);
-								}
-								else
-								{
-									//FeedEngine.searchFeed(url);
-									$("#searchbox").find('input:text').val("");
-									$("#searchbox img").css("opacity","0");
-									$('#loadingurl').css('opacity',0);
-									showMessage("Sorry, We could not find feeds at this url.");
-								}
-						   	 }
-						  
-					  }); 
-					  
-	},
-	showFeed : function(url){
-					  fetchTimer = setTimeout("FeedEngine.showTimeout()",10000);
-					  inFetchingState = true;
-					  var feed = new google.feeds.Feed(url);
-					  feed.includeHistoricalEntries();
-  					  feed.setNumEntries(20);
-  					  feed.setResultFormat(google.feeds.Feed.JSON_FORMAT);
-  					  feed.load(function(result) 
-					  {
-						  inFetchingState = false;
-					  	if (!result.error) 
-						{
-							modes.switchToMode(2);
-							console.log(result.feed);
-							ReaderViewer.renderFeed(result.feed,0,20,true);
-						}
-						else
-						{
-						$("#loadingScreen").html("Failed to retrieve Feed.").fadeIn().delay(2000).fadeOut(400);							
-						$("#loadingScreen").css('visibility','hidden').css('display','none');
-						$("#loadingScreen").html("<img src = 'img/feedsload.gif' />");
-						loadingFinished = true;
-						}
-					  })
-	},
 	
 	loadHeadlines : function(url,num,minindex,maxindex){
 		
@@ -157,19 +100,5 @@ var FeedEngine = {
 		}
 	});
 	},
-	showTimeout : function()
-	{
-		if(inFetchingState)
-		{
-			clearTimeout(fetchTimer);
-			$("#loadingScreen").html("<p>Connection Timeout. May be you are not connected to Internet!</p>").fadeIn().delay(2000).fadeOut(400,
-				function(){
-					$("#loadingScreen").css('visibility','hidden').css('display','none');
-			$("#loadingScreen").html("<img src = 'img/feedsload.gif' />");
-			});							
-			inFetchingState = false;
-			loadingFinished = true;
-		}
-	}
 	
 };

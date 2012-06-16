@@ -9,7 +9,6 @@ var FeedController = {
 	{
 		var feed_name;
 		var url = feedinfo.id;
-		console.log(url);
 		var list = FeedController.myFeedList.get();
 		if( list == null || list =="")
 		{

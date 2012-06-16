@@ -22,6 +22,7 @@ var Reader = {
 	{
 		if(GoogleReader.hasAuth() != true)
 			return;
+		$("loadercontainer").find(".button green").css("display","none");
 		$("#syncProgressBar").css("display","block");                                                                
 		showLoaderMessage("Fetching Google Reader Subscriptions...");
 		GoogleReader.getSubscriptionList(function(google_subs){
@@ -53,7 +54,7 @@ var Reader = {
 		console.log("Increment : " + incr);
 		while(j< local_subs.length && i<google_subs.length){
 			
-			while( i<google_subs.length && (google_subs[i].id<local_subs[j])){
+			while( (j<local_subs.length) && (i<google_subs.length) && (google_subs[i].id<local_subs[j])){
 				//register Google subscripitons in local subscripitons
 				console.log("Register in Local : " + google_subs[i].id);
 				FeedController.addFeed({
@@ -64,7 +65,7 @@ var Reader = {
 				i++;
 				showProgress(incr,true);
 			}
-			while(j<local_subs.length && (local_subs[j] < google_subs[i].id)){
+			while((j<local_subs.length) && (i<google_subs.length) && (local_subs[j] < google_subs[i].id)){
 				//Register local subscriptions in google
 				console.log("Register in Google : " + local_subs[j]);
 				GoogleReader.subscribe(local_subs[j],"title");
@@ -115,7 +116,7 @@ var Reader = {
 	
 		/* Subscribe on Google Reader */
 		if(GoogleReader.hasAuth() == true)
-			GoogleReader.subscribe(feedinfo.feedUrl,feedinfo.title,false);
+			GoogleReader.subscribe(feedinfo.id,feedinfo.title,false);
 	},
 	unsubscribe : function(url,callback)
 	{

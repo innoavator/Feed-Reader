@@ -1,11 +1,12 @@
 // Global variable for our core app
-var Atom = false;
 
 // Register all the Event listeners
 window.addEventListener('DOMContentLoaded', load, false);
 pokki.addEventListener('popup_unload', unload);
 pokki.addEventListener('popup_hidden', hidden);
 pokki.addEventListener('popup_shown', shown);
+var unloaded = new LocalStore('unloaded');
+    var splash_ran = unloaded.get() ? true : false;
 
 // Add listener for when the popup is first loaded
 // Perform popup page initiation and configuration
@@ -46,25 +47,20 @@ function load() {
 // This occurs due to inactivity or memory usage
 // You have 4 seconds from this event to save/store any data
 function unload() {
+	unloaded.set(true);
     console.log('Popup page is being unloaded.');
 	// Time to save any state
-	if (Atom) {
-		Atom.onPopupUnload();
-	}
 }
 
 // Add listener for when the popup window is showing
 function showing() {
     console.log('Popup window is almost visible.');    
-    if (Atom){
-    	Atom.onPopupShowing();
-    }
 }
 pokki.addEventListener('popup_showing', showing);
 
 // Add listener for when the popup window is shown
 function shown() {
-if(Atom){};
+
 	setTimeout(function(){
 		//$('#loadercontainer').fadeOut(400);
     	//$('#loader').fadeOut(500);
@@ -80,7 +76,4 @@ if(Atom){};
 // Add listener for when the pop-up window is hidden
 function hidden() {
     console.log('Popup window was hidden.');
-    if (Atom) {
-    	Atom.onPopupHidden();
-    }
 }
