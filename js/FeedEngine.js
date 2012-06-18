@@ -1,38 +1,5 @@
 // FeedEngine File
 var FeedEngine = {
-	
-	loadHeadlines : function(url,num,minindex,maxindex){
-		
-		//console.log("Load headlines : " + url + " , "  + num);
-		if(minindex < 0)
-			minindex = 0;
-		var feed = new google.feeds.Feed(url);
-					   feed.includeHistoricalEntries();
-  					  feed.setNumEntries(num);
-  					  feed.setResultFormat(google.feeds.Feed.JSON_FORMAT);
-  					  feed.load(function(result) 
-					  {
-					  	if (!result.error) 
-						{
-						//	console.log("Success");
-							console.log(result);
-							console.log("Length of feed : " + result.feed.entries.length);
-							if(result.feed.entries.length > minindex)
-								ReaderViewer.renderFeed(result.feed,minindex,maxindex,false);
-							else
-							{
-								switchToLoadingView(false);
-								$("#hnext").hide();
-								//TODO - Show a message - could not retrieve more feeds
-							}
-						}
-						else
-						{
-						//	console.log("Failure");
-						//	ReaderViewer.registerHeadlines("failure",null);
-						}
-  					  });
-	},
 	getYoutubeSuggestions : function(query)
 	{
 		var selectedli = $(".filter .selected");

@@ -60,56 +60,55 @@ var FeedViewer = {
 				showSubscribedFeed($(this));
 			});
 		}
-		//Youtube suggest click
+		/*Youtube suggestion click event : Get results for the clicked search result */
 		$("#youtubeSuggestions li").live('click',function(){
 			var query = $(this).text();
 			$("#youtubeSuggestions").css('display','none');
 			$("#searchbox").find('input')[1].value =query;
 			FeedEngine.getVideos(query);
-			});
-		$('.grimg li').hover(function() 
-		{
+		});
+		
+		/* Hover effects for the standard feed icons.*/
+		$('.grimg li').hover(function() {
+		    
+		    /* On Mouse Enter effect*/
 			var selectedli = $(".filter .selected");
 			$('.fdname', this).css('text-decoration', 'underline')
 			if($(selectedli).attr('data-value') != "youtube")
 			{
+			     /* Feed is not subscribed, give the option to subscribe. */
 				var feed_url = $(this).attr('data-id');
-			if(FeedController.issubscribed(feed_url) == 0)
-			{
-				$(this).css('cursor','pointer');
-        		$('.caption',this).html('Click me to subscribe to '+$('img',this).attr('title'));	
-				$('.caption',this).stop(true,true).animate({'opacity': 1,'margin-top': -60}, 50);
-        		$('img',this).stop(true,true).animate({'opacity': 0.1}, 100);
-			}
-			else
-			{
-				$('.caption',this).fadeOut(100,function(){
-						$(this).html('Click to Unsubscribe').css('margin-top','-55px')}).stop(true, true).fadeIn(50);
+			    if(FeedController.issubscribed(feed_url) == 0) {
+				    $(this).css('cursor','pointer');
+            		$('.caption',this).html('Click me to subscribe to '+$('img',this).attr('title'));	
+				    $('.caption',this).stop(true,true).animate({'opacity': 1,'margin-top': -60}, 50);
+            		$('img',this).stop(true,true).animate({'opacity': 0.1}, 100);
+			    }else {
+			     /* Feed is already subscribed. Remove the option to unsubscribe. */
+				    $('.caption',this).fadeOut(100,function(){
+						    $(this).html('Click to Unsubscribe').css('margin-top','-55px')}).stop(true, true).fadeIn(50);
 				}
-			}},function() 
-			{
+			}},function() {
+			    /* OnMouseExit effect */
 				var selectedli = $(".filter .selected");
-				$('.fdname', this).css('text-decoration', 'none')
-			if($(selectedli).attr('data-value') != "youtube"){
-				var feed_url = $(this).attr('data-id');
-				if(FeedController.issubscribed(feed_url) == 0)
-				{
-					$(this).css('cursor','pointer');
-        			$('.caption',this).stop(0,true,true).animate({'opacity': 0}, 50);
-					$('img',this).stop(0,true,true).animate({'opacity': 1}, 200);
-				}
-				else
-				{
+				$('.fdname', this).css('text-decoration', 'none');
+			    if($(selectedli).attr('data-value') != "youtube"){
+				    var feed_url = $(this).attr('data-id');
+				    if(FeedController.issubscribed(feed_url) == 0 && $(".caption",this).html().indexOf("img")==-1) {
+					    $(this).css('cursor','pointer');
+            			$('.caption',this).stop(0,true,true).animate({'opacity': 0}, 50);
+					    $('img',this).stop(0,true,true).animate({'opacity': 1}, 200);
+				    }else {
 					
-					$('.caption',this).fadeOut(100,function(){
-						$(this).html('You are subscribed to '+$(this).parent().find('.feedimage').attr('title')+'<br>'+'<img class="subscbdimg" src="img/done.png">').css('margin-top','-60px')}).stop(0,true, true).fadeIn(50); 
+					    $('.caption',this).fadeOut(100,function(){
+						    $(this).html('You are subscribed to '+$(this).parent().find('.feedimage').attr('title')+'<br>'+'<img class="subscbdimg" src="img/done.png">').css('margin-top','-60px')}).stop(0,true, true).fadeIn(50); 
 					
 
-				}
-			}
+				    }
+			    }
 			});
 		
-		// Attach handlers for click on feedIcons
+		/* Attach handlers for click on feedIcons */
 		$(".grimg li").live('click',function(){
 			var caption = $(this).find('.caption');
 			var selectedli = $(".filter .selected");
