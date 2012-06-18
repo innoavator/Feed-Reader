@@ -62,6 +62,12 @@ var FeedViewer = {
 				showUnsubscribedFeed($(this));
 			});
 		}
+		else
+		{
+			$("#stage li").each(function(i){
+			$('.caption',this).html('Click me to subscribe to '+$('img',this).attr('title'))
+			});
+		}
 		/*Youtube suggestion click event : Get results for the clicked search result */
 		$("#youtubeSuggestions li").live('click',function(){
 			var query = $(this).text();
@@ -104,8 +110,6 @@ var FeedViewer = {
 					
 					$('.caption',this).fadeOut(100,function(){
 						$(this).html('You are subscribed to '+$(this).parent().find('.feedimage').attr('title')+'<br>'+'<img class="subscbdimg" src="img/done.png">').css('margin-top','-60px')}).stop(0,true, true).fadeIn(50); 
-					
-
 				}
 			}
 			});
@@ -278,8 +282,7 @@ var FeedViewer = {
 				else
 					var countstr = "";
 				$("#myfeedsdiv .myfeedlist").append("<li><div class='feedl color"+randomnumber+"' rel = " +list[i] +" >"
-					+"<div class='unsub'></div>"
-					+"<img class='faviconimg' src='"+imagesource+"'/><p>"+title.substring(0,25)+"</p>"+countstr);
+					+"<div class='unsub'></div>"+"<div class='readmarker'></div>"+"<img class='faviconimg' src='"+imagesource+"'/><p>"+title.substring(0,25)+"</p>"+countstr);
 					
 			}
 			/* Put the default imaage if the favicon image is not found*/
@@ -360,6 +363,20 @@ var FeedViewer = {
 	
 	listVideos:	function(videoData)
 	{
+		function secondsToTime(secs)
+	{
+		var hours = Math.floor(secs / (60 * 60));
+		var divisor_for_minutes = secs % (60 * 60);
+		var minutes = Math.floor(divisor_for_minutes / 60);
+		var divisor_for_seconds = divisor_for_minutes % 60;
+		var seconds = Math.ceil(divisor_for_seconds);
+		var obj = {
+			"h": hours,
+			"m": minutes,
+			"s": seconds
+		};
+		return obj;
+	}
 		$(".videoslist").empty();
 		
 		var content = videoData.feed.entry;
@@ -368,13 +385,14 @@ var FeedViewer = {
 		{
 			var idarr = (content[i].id.$t).split("/");
 			var url = idarr[idarr.length - 1];
-			var li = $("<li>").attr('link','http://www.youtube.com/embed/'+url+'?autoplay=1&feature=player_embedded').attr('class','videolistitem');
+			var li = $("<li>").attr('link','http://www.youtube.com/embed/'+url+'?autoplay=1&playerapiid=ytplayer&version=3&enablejsapi=1').attr('class','videolistitem');
+			
 			$(li).append("<img src = '"+content[i].media$group.media$thumbnail[0].url+"'/>");
-			$(li).append("<div class='utubecaption'>"+content[i].media$group.media$title.$t+"</div>");$(li).append("<div class='nowplaying'></div>");
-			var link=$('.youtube-player').attr('src');
+			$(li).append("<div class='utubecaption'>"+content[i].media$group.media$title.$t+"<br><font color='yellow'>Duration: "+secondsToTime(content[i].media$group.yt$duration.seconds).h+"h "+secondsToTime(content[i].media$group.yt$duration.seconds).m+"m "+secondsToTime(content[i].media$group.yt$duration.seconds).s+"s"+"</font><br><font color='red'>-"+content[i].author[0].name.$t+"</font></div>");$(li).append("<div class='nowplaying'></div>");
+			var link=$('#youtube-player').attr('src');
 				$('.videolistitem[link="'+link+'"]').find('.nowplaying').css('display','block');
 			$(".videoslist").append(li);
-			//console.log(content[i].media$thumbnail); */
+			//console.log(content[i].media$thumbnail); 
 		}
 		$("#videosbox").css('background','#111');
 	},
