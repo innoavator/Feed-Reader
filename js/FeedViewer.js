@@ -421,15 +421,13 @@ var FeedViewer = {
 								},function(errorStr){
 									console.log("Error sending : " +  errorStr);
 									$("#searchbox").find('input:text').val("");
-									$("#searchbox img").css("opacity","0");
 									$('#loadingurl').css('opacity',0);
 									if(errorStr == "Not Found")
 										showMessage("<strong>Sorry, We could not find feeds at this url.</strong>");
 									else
 										showMessage("<strong>Error Subscribing to Feed. Please try again later.</strong>");
-
+										showUnsubscribedFeed(feedobj)
+				
 								});
-
 	}
-	
 };
