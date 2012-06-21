@@ -185,9 +185,8 @@ var FeedViewer = {
 				$("#loadingScreen").css('visibility','visible').css('display','block');
 				var url = ($(this).attr("rel"));
 				Reader.getFeedContent(url,null,ReaderViewer.showFetchError);
-			
-				
 		});
+		
 		$('.videolistitem').live('click', function(){
 				
 				var link =  $(this).attr('link');console.log(link);
@@ -426,8 +425,10 @@ var FeedViewer = {
 										showMessage("<strong>Sorry, We could not find feeds at this url.</strong>");
 									else
 										showMessage("<strong>Error Subscribing to Feed. Please try again later.</strong>");
-										showUnsubscribedFeed(feedobj)
-				
+										$('.caption',feedobj).html('Error Subscribing to '+$(feedobj).find('img').attr('title')).animate({'opacity': 1,'margin-top': -60 }, 200).delay(2000).fadeOut(200).fadeIn(0,function(){
+											$('.caption',feedobj).html()
+											showUnsubscribedFeed(feedobj);});  
+										
 								});
 	}
 };
