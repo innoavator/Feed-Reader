@@ -600,12 +600,12 @@ background-color:#06F;
     width: 14px;
     height: 13px;
     float:right;
-    top: 3px;
+    top: 2px;
     margin-left:-32px;
     background:url('../img/unsub.png') no-repeat; 
     cursor:pointer;
     opacity: .3;
-    right: 2px;
+    right: 1px;
 }
 
 .feedl
@@ -667,7 +667,7 @@ background-color:#06F;
 	margin:6px 5px 6px 6px;
     width:20px;
 	padding:7px;
-	background: -webkit-linear-gradient(top, #FAFAFA 0%, #EDEDED 100%);
+	background: -webkit-linear-gradient(top, #FAFAFA 0%, #EdEdED 100%);
 }
 
 #myfeedsdiv ::-webkit-scrollbar-track:vertical { background:#eee;}
@@ -769,7 +769,7 @@ right:0px;
 	position:absolute;
 	z-index:100000000000;
     margin-top: -30px;
-    margin-right: 271px;
+    margin-right: 272px;
 }
 /*///////////////////////////////////
         FOOTER
