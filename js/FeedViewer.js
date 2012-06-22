@@ -282,7 +282,6 @@ var FeedViewer = {
 					var countstr = "";
 				$("#myfeedsdiv .myfeedlist").append("<li><div class='feedl color"+randomnumber+"' rel = " +list[i] +" >"
 					+"<div class='unsub'></div>"+"<div class='readmarker'></div>"+"<img class='faviconimg' src='"+imagesource+"'/><p>"+title.substring(0,25)+"</p>"+countstr);
-					
 			}
 			/* Put the default imaage if the favicon image is not found*/
 			$('.faviconimg').error(function() {
