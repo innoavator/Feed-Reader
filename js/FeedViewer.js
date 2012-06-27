@@ -1,6 +1,7 @@
 var FeedViewer = {
 	initialise : function()
 	{
+		DbManager.initialise();
 		FeedViewer.initialiseAddFeeds();
 		FeedViewer.initialiseMyFeeds();
 		FeedViewer.initialiseYoutubeFeeds();
