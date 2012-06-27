@@ -7,6 +7,7 @@ body {
     font: normal 12px Helvetica, Arial, sans-serif;
     text-shadow: 0 -1px 0 #fff;
 	
+    font-family:"Tahoma";
     /* use this to keep all text from being selectable to maintain a more app-like experience
     otherwise it's possible to highlight/select an entire pokki window  */
     -webkit-user-select: none;
@@ -15,72 +16,44 @@ body {
 /* Used to contain the contents of a Pokki when testing in a web browser using PokkiBrowser.js */
 #wrapper {
     margin: auto;
-    width: 830px;
-/*	height:600px; */
+    width: 950px;
+	height:600px; 
     position: relative;
     opacity: 1;
-}
-.dark-background{
-	background:url('../img/bg_center.jpg');
-}
-.light-background{
-	background-image : -webkit-gradient(
-				 linear,
-				 left bottom,
-				 left top,
-				 color-stop(0, rgb(240,240,240)),
-				 color-stop(1, rgb(251,250,255))
-				 )
-}
-#minimize {
-    display: block;
-    position: absolute;
-    top: 0px;
-    right: 0px;
-    width: 21px;
-    height: 12px;
-    cursor: pointer;
-    background: #333 url(../img/minimize.png) 0px -2px no-repeat;
-    border-bottom-left-radius: 3px;
-	z-index: 100000000000000000000;
-    -webkit-transition: background-color 0.3s linear;
-}
-#minimize:hover {
-    background-color: #000;
-}
-#minimize:active {
-    background-position: 0px -1px;
+	background:#111;
 }
 
 /* Main content */
 
 /* Scrollable area */
 .scrollable {
-    overflow: hidden;
-	width:830px;
 	height:600px;
-	background:url('../img/bg_center.jpg');
+	overflow:hidden;
 	
 }
 
 /* Offset content inside of scrollable area so that it doesn't hug the scrollbar */
-
+    
     
 /* Custom CSS scrollbar */
 ::-webkit-scrollbar {
 	width: 8px;
     height: 8px;
     border-radius: 5px;
-    background: none;
+	background:none;
 }
 ::-webkit-scrollbar-track:vertical { 
     background: none; 
+	width:2px;
+	margin:30px 0 30px 0;
+    border-radius: 7px 0 0 7px;
 }
 ::-webkit-scrollbar-thumb {
-    width: 8px; height: 20px;
-    background: #bbb;
-    border-radius: 5px;
+    width: 2px;
+    height:20px;
+    background: #555;
+    border-radius: 7px 0 0 7px;
 }
 ::-webkit-scrollbar-button: { 
-    display: none; 
+    display:none; 
 }

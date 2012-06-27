@@ -31,25 +31,26 @@ var modes = {
 					{
 						if($(divnames[nextstate]).is(":hidden"))
 						{
-							console.log("Showing");
 							$(divnames[nextstate]).show(function(){
 							$(divnames[nextstate]).fadeIn("fast",function(){$(divnames[nextstate]).css('visibility','visible');});
 																		});
 						}
 					});
 				}
-/*				if(nextstate == 1)
-				{
-					console.log(FeedController.getFeedNames());
-					$( "#myfeedssearchbox" ).autocomplete({
-						
-						source: FeedController.getFeedNames()
-					}); 
-				}*/
+				if(nextstate == modes.myFeedsMode)
+					$("#feedsearch").focus();
+				
 				modes.currentmode = nextstate;
-		//		console.log("Mode changed to " + nextstate);
 			}
 };
+function readerToMyFeeds()
+{
+	modes.switchToMode(1);
+	Reader.resetState();
+	FeedViewer.renderMyFeeds();
+	$("#slider").empty();
+	$("#rdrheadl li").not('#headlactions').remove();
+}
 function display_message(message)
 {
 		 $('<div class="quick-alert">Alert! Watch me before it\'s too late!</div>')
@@ -90,8 +91,55 @@ function switchToLoadingView(cond)
 		{
 			$("#hprev").hide();
 		}
-			
+		console.log("Hiding the loading of headlines.");
 		$("#hnext").show();
 		$("#headlactions").find('img').hide();
 	}
 }
+function showSubscribedFeed(icon)
+{
+	$('.caption',icon).html('You are subscribed to '+$(icon).find('img').attr('title')+'<br>'+'<img class="subscbdimg" src="img/done.png">');
+	$('.caption',icon).animate({'opacity': 1,'margin-top': -60 }, 200);
+	$('img',icon).animate({'opacity': 0.1}, 200);
+	$('.subscbdimg').animate({'opacity': 1}, 200);
+}
+function showUnsubscribedFeed(icon)
+{
+	$('.caption',icon).html('Click me to subscribe to '+$('img',icon).attr('title'));	
+    $('.caption',icon).stop(0,true,true).animate({'opacity': 0}, 200);
+	$('img',icon).stop(0,true,true).animate({'opacity': 1}, 200);
+}
+function showMessage(msg)
+{
+	$("#error-message").fadeOut('fast',function(){$(this).html(msg)}).fadeIn().delay(2000).fadeOut('fast',function(){$(this).html("Click on the feed from the categories given below or enter the URL of the desired feed of your wish")}).fadeIn();
+}
+function continueLocal()
+{
+	$('#loader').fadeOut(1000);
+	$('#loadercontainer').fadeOut(1000); 
+	$(".scrollable").css('opacity',1);	
+}
+function showProgress(value,isRelative)
+{
+	if(!$("#syncProgressBar").attr("value"))
+		$("#syncProgressBar").attr("value",0);
+	if(isRelative == true)
+	{
+		var currValue = parseInt($("#syncProgressBar").attr("value"));
+		$("#syncProgressBar").attr("value",parseInt(value)+currValue);
+	}else
+		$("#syncProgressBar").attr("value",value);
+}
+
+function showLoaderMessage(msg)
+{
+	$("#loader").find('p').html(msg);
+}
+
+function addContextMenu()
+{
+	 pokki.resetContextMenu();
+	 pokki.addContextMenuItem("Logout","logoutbtn");
+	 pokki.addContextMenuItem("Mark All As Read","markallasread");
+}
+

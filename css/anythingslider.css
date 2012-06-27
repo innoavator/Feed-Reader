@@ -20,7 +20,7 @@
 	overflow-x: hidden;
 }
 /* Opera width restriction */
-.anythingBase { max-width: 32766px; }
+.anythingBase { max-width: 99766px; }
 
 /*****************
   SET COLORS HERE
@@ -29,6 +29,7 @@
 /* slider window - top & bottom borders, default state */
 div.anythingSlider .anythingWindow {
 	border-top: 3px solid #777;
+	border-radius:10px;
 	border-bottom: 3px solid #777;
 }
 /* Navigation buttons, default state */
@@ -79,10 +80,10 @@ div.anythingSlider .start-stop:hover, div.anythingSlider .start-stop.hover {
 /* Overall Wrapper: 45px right & left padding for the arrows, 28px @ bottom for navigation */
 div.anythingSlider {
 	display: block;
-	margin: 0 auto;
+	margin-top: -3px;
+	margin-left:3px;
 	overflow: visible !important; /* needed for Opera and Safari */
 	position: relative;
-	padding: 0 40px 28px 40px;
 }
 /* anythingSlider viewport window */
 div.anythingSlider .anythingWindow {
@@ -90,7 +91,7 @@ div.anythingSlider .anythingWindow {
 //	overflow-x:hidden;
 	
 	position: relative;
-	width: 100%;
+	width: 943px;
 	height: 100%;
 }
 /* anythingSlider base (original element) */
@@ -114,6 +115,7 @@ div.anythingSlider .anythingWindow {
 	float: left;
 	padding: 0;
 	margin: 0;
+	width: 823px;
 }
 .anythingBase .panel.vertical {
 	float: none;
@@ -127,24 +129,25 @@ div.anythingSlider .arrow {
 }
 div.anythingSlider .arrow a {
 	display: block;
-	height: 140px;
+	height: 80px;
 	margin: -70px 0 0 0; /* half height of image */
-	width: 45px;
+	width: 42px;
 	text-align: center;
 	outline: 0;
+	opacity:0.5;
 	background: url(../img/feedbutton.png) no-repeat;
 }
 /* hide text, target the span so IE7 doesn't text-indent the link */
 div.anythingSlider .arrow a span { display: block; text-indent: -9999px; }
 /* back arrow */
-div.anythingSlider .back { left: 0px; }
+div.anythingSlider .back { margin-left: -1px; }
 div.anythingSlider .back a { background-position: left top; }
 div.anythingSlider .back a:hover, div.anythingSlider .back a.hover { background-position: left -140px; }
 div.anythingSlider .back.disabled { display: none; } /* disabled arrows, hide or reduce opacity: opacity: .5; filter: alpha(opacity=50); */
 /* forward arrow */
-div.anythingSlider .forward { right: 0px; }
-div.anythingSlider .forward a { background-position: right top; }
-div.anythingSlider .forward a:hover, div.anythingSlider .forward a.hover { background-position: right -140px;}
+div.anythingSlider .forward { margin-right: -1px; }
+div.anythingSlider .forward a { background-position: -42px top; }
+div.anythingSlider .forward a:hover, div.anythingSlider .forward a.hover { background-position: -42px -140px;}
 div.anythingSlider .forward.disabled { display: none; } /* disabled arrows, hide or reduce opacity: opacity: .5; filter: alpha(opacity=50); */
 
 /* Navigation Links */

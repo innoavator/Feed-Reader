@@ -1,4 +1,3 @@
-
 var FeedController = {
 	
 	myFeedList : new LocalStore('myFeeds'),
@@ -9,7 +8,7 @@ var FeedController = {
 	addFeed : function(feedinfo)
 	{
 		var feed_name;
-		var url = feedinfo.feedUrl;
+		var url = feedinfo.id;
 		var list = FeedController.myFeedList.get();
 		if( list == null || list =="")
 		{
@@ -42,7 +41,6 @@ var FeedController = {
 			for(i=0;i<list.length;i++)
 			{
 				if(list[i] == url){
-					console.log(url + " and " + list[i] + " match");
 					list.splice(i,1);
 					break;
 				}
@@ -53,7 +51,6 @@ var FeedController = {
 	},
 	listFeeds : function()
 	{
-		//console.log(FeedController.myFeedList.get());
 		return (FeedController.myFeedList.get());
 	},
 	getMyFeeds : function()
@@ -77,7 +74,6 @@ var FeedController = {
 			for(i=0;i<list.length;i++)
 			{
 				if(list[i] == url){
-					console.log(url + " and " + list[i] + " match");
 					return 1;
 				}
 			}
@@ -86,15 +82,16 @@ var FeedController = {
 	},
 	registerFeed : function(feedinfo)
 	{
-		var feed = new LocalStore(feedinfo.feedUrl);
+		var feed = new LocalStore(feedinfo.id);
 		var feedobj = new Object();
 		feedobj.link = feedinfo.link;
 		feedobj.title = feedinfo.title;
+		feedobj.unreadCount = 20;
 		feedobj.headlines = new Array();
-		for(var i = 0;i<feedinfo.entries.length;i++)
+	/*	for(var i = 0;i<feedinfo.entries.length;i++)
 		{
 			feedobj.headlines[i] = feedinfo.entries[i].title;
-		}
+		}*/
 		feed.set(JSON.stringify(feedobj));
 		return feedobj.title;
 	},
@@ -109,7 +106,6 @@ var FeedController = {
 		var feedinfo = JSON.parse(feed.get());
 		if (feedinfo == null)
 		return;
-		//console.log("Feed of " + url + " : "  + feedinfo);
 		if(feedinfo.headlines == null)
 			return "No Headlines";
 		else
@@ -143,19 +139,32 @@ var FeedController = {
 	},
 	saveAsRead : function(feedSourceUrl,feedUrl)
 	{
+		console.log("Save as read request");
 		var feed = new LocalStore(feedSourceUrl);
 		var feedinfo = JSON.parse(feed.get());
+		//console.log(feedinfo);
 		var readList = feedinfo.readFeeds;
 		if(readList == null)
 		{
 			readList = feedUrl;
+			console.log("Successfully added to  null");
+			if(feedinfo.unreadCount>0)
+			feedinfo.unreadCount--;
 		}else
 		{
 			if(readList.indexOf(feedUrl) == -1)
+			{
 				readList+= "," + feedUrl;
+				if(feedinfo.unreadCount>0)
+					feedinfo.unreadCount--;
+				console.log(feedUrl + " Successfully added");
+			}
+			else
+			{
+				console.log("Feedurl already present");
+			}
 		}
 		feedinfo.readFeeds = readList;
-		console.log(feedinfo);
 		feed.set(JSON.stringify(feedinfo));
 	},
 	removeFromRead : function(feedSourceUrl,feedUrl)
@@ -169,8 +178,8 @@ var FeedController = {
 			for(i=0;i<readList.length;i++)
 			{
 				if(readList[i] == feedUrl){
-				//	console.log(url + " and " + list[i] + " match");
 					readList.splice(i,1);
+					feedinfo.unreadCount++;
 					break;
 				}
 			}
@@ -188,6 +197,43 @@ var FeedController = {
 		if(readList.indexOf(feedUrl) == -1)
 			return false;
 		return true;
+	},
+	setUnreadCount : function(feedUrl,count)
+	{
+		console.log("Setting unread count for : " + feedUrl);
+		var feed = new LocalStore(feedUrl);
+		var feedinfo = JSON.parse(feed.get());
+		if(feedinfo == null)
+		{
+			console.log("Feedinfo is null");
+			return;
+		}
+		else
+		feedinfo.unreadCount = count;
+		feed.set(JSON.stringify(feedinfo));
+	},
+	getUnreadCount : function(feedUrl)
+	{
+		var feed = new LocalStore(feedUrl);
+		var feedinfo = JSON.parse(feed.get());
+		if(feedinfo == null)
+		  return 0;
+		if(feedinfo.unreadCount == null)
+		FeedController.initUnreadCount(feedUrl);
+		return feedinfo.unreadCount;
+	},
+	initUnreadCount : function(feedUrl)
+	{
+		var feed = new LocalStore(feedUrl);
+		var feedinfo = JSON.parse(feed.get());
+		if(feedinfo == null)
+		{
+			console.log("Feedinfo is null");
+			return;
+		}
+		else
+		feedinfo.unreadCount = 20;
+		feed.set(JSON.stringify(feedinfo));
 	}
 }
 
