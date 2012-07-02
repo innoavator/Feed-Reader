@@ -27,95 +27,86 @@ var Reader = {
 		showLoaderMessage("Fetching Google Reader Subscriptions...");
 		GoogleReader.getSubscriptionList(function(google_subs){
 		showLoaderMessage("Fetching Local Subscriptions...");
-		var local_subs = FeedController.getMyFeeds();
-		var orig_local_subs = local_subs;
-		if(local_subs == null)
-			local_subs = new Array();
-		else
-		{
-			for(var sub in local_subs)
-				sub = sub.split("?")[0];
-			local_subs.sort();
-		}
-		console.log(local_subs);
-		google_subs = google_subs.subscriptions;
-		if(google_subs.length != 0)
-		{
-			for(var i=0;i<google_subs.length;i++)
-				google_subs[i].id = (google_subs[i].id).substr(5);
-			//if(google_subs[i].id.charAt(google_subs[i].id.length - 1) == "/")
-				//google_subs[i].id = (google_subs[i].id).substring(0,(google_subs[i].id).length -1);
-			(google_subs).sort(function(a,b){return (a.id < b.id) ? -1 : 1;});
-		}
-		var flag = false,i=0,j=0;
-		console.log(google_subs);
-		showLoaderMessage("Syncing...");
-		var incr = 100/(local_subs.length + google_subs.length);
-		console.log("Increment : " + incr);
-		while(j< local_subs.length && i<google_subs.length){
-			
-			while( (j<local_subs.length) && (i<google_subs.length) && (google_subs[i].id<local_subs[j])){
-				//register Google subscripitons in local subscripitons
-				console.log("Register in Local : " + google_subs[i].id);
-				FeedController.addFeed({
-									    id:google_subs[i].id,
-										link:google_subs[i].htmlUrl,
-										title:google_subs[i].title
-										});
+		var local_subs = DbManager.getSubscriptionIds(function(){
+			/* Callback function for getting subscriptions list from local database*/
+			var orig_local_subs = local_subs;
+			if(local_subs == null)
+				local_subs = new Array();
+			else {
+				for(var sub in local_subs)
+					sub = sub.split("?")[0];
+				local_subs.sort();
+			}
+			console.log(local_subs);
+			google_subs = google_subs.subscriptions;
+			if(google_subs.length != 0)
+			{
+				for(var i=0;i<google_subs.length;i++)
+					google_subs[i].id = (google_subs[i].id).substr(5);
+				//if(google_subs[i].id.charAt(google_subs[i].id.length - 1) == "/")
+					//google_subs[i].id = (google_subs[i].id).substring(0,(google_subs[i].id).length -1);
+				(google_subs).sort(function(a,b){return (a.id < b.id) ? -1 : 1;});
+			}
+			var flag = false,i=0,j=0;
+			console.log(google_subs);
+			showLoaderMessage("Syncing...");
+			var incr = 100/(local_subs.length + google_subs.length);
+			console.log("Increment : " + incr);
+			while(j< local_subs.length && i<google_subs.length)
+			{
+				while( (j<local_subs.length) && (i<google_subs.length) && (google_subs[i].id<local_subs[j])){
+					//register Google subscripitons in local subscripitons
+					console.log("Register in Local : " + google_subs[i].id);
+					DbManager.insertSubscription(google_subs[i].id,google_subs[i].htmlUrl,google_subs[i].title,null);
+					i++;
+					showProgress(incr,true);
+				}
+				while((j<local_subs.length) && (i<google_subs.length) && (local_subs[j] < google_subs[i].id)){
+					//Register local subscriptions in google
+					console.log("Register in Google : " + local_subs[j]);
+					GoogleReader.subscribe(local_subs[j],"title");
+					j++;
+					showProgress(incr,true);
+				}
+				while( j<local_subs.length && i<google_subs.length && local_subs[j]== google_subs[i].id){
+						if(orig_local_subs[j] != local_subs[j])
+						{
+							// Unsubscribe the orig_local_sub
+							DbManager.removeSubscription(orig_local_subs[j]);
+							//Subscribe the local_sub
+							DbManager.insertSubscription(google_subs[i].id,google_subs[i].htmlUrl,google_subs[i].title,null);
+						}
+						i++;j++;
+					showProgress(2*incr,true);
+				}
+			}
+			while(i<google_subs.length)
+			{
+				DbManager.insertSubscription(google_subs[i].id,google_subs[i].htmlUrl,google_subs[i].title,null);
 				i++;
 				showProgress(incr,true);
 			}
-			while((j<local_subs.length) && (i<google_subs.length) && (local_subs[j] < google_subs[i].id)){
-				//Register local subscriptions in google
+			while(j<local_subs.length)
+			{
 				console.log("Register in Google : " + local_subs[j]);
 				GoogleReader.subscribe(local_subs[j],"title");
 				j++;
 				showProgress(incr,true);
 			}
-			while( j<local_subs.length && i<google_subs.length && local_subs[j]== google_subs[i].id){
-					if(orig_local_subs[j] != local_subs[j])
-					{
-						// Unsubscribe the orig_local_sub
-						FeedController.removeFeed(orig_local_subs[j]);
-						//Subscribe the local_sub
-						FeedController.addFeed({
-							id:google_subs[i].id,
-							link:google_subs[i].htmlUrl,
-							title:google_subs[i].title
-							});
-					}
-					i++;j++;
-				showProgress(2*incr,true);
-			}
-		}
-		while(i<google_subs.length)
-		{
-			FeedController.addFeed({
-									    id:google_subs[i].id,
-										link:google_subs[i].htmlUrl,
-										title:google_subs[i].title
-										});
-			i++;
-			showProgress(incr,true);
-		}
-		while(j<local_subs.length)
-		{
-			console.log("Register in Google : " + local_subs[j]);
-			GoogleReader.subscribe(local_subs[j],"title");
-			j++;
-			showProgress(incr,true);
-		}
-		continueLocal();
+			continueLocal();
+			});
 		});
 	},
 	
 	subscribe : function(feedinfo)
 	{
-		/* Subscribe to Feed Locally */
-		FeedController.addFeed(feedinfo);
-		
 		/* Subscribe to feed in the Local Database */
-		DbManager.insertSubscription(feedinfo.id,feedinfo.title,null);
+		var htmlUrl = null;
+		try{
+			htmlUrl = feedinfo.alternate[0].href;
+		}catch(err){
+		}
+		DbManager.insertSubscription(feedinfo.id,htmlUrl,feedinfo.title,null);
 
 		/* Subscribe on Google Reader */
 		if(GoogleReader.hasAuth() == true)
@@ -124,12 +115,9 @@ var Reader = {
 	unsubscribe : function(url,callback)
 	{
 		console.log("Unsubscribe : " + url);
-		/* Unsubscribe to feed locally */
-		if(FeedController.removeFeed(url))
-			callback();
-		
+
 		/* Unsubscribe from the local database */
-		DbManager.removeSubscription(url);
+		DbManager.removeSubscription(url,callback);
 
 		/* Unsubscribe from Google reader */
 		if(GoogleReader.hasAuth() == true)
@@ -181,20 +169,22 @@ var Reader = {
 		if(((Reader.endindex - slide_no) < 10) && (Reader.refetchSent == 0) && Reader.endindex <90)
 		{
 			console.log("Time to fetch more feeds");
-			var unreadCount = FeedController.getUnreadCount(feedUrl);
-			if(!(GoogleReader.hasAuth()) || !(window.localStorage.getItem("readMode") == SHOWUNREAD) || (unreadCount>Reader.endindex))
-			{
-				Reader.refetchSent = 1;
-				$("#headlactions").find('img').show();
-				Reader.getFeedContent(feedUrl,function(){
-					$("#headlactions").find('img').hide();
-				},function(){
-					$("#headlactions").find('img').hide();
-					$("#headlactions").find("h2").fadeIn().delay(2000).fadeOut("slow");
-					Reader.refetchSent = 0;
-				});
-			}
-				
+			DbManager.getUnreadCount(feedUrl,function(unreadCount){
+				//Callback for getting the Unread Count for the Database.
+				if(!(GoogleReader.hasAuth()) || !(window.localStorage.getItem("readMode") == SHOWUNREAD) || (unreadCount>Reader.endindex))
+				{
+					console.log("Fetching more feeds");
+					Reader.refetchSent = 1;
+					$("#headlactions").find('img').show();
+					Reader.getFeedContent(feedUrl,function(){
+						$("#headlactions").find('img').hide();
+					},function(){
+						$("#headlactions").find('img').hide();
+						$("#headlactions").find("h2").fadeIn().delay(2000).fadeOut("slow");
+						Reader.refetchSent = 0;
+					});
+				}	
+			});
 		}
 	},
 	resetState : function()
@@ -204,6 +194,4 @@ var Reader = {
 		this.endindex = 0;
 		this.refetchSent = 0;
 	}
-	
-	
 }
