@@ -125,16 +125,37 @@ var Reader = {
 			console.log("Feed Unsubscribed successfully");
 			});
 	},
-	
-	markAsRead : function(feedUrl,itemUrl,toRemove)
+	/* */
+	editItemTag : function(feedUrl,itemId,tagToAdd,tagToRemove)
 	{
-		//Only mark on Google, Local data has been deprecated.
+		/* Edit the Item Tag locally */
+		if(!tagToRemove)
+			DbManager.insertItemTag(feedUrl,itemId,tagToAdd);
+		else if(tagToRemove != tagToAdd)
+			DbManager.updateItemTag(feedUrl,itemId,tagToAdd);
+		
+		/* Edit the Item Tag on GoogleReader */
 		if(GoogleReader.hasAuth() == true)
-		if(toRemove)
-			GoogleReader.editItemTag(feedUrl,itemUrl,"read","kept-unread");
-		else
-			GoogleReader.addItemTag(feedUrl,itemUrl,"read");
-		/*FeedController.saveAsRead(feedUrl,itemUrl);*/
+		{
+			if(!tagToRemove)
+				GoogleReader.addItemTag(feedUrl,itemId,tagToAdd);
+			else if(tagToRemove != tagToAdd)
+				GoogleReader.editItemTag(feedUrl,itemId,tagToAdd,tagToRemove);
+		}
+	},
+	/*
+	markAsRead : function(feedUrl,itemUrl,toRemove,init_tag,final_tag)
+	{
+				//Only mark on Google, Local data has been deprecated.
+		if(GoogleReader.hasAuth() == true)
+		{
+			if(toRemove)
+				GoogleReader.editItemTag(feedUrl,itemUrl,"read","kept-unread");
+			else
+				GoogleReader.addItemTag(feedUrl,itemUrl,"read");
+		}
+			
+		//FeedController.saveAsRead(feedUrl,itemUrl);
 	},
 	
 	keepUnread : function(feedUrl,itemUrl)
@@ -142,8 +163,8 @@ var Reader = {
 		//Only mark on Google, local data has been deprecated.
 		if(GoogleReader.hasAuth() == true)
 			GoogleReader.editItemTag(feedUrl,itemUrl,"kept-unread","read");
-		/*FeedController.removeFromRead(feedUrl,itemUrl); */
-	},
+		//FeedController.removeFromRead(feedUrl,itemUrl); 
+	},*/
 	
 	getFeedContent : function(feedUrl,callback,fallback)
 	{

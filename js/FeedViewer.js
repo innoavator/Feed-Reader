@@ -27,25 +27,16 @@ var FeedViewer = {
 		{
 			FeedEngine.getVideos($(this).find("input")[1].value);
 			return;
-			
 		}
 		var feed_url = encodeURI($(this).find("input")[1].value);
 		console.log(feed_url);
 		var regexp = /(ftp|http|https):\/\/(\w+:{0,1}\w*@)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%@!\-\/]))?/
 		if(regexp.test(feed_url))
 		{
-			/*if(FeedController.issubscribed(feed_url) == 0)
-			{
-				$('#loadingurl').css('opacity',1);
-				FeedViewer.sendForSubscription(feed_url);
-			}else{
-				$('#loadingurl').css('opacity',0);
-				showMessage("<b>You are already subscribed to this feed. Go to Myfeeds page to view the feeds.</b>");
-        	}*/
 			DbManager.checkSubscription(feed_url,function(isSubscribed){
-				if(isSubscribed){
+				if(isSubscribed != 1){
 					$('#loadingurl').css('opacity',1);
-					FeedViewer.sendForSubscription(feed_url);
+					FeedViewer.sendForSubscription(feed_url,null);
 				}else{
 					$('#loadingurl').css('opacity',0);
 					showMessage("<b>You are already subscribed to this feed. Go to Myfeeds page to view the feeds.</b>");
@@ -279,30 +270,6 @@ var FeedViewer = {
 	renderMyFeeds : function(){
 		
 			$("#myfeedsdiv .myfeedlist").empty();
-			/*var list = FeedController.getMyFeeds();
-			if(list == null) return;
-			for(var i =0;i<list.length;i++)
-			{
-				var feed = new LocalStore(list[i]);
-				var feedinfo = feed.get(list[i]);
-				
-				if(feedinfo == null){
-					i++;continue;
-				}
-				var title = JSON.parse(feedinfo).title;
-				if(GoogleReader.hasAuth() == true){
-					var unreadCount = JSON.parse(feedinfo).unreadCount;
-				}
-				var imagesource=getDomain(list[i])+"/favicon.ico";
-				var randomnumber=Math.floor(Math.random()*5);
-				if(GoogleReader.hasAuth() == true)
-					var countstr = "<div class='readunread'>"+unreadCount+"</div></div></li>";
-				else
-					var countstr = "";
-				$("#myfeedsdiv .myfeedlist").append("<li><div class='feedl color"+randomnumber+"' rel = " +list[i] +" >"
-					+"<div class='unsub'></div>"+"<div class='readmarker'></div>"+"<img class='faviconimg' src='"+imagesource+"'/><p>"+title.substring(0,25)+"</p>"+countstr);
-			}*/
-			
 			DbManager.getSubscriptions(function(subsList){
 			    if(subsList == null) 
 				    return;
@@ -343,19 +310,6 @@ var FeedViewer = {
 			}
 		
 			});
-	},
-	showSubscriptionTimeout : function(feedobj,caption)
-	{
-	//	clearTimeout(subscriptionTimer);
-	/*	if($(feedobj).find('.caption')!= caption)
-		{
-			{
-				$("#searchbox").find('input:text').val("");
-				$('#loadingurl').css('opacity',0);
-				$(feedobj).find('.caption').html(caption);
-				$("#error-message").fadeOut('fast',function(){$(this).html("<b>Connection Timeout. May be you are not connected to Internet</b>")}).fadeIn().delay(1200).fadeOut('fast',function(){$(this).html("Click on the feed from the categories given below or enter the URL of the desired feed of your wish")}).fadeIn();
-			}
-		}*/
 	},
 	
 	showSuccessfulSubscription : function(feed_name,url,feedobj)
@@ -468,10 +422,12 @@ var FeedViewer = {
 										showMessage("<strong>Sorry, We could not find feeds at this url.</strong>");
 									else
 										showMessage("<strong>Error Subscribing to Feed. Please try again later.</strong>");
+									if(feedobj){	
 										$('.caption',feedobj).html('Error Subscribing to '+$(feedobj).find('img').attr('title')).animate({'opacity': 1,'margin-top': -60 }, 200).delay(2000).fadeOut(200).fadeIn(0,function(){
-											$('.caption',feedobj).html()
-											showUnsubscribedFeed(feedobj);});  
-										
+											$('.caption',feedobj).html();
+											showUnsubscribedFeed(feedobj);
+											});  
+										}
 								});
 	}
 };

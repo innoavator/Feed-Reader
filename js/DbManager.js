@@ -147,6 +147,47 @@ var DbManager = {
 		});
 	},
 	
+	/* Get The Tag associated with an item */
+	getItemTag : function(feedUrl,itemId,callback)
+	{
+		this.db.transaction(function(tx){
+			tx.executeSql('SELECT tag FROM tags where item = ? AND id = ?',[itemId,feedUrl],function(tx,results){
+			if(callback){
+				if(results.rows.length ==0)
+						callback(null);
+					else 
+						callback(results.rows.item(0).tag);
+				}
+			});
+		});
+	},
+	
+	/* Add Tag to A item*/
+	insertItemTag : function(feedUrl,itemId,tag)
+	{
+		this.db.transaction(function(tx){
+			console.log(feedUrl + "  : " + itemId + " : " + tag);
+			tx.executeSql('INSERT INTO tags(id,item,tag,timestamp) VALUES(?,?,?,?)',[feedUrl,itemId,tag,new Date()],function(tx,results){
+					console.log(" Item inserted successfully ");
+				},function(tx,e){
+					console.log(e);
+					console.log("Error inserting tag : ");	
+			});
+		});
+	},
+	
+	/* Update the tag of a feed item */
+	updateItemTag : function(feedUrl,itemId,tag)
+	{
+		this.db.transaction(function(tx){
+			tx.executeSql('UPDATE tags SET tag = ? WHERE id = ? AND item = ?',[tag,feedUrl,itemId],function(tx,r){
+				console.log("Item tag updated successfully. ");
+			},function(tx,e){
+				console.log("Error updating tag : " + e);
+			});
+		});
+	},
+	
 	/* Delete subscriptions and tags table */
 	emptyDatabase : function()
 	{
