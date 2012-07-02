@@ -5,12 +5,7 @@ var DbManager = {
 	db : null,
 	initialise : function(){
 		/* Create the p3Reader database if it does not exist.*/
-		this.db = openDatabase('db_p3reader',"1.0","Subscriptions Database",1024*200,function(data){
-						console.log("Database created successfully");
-						console.log(data);
-				});
-		console.log(this.db);
-		
+		this.db = openDatabase('p3reader',"1.0","Subscriptions Database",1024*200);
 		/* Create the subscriptions table if it does not exist */
 		this.db.transaction(function(tx){
 			tx.executeSql('CREATE TABLE IF NOT EXISTS subscriptions(id text PRIMARY KEY, htmlUrl text, title text,label text,unreadCount integer,timestamp DATETIME)',[],function(){
@@ -29,7 +24,10 @@ var DbManager = {
 						});
 		});
 	},
-	
+	openDb : function()
+	{
+		this.db = openDatabase('p3reader',"1.0","Subscriptions Database",1024*200);
+	},
 	/* Insert a new Subscription into the subscripitions table */	
 	insertSubscription : function(id,url,title,label)
 	{

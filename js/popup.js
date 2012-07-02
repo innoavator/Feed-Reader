@@ -17,7 +17,7 @@ function load() {
 	//Atom = new App();
 	// attach click event to minimize button    
     // Initialize whatever else needs to be initialized
-
+	 DbManager.initialise();
 	 FeedViewer.initialise();
   	 modes.initialise();
 	 pokki.resetContextMenu();
@@ -29,7 +29,6 @@ function load() {
 		 setInterval(function(){Reader.syncSubscriptions()},5000*24);
 		 addContextMenu();
 		 continueLocal();
-		 
 	 }else
 	 {
 		 console.log("sync is off");

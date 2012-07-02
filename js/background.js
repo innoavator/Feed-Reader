@@ -3,13 +3,12 @@ var BackgroundWorker = {
 	myFeedList : new LocalStore('myFeeds'),
 	count : 1,
 	initialise : function(){
-		DbManager.initialise();
+		DbManager.openDb();
 		pokki.addEventListener('context_menu',function(id){
 			if(id =="logoutbtn"){
 				GoogleReader.logout();
 				pokki.resetContextMenu();
-			}else if(id == "markallasread")
-			{
+			}else if(id == "markallasread") {
 				BackgroundWorker.markAllAsRead();
 			}
 		});
@@ -34,6 +33,7 @@ var BackgroundWorker = {
 				if((feed.id).indexOf("feed/") == 0)
 				{
 					console.log(feed.id + " : " + feed.count);
+					//pokki.rpc('DbManager.updateUnreadCount',(feed.id).substr(5),feed.count);
 					DbManager.updateUnreadCount((feed.id).substr(5),feed.count);
 					if(myFeedsList != null)
 					{
@@ -59,7 +59,6 @@ var BackgroundWorker = {
 				pokki.removeIconBadge();
 			if(GoogleReader.hasAuth() == true)
 				setTimeout("BackgroundWorker.updateFromGoogle()",5000*3);
-
 			});
 						
 		});
@@ -73,7 +72,5 @@ var BackgroundWorker = {
 					GoogleReader.markAllAsRead(list[i]);
 			}									  
 		});
-		
-		
 	}
 };
