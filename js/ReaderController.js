@@ -113,7 +113,10 @@ var Reader = {
 	{
 		/* Subscribe to Feed Locally */
 		FeedController.addFeed(feedinfo);
-	
+		
+		/* Subscribe to feed in the Local Database */
+		DbManager.insertSubscription(feedinfo.id,feedinfo.title,null);
+
 		/* Subscribe on Google Reader */
 		if(GoogleReader.hasAuth() == true)
 			GoogleReader.subscribe(feedinfo.id,feedinfo.title,false);
@@ -121,11 +124,14 @@ var Reader = {
 	unsubscribe : function(url,callback)
 	{
 		console.log("Unsubscribe : " + url);
-		//Unsubscribe to feed locally
+		/* Unsubscribe to feed locally */
 		if(FeedController.removeFeed(url))
 			callback();
 		
-		//Unsubscribe from Google reader
+		/* Unsubscribe from the local database */
+		DbManager.removeSubscription(url);
+
+		/* Unsubscribe from Google reader */
 		if(GoogleReader.hasAuth() == true)
 		GoogleReader.unsubscribe(url,function(){
 			console.log("Feed Unsubscribed successfully");

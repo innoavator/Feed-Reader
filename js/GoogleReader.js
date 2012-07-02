@@ -33,8 +33,10 @@ GoogleReader = {
 	EDIT_TAG_URL : "http://www.google.com/reader/api/0/edit-tag",
 	UNREAD_COUNT_URL : "http://www.google.com/reader/api/0/unread-count",
 	FEED_CONTENT_URL: "http://www.google.com/reader/api/0/stream/contents/feed/",
-	SUBS_CHECK_URL : "https://www.google.com/reader/api/0/subscribed",
-	//Initialise the access_token
+	SUBS_CHECK_URL : "http://www.google.com/reader/api/0/subscribed",
+	ITEM_CONTENT_URL : "http://www.google.com/reader.stream/items/contents",
+	
+	/* Initialise the access_token */
 	initialise : function() 
 	{
 		this.access_token = window.localStorage.getItem("access_token");
@@ -207,7 +209,23 @@ GoogleReader = {
 			data+="&n="+count;
 		this.getData(GoogleReader.FEED_CONTENT_URL+feedUrl,data,callback,fallback);
 	},
-	
+	/* Get the content of a feed item from its item-id.
+	 * @param : Id of the item in the form tag:google:* .
+	 * @callback : Callback function to be called.
+	 * Not yet tested.
+	 */
+	getItemContent : function(itemId)
+	{
+		console.log("Getting item details for : " + itemId);
+		var data = "i="+itemId+"&"
+				 +"rs=pop/topic/top/language/en&"
+				 +"T="+GoogleReader.api_token;
+		this.postData(this.ITEM_CONTENT_URL+"?freshness=false&client="+this.client,function(data){
+			console.log("Item content received");
+			console.log(data);
+		});
+	},
+
 	checkIfSubscribed : function(feedUrl,callback)
 	{
 		var data = "s=feed/"+feedUrl;

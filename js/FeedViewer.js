@@ -77,68 +77,60 @@ var FeedViewer = {
 			FeedEngine.getVideos(query);
 		});
 		
-		$('.grimg li').hover(function() 
-		{
+		$('.grimg li').hover(function() {
 			var selectedli = $(".filter .selected");
 			$('.fdname', this).css('text-decoration', 'underline')
-		if($(selectedli).attr('data-value') != "youtube")
-			{var feed_url = $(this).attr('data-id');
-			if($('.caption',this).html()== 'Click me to subscribe to '+$('img',this).attr('title'))
-			{
+		    if($(selectedli).attr('data-value') != "youtube"){
+			    var feed_url = $(this).attr('data-id');
+			    if($('.caption',this).html()== 'Click me to subscribe to '+$('img',this).attr('title')){
 				$('.caption',this).stop(true,true).animate({'opacity': 1,'margin-top': -60}, 50);
         		$('img',this).stop(true,true).animate({'opacity': 0.1}, 100);
-			}
-			else
-			if(FeedController.issubscribed(feed_url) == 1)
-			{
-				$('.caption',this).fadeOut(100,function(){
+			    }
+			    else if(FeedController.issubscribed(feed_url) == 1) {
+				    $('.caption',this).fadeOut(100,function(){
 						$(this).html('Click to Unsubscribe').css('margin-top','-55px')}).stop(true, true).fadeIn(50);
 				}
-			}},function() 
-			{
+			}
+		},function() {
 				var selectedli = $(".filter .selected");
 				$('.fdname', this).css('text-decoration', 'none')
-		if($(selectedli).attr('data-value') != "youtube"){
-				var feed_url = $(this).attr('data-id');
-				if($('.caption',this).html()== 'Click me to subscribe to '+$('img',this).attr('title'))
-				{
-        			$('.caption',this).stop(0,true,true).animate({'opacity': 0}, 50);
-					$('img',this).stop(0,true,true).animate({'opacity': 1}, 200);
-				}
-				else
-				if(FeedController.issubscribed(feed_url) == 1)
-				{
-					
-					$('.caption',this).fadeOut(100,function(){
-						$(this).html('You are subscribed to '+$(this).parent().find('.feedimage').attr('title')+'<br>'+'<img class="subscbdimg" src="img/done.png">').css('margin-top','-60px')}).stop(0,true, true).fadeIn(50); 
-				}
-			}
+		        if($(selectedli).attr('data-value') != "youtube"){
+			    	var feed_url = $(this).attr('data-id');
+			    	if($('.caption',this).html()== 'Click me to subscribe to '+$('img',this).attr('title'))
+			    	{
+        	    		$('.caption',this).stop(0,true,true).animate({'opacity': 0}, 50);
+			    		$('img',this).stop(0,true,true).animate({'opacity': 1}, 200);
+			    	}
+			    	else if(FeedController.issubscribed(feed_url) == 1) {
+				    		$('.caption',this).fadeOut(100,function(){
+		        			$(this).html('You are subscribed to '+$(this).parent().find('.feedimage').attr('title')+'<br>'+'<img class="subscbdimg" src="img/done.png">').css('margin-top','-60px')}).stop(0,true, true).fadeIn(50); 
+			    	}
+			    }
 			});
 		// Attach handlers for click on feedIcons
 		$(".grimg li").live('click',function(){
 			var caption = $(this).find('.caption');var selectedli = $(".filter .selected");
-		if($(selectedli).attr('data-value') != "youtube")
+		    if($(selectedli).attr('data-value') != "youtube")
 			{
-			if(caption.html()!="Click to Unsubscribe")
-			{
-				var feedobj = $(this);
-				var feed_url = $(this).attr('data-id');
+			    var feedobj = $(this);
+			    if(caption.html()!="Click to Unsubscribe")
+			    {
+				    var feed_url = $(this).attr('data-id');
 					$('.caption',this).html('<img src="img/addfeed.gif">'+'<br>'+'Subscribing. Please Wait...');
-				$('.caption',this).animate({'opacity': 1, 'margin-top': -80 }, 50);
+				    $('.caption',this).animate({'opacity': 1, 'margin-top': -80 }, 50);
 				
 					$('img',this).animate({'opacity': 0.1}, 200);
 					$('.caption img',this).animate({'opacity': 1}, 0);
 					FeedViewer.sendForSubscription(feed_url,feedobj);
-			}
-			else
-			{
-				url = $(this).attr('data-id');
-				if(FeedController.removeFeed(url))
-				{
-					showUnsubscribedFeed($(this));
-				}
-			}
-		}});
+			    }
+			    else {
+				    url = $(this).attr('data-id');
+				    Reader.unsubscribe(url,function(){
+					    showUnsubscribedFeed(feedobj);
+				    });
+			    }
+		   }
+		});
 		$(".filter a").live('click',function(){
 				
 				if($(this).attr('class') == 'selected')
@@ -261,7 +253,7 @@ var FeedViewer = {
 	renderMyFeeds : function(){
 		
 			$("#myfeedsdiv .myfeedlist").empty();
-			var list = FeedController.getMyFeeds();
+			/*var list = FeedController.getMyFeeds();
 			if(list == null) return;
 			for(var i =0;i<list.length;i++)
 			{
@@ -283,11 +275,35 @@ var FeedViewer = {
 					var countstr = "";
 				$("#myfeedsdiv .myfeedlist").append("<li><div class='feedl color"+randomnumber+"' rel = " +list[i] +" >"
 					+"<div class='unsub'></div>"+"<div class='readmarker'></div>"+"<img class='faviconimg' src='"+imagesource+"'/><p>"+title.substring(0,25)+"</p>"+countstr);
-			}
-			/* Put the default imaage if the favicon image is not found*/
+			}*/
+			
+			DbManager.getSubscriptions(function(subsList){
+			    if(subsList == null) 
+			    return;
+			    for(var i =0;i<subsList.length;i++)
+			    {
+				    if(!subsList[i]){
+					    i++;continue;
+				    }
+				    var title = subsList[i].title;
+				    if(GoogleReader.hasAuth() == true){
+					    var unreadCount = subsList[i].unreadCount;
+				    }
+				    var imagesource=getDomain(subsList[i].url)+"/favicon.ico";
+				    var randomnumber=Math.floor(Math.random()*5);
+				    if(GoogleReader.hasAuth() == true)
+					    var countstr = "<div class='readunread'>"+unreadCount+"</div></div></li>";
+				    else
+					    var countstr = "";
+				    $("#myfeedsdiv .myfeedlist").append("<li><div class='feedl color"+randomnumber+"' rel = " +subsList[i].url +" >"
+					    +"<div class='unsub'></div>"+"<div class='readmarker'></div>"+"<img class='faviconimg' src='"+imagesource+"'/><p>"+title.substring(0,25)+"</p>"+countstr);
+			     }    
+			});
+		/* Put the default image if the favicon image is not found*/
 			$('.faviconimg').error(function() {
 				$(this).attr("src", "img/defaultfavicon.png");
 			});
+			
 	},
 	addKeyboardControls : function(){
 		$(document).keyup(function(e){
