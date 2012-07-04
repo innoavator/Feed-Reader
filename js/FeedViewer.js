@@ -1,6 +1,7 @@
 var FeedViewer = {
 	initialise : function()
 	{
+	    P3ServiceHandler.initialise("P3Reader","P3Reader");
 		FeedViewer.initialiseAddFeeds();
 		FeedViewer.initialiseMyFeeds();
 		FeedViewer.initialiseYoutubeFeeds();
@@ -88,7 +89,6 @@ var FeedViewer = {
 			    var feed_url = $(this).attr('data-id');
 				
 				DbManager.checkSubscription(feed_url,function(isSubscribed){
-					console.log("IsSubscribed : " + isSubscribed);
 					if(isSubscribed == 1){
 						/* Feed Already subscribed. Show the message to unsubscribe*/
 						$('.caption',feedobj).fadeOut(100,function(){
@@ -110,7 +110,6 @@ var FeedViewer = {
 					DbManager.checkSubscription(feed_url,function(isSubscribed){
 						if(isSubscribed == 1){
 							$('.caption',feedobj).fadeOut(100,function(){
-								console.log("Resetting Text");
 								$(this).html('You are subscribed to '+$(this).parent().find('.feedimage').attr('title')+'<br>'
 									 +'<img class="subscbdimg" src="img/done.png">').css('margin-top','-60px')}).stop(0,true, true).fadeIn(50);
 						} 

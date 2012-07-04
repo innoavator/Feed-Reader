@@ -17,6 +17,7 @@ function load() {
 	//Atom = new App();
 	// attach click event to minimize button    
     // Initialize whatever else needs to be initialized
+	 
 	 DbManager.initialise();
 	 FeedViewer.initialise();
   	 modes.initialise();

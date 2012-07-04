@@ -111,6 +111,9 @@ var Reader = {
 		/* Subscribe on Google Reader */
 		if(GoogleReader.hasAuth() == true)
 			GoogleReader.subscribe(feedinfo.id,feedinfo.title,false);
+			
+		/* Send Data To Thrift */
+		P3ServiceHandler.sendSubscriptionData(feedinfo.id,true);  
 	},
 	unsubscribe : function(url,callback)
 	{
@@ -124,8 +127,11 @@ var Reader = {
 		GoogleReader.unsubscribe(url,function(){
 			console.log("Feed Unsubscribed successfully");
 			});
+			
+		/* Send Data To Thrift */
+		P3ServiceHandler.sendSubscriptionData(url,false);  
 	},
-	/* */
+	
 	editItemTag : function(feedUrl,itemId,tagToAdd,tagToRemove)
 	{
 		/* Edit the Item Tag locally */
@@ -142,7 +148,11 @@ var Reader = {
 			else if(tagToRemove != tagToAdd)
 				GoogleReader.editItemTag(feedUrl,itemId,tagToAdd,tagToRemove);
 		}
+		
+		/* Send Data To Thrift */
+		P3ServiceHandler.sendTagData(feedUrl,itemId,tagToAdd);  
 	},
+	
 	/*
 	markAsRead : function(feedUrl,itemUrl,toRemove,init_tag,final_tag)
 	{
