@@ -23,7 +23,6 @@ var modes = {
 	switchToMode : function(nextstate){
 		//		var done = false;
 			//	console.log("Changing state");
-			
 				for(i = 0;i<3;i++)
 				{
 					if(i != nextstate)

@@ -7,6 +7,7 @@ var FeedViewer = {
 		ReaderViewer.initialise();
 		ReaderViewer.initialiseHeadlineView();
 		GoogleReader.initialise();
+		Keyboard.initialise();
 		//Initialise Youtube Autosuggest
 			jQTubeUtil.init({
 		key: "AI39si7Br60Mhmvnb0iGT_DckKttQdd_8ghDOs_UQIcmb3wDhwAnZlkPe9lqp1llOv9rZNGqdKcdP8BdHRDOMaY4Mu0Xh3op9g",
@@ -49,6 +50,7 @@ var FeedViewer = {
 			showMessage("<b>Please Enter a Valid Url!!!</b>");
 		}
 		 });
+		
 	},
 	initialiseAddFeeds : function()
 	{
@@ -233,13 +235,16 @@ var FeedViewer = {
 				var field = $(this).attr('data-value');
 				FeedEngine.showVideos(field);
 		});
-	
+		
+		/* Attach handlers for hover on unsubscribe link */
 		$('.unsub').live('mouseenter',function(){
 			$(this).css('opacity','1');		
 			});
 		$('.unsub').live('mouseleave',function(){
 				$(this).css('opacity','0.3');
 			});
+		
+		/* Attach Handlers for click on the Unsubscribe link */
 		$(".unsub").live('click',function(event){
 		    event.stopPropagation();
 			//console.log("Unsub button clicked");
@@ -253,6 +258,18 @@ var FeedViewer = {
 					if($(this).attr('data-id') == url)
 						showUnsubscribedFeed($(this));
 					});
+			});
+		});
+		
+		/* Attach handlers for click on the MarkedRead thing*/
+		$(".readmarker").live('click',function(event){
+			var feedobj = $(this);
+			event.stopPropagation();
+			var feedUrl = $(this).parent().attr('rel');
+			GoogleReader.markAllAsRead(feedUrl,function(){
+				console.log("Marked read successfully");
+				$(feedobj).find('img').attr('src','img/marked2.png');
+				$(feedobj).parent().find('.readunread').html("0");
 			});
 		});
 		
@@ -277,13 +294,16 @@ var FeedViewer = {
 				var imagesource=getDomain(list[i])+"/favicon.ico";
 				var randomnumber=Math.floor(Math.random()*5);
 				if(GoogleReader.hasAuth() == true)
-					{
-						var countstr = "<div class='readunread'>"+unreadCount+"</div><div class='readmarker'></div></div></li>";
-					}
+				{
+					var countstr = "<div class='readunread'>"+unreadCount+"</div>";
+					if(unreadCount == 0)
+						countstr +="<div class='readmarker'><img src='img/marked2.png'></div></div></li>";
+					else
+						countstr+="<div class='readmarker'><img src=''></div></div></li>";
+				}
 				else
-					{
-						var countstr = "";
-					}
+					var countstr = "";
+					
 					
 				$("#myfeedsdiv .myfeedlist").append("<li><div class='feedl color"+randomnumber+"' rel = " +list[i] +" >"
 					+"<div class='unsub'></div>"+"<img class='faviconimg' src='"+imagesource+"'/><p>"+title.substring(0,25)+"</p>"+countstr);
@@ -305,20 +325,7 @@ var FeedViewer = {
 		
 			});
 	},
-	showSubscriptionTimeout : function(feedobj,caption)
-	{
-	//	clearTimeout(subscriptionTimer);
-	/*	if($(feedobj).find('.caption')!= caption)
-		{
-			{
-				$("#searchbox").find('input:text').val("");
-				$('#loadingurl').css('opacity',0);
-				$(feedobj).find('.caption').html(caption);
-				$("#error-message").fadeOut('fast',function(){$(this).html("<b>Connection Timeout. May be you are not connected to Internet</b>")}).fadeIn().delay(1200).fadeOut('fast',function(){$(this).html("Click on the feed from the categories given below or enter the URL of the desired feed of your wish")}).fadeIn();
-			}
-		}*/
-	},
-	
+
 	showSuccessfulSubscription : function(feed_name,url,feedobj)
 	{
 			if(feedobj != null){

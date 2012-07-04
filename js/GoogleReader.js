@@ -331,7 +331,7 @@ GoogleReader = {
 	      beforeSend: function(xhr) {
                     xhr.setRequestHeader("Authorization", "Bearer " + GoogleReader.access_token);
                 },
-	      success: function(){if(callback) callback;},
+	      success: function(){if(callback) callback();},
 	      timeout: (15 * 1000),
 	      statusCode : {
 				            401 : function(){

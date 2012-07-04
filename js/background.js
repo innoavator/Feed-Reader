@@ -29,7 +29,7 @@ var FeedLoader = {
 				var feed = data.unreadcounts[i];
 				if((feed.id).indexOf("feed/") == 0)
 				{
-					console.log(feed.id + " : " + feed.count);
+					//console.log(feed.id + " : " + feed.count);
 					FeedController.setUnreadCount((feed.id).substr(5),feed.count);
 					if(myFeedsList != null)
 					{
@@ -47,6 +47,7 @@ var FeedLoader = {
 			{
 				FeedController.setUnreadCount(myFeedsList[i],0);
 			}
+			console.log("Total Count : " + totalCount);
 			if(totalCount > 0 && totalCount<1000)
 				pokki.setIconBadge(totalCount);
 			else if(totalCount > 1000)
