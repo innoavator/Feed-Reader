@@ -440,7 +440,7 @@ background-color:#06F;
 }
 
 #videosbox{
-	background:#111;
+	background:url(../img/feedsload.gif) 280px 150px no-repeat #111;
 	border-radius:0 10px 10px 0;
 	width: 625px;
 	height:360px;
