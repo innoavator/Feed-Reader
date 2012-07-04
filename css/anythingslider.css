@@ -134,7 +134,7 @@ div.anythingSlider .arrow a {
 	width: 42px;
 	text-align: center;
 	outline: 0;
-	opacity:0.5;
+	opacity:0.95;
 	background: url(../img/feedbutton.png) no-repeat;
 }
 /* hide text, target the span so IE7 doesn't text-indent the link */
@@ -145,7 +145,7 @@ div.anythingSlider .back a { background-position: left top; }
 div.anythingSlider .back a:hover, div.anythingSlider .back a.hover { background-position: left -140px; }
 div.anythingSlider .back.disabled { display: none; } /* disabled arrows, hide or reduce opacity: opacity: .5; filter: alpha(opacity=50); */
 /* forward arrow */
-div.anythingSlider .forward { margin-right: -1px; }
+div.anythingSlider .forward { margin-right: -11px; }
 div.anythingSlider .forward a { background-position: -42px top; }
 div.anythingSlider .forward a:hover, div.anythingSlider .forward a.hover { background-position: -42px -140px;}
 div.anythingSlider .forward.disabled { display: none; } /* disabled arrows, hide or reduce opacity: opacity: .5; filter: alpha(opacity=50); */

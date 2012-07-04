@@ -65,7 +65,7 @@ html{
 }
 #loadercontainer{
 	width:84.33%;
-	margin:160px 175px;
+	margin:120px 175px;
 }
 #loadercontainer h1{
 	padding-left:15px;
@@ -658,7 +658,7 @@ background-color:#06F;
     text-align:center;
 }
 
-.myfeedlist li :nth-child(3){
+.myfeedlist li :nth-child(2){
     float:left;
     border-radius:5px;
     height:20px;
@@ -904,7 +904,6 @@ background-image: -webkit-gradient(radial, center top, 0, center top, 100, color
 .textSlide{
     overflow:hidden;
     color:#000;
-	width:890px;
     font-size: 15px;
     line-height: 160%;
     font-weight:100%;
