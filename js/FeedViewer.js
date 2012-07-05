@@ -16,7 +16,7 @@ var FeedViewer = {
 		maxResults: 5   // *optional -- defined as 10 results by default
 	});
 		
-		$("#tomyfeedsbtn").click(function(){FeedViewer.renderMyFeeds();modes.switchToMode(1);});
+		$("#tomyfeedsbtn").click(function(){console.log("Hello");FeedViewer.renderMyFeeds();modes.switchToMode(1);});
 		$("#tomyfeedsbtn2").click(function(){readerToMyFeeds();});
 		$(".toaddfeedsbtn").click(function(){modes.switchToMode(0);});
 		
@@ -281,36 +281,38 @@ var FeedViewer = {
 		});
 		
 	},
-	renderMyFeeds : function(){
-		
+	renderMyFeeds : function()
+	{
+		    console.log("Rendering feeds.");
 			$("#myfeedsdiv .myfeedlist").empty();
+			
 			DbManager.getSubscriptions(function(subsList){
-		    if(subsList == null) 
-			    return;
-			console.log(subsList);
-		    for(var i =0;i<subsList.length;i++)
-		    {
-			    if(!subsList[i]){
-				    i++;continue;
-			    }
-			    var title = subsList[i].title;
-			    if(GoogleReader.hasAuth() == true){
-				    var unreadCount = subsList[i].unreadCount;
-			    }
-			    var imagesource=getDomain(subsList[i].url)+"/favicon.ico";
-			    var randomnumber=Math.floor(Math.random()*5);
-			    if(GoogleReader.hasAuth() == true)
-			    {
-				    var countstr = "<div class='readunread'>"+unreadCount+"</div>";
-				    if(unreadCount == 0)
-					    countstr +="<div class='readmarker'><img src='img/marked2.png'></div></div></li>";
-				    else
-					    countstr+="<div class='readmarker'><img src=''></div></div></li>";
-			    }
-			    else
-				    var countstr = "";
-			$("#myfeedsdiv .myfeedlist").append("<li><div class='feedl color"+randomnumber+"' rel = " +list[i] +" >"
-				+"<div class='unsub'></div>"+"<img class='faviconimg' src='"+imagesource+"'/><p>"+title.substring(0,25)+"</p>"+countstr);
+		        console.log(subsList);
+		        if(subsList == null) 
+		            return;
+		        for(var i =0;i<subsList.length;i++)
+		        {
+			        if(!subsList[i]){
+				        i++;continue;
+			        }
+			        var title = subsList[i].title;
+			        if(GoogleReader.hasAuth() == true){
+				        var unreadCount = subsList[i].unreadCount;
+			        }
+			        var imagesource=getDomain(subsList[i].url)+"/favicon.ico";
+			        var randomnumber=Math.floor(Math.random()*5);
+			        if(GoogleReader.hasAuth() == true)
+			        {
+				        var countstr = "<div class='readunread'>"+unreadCount+"</div>";
+				        if(unreadCount == 0)
+					        countstr +="<div class='readmarker'><img src='img/marked2.png'></div></div></li>";
+				        else
+					        countstr+="<div class='readmarker'><img src=''></div></div></li>";
+			        }
+			        else
+				        var countstr = "";
+    			    $("#myfeedsdiv .myfeedlist").append("<li><div class='feedl color"+randomnumber+"' rel = " +subsList[i].url +" >"
+    				    +"<div class='unsub'></div>"+"<img class='faviconimg' src='"+imagesource+"'/><p>"+title.substring(0,25)+"</p>"+countstr);
 		     }    
 		});
 		/* Put the default image if the favicon image is not found*/
@@ -319,19 +321,6 @@ var FeedViewer = {
 			});
 	
 	},
-	addKeyboardControls : function(){
-		$(document).keyup(function(e){
-		// Stop arrow keys from working when focused on form items
-			switch (e.which) {
-				case 27:  //Esc key
-					if(modes.currentMode > 0)
-					modes.switchToMode(modes.currentMode - 1);
-					break;
-			}
-		
-			});
-	},
-
 	showSuccessfulSubscription : function(feed_name,url,feedobj)
 	{
 			if(feedobj != null){
