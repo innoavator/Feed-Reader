@@ -1,6 +1,5 @@
 var unreadCount = 0;
 var BackgroundWorker = {
-	myFeedList : new LocalStore('myFeeds'),
 	count : 1,
 	initialise : function(){
 		DbManager.openDb();
