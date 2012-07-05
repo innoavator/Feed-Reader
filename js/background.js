@@ -3,13 +3,12 @@ var BackgroundWorker = {
 	myFeedList : new LocalStore('myFeeds'),
 	count : 1,
 	initialise : function(){
-		
+		DbManager.openDb();
 		pokki.addEventListener('context_menu',function(id){
 			if(id =="logoutbtn"){
 				GoogleReader.logout();
 				pokki.resetContextMenu();
-			}else if(id == "markallasread")
-			{
+			}else if(id == "markallasread") {
 				BackgroundWorker.markAllAsRead();
 			}
 		});
@@ -24,13 +23,18 @@ var BackgroundWorker = {
 		console.log("Updating from Google..");
 		var totalCount = 0;
 		GoogleReader.getUnreadCount(function(data){
-			var myFeedsList = FeedController.getMyFeeds();
-			for(var i =0;i<data.unreadcounts.length;i++){
+			console.log("Got unread count data from Google reader.");
+			console.log(data);
+			/* Callback function for getUnreadCount from Google. */
+			DbManager.getSubscriptionIds(function(myFeedsList){
+				/* Callback function for the getSubscriptionIds from database*/
+				for(var i =0;i<data.unreadcounts.length;i++){
 				var feed = data.unreadcounts[i];
 				if((feed.id).indexOf("feed/") == 0)
 				{
-					//console.log(feed.id + " : " + feed.count);
-					FeedController.setUnreadCount((feed.id).substr(5),feed.count);
+					console.log(feed.id + " : " + feed.count);
+					//pokki.rpc('DbManager.updateUnreadCount',(feed.id).substr(5),feed.count);
+					DbManager.updateUnreadCount((feed.id).substr(5),feed.count);
 					if(myFeedsList != null)
 					{
 						for(var j=0;j<myFeedsList.length;j++)
@@ -45,9 +49,8 @@ var BackgroundWorker = {
 			}
 			for(var i =0;myFeedsList!=null && i<myFeedsList.length;i++)
 			{
-				FeedController.setUnreadCount(myFeedsList[i],0);
+				DbManager.updateUnreadCount(myFeedsList[i],0);
 			}
-			console.log("Total Count : " + totalCount);
 			if(totalCount > 0 && totalCount<1000)
 				pokki.setIconBadge(totalCount);
 			else if(totalCount > 1000)
@@ -56,18 +59,18 @@ var BackgroundWorker = {
 				pokki.removeIconBadge();
 			if(GoogleReader.hasAuth() == true)
 				setTimeout("BackgroundWorker.updateFromGoogle()",5000*3);
-			
+			});
+						
 		});
 		
 	},
 	markAllAsRead : function(){
 		console.log("Marking all as read");
-		var list = FeedController.getMyFeeds();
-		if(list)
-		{
-			for(var i=0;i<list.length;i++)
-				GoogleReader.markAllAsRead(list[i]);
-		}
-		
+		DbManager.getSubscriptionIds(function(list){
+			if(list){
+				for(var i=0;i<list.length;i++)
+					GoogleReader.markAllAsRead(list[i]);
+			}									  
+		});
 	}
 };
