@@ -1,6 +1,7 @@
 var unreadCount = 0;
 var BackgroundWorker = {
 	count : 1,
+	prevTotalCount : -1,
 	initialise : function(){
 		DbManager.openDb();
 		pokki.addEventListener('context_menu',function(id){
@@ -46,9 +47,14 @@ var BackgroundWorker = {
 					totalCount+=feed.count;
 				}
 			}
-			for(var i =0;myFeedsList!=null && i<myFeedsList.length;i++)
-			{
+			for(var i =0;myFeedsList!=null && i<myFeedsList.length;i++){
 				DbManager.updateUnreadCount(myFeedsList[i],0);
+			}
+			if(totalCount != BackgroundWorker.prevTotalCount)
+			{
+				console.log("Triggering update of feed count.");
+				pokki.rpc('FeedViewer.updateFeedCount()');
+				BackgroundWorker.prevTotalCount = totalCount;
 			}
 			if(totalCount > 0 && totalCount<1000)
 				pokki.setIconBadge(totalCount);

@@ -23,6 +23,7 @@ var modes = {
 	switchToMode : function(nextstate){
 		//		var done = false;
 			//	console.log("Changing state");
+				modes.currentMode = nextstate;
 				for(i = 0;i<3;i++)
 				{
 					if(i != nextstate)
@@ -31,22 +32,44 @@ var modes = {
 						if($(divnames[nextstate]).is(":hidden"))
 						{
 							$(divnames[nextstate]).show(function(){
-							$(divnames[nextstate]).fadeIn("fast",function(){$(divnames[nextstate]).css('visibility','visible');});
+							$(divnames[nextstate]).fadeIn("slow",function(){$(divnames[nextstate]).css('visibility','visible');});
 																		});
 						}
 					});
 				}
-				if(nextstate == modes.myFeedsMode)
-					$("#feedsearch").focus();
 				
-				modes.currentmode = nextstate;
 			}
 };
-function readerToMyFeeds()
+function switchToMyFeeds()
 {
-	modes.switchToMode(1);
+	//modes.switchToMode(1);
+	if(modes.currentMode == modes.myFeedsMode)
+		return;
+	var prevMode = modes.currentMode;
+	modes.currentMode = modes.myFeedsMode;
 	Reader.resetState();
-	FeedViewer.renderMyFeeds();
+	$(divnames[prevMode]).fadeOut("medium",function(){
+		$("#myfeedsdiv").css('visibility','visible').show("fast",function(){
+				$("myfeedsdiv").fadeIn("slow");
+		});
+	});
+	$("#slider").empty();
+	$("#rdrheadl li").not('#headlactions').remove();
+}
+
+function switchToAddFeeds()
+{
+	if(modes.currentMode == modes.addFeedsMode)
+		return;
+	var prevMode = modes.currentMode;
+	modes.currentMode = modes.myFeedsMode;
+	Reader.resetState();
+	$(divnames[prevMode]).fadeOut("medium",function(){
+		$("#addfeedsdiv").show("fast",function(){
+				$("#addfeedsdiv").css('visibility','visible');
+				$("addfeedsdiv").fadeIn("slow");
+		});
+	});
 	$("#slider").empty();
 	$("#rdrheadl li").not('#headlactions').remove();
 }

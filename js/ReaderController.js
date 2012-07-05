@@ -93,6 +93,7 @@ var Reader = {
 				j++;
 				showProgress(incr,true);
 			}
+			FeedViewer.renderMyFeeds();
 			continueLocal();
 			});
 		});

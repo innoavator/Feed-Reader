@@ -16,8 +16,8 @@ var FeedViewer = {
 		maxResults: 5   // *optional -- defined as 10 results by default
 	});
 		
-		$("#tomyfeedsbtn").click(function(){console.log("Hello");FeedViewer.renderMyFeeds();modes.switchToMode(1);});
-		$("#tomyfeedsbtn2").click(function(){readerToMyFeeds();});
+		$("#tomyfeedsbtn").click(function(){switchToMyFeeds();});
+		$("#tomyfeedsbtn2").click(function(){switchToMyFeeds();});
 		$(".toaddfeedsbtn").click(function(){modes.switchToMode(0);});
 		
 		$("#addFeedsForm").submit(function(){
@@ -143,6 +143,7 @@ var FeedViewer = {
 			    else {
 				    url = $(this).attr('data-id');
 				    Reader.unsubscribe(url,function(){
+						FeedViewer.renderMyFeeds();
 					    showUnsubscribedFeed(feedobj);
 				    });
 			    }
@@ -406,14 +407,16 @@ var FeedViewer = {
 		$(".youtube-player").attr('src',videoUrl);
 			console.log(videoUrl);
 	},
-	updateFeedCount : function(urlObj)
+	updateFeedCount : function()
 	{
-		$(".feedl").each(function(i){  
-			if(($(this).attr('rel')).localeCompare(urlObj.url) == 0)
-			{
-				$(this).parent().find(".readunread").html(urlObj.count);
-			}
+		var count;
+		$(".feedl").each(function(i){
+			var obj = $(this);
+			DbManager.getUnreadCount($(this).attr('rel'),function(count){
+				console.log('Count : ' + count);
+				$(obj).find('.readunread').html(count);
 			});
+		});
 	},
 	
 	sendForSubscription : function(feed_url,feedobj)
@@ -422,7 +425,7 @@ var FeedViewer = {
 									feedinfo.id = feedinfo.id.substr(5);
 									Reader.subscribe(feedinfo);
 									FeedViewer.showSuccessfulSubscription(feedinfo.title,feedinfo.id,feedobj);
-									FeedViewer.initialiseMyFeeds();
+									FeedViewer.renderMyFeeds();
 								},function(errorStr){
 									console.log("Error sending : " +  errorStr);
 									$("#searchbox").find('input:text').val("");

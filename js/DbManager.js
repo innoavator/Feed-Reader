@@ -137,10 +137,8 @@ var DbManager = {
 	/* Update the unread count for a feedurl.*/
 	updateUnreadCount : function(feedId,count)
 	{
-		console.log("Updating unread Count");
 		this.db.transaction(function(tx){
 			tx.executeSql('UPDATE subscriptions SET unreadCount=? WHERE id=?',[count,feedId],function(){
-				console.log("Unread count updated successfully.");
 			});
 		});
 	},

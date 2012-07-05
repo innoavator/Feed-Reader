@@ -7,8 +7,8 @@ var Keyboard = {
 	scrollUpFeed : null,
 	initialise : function()
 	{
-		this.toAddFeeds = KeyboardJS.bind.key('ctrl+a',function(){modes.switchToMode(0);},null);
-		this.toMyFeeds = KeyboardJS.bind.key('ctrl+m',function(){modes.switchToMode(1)},null);
+		this.toAddFeeds = KeyboardJS.bind.key('ctrl+d',function(){switchToAddFeeds();},null);
+		this.toMyFeeds = KeyboardJS.bind.key('ctrl+m',function(){switchToMyFeeds()},null);
 	},
 	
 	initReaderShortcuts : function()
