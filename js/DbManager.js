@@ -86,9 +86,9 @@ var DbManager = {
 						feedArray[i].title = results.rows.item(i).title;
 						feedArray[i].label = results.rows.item(i).label;
 						feedArray[i].unreadCount = results.rows.item(i).unreadCount;
-						//console.log(results.rows.item(i).url);
-						//console.log(results.rows.item(i).label);
-						//console.log(results.rows.item(i).timestamp);
+						console.log(results.rows.item(i).url);
+						console.log(results.rows.item(i).label);
+						console.log(results.rows.item(i).timestamp);
 					}
 					callback(feedArray);
 				});

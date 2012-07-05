@@ -264,6 +264,18 @@ var FeedViewer = {
 			});
 		});
 		
+		/* Attach handlers for click on the MarkedRead thing*/
+		$(".readmarker").live('click',function(event){
+			var feedobj = $(this);
+			event.stopPropagation();
+			var feedUrl = $(this).parent().attr('rel');
+			GoogleReader.markAllAsRead(feedUrl,function(){
+				console.log("Marked read successfully");
+				$(feedobj).find('img').attr('src','img/marked2.png');
+				$(feedobj).parent().find('.readunread').html("0");
+			});
+		});
+		
 	},
 	renderMyFeeds : function(){
 		
@@ -284,11 +296,17 @@ var FeedViewer = {
 				    var imagesource=getDomain(subsList[i].url)+"/favicon.ico";
 				    var randomnumber=Math.floor(Math.random()*5);
 				    if(GoogleReader.hasAuth() == true)
-					    var countstr = "<div class='readunread'>"+unreadCount+"</div></div></li>";
+				    {
+					    var countstr = "<div class='readunread'>"+unreadCount+"</div>";
+					    if(unreadCount == 0)
+						    countstr +="<div class='readmarker'><img src='img/marked2.png'></div></div></li>";
+					    else
+						    countstr+="<div class='readmarker'><img src=''></div></div></li>";
+				    }
 				    else
 					    var countstr = "";
-				    $("#myfeedsdiv .myfeedlist").append("<li><div class='feedl color"+randomnumber+"' rel = " +subsList[i].url +" >"
-					    +"<div class='unsub'></div>"+"<div class='readmarker'></div>"+"<img class='faviconimg' src='"+imagesource+"'/><p>"+title.substring(0,25)+"</p>"+countstr);
+				$("#myfeedsdiv .myfeedlist").append("<li><div class='feedl color"+randomnumber+"' rel = " +subsList[i].url +" >"
+					+"<div class='unsub'></div>"+"<img class='faviconimg' src='"+imagesource+"'/><p>"+title.substring(0,25)+"</p>"+countstr);
 			     }    
 			});
 		/* Put the default image if the favicon image is not found*/
