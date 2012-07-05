@@ -1,5 +1,5 @@
 var unreadCount = 0;
-var FeedLoader = {
+var BackgroundWorker = {
 	myFeedList : new LocalStore('myFeeds'),
 	count : 1,
 	initialise : function(){
@@ -10,13 +10,13 @@ var FeedLoader = {
 				pokki.resetContextMenu();
 			}else if(id == "markallasread")
 			{
-				FeedLoader.markAllAsRead();
+				BackgroundWorker.markAllAsRead();
 			}
 		});
 			if(window.localStorage.getItem("isSyncOn") && window.localStorage.getItem("isSyncOn")=="true")
 			{	
 				console.log("Updating from google");
-				FeedLoader.updateFromGoogle();
+				BackgroundWorker.updateFromGoogle();
 			}
 		},
 	updateFromGoogle : function()
@@ -55,7 +55,7 @@ var FeedLoader = {
 			else
 				pokki.removeIconBadge();
 			if(GoogleReader.hasAuth() == true)
-				setTimeout("FeedLoader.updateFromGoogle()",5000*3);
+				setTimeout("BackgroundWorker.updateFromGoogle()",5000*3);
 			
 		});
 		

@@ -12,6 +12,9 @@ var ReaderViewer = {
 				 toggleArrows        : true, 
 				 infiniteSlides      : false,
 				onSlideComplete: function(slider) {
+					console.log("Artificially clicked");
+					$(".activePage").focus();
+					$(".activePage").trigger('click');
 					//Mark the feed as read.
 					var feedUrl = $("#feedurldiv").html();
 					var itemId = $(".activePage").attr('id');
@@ -52,6 +55,7 @@ var ReaderViewer = {
 				});
 			});
 			
+			Keyboard.initReaderShortcuts();
 			/* Hook Every link in the Reader Viewer to open in Default Browser*/
 			$(".textSlide a").live('click',function(){
 				pokki.openURLInDefaultBrowser($(this).attr("href"));
