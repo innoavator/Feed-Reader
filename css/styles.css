@@ -11,6 +11,22 @@
 html{
     
 }
+#popupbox{
+	width:99%;
+	height:20px;
+	position:absolute;
+	background:white;
+	margin:0 auto;
+	text-align:center;
+	padding-top:5px;	
+	border-radius:0 0 10px 10px;
+	color:#555;
+	margin-left:5px;
+	top:0;
+	box-shadow:1px 1px 11px white;	
+    -webkit-transition: all 0.7s ease 0s;
+	z-index:1000;
+}
 #addfeedsdiv{
     background:url(../img/bg-body2.png) repeat-x;
     color:#fff;
