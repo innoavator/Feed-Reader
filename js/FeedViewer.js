@@ -57,7 +57,7 @@ var FeedViewer = {
 	{
 		/* Render the Addfeeds Section */
 		FeedViewer.renderAddFeeds();
-		
+		YoutubeManager.initYoutubeInAddfeeds();
 		/*Youtube suggestion click event : Get results for the clicked search result */
 		YoutubeManager.suggestionClick();
 		
@@ -78,9 +78,12 @@ var FeedViewer = {
 					}else{
 						/* Feed not subscribed. Show the message to subscribe.*/
 						//console.log("Hover in : Feed unsubscribed");
+						if($('.caption',feedobj).html()== 'Click me to subscribe to '+$('img',feedobj).attr('title')){
 						$('.caption',feedobj).stop(true,true).animate({'opacity': 1,'margin-top': -60}, 50);
 						$('img',feedobj).stop(true,true).animate({'opacity': 0.1}, 100);
+						}
 					}
+
 				});
 			}
 		},function() {
@@ -156,7 +159,9 @@ var FeedViewer = {
         // Youtube results captions
 		YoutubeManager.captionAnim();				
 			
-		$("#feedback").click(function(){pokki.openURLInDefaultBrowser("http://www.codeblues.in/softwares/feedreader.php");})	},
+		$("#feedback").click(function(){pokki.openURLInDefaultBrowser("http://www.codeblues.in/softwares/feedreader.php");})	
+		
+	},
 	
 	initialiseMyFeeds : function()
 	{
@@ -169,8 +174,6 @@ var FeedViewer = {
 				var url = ($(this).attr("rel"));
 				Reader.getFeedContent(url,null,ReaderViewer.showFetchError);
 		});
-		
-		YoutubeManager.initYoutubeInAddfeeds();
 		
 		/* Attach handlers for hover on unsubscribe link */
 		$('.unsub').live('mouseenter',function(){
