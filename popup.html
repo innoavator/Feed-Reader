@@ -31,8 +31,7 @@
             <script type="text/javascript" src="js/popup.js"></script>
 			<!-- Feeds Files   -->
            <script type = "text/javascript" src="js/FeedViewer.js"></script>
-       
-            <script type = "text/javascript" src="js/FeedEngine.js"></script>
+			<script type = "text/javascript" src="js/YoutubeManager.js"></script>
              <script type = "text/javascript" src="js/ReaderViewer.js"></script>
             <script type = "text/javascript" src="js/Utils.js"></script>
             <script type = "text/javascript" src="js/Globals.js"></script>
@@ -66,7 +65,7 @@
            
            <div id="searchbox">
                 <form id="addFeedsForm"><span>Add Feeds:</span>
-           		<input type="submit" value="Go" id="addFeedbtn" /></span> <input type="search" id="addFeedsSearchBox"  class= "editable-select" placeholder="Press Enter after you are done...." onKeyUp="FeedEngine.getYoutubeSuggestions(this.value);return false;"></input>
+           		<input type="submit" value="Go" id="addFeedbtn" /></span> <input type="search" id="addFeedsSearchBox"  class= "editable-select" placeholder="Press Enter after you are done...." onKeyUp="YoutubeManager.getYoutubeSuggestions(this.value);return false;"></input>
                     <img class="srchglass" src="img/add.png"/>
                  </form>
                  <ul id="youtubeSuggestions"></ul>

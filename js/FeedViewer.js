@@ -25,7 +25,7 @@ var FeedViewer = {
 		var selectedli = $(".filter .selected");
 		if($(selectedli).attr('data-value') == "youtube")
 		{
-			FeedEngine.getVideos($(this).find("input")[1].value);
+			YoutubeManager.getVideos($(this).find("input")[1].value);
 			return;
 			
 		}
@@ -47,7 +47,7 @@ var FeedViewer = {
 		else{
 			$('#loadingurl').css('opacity',0);
 			$("#searchbox").find('input')[1].value = "";
-			//FeedEngine.searchFeed(feed_url);
+			//YoutubeManager.searchFeed(feed_url);
 			showMessage("<b>Please Enter a Valid Url!!!</b>");
 		}
 		 });
@@ -63,7 +63,7 @@ var FeedViewer = {
 			var query = $(this).text();
 			$("#youtubeSuggestions").css('display','none');
 			$("#searchbox").find('input')[1].value =query;
-			FeedEngine.getVideos(query);
+			YoutubeManager.getVideos(query);
 		});
 		
 		/* Attach Event handlers for Hover on the feedicons */
@@ -171,7 +171,7 @@ var FeedViewer = {
 	initialiseYoutubeFeeds	: function()
 	{
 		var selectedli= $('#vcatlist li .selected');
-		FeedEngine.showVideos($(selectedli).attr('data-value'));
+		YoutubeManager.showVideos($(selectedli).attr('data-value'));
 	},
 	initialiseMyFeeds : function()
 	{
@@ -229,7 +229,7 @@ var FeedViewer = {
 				$(this).addClass('selected');
 					$('.videoslist').empty();
 				var field = $(this).attr('data-value');
-				FeedEngine.showVideos(field);
+				YoutubeManager.showVideos(field);
 		});
 		
 		/* Attach handlers for hover on unsubscribe link */

@@ -1,5 +1,6 @@
-// FeedEngine File
-var FeedEngine = {
+// YoutubeManager File
+var YoutubeManager = {
+	
 	getYoutubeSuggestions : function(query)
 	{
 		var selectedli = $(".filter .selected");

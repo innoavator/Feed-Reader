@@ -177,7 +177,7 @@ function hideLogoutPopup()
 function showLogoutPopup()
 {
 	console.log("Showing Logout popup");
-	$("#popupbox").html("Shall I delete All Existing Subscriptions ?" 
+	$("#popupbox").html("Do you want to delete all existing Subscriptions ?" 
 					   +"<div class='button' onClick='Reader.logout(true);'>Yes</div>" 
 					   +"<div class='button' onClick='Reader.logout(false);'>No</div>"
 						).css('display','block').animate({opacity:1},100,function(){});
