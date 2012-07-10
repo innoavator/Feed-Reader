@@ -49,10 +49,12 @@ var BackgroundWorker = {
 					totalCount+=feed.count;
 				}
 			}
+			var flag = false;
 			for(var i =0;myFeedsList!=null && i<myFeedsList.length;i++){
 				DbManager.updateUnreadCount(myFeedsList[i],0);
+				flag = true;
 			}
-			if(totalCount != BackgroundWorker.prevTotalCount)
+			if(totalCount != BackgroundWorker.prevTotalCount || flag)
 			{
 				console.log("Triggering update of feed count.");
 				pokki.rpc('FeedViewer.updateFeedCount()');
@@ -73,10 +75,17 @@ var BackgroundWorker = {
 	},
 	markAllAsRead : function(){
 		console.log("Marking all as read");
+		var replyCount = 0;
 		DbManager.getSubscriptionIds(function(list){
 			if(list){
 				for(var i=0;i<list.length;i++)
-					GoogleReader.markAllAsRead(list[i]);
+					GoogleReader.markAllAsRead(list[i],function(){
+						DbManager.updateUnreadCount(list[i],0);
+						replyCount++;
+						console.log("Marked all read");
+						if(replyCount >=(list.length-1))
+							pokki.rpc('FeedViewer.updateFeedCount()');
+					});
 			}									  
 		});
 	}
