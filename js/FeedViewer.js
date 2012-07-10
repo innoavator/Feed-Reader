@@ -55,25 +55,9 @@ var FeedViewer = {
 	},
 	initialiseAddFeeds : function()
 	{
-			//var myFeedsList = FeedController.listFeeds();
-		DbManager.getSubscriptionIds(function(myFeedsList){
-			if(myFeedsList != null){
-				$("#stage li").each(function(i){
-				if($.inArray($(this).attr('data-id'),myFeedsList)!=-1)
-				//if(myFeedsList.indexOf($(this).attr('data-id')) != -1)
-					showSubscribedFeed($(this));
-				else
-					showUnsubscribedFeed($(this));
-				});
-			}
-			else
-			{
-				$("#stage li").each(function(i){
-					$('.caption',this).html('Click me to subscribe to '+$('img',this).attr('title'));
-				});
-			}
-	
-		});
+		/* Render the Addfeeds Section */
+		FeedViewer.renderAddFeeds();
+		
 		/*Youtube suggestion click event : Get results for the clicked search result */
 		$("#youtubeSuggestions li").live('click',function(){
 			var query = $(this).text();
@@ -92,11 +76,13 @@ var FeedViewer = {
 				
 				DbManager.checkSubscription(feed_url,function(isSubscribed){
 					if(isSubscribed == 1){
+						console.log("Hover in  : Feed subscribed");
 						/* Feed Already subscribed. Show the message to unsubscribe*/
 						$('.caption',feedobj).fadeOut(100,function(){
 						$(this).html('Click to Unsubscribe').css('margin-top','-55px')}).stop(true, true).fadeIn(50);	
 					}else{
 						/* Feed not subscribed. Show the message to subscribe.*/
+						console.log("Hover in : Feed unsubscribed");
 						$('.caption',feedobj).stop(true,true).animate({'opacity': 1,'margin-top': -60}, 50);
 						$('img',feedobj).stop(true,true).animate({'opacity': 0.1}, 100);
 					}
@@ -111,12 +97,14 @@ var FeedViewer = {
 			    	var feed_url = $(this).attr('data-id');
 					DbManager.checkSubscription(feed_url,function(isSubscribed){
 						if(isSubscribed == 1){
+							console.log("Hover out  : Feed subscribed");
 							$('.caption',feedobj).fadeOut(100,function(){
 								$(this).html('You are subscribed to '+$(this).parent().find('.feedimage').attr('title')+'<br>'
 									 +'<img class="subscbdimg" src="img/done.png">').css('margin-top','-60px')}).stop(0,true, true).fadeIn(50);
 						} 
 						else if($('.caption',feedobj).html()== 'Click me to subscribe to '+$('img',feedobj).attr('title'))
 						{
+							console.log("Hover out  : Feed subscribed");
 							$('.caption',feedobj).stop(0,true,true).animate({'opacity': 0}, 50);
 							$('img',feedobj).stop(0,true,true).animate({'opacity': 1}, 200);		
 						}
@@ -281,6 +269,29 @@ var FeedViewer = {
 			});
 		});
 		
+	},
+	
+	renderAddFeeds : function()
+	{
+		DbManager.getSubscriptionIds(function(myFeedsList){
+			if(myFeedsList != null){
+				$("#stage li").each(function(i){
+				if($.inArray($(this).attr('data-id'),myFeedsList)!=-1)
+				//if(myFeedsList.indexOf($(this).attr('data-id')) != -1)
+					showSubscribedFeed($(this));
+				else
+					showUnsubscribedFeed($(this));
+				});
+			}
+			else
+			{
+				$("#stage li").each(function(i){
+					$('.caption',this).html('Click me to subscribe to '+$('img',this).attr('title'));
+				});
+			}
+	
+		});
+		console.log("Rendering of Add feeds finished.");
 	},
 	renderMyFeeds : function()
 	{

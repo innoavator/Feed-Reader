@@ -20,7 +20,6 @@ var FeedEngine = {
 				$("#youtubeSuggestions").css('display','block');
 		}); 
 		}
-	
 	},
 	getVideos : function(query)
 	{

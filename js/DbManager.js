@@ -45,7 +45,6 @@ var DbManager = {
 	/* Delete an existing subscription from the subscription table*/
 	removeSubscription : function(feedId,callback)
 	{
-		console.log("Removing subscriptions..." + url);
 		this.db.transaction(function(tx){
 			tx.executeSql("DELETE FROM subscriptions WHERE id = ?",[feedId],function(tx,r){
 					console.log("Successfully removed : " + feedId);
@@ -185,14 +184,14 @@ var DbManager = {
 	},
 	
 	/* Delete subscriptions and tags table */
-	emptyDatabase : function()
+	emptyDatabase : function(callback)
 	{
 		console.log("Dumping table...");
 		this.db.transaction(function(tx){
-			tx.executeSql('DROP TABLE subscriptions',[],function(){
-				console.log("Subscriptions Table destroyed successfully");
+			tx.executeSql('DELETE FROM subscriptions',[],function(){
+				if(callback) callback();
 			});
-			tx.executeSql('DROP TABLE tags',[],function(){
+			tx.executeSql('DELETE FROM tags',[],function(){
 				console.log("Tags Table destroyed successfully");
 			});
 		});

@@ -6,15 +6,15 @@ var Reader = {
 	refetchSent : 0,
 	syncWithGoogle : function()
 	{
-		window.localStorage.setItem("isSyncOn","true");
 		showLoaderMessage("Loading...");
 		GoogleReader.loginViaOauth(function(response){
 			if(response == "OK"){
 				addContextMenu();
 				//Start background polling for unread count
-				pokki.rpc('FeedLoader.updateFromGoogle()');
+				pokki.rpc('BackgroundWorker.updateFromGoogle()');
 				Reader.syncSubscriptions();
-			}
+				window.localStorage.setItem("isSyncOn","true");
+		}
 			});
 	},
 	
@@ -146,30 +146,7 @@ var Reader = {
 		}
 
 	},
-	
-	/*
-	markAsRead : function(feedUrl,itemUrl,toRemove,init_tag,final_tag)
-	{
-				//Only mark on Google, Local data has been deprecated.
-		if(GoogleReader.hasAuth() == true)
-		{
-			if(toRemove)
-				GoogleReader.editItemTag(feedUrl,itemUrl,"read","kept-unread");
-			else
-				GoogleReader.addItemTag(feedUrl,itemUrl,"read");
-		}
-			
-		//FeedController.saveAsRead(feedUrl,itemUrl);
-	},
-	
-	keepUnread : function(feedUrl,itemUrl)
-	{
-		//Only mark on Google, local data has been deprecated.
-		if(GoogleReader.hasAuth() == true)
-			GoogleReader.editItemTag(feedUrl,itemUrl,"kept-unread","read");
-		//FeedController.removeFromRead(feedUrl,itemUrl); 
-	},*/
-	
+
 	getFeedContent : function(feedUrl,callback,fallback)
 	{
 		console.log("Getting feed content");		
@@ -218,5 +195,22 @@ var Reader = {
 		this.startindex = 0;
 		this.endindex = 0;
 		this.refetchSent = 0;
+	},
+	
+	logout : function(toDelete)
+	{
+		console.log("Logout from reader.");
+		if(toDelete == true)
+		{
+			$("#loadingScreen").css('visibility','visible').css('display','block');
+			DbManager.emptyDatabase(function(){
+				console.log("Callback successfully called.");
+				FeedViewer.renderAddFeeds();
+				$("#loadingScreen").css('visibility','hidden').css('display','none');
+				
+			});
+		}
+		FeedViewer.renderMyFeeds();
+		hideLogoutPopup();
 	}
 }

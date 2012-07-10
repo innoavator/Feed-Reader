@@ -12,6 +12,7 @@ html{
     
 }
 #popupbox{
+	display:none;
 	width:99%;
 	height:20px;
 	position:absolute;

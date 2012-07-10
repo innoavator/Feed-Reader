@@ -165,3 +165,20 @@ function addContextMenu()
 	 pokki.addContextMenuItem("Mark All As Read","markallasread");
 }
 
+function hideLogoutPopup()
+{
+	console.log("Hiding logout popup");
+	$("#popupbox").html("You have been logged out successfully")
+			.delay(1000)
+			.animate({'opacity':0},1000,function(){$("#popupbox").css('display','none')}
+	);
+}
+
+function showLogoutPopup()
+{
+	console.log("Showing Logout popup");
+	$("#popupbox").html("Shall I delete All Existing Subscriptions ?" 
+					   +"<div class='button' onClick='Reader.logout(true);'>Yes</div>" 
+					   +"<div class='button' onClick='Reader.logout(false);'>No</div>"
+						).css('display','block').animate({opacity:1},100,function(){});
+}
