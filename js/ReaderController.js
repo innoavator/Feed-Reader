@@ -146,7 +146,16 @@ var Reader = {
 		}
 
 	},
-
+	
+	markAllAsRead : function(feedUrl,callback)
+	{
+		GoogleReader.markAllAsRead(feedUrl,function(){
+			DbManager.updateUnreadCount(feedUrl,0);
+			if(callback)
+				callback();
+		});
+	},
+	
 	getFeedContent : function(feedUrl,callback,fallback)
 	{
 		console.log("Getting feed content");		
