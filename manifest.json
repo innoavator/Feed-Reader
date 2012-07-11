@@ -6,6 +6,7 @@
    "icon-42x42": "img/icon-42x42.png",
    "icon-256x256": "img/icon-256x256.png",
    "description": "A Pokki App to read Feeds.",
+   "popup": "popup.html",
    "window": "popup.html",
    "background_page": "background.html",
    "required_plugins": [{
