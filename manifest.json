@@ -1,10 +1,11 @@
 {
    "name": "Feed Reader",
    "version": "1.0",
-   "icon-19x19": "img/icon-19x19.png",
-   "icon-29x29": "img/icon-29x29.png",
-   "icon-42x42": "img/icon-42x42.png",
-   "icon-256x256": "img/icon-256x256.png",
+   "icons": { "19":  "img/icon-19x19.png", 
+              "29":  "img/icon-29x29.png",
+              "42":  "img/icon-42x42.png",
+              "256": "img/icon-256x256.png" 
+			},
    "description": "A Pokki App to read Feeds.",
    "popup": "popup.html",
    "window": "popup.html",
