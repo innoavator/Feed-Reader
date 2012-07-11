@@ -21,7 +21,6 @@ var FeedViewer = {
 		$(".toaddfeedsbtn").click(function(){modes.switchToMode(0);});
 		
 		$("#addFeedsForm").submit(function(){
-			console.log("Form submitted");
 		var selectedli = $(".filter .selected");
 		if($(selectedli).attr('data-value') == "youtube")
 		{
@@ -329,7 +328,6 @@ var FeedViewer = {
 		$(".feedl").each(function(i){
 			var obj = $(this);
 			DbManager.getUnreadCount($(this).attr('rel'),function(count){
-				console.log('Count : ' + count);
 				$(obj).find('.readunread').html(count);
 				if(count == 0)
 					$(obj).find(".readmarker").find('img').attr('src','img/marked2.png');
@@ -347,7 +345,6 @@ var FeedViewer = {
 									FeedViewer.showSuccessfulSubscription(feedinfo.title,feedinfo.id,feedobj);
 									FeedViewer.renderMyFeeds();
 								},function(errorStr){
-									console.log("Error sending : " +  errorStr);
 									$("#searchbox").find('input:text').val("");
 									$('#loadingurl').css('opacity',0);
 									if(errorStr == "Not Found")

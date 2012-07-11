@@ -220,6 +220,7 @@ var Reader = {
 				
 			});
 		}
+		
 		FeedViewer.renderMyFeeds();
 		hideLogoutPopup();
 	}

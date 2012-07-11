@@ -8,8 +8,9 @@ var BackgroundWorker = {
 		pokki.addEventListener('context_menu',function(id){
 			if(id =="logoutbtn"){
 				pokki.rpc('pokki.openPopup()');
-				pokki.rpc('showLogoutPopup()');
 				GoogleReader.logout();
+				pokki.removeIconBadge();
+				pokki.rpc('showLogoutPopup()');
 				pokki.resetContextMenu();
 			}else if(id == "markallasread") {
 				BackgroundWorker.markAllAsRead();
