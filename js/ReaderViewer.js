@@ -12,11 +12,7 @@ var ReaderViewer = {
 				 toggleArrows        : true, 
 				 infiniteSlides      : false,
 				onSlideComplete: function(slider) {
-					console.log("Artificially clicked");
-					$(".activePage").focus();
-					$(".activePage").trigger('click');
 					//Mark the feed as read.
-					console.log($(".activePage").attr('id'));
 					var feedUrl = $("#feedurldiv").html();
 					var itemId = $(".activePage").attr('id');
 					var slide_no = $(".activePage").find(".textSlide").attr("slide-no");
@@ -48,7 +44,6 @@ var ReaderViewer = {
 				$("#viewOptionsBox").val(window.localStorage.getItem("readMode"));	
 			
 			$("#viewOptionsBox").change(function(){
-				console.log("Option changed");
 				window.localStorage.setItem("readMode",$(this).val());
 				$("#loadingScreen").css('visibility','visible').css('display','block');
 					Reader.getFeedContent($("#feedurldiv").html());
@@ -65,8 +60,7 @@ var ReaderViewer = {
 				$("#readMessage").fadeIn("fast");
 				});
 			});
-			
-			Keyboard.initReaderShortcuts();
+		
 			/* Hook Every link in the Reader Viewer to open in Default Browser*/
 			$(".textSlide a").live('click',function(){
 				pokki.openURLInDefaultBrowser($(this).attr("href"));
@@ -105,7 +99,6 @@ var ReaderViewer = {
 				$("#viewOptionsBox").val("0");
 		}else
 		{
-			console.log("Display none");
 			$("#viewOptionsBox").css("display","none");
 		}
 		var length = 0;
@@ -141,7 +134,6 @@ var ReaderViewer = {
 	
 	appendItem : function(feeditem,counter)
 	{
-		//console.log(feeditem);
 		var lielement = $('<li>').attr('class','panel' + parseInt(counter)).attr("id",feeditem.id);
 		var wrapdiv = $('<div>');
 		var divelement = $('<div>').attr('class','textSlide').attr('slide-no',counter).attr('init-tag',"").attr('final-tag',"");
@@ -174,7 +166,6 @@ var ReaderViewer = {
 	},
 	showFetchError : function(errorStr)
 	{
-		console.log("Error fetching feed : " + errorStr);
 		$("#loadingScreen").html("Error fetching feed : " + errorStr + "<br>Please try again later.")
 						.fadeIn().delay(1000)
 						.fadeOut(400,function(){

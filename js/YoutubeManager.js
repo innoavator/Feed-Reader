@@ -6,8 +6,6 @@ var YoutubeManager = {
 		var selectedli = $(".filter .selected");
 		if($(selectedli).attr('data-value') == "youtube")
 		{
-			console.log("Fetching youtube suggestions\n");
-			
 			jQTubeUtil.suggest(query,function(response){ 
 				//return response.suggestions;
 				$("#youtubeSuggestions").empty();
@@ -16,7 +14,6 @@ var YoutubeManager = {
 					if(response.suggestions[i]==null)
 					break;
 					$("#youtubeSuggestions").append("<li>"+response.suggestions[i]+"</li>");
-					//console.log(response.suggestions[sug]);
 				} 
 				$("#youtubeSuggestions").css('display','block');
 		}); 
@@ -33,7 +30,7 @@ var YoutubeManager = {
 		YoutubeManager.showVideos($(selectedli).attr('data-value'));
 		$('.videolistitem').live('click', function(){
 				
-				var link =  $(this).attr('link');console.log(link);
+				var link =  $(this).attr('link');
 				$("#forscroll").animate({'margin-left': -950}, 300);
 				
 				if($('#fwdbutton').css('display')=='none')
@@ -142,14 +139,14 @@ var YoutubeManager = {
 			var link=$('#youtube-player').attr('src');
 				$('.videolistitem[link="'+link+'"]').find('.nowplaying').css('display','block');
 			$(".videoslist").append(li);
-			//console.log(content[i].media$thumbnail); 
+			
 		}
 		$("#videosbox").css('background','#111');
 	},
 	showVideo : function(videoUrl)
 	{
 		$(".youtube-player").attr('src',videoUrl);
-			console.log(videoUrl);
+			
 	},
 	showVideos: function(query)
 	{
@@ -175,7 +172,7 @@ var YoutubeManager = {
 		google.feeds.findFeeds(query,function(result){
 		if (!result.error) 
 		{
-			console.log(result);
+			
 		}
 	});
 	},

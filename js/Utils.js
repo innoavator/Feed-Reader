@@ -21,8 +21,7 @@ var modes = {
 		modes.switchToMode(0);
 	},
 	switchToMode : function(nextstate){
-		//		var done = false;
-			//	console.log("Changing state");
+		
 				modes.currentMode = nextstate;
 				for(i = 0;i<3;i++)
 				{
@@ -107,13 +106,10 @@ function switchToLoadingView(cond)
 	}
 	else
 	{
-		//$("#headlactions").find('a').show();
-//		console.log("Startindex : " + $("#rdrheadl").attr('startindex'));
 		if(parseInt($("#rdrheadl").attr('startindex'))== 0)
 		{
 			$("#hprev").hide();
 		}
-		console.log("Hiding the loading of headlines.");
 		$("#hnext").show();
 		$("#headlactions").find('img').hide();
 	}
@@ -167,7 +163,6 @@ function addContextMenu()
 
 function hideLogoutPopup()
 {
-	console.log("Hiding logout popup");
 	$("#popupbox").html("You have been logged out successfully")
 			.delay(1000)
 			.animate({'opacity':0},1000,function(){$("#popupbox").css('display','none')}
@@ -176,7 +171,6 @@ function hideLogoutPopup()
 
 function showLogoutPopup()
 {
-	console.log("Showing Logout popup");
 	$("#popupbox").html("Do you want to delete all existing Subscriptions ?" 
 					   +"<div class='button' onClick='Reader.logout(true);'>Yes</div>" 
 					   +"<div class='button' onClick='Reader.logout(false);'>No</div>"

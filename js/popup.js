@@ -25,14 +25,12 @@ function load() {
 	 if(!window.localStorage.getItem("isSyncOn"))
 	 	window.localStorage.setItem("isSyncOn","false");
 	 IS_SYNC_ON = window.localStorage.getItem("isSyncOn");
-	 console.log("is sync on : " + IS_SYNC_ON);
 	 if(IS_SYNC_ON == "true"){
 		 setInterval(function(){Reader.syncSubscriptions()},5000*24);
 		 addContextMenu();
 		 continueLocal();
 	 }else
 	 {
-		 console.log("sync is off");
 		$("#loadercontainer").find("h3").hide(0);
 		$("#loadercontainer").find("a").css("display","inline");
 	 }

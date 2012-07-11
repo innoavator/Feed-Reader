@@ -7,7 +7,7 @@ var FeedViewer = {
 		ReaderViewer.initialise();
 		ReaderViewer.initialiseHeadlineView();
 		GoogleReader.initialise();
-		Keyboard.initialise();
+		//Keyboard.initialise();
 		//Initialise Youtube Autosuggest
 			jQTubeUtil.init({
 		key: "AI39si7Br60Mhmvnb0iGT_DckKttQdd_8ghDOs_UQIcmb3wDhwAnZlkPe9lqp1llOv9rZNGqdKcdP8BdHRDOMaY4Mu0Xh3op9g",
@@ -29,7 +29,6 @@ var FeedViewer = {
 			
 		}
 		var feed_url = encodeURI($(this).find("input")[1].value);
-		console.log(feed_url);
 		var regexp = /(ftp|http|https):\/\/(\w+:{0,1}\w*@)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%@!\-\/]))?/
 		if(regexp.test(feed_url))
 		{
@@ -70,13 +69,10 @@ var FeedViewer = {
 				
 				DbManager.checkSubscription(feed_url,function(isSubscribed){
 					if(isSubscribed == 1){
-						//console.log("Hover in  : Feed subscribed");
 						/* Feed Already subscribed. Show the message to unsubscribe*/
 						$('.caption',feedobj).fadeOut(100,function(){
 						$(this).html('Click to Unsubscribe').css('margin-top','-55px')}).stop(true, true).fadeIn(50);	
 					}else{
-						/* Feed not subscribed. Show the message to subscribe.*/
-						//console.log("Hover in : Feed unsubscribed");
 						if($('.caption',feedobj).html()== 'Click me to subscribe to '+$('img',feedobj).attr('title')){
 						$('.caption',feedobj).stop(true,true).animate({'opacity': 1,'margin-top': -60}, 50);
 						$('img',feedobj).stop(true,true).animate({'opacity': 0.1}, 100);
@@ -94,14 +90,12 @@ var FeedViewer = {
 			    	var feed_url = $(this).attr('data-id');
 					DbManager.checkSubscription(feed_url,function(isSubscribed){
 						if(isSubscribed == 1){
-							//console.log("Hover out  : Feed subscribed");
 							$('.caption',feedobj).fadeOut(100,function(){
 								$(this).html('You are subscribed to '+$(this).parent().find('.feedimage').attr('title')+'<br>'
 									 +'<img class="subscbdimg" src="img/done.png">').css('margin-top','-60px')}).stop(0,true, true).fadeIn(50);
 						} 
 						else if($('.caption',feedobj).html()== 'Click me to subscribe to '+$('img',feedobj).attr('title'))
 						{
-							//console.log("Hover out  : Feed subscribed");
 							$('.caption',feedobj).stop(0,true,true).animate({'opacity': 0}, 50);
 							$('img',feedobj).stop(0,true,true).animate({'opacity': 1}, 200);		
 						}
@@ -185,12 +179,10 @@ var FeedViewer = {
 		/* Attach Handlers for click on the Unsubscribe link */
 		$(".unsub").live('click',function(event){
 		    event.stopPropagation();
-			//console.log("Unsub button clicked");
 			if(modes.currentmode == modes.myFeedsMode)
 				url = $(this).parent().attr('rel');
 			var obj = $(this);
 			Reader.unsubscribe($(this).parent().attr('rel'),function(){
-					console.log("Unsubscribing from feed\n");
 					$(obj).parent().hide("fast",function(){$(this).parent().remove();});
 					$("#stage li").each(function(){
 					if($(this).attr('data-id') == url)
@@ -206,7 +198,6 @@ var FeedViewer = {
 			var feedUrl = $(this).parent().attr('rel');
 			
 			Reader.markAllAsRead(feedUrl,function(){
-				console.log("Marked read successfully");
 				$(feedobj).find('img').attr('src','img/marked2.png');
 				$(feedobj).parent().find('.readunread').html("0");
 			});
@@ -234,15 +225,12 @@ var FeedViewer = {
 			}
 	
 		});
-		console.log("Rendering of Add feeds finished.");
 	},
 	renderMyFeeds : function()
 	{
-		    console.log("Rendering my feeds.");
 			$("#myfeedsdiv .myfeedlist").empty();
 			
 			DbManager.getSubscriptions(function(subsList){
-		        console.log(subsList);
 		        if(subsList == null) 
 		            return;
 		        for(var i =0;i<subsList.length;i++)
@@ -283,12 +271,10 @@ var FeedViewer = {
 				showSubscribedFeed(feedobj);
 			}else{
 				/* Subscribed from the add feeds textbox*/
-				console.log("Searching for display : " + url);
 				$("#searchbox").find('input')[1].value = "";
 				$("#stage li").each(function(){
 					if($(this).attr('data-id') == url)
 					{
-						console.log("Equal data-id");
 						showSubscribedFeed($(this));
 					}
 				
@@ -300,10 +286,8 @@ var FeedViewer = {
 	searchMyFeeds : function(feedname)
 	{
 		feedname = feedname.toLowerCase();
-		console.log(feedname);
 		if(feedname == null || feedname == "")
 			$("#myfeedsdiv .feedl").each(function(){
-				console.log("Showing all feeds");
 				//$(this).css('display','block');
 				$(this).fadeIn();
 			});

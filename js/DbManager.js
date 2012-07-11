@@ -182,23 +182,20 @@ var DbManager = {
 	{
 		var myFeedsList = new LocalStore('myFeeds');
 		if(myFeedsList == null){
-			console.log("Feeds list is null.");
 			return;
 		}
 		var list = myFeedsList.get();
-		console.log(list);
+		if(list == null)
+			return;
 		var feed = null;
 		var feedinfo;
 		if(list!=null)
 		{
-		    console.log("Feeds list is not null.");
 			var list = list.split(",");
 			for(var i = 0;i<list.length;i++)
 			{
-			    console.log("Item : " + list[i]);
 			    feed = new LocalStore(list[i]);
 				feedinfo = JSON.parse(feed.get());
-				console.log(feedinfo);
 				if(feedinfo != null)
 					DbManager.insertSubscription(list[i],feedinfo.link,feedinfo.title,null);
 				feed.remove();

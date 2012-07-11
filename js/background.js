@@ -19,7 +19,6 @@ var BackgroundWorker = {
 		
 		if(window.localStorage.getItem("isSyncOn") && window.localStorage.getItem("isSyncOn")=="true")
 		{	
-			console.log("Updating from google");
 			BackgroundWorker.updateFromGoogle();
 		}
 		/* Start the process to prune the database. */
@@ -28,11 +27,8 @@ var BackgroundWorker = {
 	},
 	updateFromGoogle : function()
 	{
-		console.log("Updating from Google..");
 		var totalCount = 0;
 		GoogleReader.getUnreadCount(function(data){
-			console.log("Got unread count data from Google reader.");
-			console.log(data);
 			/* Callback function for getUnreadCount from Google. */
 			DbManager.getSubscriptionIds(function(myFeedsList){
 				/* Callback function for the getSubscriptionIds from database*/
@@ -40,7 +36,6 @@ var BackgroundWorker = {
 				var feed = data.unreadcounts[i];
 				if((feed.id).indexOf("feed/") == 0)
 				{
-					console.log(feed.id + " : " + feed.count);
 					//pokki.rpc('DbManager.updateUnreadCount',(feed.id).substr(5),feed.count);
 					DbManager.updateUnreadCount((feed.id).substr(5),feed.count);
 					if(myFeedsList != null)
@@ -62,7 +57,6 @@ var BackgroundWorker = {
 			}
 			if(totalCount != BackgroundWorker.prevTotalCount || flag)
 			{
-				console.log("Triggering update of feed count.");
 				pokki.rpc('FeedViewer.updateFeedCount()');
 				BackgroundWorker.prevTotalCount = totalCount;
 			}
@@ -80,7 +74,6 @@ var BackgroundWorker = {
 		
 	},
 	markAllAsRead : function(){
-		console.log("Marking all as read");
 		var replyCount = 0;
 		DbManager.getSubscriptionIds(function(list){
 			if(list){
@@ -88,7 +81,6 @@ var BackgroundWorker = {
 					GoogleReader.markAllAsRead(list[i],function(){
 						DbManager.updateUnreadCount(list[i],0);
 						replyCount++;
-						console.log("Marked all read");
 						if(replyCount >=(list.length-1))
 							pokki.rpc('FeedViewer.updateFeedCount()');
 					});

@@ -37,7 +37,6 @@ var Reader = {
 					sub = sub.split("?")[0];
 				local_subs.sort();
 			}
-			console.log(local_subs);
 			google_subs = google_subs.subscriptions;
 			if(google_subs.length != 0)
 			{
@@ -48,22 +47,18 @@ var Reader = {
 				(google_subs).sort(function(a,b){return (a.id < b.id) ? -1 : 1;});
 			}
 			var flag = false,i=0,j=0;
-			console.log(google_subs);
 			showLoaderMessage("Syncing...");
 			var incr = 100/(local_subs.length + google_subs.length);
-			console.log("Increment : " + incr);
 			while(j< local_subs.length && i<google_subs.length)
 			{
 				while( (j<local_subs.length) && (i<google_subs.length) && (google_subs[i].id<local_subs[j])){
 					//register Google subscripitons in local subscripitons
-					console.log("Register in Local : " + google_subs[i].id);
 					DbManager.insertSubscription(google_subs[i].id,google_subs[i].htmlUrl,google_subs[i].title,null);
 					i++;
 					showProgress(incr,true);
 				}
 				while((j<local_subs.length) && (i<google_subs.length) && (local_subs[j] < google_subs[i].id)){
 					//Register local subscriptions in google
-					console.log("Register in Google : " + local_subs[j]);
 					GoogleReader.subscribe(local_subs[j],"title");
 					j++;
 					showProgress(incr,true);
@@ -88,7 +83,6 @@ var Reader = {
 			}
 			while(j<local_subs.length)
 			{
-				console.log("Register in Google : " + local_subs[j]);
 				GoogleReader.subscribe(local_subs[j],"title");
 				j++;
 				showProgress(incr,true);
@@ -117,16 +111,12 @@ var Reader = {
 	},
 	unsubscribe : function(url,callback)
 	{
-		console.log("Unsubscribe : " + url);
-
 		/* Unsubscribe from the local database */
 		DbManager.removeSubscription(url,callback);
 
 		/* Unsubscribe from Google reader */
 		if(GoogleReader.hasAuth() == true)
-		GoogleReader.unsubscribe(url,function(){
-			console.log("Feed Unsubscribed successfully");
-			});
+		GoogleReader.unsubscribe(url,function(){});
 	},
 	
 	editItemTag : function(feedUrl,itemId,tagToAdd,tagToRemove)
@@ -158,8 +148,7 @@ var Reader = {
 	},
 	
 	getFeedContent : function(feedUrl,callback,fallback)
-	{
-		console.log("Getting feed content");		
+	{		
 		var xt = "";
 		if(window.localStorage.getItem("readMode") == SHOWUNREAD)
 			xt = "read";	
@@ -172,7 +161,6 @@ var Reader = {
 					Reader.refetchSent = 0;
 					modes.switchToMode(2);
 					ReaderViewer.renderGoogleFeed(result,previndex,Reader.endindex,feedUrl);
-					console.log("Rendering feed");
 				},
 				fallback);
 	},
@@ -180,12 +168,10 @@ var Reader = {
 	{
 		if(((Reader.endindex - slide_no) < 10) && (Reader.refetchSent == 0) && Reader.endindex <90)
 		{
-			console.log("Time to fetch more feeds");
 			DbManager.getUnreadCount(feedUrl,function(unreadCount){
 				//Callback for getting the Unread Count for the Database.
 				if(!(GoogleReader.hasAuth()) || !(window.localStorage.getItem("readMode") == SHOWUNREAD) || (unreadCount>Reader.endindex))
 				{
-					console.log("Fetching more feeds");
 					Reader.refetchSent = 1;
 					$("#headlactions").find('img').show();
 					Reader.getFeedContent(feedUrl,function(){
@@ -209,12 +195,10 @@ var Reader = {
 	
 	logout : function(toDelete)
 	{
-		console.log("Logout from reader.");
 		if(toDelete == true)
 		{
 			$("#loadingScreen").css('visibility','visible').css('display','block');
 			DbManager.emptyDatabase(function(){
-				console.log("Callback successfully called.");
 				FeedViewer.renderAddFeeds();
 				$("#loadingScreen").css('visibility','hidden').css('display','none');
 				
