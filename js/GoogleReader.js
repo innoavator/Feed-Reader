@@ -14,6 +14,7 @@ GoogleReader = {
 	refresh_token : "",
 	redirect_uri : "http://www.codeblues.in",
 	client : "scroll",
+	retries : 0,
 	tags : {
 		"like": "user/-/state/com.google/like",
 		"label": "user/-/label/",
@@ -160,13 +161,12 @@ GoogleReader = {
 			window.localStorage.setItem("refresh_token",refresh_token);
 			GoogleReader.refresh_token = refresh_token;
 		}
-		if(callback)
-			callback("OK");
+		callback("OK");
 	},
 	
 	getUserInfo : function(callback)
 	{
-		this.getData(this.USER_INFO_URL,"access_token="+GoogleReader.access_token,callback);
+		getData(this.USER_INFO_URL,null,callback);
 	},
 	hasAuth : function()
 	{
@@ -229,8 +229,7 @@ GoogleReader = {
 
 	checkIfSubscribed : function(feedUrl,callback)
 	{
-		var data = "s=feed/"+feedUrl+
-				   "&access_token="+GoogleReader.access_token;
+		var data = "s=feed/"+feedUrl;
 		this.getData(GoogleReader.SUBS_CHECK_URL,data,callback);
 	},
 	/*Subscribe to the given feedurl. 
@@ -321,7 +320,7 @@ GoogleReader = {
 		  dataType : "json",
 	      success: callback,
 	      timeout: (15 * 1000),
-	     /* statusCode : {
+	      /*statusCode : {
 		        		    401 : function(){
 		      			    	console.log("Authorization failure. Access_token expired.");
 			    		    	GoogleReader.refreshAccessToken(function(result){
@@ -335,14 +334,23 @@ GoogleReader = {
 	      error: function( xhr, ajaxOptions, errorStr ){
 				console.log("Error : " + errorStr);
 				console.log(xhr.status);
-				if(xhr.status == 401)
+				if(xhr.status == 401 || xhr.status == 400)
 				{
 					console.log("Authorization failure. Access_token expired.");
-					GoogleReader.refreshAccessToken(function(result)
-					{
+					/* Facing errors even after 5 retries. Return .*/
+					if(GoogleReader.retries > 5){
+						if(fallback) fallback();
+						return;
+					}
+					/* Make one more attempt to fetch the tokens.*/
+					GoogleReader.retries++;
+					GoogleReader.refreshAccessToken(function(result){
 						console.log("Final Result : " + result);
 						if(result == "OK")
-							GoogleReader.getData(url,data,callback);
+						{
+							GoogleReader.retries = 0;
+							GoogleReader.getData(url,GoogleReader.updateData(data),callback);
+						}
 					});
 				}
 				else if(fallback)
@@ -366,10 +374,17 @@ GoogleReader = {
 	      statusCode : {
 				            401 : function(){
 				    	    console.log("Authorization failure. Access_token expired.");
+							/* Facing errors even after 5 retries. Return .*/
+							if(GoogleReader.retries >5)
+								return;
+							/* Make one more attempt to fetch the tokens.*/
+							GoogleReader.retries++;
 				    	    GoogleReader.refreshAccessToken(function(result){
 								console.log("Final Result : " + result);
-								if(result == "OK")
-									GoogleReader.postData(url,data,callback);
+								if(result == "OK"){
+										GoogleReader.retries = 0;
+										GoogleReader.postData(url,GoogleReader.updateData(data),callback);
+									}
 								});
 							}
 				},
@@ -377,6 +392,23 @@ GoogleReader = {
 			  		console.log("Error : " + strError);
 		        } 
 	    }); 
-    }
+    },
+
+	updateData : function(data)
+	{
+		var units = new Array();
+		units = data.split("&");
+		datastr = "";
+		for(var i = 0;i<units.length;i++)
+		{
+			var unit = units[i].split("=");
+			if(unit[0] == "access_token")
+				unit[1] = GoogleReader.access_token;
+			else if(unit[0] == "T")
+				unit[1] = GoogleReader.api_token;
+			datastr+=(unit[0]+"="+unit[1]+"&");
+		}
+		return datastr;	
+	}
 }
 

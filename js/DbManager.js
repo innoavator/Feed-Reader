@@ -85,9 +85,6 @@ var DbManager = {
 						feedArray[i].title = results.rows.item(i).title;
 						feedArray[i].label = results.rows.item(i).label;
 						feedArray[i].unreadCount = results.rows.item(i).unreadCount;
-						console.log(results.rows.item(i).id);
-						console.log(results.rows.item(i).unreadCount);
-						console.log(results.rows.item(i).timestamp);
 					}
 					callback(feedArray);
 				});
@@ -195,5 +192,48 @@ var DbManager = {
 				console.log("Tags Table destroyed successfully");
 			});
 		});
-	} 
+	},
+	
+	/* Remove entries in the tags table older than two weeks */
+	pruneDatabase : function()
+	{
+		var today = new Date();
+		today.setTime(today.getTime()-129600000);
+		console.log(today);
+		//console.log(today);
+		console.log("Pruning database.");
+		this.db.transaction(function(tx){
+			tx.executeSql('DELETE FROM tags WHERE timestamp < ?',[(today)],function(tx,r){
+				console.log(r.rowsAffected);
+			},function(tx,e){
+				console.log("Error pruning database.");
+			});
+		});
+	},
+
+	syncWithLocalStorage : function()
+	{
+		var myFeedsList = new LocalStore('myFeeds');
+		if(myFeedsList == null)
+		{
+			console.log("No Local Storage present.");
+			return;
+		}
+		var list = myFeedsList.get();
+		var feed = null;
+		var feedinfo;
+		if(list!=null)
+		{
+			var feeds = list.split(",");
+			for(var i = 0;i<list.length;i++)
+			{
+				var feed = new LocalStore(feedinfo.id);
+				var feedinfo = JSON.parse(feed.get());
+				if(feedinfo != null)
+					DbManager.insertSubscription(list[i],feedinfo.link,feedinfo.title,null);
+				feed.remove();
+			}
+		}
+		myFeedsList.remove();
+	}
 }
