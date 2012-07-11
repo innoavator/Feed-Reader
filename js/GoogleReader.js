@@ -70,10 +70,7 @@ GoogleReader = {
 			{
 				if(_url.indexOf(GoogleReader.redirect_uri)==0)
 				{
-					console.log("redirecting...");
-					console.log("Url : " + _url);
 					var params = {}, queryString = _url.split("?")[1],regex = /([^&=]+)=([^&]*)/g, m;
-					console.log("Query string : " + queryString);
 					while (m = regex.exec(queryString)) 
 					{
 						params[decodeURIComponent(m[1])] = decodeURIComponent(m[2]);
@@ -91,26 +88,21 @@ GoogleReader = {
 							data : data,
 							dataType : "json",
 							success : function(tokens){
-										console.log(tokens);
 										GoogleReader.setTokens(tokens.access_token,tokens.refresh_token,callback);
 									},
 							error : function(error){
-										console.log(error);
 									}
 						});
 						break;
 					}pokki.hideWebSheet();
 				}
 				else{
-					console.log("Returning true : " + _url);
 					return true;
 				}
 			},
 			function(error){
 				if(error == "user_abort"){
-					console.log("User hit close button");
 				}else{
-					console.log("Error occured" + error);
 				}
 				pokki.hideWebSheet();
 				callback("Error : " + error);
@@ -122,7 +114,6 @@ GoogleReader = {
 	{
 	  $.get(GoogleReader.API_TOKEN_URL+"?access_token="+GoogleReader.access_token,function(token){
 	    GoogleReader.api_token = token;
-		console.log("Api token : " + token);
 	  });
 	},
 	
@@ -139,25 +130,20 @@ GoogleReader = {
 				data : data,
 				dataType : "json",
 				success : function(tokens){
-							console.log("Tokens : " + tokens);
 							GoogleReader.setTokens(tokens.access_token,"",callback);
 						},
 				error : function(error){
-							console.log(error);
 						}
 			});
 	},
 	
 	setTokens : function(access_token,refresh_token,callback)
 	{
-		console.log("Callback in settoken : " + callback);
-		console.log("Access token : " + access_token);
 		GoogleReader.access_token = access_token;
 		this.getApiToken();
 		window.localStorage.setItem("access_token",access_token);
 		if(refresh_token && refresh_token.length>0)
 		{
-			console.log("Setting refresh token");
 			window.localStorage.setItem("refresh_token",refresh_token);
 			GoogleReader.refresh_token = refresh_token;
 		}
@@ -203,7 +189,6 @@ GoogleReader = {
 				   //+"&ck="+(new Date.getTime());
 		if(xttag != null && xttag.length!=0 && GoogleReader.hasAuth())
 		{
-			console.log("Fetching only unread feeds");
 			data+="&xt="+GoogleReader.tags[xttag];
 		}
 		else
@@ -217,13 +202,10 @@ GoogleReader = {
 	 */
 	getItemContent : function(itemId)
 	{
-		console.log("Getting item details for : " + itemId);
 		var data = "i="+itemId+"&"
 				 +"rs=pop/topic/top/language/en&"
 				 +"T="+GoogleReader.api_token;
 		this.postData(this.ITEM_CONTENT_URL+"?freshness=false&client="+this.client,function(data){
-			console.log("Item content received");
-			console.log(data);
 		});
 	},
 
@@ -239,7 +221,6 @@ GoogleReader = {
 	*/
 	subscribe : function(feedurl,title,recommendation,callback)
 	{
-		console.log("Api token : " + GoogleReader.api_token);
     	var data = "s=feed/"+feedurl+"&"+
 	             "ac=subscribe&"+
 	             "T="+GoogleReader.api_token;
@@ -320,23 +301,10 @@ GoogleReader = {
 		  dataType : "json",
 	      success: callback,
 	      timeout: (15 * 1000),
-	      /*statusCode : {
-		        		    401 : function(){
-		      			    	console.log("Authorization failure. Access_token expired.");
-			    		    	GoogleReader.refreshAccessToken(function(result){
-								console.log("Final Result : " + result);
-								if(result == "OK")
-									GoogleReader.getData(url,data,callback);
-								
-								});
-		    		    	}
-		  },*/
+	      
 	      error: function( xhr, ajaxOptions, errorStr ){
-				console.log("Error : " + errorStr);
-				console.log(xhr.status);
 				if(xhr.status == 401 || xhr.status == 400)
 				{
-					console.log("Authorization failure. Access_token expired.");
 					/* Facing errors even after 5 retries. Return .*/
 					if(GoogleReader.retries > 5){
 						if(fallback) fallback();
@@ -345,7 +313,6 @@ GoogleReader = {
 					/* Make one more attempt to fetch the tokens.*/
 					GoogleReader.retries++;
 					GoogleReader.refreshAccessToken(function(result){
-						console.log("Final Result : " + result);
 						if(result == "OK")
 						{
 							GoogleReader.retries = 0;
@@ -373,14 +340,12 @@ GoogleReader = {
 	      timeout: (15 * 1000),
 	      statusCode : {
 				            401 : function(){
-				    	    console.log("Authorization failure. Access_token expired.");
 							/* Facing errors even after 5 retries. Return .*/
 							if(GoogleReader.retries >5)
 								return;
 							/* Make one more attempt to fetch the tokens.*/
 							GoogleReader.retries++;
 				    	    GoogleReader.refreshAccessToken(function(result){
-								console.log("Final Result : " + result);
 								if(result == "OK"){
 										GoogleReader.retries = 0;
 										GoogleReader.postData(url,GoogleReader.updateData(data),callback);
@@ -389,7 +354,6 @@ GoogleReader = {
 							}
 				},
 	      error: function( objAJAXRequest, strError ){
-			  		console.log("Error : " + strError);
 		        } 
 	    }); 
     },

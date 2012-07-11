@@ -9,18 +9,14 @@ var DbManager = {
 		/* Create the subscriptions table if it does not exist */
 		this.db.transaction(function(tx){
 			tx.executeSql('CREATE TABLE IF NOT EXISTS subscriptions(id text PRIMARY KEY, htmlUrl text, title text,label text,unreadCount integer,timestamp DATETIME)',[],function(){
-							console.log("Table created successfully.");
 						},function(e){
-							console.log(e);
+							
 						});
 		});
 
 		/* Create the tags table if it does not exist */
 		this.db.transaction(function(tx){
-			tx.executeSql('CREATE TABLE IF NOT EXISTS tags(id text,item text PRIMARY KEY,tag text,timestamp DATETIME)',[],function(){
-							console.log("Table created successfully.");
-						},function(e){
-							console.log(e);
+			tx.executeSql('CREATE TABLE IF NOT EXISTS tags(id text,item text PRIMARY KEY,tag text,timestamp DATETIME)',[],function(){},function(e){
 						});
 		});
 	},
@@ -34,11 +30,7 @@ var DbManager = {
 		this.db.transaction(function(tx){
 			tx.executeSql('INSERT INTO subscriptions(id,htmlUrl,title,label,unreadCount,timestamp) VALUES (?,?,?,?,0,?)',[id,url,title,label,new Date()],
 							function(tx,r){
-								console.log("Successfully inserted : " + id);
-							},function(tx,e){
-								console.log("Error inserting items : " + e.message);
-							});
-		
+							},function(tx,e){});
 		});
 	},
 
@@ -47,11 +39,8 @@ var DbManager = {
 	{
 		this.db.transaction(function(tx){
 			tx.executeSql("DELETE FROM subscriptions WHERE id = ?",[feedId],function(tx,r){
-					console.log("Successfully removed : " + feedId);
 					callback();
-				},function(tx, e){
-					console.log("Error deleting subscriptions : " + e);
-				});
+				},function(tx, e){});
 		});
 	},
 	
@@ -64,11 +53,7 @@ var DbManager = {
 	{
 		this.db.transactiohn(function(tx){
 			tx.executeSql('INSERT INTO tags(id,item,tag,timestamp) VALUES (?,?,?,?)',[feedId,itemId,tag,new Date()],
-							function(tx,r){
-								console.log("Successfully inserted items.");
-							},function(tx,e){
-								console.log("Error inserting items : " + e.message);
-							});
+							function(tx,r){},function(tx,e){});
 		
 		});
 	},
@@ -94,7 +79,6 @@ var DbManager = {
 	{
 		this.db.transaction(function(tx){
 			tx.executeSql("SELECT id FROM subscriptions",[],function(tx,results){
-					console.log(results.rows);
 					var len = results.rows.length,i;
 					var subsList = new Array(len);
 					for(i = 0;i<len;i++) 
@@ -111,9 +95,7 @@ var DbManager = {
 			tx.executeSql("SELECT * FROM subscriptions WHERE id=?",[feedId],function(tx,results){
 				if(callback)
 					callback(results.rows.length);
-			},function(tx,e){
-				console.log("Error checking subscription : " + e.message);
-			});
+			},function(tx,e){});
 		});
 	},
 	
@@ -125,7 +107,6 @@ var DbManager = {
 				if(callback)
 					callback(results.rows.item(0).unreadCount);
 			}, function(tx,e){
-				console.log("Error getting UnreadCount : " + e.message);
 			});
 		});
 	},
@@ -158,13 +139,8 @@ var DbManager = {
 	insertItemTag : function(feedUrl,itemId,tag)
 	{
 		this.db.transaction(function(tx){
-			console.log(feedUrl + "  : " + itemId + " : " + tag);
 			tx.executeSql('INSERT INTO tags(id,item,tag,timestamp) VALUES(?,?,?,?)',[feedUrl,itemId,tag,new Date()],function(tx,results){
-					console.log(" Item inserted successfully ");
-				},function(tx,e){
-					console.log(e);
-					console.log("Error inserting tag : ");	
-			});
+				},function(tx,e){});
 		});
 	},
 	
@@ -173,9 +149,7 @@ var DbManager = {
 	{
 		this.db.transaction(function(tx){
 			tx.executeSql('UPDATE tags SET tag = ? WHERE id = ? AND item = ?',[tag,feedUrl,itemId],function(tx,r){
-				console.log("Item tag updated successfully. ");
 			},function(tx,e){
-				console.log("Error updating tag : " + e);
 			});
 		});
 	},
@@ -183,13 +157,11 @@ var DbManager = {
 	/* Delete subscriptions and tags table */
 	emptyDatabase : function(callback)
 	{
-		console.log("Dumping table...");
 		this.db.transaction(function(tx){
 			tx.executeSql('DELETE FROM subscriptions',[],function(){
 				if(callback) callback();
 			});
 			tx.executeSql('DELETE FROM tags',[],function(){
-				console.log("Tags Table destroyed successfully");
 			});
 		});
 	},
@@ -199,14 +171,9 @@ var DbManager = {
 	{
 		var today = new Date();
 		today.setTime(today.getTime()-129600000);
-		console.log(today);
-		//console.log(today);
-		console.log("Pruning database.");
 		this.db.transaction(function(tx){
 			tx.executeSql('DELETE FROM tags WHERE timestamp < ?',[(today)],function(tx,r){
-				console.log(r.rowsAffected);
 			},function(tx,e){
-				console.log("Error pruning database.");
 			});
 		});
 	},
@@ -214,9 +181,7 @@ var DbManager = {
 	syncWithLocalStorage : function()
 	{
 		var myFeedsList = new LocalStore('myFeeds');
-		if(myFeedsList == null)
-		{
-			console.log("No Local Storage present.");
+		if(myFeedsList == null){
 			return;
 		}
 		var list = myFeedsList.get();
