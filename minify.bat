@@ -12,7 +12,7 @@ java -jar compiler.jar --js js_src/popup.js --js_output_file js/popup.js
 java -jar compiler.jar --js js_src/ReaderController.js --js_output_file js/ReaderController.js
 java -jar compiler.jar --js js_src/ReaderViewer.js --js_output_file js/ReaderViewer.js
 java -jar compiler.jar --js js_src/Utils.js --js_output_file js/Utils.js
-cp js_src/YoutubeManager.js  compiled/YoutubeManager.js
+cp js_src/YoutubeManager.js  js/YoutubeManager.js
 java -jar compiler.jar --js js_src/lib/GAPokki.js --js_output_file js/lib/GAPokki.js
 java -jar compiler.jar --js js_src/lib/jquery.anythingslider.js --js_output_file js/lib/jquery.anythingslider.js
 java -jar compiler.jar --js js_src/lib/jquery.easing.1.3.js --js_output_file js/lib/jquery.easing.1.3.js
