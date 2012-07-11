@@ -16,8 +16,7 @@
         	<script type="text/javascript" src="js/lib/jquery.easing.1.3.js"></script>
 			<script type="text/javascript" src="js/GoogleReader.js"></script>
 			<script type="text/javascript" src="js/ReaderController.js"></script>
-            <script type="text/javascript" src="js/DbManager.js"></script>
-			
+			<script type="text/javascript" src="js/DbManager.js"></script> 
             <link rel="stylesheet" href="css/styles.css" />
             <!-- Loading PokkiBrowser to do testing in a normal chrome web browser -->
 			<script type="text/javascript" src="js/lib/PokkiBrowser.js"></script>
@@ -32,28 +31,28 @@
             <script type="text/javascript" src="js/popup.js"></script>
 			<!-- Feeds Files   -->
            <script type = "text/javascript" src="js/FeedViewer.js"></script>
-            <script type = "text/javascript" src="js/FeedEngine.js"></script>
-             <script type = "text/javascript" src="js/ReaderViewer.js"></script><script type="text/javascript" src="js/gen-js/P3ClientService.js"></script>
+			<script type = "text/javascript" src="js/YoutubeManager.js"></script>
+             <script type = "text/javascript" src="js/ReaderViewer.js"></script>
             <script type = "text/javascript" src="js/Utils.js"></script>
             <script type = "text/javascript" src="js/Globals.js"></script>
             <script type='text/javascript' src='js/lib/jQuery.jQTubeUtil.js'></script>
             <!-- FeedReader View -->
     		<link rel="stylesheet" href="css/anythingslider.css">  
             <script type="text/javascript" src="js/lib/jquery.anythingslider.js"></script>
-            <!-- Thrift Files -->
-            <script type="text/javascript" src="js/lib/thrift.js"></script>   <!-- Thrift Library File -->
-            <script type="text/javascript" src="js/gen-js/test_types.js"></script>
-            <script type="text/javascript" src="js/P3ServiceHandler.js"></script>
             <!-- Keyboard shortcut files -->
-             <script type="text/javascript" src="js/lib/keyboard.min.js"></script>
+            <script type="text/javascript" src="js/lib/keyboard.min.js"></script>
 			<script type="text/javascript" src="js/Shortcuts.js"></script>
-
+			<!-- Thrift Files -->
+			<script type="text/javascript" src="js/lib/thrift.js"></script>
+			<script type="text/javascript" src="js/gen-js/test_types.js"></script>
+			<script type="text/javascript" src="js/P3ServiceHandler.js"></script>
+			<script type="text/javascript" src="js/gen-js/P3ClientService.js"></script>
+           
             
 </head>
 <body>
 </head>
 <body>
-
   <div id="wrapper">
 	<div id="loader">
       <div id="loadercontainer">
@@ -71,7 +70,7 @@
            
            <div id="searchbox">
                 <form id="addFeedsForm"><span>Add Feeds:</span>
-           		<input type="submit" value="Go" id="addFeedbtn" /></span> <input type="search" id="addFeedsSearchBox"  class= "editable-select" placeholder="Press Enter after you are done...." onKeyUp="FeedEngine.getYoutubeSuggestions(this.value);return false;"></input>
+           		<input type="submit" value="Go" id="addFeedbtn" /></span> <input type="search" id="addFeedsSearchBox"  class= "editable-select" placeholder="Press Enter after you are done...." onKeyUp="YoutubeManager.getYoutubeSuggestions(this.value);return false;"></input>
                     <img class="srchglass" src="img/add.png"/>
                  </form>
                  <ul id="youtubeSuggestions"></ul>
@@ -242,10 +241,8 @@
          <ol class='myfeedlist'>
       
       </ol><div id='footer'>
-      	<div class="toaddfeedsbtn">Add Feeds</div>
+      	<div class="toaddfeedsbtn" style="margin-right:90px;">Add Feeds</div>
     
-   
-  
     </div>
       </div></div>
       <div id = "readerviewdiv" style="visibility:hidden">
@@ -279,9 +276,15 @@
  <!--     </div>  --><!-- .content end -->
       </div>  <!-- .scrollable end -->
 <!--      </div>  --> <!-- #content end -->
+
+        <!-- Div to hold the loading screen -->
         <div id="loadingScreen" class="reveal-modal">
-<img src = "img/feedsload.gif" />
-</div>
+			<img src = "img/feedsload.gif" />
+		</div>
+        
+        <!-- Div to hold the popup -->
+        <div id ="popupbox">
+        </div>
 </div><!-- wrapper end -->
          <script type="text/javascript">
             //GOOGLE ANALYTICS: Enter your settings here

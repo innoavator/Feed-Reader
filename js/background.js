@@ -1,23 +1,30 @@
 var unreadCount = 0;
 var BackgroundWorker = {
-	myFeedList : new LocalStore('myFeeds'),
 	count : 1,
+	prevTotalCount : -1,
 	initialise : function(){
 		DbManager.openDb();
+		DbManager.syncWithLocalStorage();
 		pokki.addEventListener('context_menu',function(id){
 			if(id =="logoutbtn"){
+				pokki.rpc('pokki.openPopup()');
+				pokki.rpc('showLogoutPopup()');
 				GoogleReader.logout();
 				pokki.resetContextMenu();
 			}else if(id == "markallasread") {
 				BackgroundWorker.markAllAsRead();
 			}
 		});
-			if(window.localStorage.getItem("isSyncOn") && window.localStorage.getItem("isSyncOn")=="true")
-			{	
-				console.log("Updating from google");
-				BackgroundWorker.updateFromGoogle();
-			}
-		},
+		
+		if(window.localStorage.getItem("isSyncOn") && window.localStorage.getItem("isSyncOn")=="true")
+		{	
+			console.log("Updating from google");
+			BackgroundWorker.updateFromGoogle();
+		}
+		/* Start the process to prune the database. */
+		setInterval("DbManager.pruneDatabase()",86400000);
+
+	},
 	updateFromGoogle : function()
 	{
 		console.log("Updating from Google..");
@@ -47,9 +54,16 @@ var BackgroundWorker = {
 					totalCount+=feed.count;
 				}
 			}
-			for(var i =0;myFeedsList!=null && i<myFeedsList.length;i++)
-			{
+			var flag = false;
+			for(var i =0;myFeedsList!=null && i<myFeedsList.length;i++){
 				DbManager.updateUnreadCount(myFeedsList[i],0);
+				flag = true;
+			}
+			if(totalCount != BackgroundWorker.prevTotalCount || flag)
+			{
+				console.log("Triggering update of feed count.");
+				pokki.rpc('FeedViewer.updateFeedCount()');
+				BackgroundWorker.prevTotalCount = totalCount;
 			}
 			if(totalCount > 0 && totalCount<1000)
 				pokki.setIconBadge(totalCount);
@@ -66,11 +80,19 @@ var BackgroundWorker = {
 	},
 	markAllAsRead : function(){
 		console.log("Marking all as read");
+		var replyCount = 0;
 		DbManager.getSubscriptionIds(function(list){
 			if(list){
 				for(var i=0;i<list.length;i++)
-					GoogleReader.markAllAsRead(list[i]);
+					GoogleReader.markAllAsRead(list[i],function(){
+						DbManager.updateUnreadCount(list[i],0);
+						replyCount++;
+						console.log("Marked all read");
+						if(replyCount >=(list.length-1))
+							pokki.rpc('FeedViewer.updateFeedCount()');
+					});
 			}									  
 		});
-	}
+	},
+
 };

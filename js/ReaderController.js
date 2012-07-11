@@ -6,15 +6,15 @@ var Reader = {
 	refetchSent : 0,
 	syncWithGoogle : function()
 	{
-		window.localStorage.setItem("isSyncOn","true");
 		showLoaderMessage("Loading...");
 		GoogleReader.loginViaOauth(function(response){
 			if(response == "OK"){
 				addContextMenu();
 				//Start background polling for unread count
-				pokki.rpc('FeedLoader.updateFromGoogle()');
+				pokki.rpc('BackgroundWorker.updateFromGoogle()');
 				Reader.syncSubscriptions();
-			}
+				window.localStorage.setItem("isSyncOn","true");
+		}
 			});
 	},
 	
@@ -93,6 +93,7 @@ var Reader = {
 				j++;
 				showProgress(incr,true);
 			}
+			FeedViewer.renderMyFeeds();
 			continueLocal();
 			});
 		});
@@ -111,9 +112,10 @@ var Reader = {
 		/* Subscribe on Google Reader */
 		if(GoogleReader.hasAuth() == true)
 			GoogleReader.subscribe(feedinfo.id,feedinfo.title,false);
-			
-		/* Send Data To Thrift */
-		P3ServiceHandler.sendSubscriptionData(feedinfo.id,true);  
+		
+		/* Send data to Thrift*/
+		P3ServiceHandler.sendSubscriptionData(feedinfo.id,true);
+ 
 	},
 	unsubscribe : function(url,callback)
 	{
@@ -127,9 +129,9 @@ var Reader = {
 		GoogleReader.unsubscribe(url,function(){
 			console.log("Feed Unsubscribed successfully");
 			});
-			
-		/* Send Data To Thrift */
-		P3ServiceHandler.sendSubscriptionData(url,false);  
+		
+		/* Send Data to Thrift */
+		P3ServiceHandler.sendSubscriptionData(url,false);
 	},
 	
 	editItemTag : function(feedUrl,itemId,tagToAdd,tagToRemove)
@@ -149,32 +151,19 @@ var Reader = {
 				GoogleReader.editItemTag(feedUrl,itemId,tagToAdd,tagToRemove);
 		}
 		
-		/* Send Data To Thrift */
-		P3ServiceHandler.sendTagData(feedUrl,itemId,tagToAdd);  
+		/* Send Data to Thrift */
+		P3ServiceHandler.sendTagData(feedUrl,itemId,tagToAdd);
+
 	},
 	
-	/*
-	markAsRead : function(feedUrl,itemUrl,toRemove,init_tag,final_tag)
+	markAllAsRead : function(feedUrl,callback)
 	{
-				//Only mark on Google, Local data has been deprecated.
-		if(GoogleReader.hasAuth() == true)
-		{
-			if(toRemove)
-				GoogleReader.editItemTag(feedUrl,itemUrl,"read","kept-unread");
-			else
-				GoogleReader.addItemTag(feedUrl,itemUrl,"read");
-		}
-			
-		//FeedController.saveAsRead(feedUrl,itemUrl);
+		GoogleReader.markAllAsRead(feedUrl,function(){
+			DbManager.updateUnreadCount(feedUrl,0);
+			if(callback)
+				callback();
+		});
 	},
-	
-	keepUnread : function(feedUrl,itemUrl)
-	{
-		//Only mark on Google, local data has been deprecated.
-		if(GoogleReader.hasAuth() == true)
-			GoogleReader.editItemTag(feedUrl,itemUrl,"kept-unread","read");
-		//FeedController.removeFromRead(feedUrl,itemUrl); 
-	},*/
 	
 	getFeedContent : function(feedUrl,callback,fallback)
 	{
@@ -224,5 +213,22 @@ var Reader = {
 		this.startindex = 0;
 		this.endindex = 0;
 		this.refetchSent = 0;
+	},
+	
+	logout : function(toDelete)
+	{
+		console.log("Logout from reader.");
+		if(toDelete == true)
+		{
+			$("#loadingScreen").css('visibility','visible').css('display','block');
+			DbManager.emptyDatabase(function(){
+				console.log("Callback successfully called.");
+				FeedViewer.renderAddFeeds();
+				$("#loadingScreen").css('visibility','hidden').css('display','none');
+				
+			});
+		}
+		FeedViewer.renderMyFeeds();
+		hideLogoutPopup();
 	}
 }

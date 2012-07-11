@@ -10,7 +10,7 @@ body {
     font-family:"Tahoma";
     /* use this to keep all text from being selectable to maintain a more app-like experience
     otherwise it's possible to highlight/select an entire pokki window  */
-    -webkit-user-select: none;
+    webkit-user-select: none;
 }
 
 /* Used to contain the contents of a Pokki when testing in a web browser using PokkiBrowser.js */
