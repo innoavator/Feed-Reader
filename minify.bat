@@ -1,0 +1,16 @@
+java -jar compiler.jar --js js/background.js --js_output_file compiled/background.js
+java -jar compiler.jar --js js/DbManager.js --js_output_file compiled/DbManager.js
+java -jar compiler.jar --js js/FeedViewer.js --js_output_file compiled/FeedViewer.js
+java -jar compiler.jar --js js/Globals.js --js_output_file compiled/Globals.js
+java -jar compiler.jar --js js/GoogleReader.js --js_output_file compiled/GoogleReader.js
+java -jar compiler.jar --js js/popup.js --js_output_file compiled/popup.js
+java -jar compiler.jar --js js/ReaderController.js --js_output_file compiled/ReaderController.js
+java -jar compiler.jar --js js/ReaderViewer.js --js_output_file compiled/ReaderViewer.js
+java -jar compiler.jar --js js/Utils.js --js_output_file compiled/Utils.js
+java -jar compiler.jar --js js/YoutubeManager.js --js_output_file compiled/YoutubeManager.js
+java -jar compiler.jar --js js/lib/GAPokki.js --js_output_file compiled/lib/GAPokki.js
+java -jar compiler.jar --js js/lib/jquery.anythingslider.js --js_output_file compiled/lib/jquery.anythingslider.js
+java -jar compiler.jar --js js/lib/jquery.easing.1.3.js --js_output_file compiled/lib/jquery.easing.1.3.js
+java -jar compiler.jar --js js/lib/LocalStore.js --js_output_file compiled/lib/LocalStore.js
+java -jar compiler.jar --js js/lib/PokkiBrowser.js --js_output_file compiled/lib/PokkiBrowser.js
+java -jar compiler.jar --js js/lib/SmoothScroll.js --js_output_file compiled/lib/SmoothScroll.js

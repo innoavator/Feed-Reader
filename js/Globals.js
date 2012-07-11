@@ -1,14 +1,1 @@
-// JavaScript Document
-
-var subscriptionTimer;
-var inSubscriptionState = false;
-var loadingFinished = true;
-var fetchTimer;
-var inFetchingState = false;
-var STACK_SIZE = 2000;
-var SHOWALL = 1;
-var SHOWUNREAD  = 0;
-var NO_OF_FEEDS=20;
-var IS_SYNC_ON = false;
-
-
+var subscriptionTimer,inSubscriptionState=!1,loadingFinished=!0,fetchTimer,inFetchingState=!1,STACK_SIZE=2E3,SHOWALL=1,SHOWUNREAD=0,NO_OF_FEEDS=20,IS_SYNC_ON=!1;
