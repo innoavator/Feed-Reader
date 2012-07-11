@@ -2,9 +2,9 @@
 
 // Register all the Event listeners
 window.addEventListener('DOMContentLoaded', load, false);
-pokki.addEventListener('popup_unload', unload);
-pokki.addEventListener('popup_hidden', hidden);
-pokki.addEventListener('popup_shown', shown);
+pokki.addEventListener('unload', unload);
+pokki.addEventListener('hidden', hidden);
+pokki.addEventListener('shown', shown);
 var unloaded = new LocalStore('unloaded');
     var splash_ran = unloaded.get() ? true : false;
 

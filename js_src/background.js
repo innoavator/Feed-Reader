@@ -7,7 +7,7 @@ var BackgroundWorker = {
 		DbManager.syncWithLocalStorage();
 		pokki.addEventListener('context_menu',function(id){
 			if(id =="logoutbtn"){
-				pokki.rpc('pokki.openPopup()');
+				pokki.rpc('pokki.show()');
 				GoogleReader.logout();
 				pokki.removeIconBadge();
 				pokki.rpc('showLogoutPopup()');
