@@ -263,7 +263,7 @@ var FeedViewer = {
 				        if(unreadCount == 0)
 					        countstr +="<div class='readmarker'><img src='img/marked2.png'></div></div></li>";
 				        else
-					        countstr+="<div class='readmarker'><img src=''></div></div></li>";
+					        countstr+="<div class='readmarker'><img src='img/notify.gif'></div></div></li>";
 			        }
 			        else
 				        var countstr = "";
@@ -334,7 +334,7 @@ var FeedViewer = {
 				if(count == 0)
 					$(obj).find(".readmarker").find('img').attr('src','img/marked2.png');
 				else
-					$(obj).find(".readmarker").find('img').attr('src','');
+					$(obj).find(".readmarker").find('img').attr('src','img/notify.gif');
 			});
 		});
 	},
