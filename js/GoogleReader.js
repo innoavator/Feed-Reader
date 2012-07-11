@@ -160,12 +160,13 @@ GoogleReader = {
 			window.localStorage.setItem("refresh_token",refresh_token);
 			GoogleReader.refresh_token = refresh_token;
 		}
-		callback("OK");
+		if(callback)
+			callback("OK");
 	},
 	
 	getUserInfo : function(callback)
 	{
-		getData(this.USER_INFO_URL,null,callback);
+		this.getData(this.USER_INFO_URL,"access_token="+GoogleReader.access_token,callback);
 	},
 	hasAuth : function()
 	{
@@ -228,7 +229,8 @@ GoogleReader = {
 
 	checkIfSubscribed : function(feedUrl,callback)
 	{
-		var data = "s=feed/"+feedUrl;
+		var data = "s=feed/"+feedUrl+
+				   "&access_token="+GoogleReader.access_token;
 		this.getData(GoogleReader.SUBS_CHECK_URL,data,callback);
 	},
 	/*Subscribe to the given feedurl. 
@@ -319,7 +321,7 @@ GoogleReader = {
 		  dataType : "json",
 	      success: callback,
 	      timeout: (15 * 1000),
-	      statusCode : {
+	     /* statusCode : {
 		        		    401 : function(){
 		      			    	console.log("Authorization failure. Access_token expired.");
 			    		    	GoogleReader.refreshAccessToken(function(result){
@@ -329,11 +331,21 @@ GoogleReader = {
 								
 								});
 		    		    	}
-		  },
+		  },*/
 	      error: function( xhr, ajaxOptions, errorStr ){
 				console.log("Error : " + errorStr);
 				console.log(xhr.status);
-				if(fallback)
+				if(xhr.status == 401)
+				{
+					console.log("Authorization failure. Access_token expired.");
+					GoogleReader.refreshAccessToken(function(result)
+					{
+						console.log("Final Result : " + result);
+						if(result == "OK")
+							GoogleReader.getData(url,data,callback);
+					});
+				}
+				else if(fallback)
 					fallback(errorStr);
 		    } 
 	    });  
