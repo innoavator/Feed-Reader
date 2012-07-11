@@ -4,6 +4,7 @@ var BackgroundWorker = {
 	prevTotalCount : -1,
 	initialise : function(){
 		DbManager.openDb();
+		DbManager.syncWithLocalStorage();
 		pokki.addEventListener('context_menu',function(id){
 			if(id =="logoutbtn"){
 				pokki.rpc('pokki.openPopup()');

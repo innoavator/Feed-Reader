@@ -209,5 +209,31 @@ var DbManager = {
 				console.log("Error pruning database.");
 			});
 		});
+	},
+
+	syncWithLocalStorage : function()
+	{
+		var myFeedsList = new LocalStore('myFeeds');
+		if(myFeedsList == null)
+		{
+			console.log("No Local Storage present.");
+			return;
+		}
+		var list = myFeedsList.get();
+		var feed = null;
+		var feedinfo;
+		if(list!=null)
+		{
+			var feeds = list.split(",");
+			for(var i = 0;i<list.length;i++)
+			{
+				var feed = new LocalStore(feedinfo.id);
+				var feedinfo = JSON.parse(feed.get());
+				if(feedinfo != null)
+					DbManager.insertSubscription(list[i],feedinfo.link,feedinfo.title,null);
+				feed.remove();
+			}
+		}
+		myFeedsList.remove();
 	}
 }
