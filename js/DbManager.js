@@ -192,5 +192,22 @@ var DbManager = {
 				console.log("Tags Table destroyed successfully");
 			});
 		});
-	} 
+	},
+	
+	/* Remove entries in the tags table older than two weeks */
+	pruneDatabase : function()
+	{
+		var today = new Date();
+		today.setTime(today.getTime()-129600000);
+		console.log(today);
+		//console.log(today);
+		console.log("Pruning database.");
+		this.db.transaction(function(tx){
+			tx.executeSql('DELETE FROM tags WHERE timestamp < ?',[(today)],function(tx,r){
+				console.log(r.rowsAffected);
+			},function(tx,e){
+				console.log("Error pruning database.");
+			});
+		});
+	}
 }

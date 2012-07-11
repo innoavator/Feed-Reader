@@ -14,12 +14,16 @@ var BackgroundWorker = {
 				BackgroundWorker.markAllAsRead();
 			}
 		});
-			if(window.localStorage.getItem("isSyncOn") && window.localStorage.getItem("isSyncOn")=="true")
-			{	
-				console.log("Updating from google");
-				BackgroundWorker.updateFromGoogle();
-			}
-		},
+		
+		if(window.localStorage.getItem("isSyncOn") && window.localStorage.getItem("isSyncOn")=="true")
+		{	
+			console.log("Updating from google");
+			BackgroundWorker.updateFromGoogle();
+		}
+		/* Start the process to prune the database. */
+		setInterval("DbManager.pruneDatabase()",86400000);
+
+	},
 	updateFromGoogle : function()
 	{
 		console.log("Updating from Google..");
@@ -88,5 +92,6 @@ var BackgroundWorker = {
 					});
 			}									  
 		});
-	}
+	},
+
 };
