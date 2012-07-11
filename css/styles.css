@@ -943,6 +943,14 @@ margin-bottom:15px;
     /////////////////////////////////////////////////////////*/
 .likedislike{
 	float:right;
+	margin-right : 30px;
+	margin-left:-10px;
+	cursor:pointer;
+}
+.disabled{
+	cursor:auto;
+	color:#ff0;
+	background-color:#ff0;
 }
 #headlview {
     

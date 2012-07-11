@@ -34,16 +34,16 @@
         var value = "0";
         switch(tag){
             case "read" : value ="0"; break;
-            case "kept-unread" : value = "2"; break;
-            case "like" : value="5"; break;
-            case "dislike" : value="-5"; break; 
+            case "kept-unread" : value = "0.2"; break;
+            case "like" : value="1"; break;
+            case "dislike" : value="-1"; break; 
         }
         this.sendProfileData("feeditem",key,value);
     },
     
     sendProfileData : function(profilegroup,key,value)
     {
-        console.log("Sending data over thrift");
+        //console.log("Sending data over thrift");
         var dataArr = new Array(1);
         var data = new Data();
         data.key = key;    
@@ -52,10 +52,10 @@
         console.log(dataArr);
         try{
             result = P3ServiceHandler.client.sendData(dataArr, profilegroup, P3ServiceHandler.appSecret);
-            console.log(result);
+            //console.log(result);
         }catch(err){
-            console.log("Error sending data to thrift server");
-            console.log(err.message);
+            //console.log("Error sending data to thrift server");
+            //console.log(err.message);
         }
     }   
  }

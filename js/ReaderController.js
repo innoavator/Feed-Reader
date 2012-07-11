@@ -152,7 +152,8 @@ var Reader = {
 		}
 		
 		/* Send Data to Thrift */
-		P3ServiceHandler.sendTagData(feedUrl,itemId,tagToAdd);
+		if(!tagToRemove || tagToRemove != tagToAdd)
+			P3ServiceHandler.sendTagData(feedUrl,itemId,tagToAdd);
 
 	},
 	

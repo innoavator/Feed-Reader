@@ -12,21 +12,8 @@ var ReaderViewer = {
 				 toggleArrows        : true, 
 				 infiniteSlides      : false,
 				onSlideComplete: function(slider) {
-					console.log("Artificially clicked");
-					$(".activePage").focus();
-					$(".activePage").trigger('click');
-					//Mark the feed as read.
-					console.log($(".activePage").attr('id'));
-					var feedUrl = $("#feedurldiv").html();
-					var itemId = $(".activePage").attr('id');
-					var slide_no = $(".activePage").find(".textSlide").attr("slide-no");
-					DbManager.getItemTag(feedUrl,itemId,function(tag){
-						if(tag)
-							$(".activePage").find('.textSlide').attr('init-tag',tag);
-						$(".activePage").find('.textSlide').attr('final-tag',"read");
-					});
-					 Reader.getNextContent(feedUrl,slide_no);
-					 
+					console.log("on slide complete");
+					ReaderViewer.renderSlideInfo(); 
 				},
 				onSlideInit: function(e,slider) {
 						$("#unreadMessage").fadeOut("slow");
@@ -37,11 +24,13 @@ var ReaderViewer = {
 						var final_tag = $(".activePage").find(".textSlide").attr("final-tag");
 						if(!final_tag)
 							final_tag = "read";
+						console.log("Inserting tag : " + final_tag);
 						/* Edit Item tags both Locally and On Google*/						
 						Reader.editItemTag(feedUrl,itemId,final_tag,init_tag);
 						$("#readMessage").fadeIn(10);
 				}
 			});
+
 			if(window.localStorage.getItem("readMode") == null)
 				window.localStorage.setItem("readMode",SHOWUNREAD);
 			else
@@ -53,12 +42,16 @@ var ReaderViewer = {
 				$("#loadingScreen").css('visibility','visible').css('display','block');
 					Reader.getFeedContent($("#feedurldiv").html());
 				});
+			
+			/* Add Item tag kept-unread to a feed item*/
 			$("#readMessage").find('img').click(function(){
 				$(".activePage").find(".textSlide").attr("final-tag","kept-unread");
 				$("#readMessage").fadeOut("fast",function(){
 				$("#unreadMessage").fadeIn("fast");
 				});
 			});
+
+			/* Add item tag read to a kept-unread feed item .*/
 			$("#unreadMessage").find('img').click(function(){
 				$(".activePage").find(".textSlide").attr("final-tag","read");
 				$("#unreadMessage").fadeOut("fast",function(){
@@ -66,11 +59,30 @@ var ReaderViewer = {
 				});
 			});
 			
-			Keyboard.initReaderShortcuts();
 			/* Hook Every link in the Reader Viewer to open in Default Browser*/
 			$(".textSlide a").live('click',function(){
 				pokki.openURLInDefaultBrowser($(this).attr("href"));
 			});
+			
+			/* Add event handlers for the like and dislike button */
+			$(".like").live('click',function(){
+				if(!$(this).hasClass('.disabled')){
+					$("#readerviewdiv #footer").find(".dislike").removeClass('disabled');
+					$(this).addClass('disabled');
+					$(".activePage").find(".textSlide").attr("final-tag","like");
+				}
+			});
+			
+			$(".dislike").live('click',function(){
+				if(!$(this).hasClass('.disabled')){
+					$("#readerviewdiv #footer").find(".like").removeClass('disabled');
+					$(this).addClass('disabled');
+					$(".activePage").find(".textSlide").attr("final-tag","dislike");
+				}
+			});
+			
+
+
 	},
 	initialiseHeadlineView : function()
 	{
@@ -137,6 +149,7 @@ var ReaderViewer = {
 			ReaderViewer.appendItem(feedContent[i],i+minindex);
 			ReaderViewer.appendHeadline(feedContent[i],i+minindex);
 		}
+		ReaderViewer.renderSlideInfo();
 	},
 	
 	appendItem : function(feeditem,counter)
@@ -186,6 +199,33 @@ var ReaderViewer = {
 	showNextContentError : function(errorStr)
 	{
 		
+	},
+
+	renderSlideInfo : function()
+	{
+		//Mark the feed as read.
+		console.log($(".activePage").attr('id'));
+		var feedUrl = $("#feedurldiv").html();
+		var itemId = $(".activePage").attr('id');
+		var slide_no = $(".activePage").find(".textSlide").attr("slide-no");
+		DbManager.getItemTag(feedUrl,itemId,function(tag){
+				console.log("Init Tag : " + tag);
+				$("#readerviewdiv #footer").find('.like').removeClass('disabled');
+				$("#readerviewdiv #footer").find('.dislike').removeClass('disabled');
+				if(tag)
+				{
+					$(".activePage").find('.textSlide').attr('init-tag',tag);
+					$(".activePage").find('.textSlide').attr('final-tag',tag);
+					if(tag == "like")
+						$("#readerviewdiv #footer").find('.like').addClass('disabled');
+					else if(tag == "dislike")
+						$("#readerviewdiv #footer").find(".dislike").addClass('disabled');
+				}
+				else
+					$(".activePage").find('.textSlide').attr('final-tag',"read");
+			});
+		Reader.getNextContent(feedUrl,slide_no);
+
 	}
 	
 }
