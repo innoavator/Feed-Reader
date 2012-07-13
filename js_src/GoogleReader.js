@@ -66,6 +66,7 @@ GoogleReader = {
 			  +"approval_prompt=force";
 		url = encodeURI(url);
 		pokki.clearWebSheetCookies();
+		console.log("Showing websheet..");
 		pokki.showWebSheet(url,512,400,function(_url)
 			{
 				if(_url.indexOf(GoogleReader.redirect_uri)==0)

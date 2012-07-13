@@ -1,15 +1,13 @@
 {
    "name": "Feed Reader",
-   "version": "1.0",
+   "version": "20.0",
    "icons": { "19":  "img/icon-19x19.png", 
               "29":  "img/icon-29x29.png",
               "42":  "img/icon-42x42.png",
-              "256": "img/icon-256x256.png" 
-			},
+              "256": "img/icon-256x256.png" },
    "description": "A Pokki App to read Feeds.",
-   "popup": "popup.html",
    "window": "popup.html",
-   "background_page": "background.html",
+   "background": "background.html",
    "required_plugins": [{
     "mime_type": "application/x-shockwave-flash",
     "min_version": "11"
