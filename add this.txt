@@ -1,0 +1,9 @@
+dassi ji... dunno where to put the like dislike thing
+so u add this within the textslide thing... as soon as textslide starts.. 
+
+<div class="likedislike">
+<img class="like" src="img/like.png">
+<img class="dislike" src="img/dislike.png">
+</div>
+
+i have updated the css

@@ -1,0 +1,59 @@
+.clearfix:before,.clearfix:after{content:'\0020';display:block;overflow:hidden;visibility:hidden;width:0;height:0}.clearfix:after{clear:both}.clearfix{zoom:1}
+.clear { clear: both; display: block; overflow: hidden; visibility: hidden; width: 0; height: 0; }
+
+/* If a pop-up has no content, then it's width and height must be specified */
+body {
+    overflow: hidden;
+    font: normal 12px Helvetica, Arial, sans-serif;
+    text-shadow: 0 -1px 0 #fff;
+	
+    font-family:"Tahoma";
+    /* use this to keep all text from being selectable to maintain a more app-like experience
+    otherwise it's possible to highlight/select an entire pokki window  */
+    webkit-user-select: none;
+}
+
+/* Used to contain the contents of a Pokki when testing in a web browser using PokkiBrowser.js */
+#wrapper {
+    margin: auto;
+    width: 950px;
+	height:600px; 
+    position: relative;
+    opacity: 1;
+	background:#111;
+}
+
+/* Main content */
+
+/* Scrollable area */
+.scrollable {
+	height:600px;
+	overflow:hidden;
+	
+}
+
+/* Offset content inside of scrollable area so that it doesn't hug the scrollbar */
+    
+    
+/* Custom CSS scrollbar */
+::-webkit-scrollbar {
+	width: 8px;
+    height: 8px;
+    border-radius: 5px;
+	background:none;
+}
+::-webkit-scrollbar-track:vertical { 
+    background: none; 
+	width:2px;
+	margin:30px 0 30px 0;
+    border-radius: 7px 0 0 7px;
+}
+::-webkit-scrollbar-thumb {
+    width: 2px;
+    height:20px;
+    background: #555;
+    border-radius: 7px 0 0 7px;
+}
+::-webkit-scrollbar-button: { 
+    display:none; 
+}

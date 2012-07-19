@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+
+<html>
+	<head>
+        <meta charset="utf-8" />
+        <title>RSS Feed Reader</title>
+		
+            <!-- CSS reset -->
+   			 <link rel="stylesheet" href="css/html5reset-1.6.1.css" type="text/css" />
+              <!-- Loading pop-up styling -->
+    		<link rel="stylesheet" href="css/default.css" type="text/css" />
+            
+			<!-- Our CSS stylesheet file -->
+            
+            <script src="js/lib/jquery.min.js"></script>
+        	<script type="text/javascript" src="js/lib/jquery.easing.1.3.js"></script>
+			<script type="text/javascript" src="js/GoogleReader.js"></script>
+			<script type="text/javascript" src="js/ReaderController.js"></script>
+			<script type="text/javascript" src="js/DbManager.js"></script> 
+            <link rel="stylesheet" href="css/styles.css" />
+            <!-- Loading PokkiBrowser to do testing in a normal chrome web browser -->
+			<script type="text/javascript" src="js/lib/PokkiBrowser.js"></script>
+            <!-- Loading SmoothScroll to make the scrollbars scroll more smoothly (it's really smooth!) -->
+            <script type="text/javascript" src="js/lib/SmoothScroll.js"></script>   
+            <!-- Loading Google Analytics for Pokki wrapper -->
+            <script type="text/javascript" src="js/lib/GAPokki.js"></script>
+            <!-- Loading utility class for localStorage interaction -->
+            <script type="text/javascript" src="js/lib/LocalStore.js"></script>
+
+            <!-- Loading pop-up logic -->
+            <script type="text/javascript" src="js/popup.js"></script>
+			<!-- Feeds Files   -->
+           <script type = "text/javascript" src="js/FeedViewer.js"></script>
+			<script type = "text/javascript" src="js/YoutubeManager.js"></script>
+             <script type = "text/javascript" src="js/ReaderViewer.js"></script>
+            <script type = "text/javascript" src="js/Utils.js"></script>
+            <script type = "text/javascript" src="js/Globals.js"></script>
+            <script type='text/javascript' src='js/lib/jQuery.jQTubeUtil.js'></script>
+            <!-- FeedReader View -->
+    		<link rel="stylesheet" href="css/anythingslider.css">  
+            <script type="text/javascript" src="js/lib/jquery.anythingslider.js"></script>
+            <!-- Keyboard shortcut files -->
+            <script type="text/javascript" src="js/lib/keyboard.min.js"></script>
+			<script type="text/javascript" src="js/Shortcuts.js"></script>
+			<!-- Thrift Files -->
+			<script type="text/javascript" src="js/lib/thrift.js"></script>
+			<script type="text/javascript" src="js/gen-js/test_types.js"></script>
+			<script type="text/javascript" src="js/P3ServiceHandler.js"></script>
+			<script type="text/javascript" src="js/gen-js/P3ClientService.js"></script>
+           
+            
+</head>
+<body>
+</head>
+<body>
+  <div id="wrapper">
+	<div id="loader">
+      <div id="loadercontainer">
+      	<img src="img/pageload.gif" style="padding-left:10px;"/><br><br>
+      	<a class="button green" onClick="Reader.syncWithGoogle();"  style="display:none" >Sync With Google Reader</a>
+        <a class="button green" onClick="continueLocal();" style="display:none" >No Thanks! Continue</a></br></br>
+        <progress style="display:none;" max="100" id="syncProgressBar" ></progress><br><br>
+        <p style="margin-left:20px;"></p>
+       </div>
+     </div>
+    	<div class="scrollable" style="opacity:0">
+   		   <!-- Add feeds Box -->
+           <div id = "addfeedsdiv">
+           <div><h1 id='header'><img src="img/doublearrow.png"/>ADD FEEDS:</h1>
+           
+           <div id="searchbox">
+                <form id="addFeedsForm"><span>Add Feeds:</span>
+           		<input type="submit" value="Go" id="addFeedbtn" /></span> <input type="search" id="addFeedsSearchBox"  class= "editable-select" placeholder="Press Enter after you are done...." onKeyUp="YoutubeManager.getYoutubeSuggestions(this.value);return false;"></input>
+                    <img class="srchglass" src="img/add.png"/>
+                 </form>
+                 <ul id="youtubeSuggestions"></ul>
+            	 
+       </div><!--searchbox div end--></div>
+           	
+                       <ul class="filter">
+                        <li ><a class="selected 0" href="#" data-value="news">News</a></li>
+                        <li ><a class=" 1" href="#" data-value="busi">Business</a></li>
+                        <li><a href="#" class=" 2" data-value="enti">Entertainment</a></li>
+                        <li><a href="#" class=" 3" data-value="comic">Comics</a></li>
+            			<li><a href="#" class=" 4" data-value="food">Food</a></li>
+                        <li><a href="#" class=" 5" data-value="tech">Technology</a></li>
+                        <li><a href="#" class=" 6" data-value="compu">Computing</a></li>
+       	                <li><a href="#" class=" 7" data-value="science">Science</a></li>
+                        <li><a href="#" class=" 8" data-value="sports">Sports</a></li>
+                        <li><a href="#" class=" 9" data-value="youtube">YouTube</a></li>
+                        </ul>
+                       
+                        <div id="error-message">Click on the feed from the categories given below or enter the URL of the desired feed of your wish</div><img id='loadingurl' src="img/loader.gif"/>
+    <div id="boxing">
+	<div id="container">
+       
+        	<ul id="stage" class="grimg">
+	        <div id="news-feeds" class="fdkadiv">
+            <li  data-id="http://feeds.bbci.co.uk/news/rss.xml" class="news tosubscr"><img src="img/feedimgs/bbcn.png" alt="BBC NEWS" title="BBC News"class='feedimage'/><div class='caption'></div><div class='fdname'>BBC News</div></li> 
+            
+           <li  data-id="http://rss.cnn.com/rss/edition.rss" class="news tosubscr"><img src="img/feedimgs/cnn.png" alt="CNN" title="CNN"class='feedimage'/><div class='caption'></div><div class='fdname'>CNN</div></li>	
+           
+           <li  data-id="http://news.google.com?output=rss" class="news tosubscr"><img src="img/feedimgs/ggle.png" alt="GOOGLE TOP STORIES" title="Google Top Stories"class='feedimage'/><div class='caption'></div><div class='fdname'>Google Top Stories</div></li>
+           
+           <li  data-id="http://www.guardian.co.uk/rss" class="news tosubscr"><img src="img/feedimgs/guard.png" alt="GUARDIAN" title="The Guardian"class='feedimage'/><div class='caption'></div><div class='fdname'>The Guardian</div></li>	
+           
+            <li  data-id="http://ibnlive.in.com/xml/top.xml" class="news tosubscr"><img src="img/feedimgs/ibn.png" alt="IBN-LIVE" title="IBN Live"class='feedimage'/><div class='caption'></div><div class='fdname'>IBN Live</div></li>
+            
+            <li data-id="http://feeds.nytimes.com/nyt/rss/HomePage" class="news tosubscr"><img src="img/feedimgs/nyt.png" alt="NYT" title="New York Times"class='feedimage'/><div class='caption'></div><span class='fdname'>New York Times</span></li>           
+            
+            <li  data-id="http://rss.news.yahoo.com/rss/topstories" class="news tosubscr"><img src="img/feedimgs/ynews.png" alt="YAHOO! NEWS" title="Yahoo! News"class='feedimage'/><div class='caption'></div><div class='fdname'>Yahoo! News</div></li>
+            </div>
+             <div id="busi-feeds" class="fdkadiv">
+             
+             <li data-id="http://www.forbes.com/news/index.xml" class="busi tosubscr"><img src="img/feedimgs/forbes.png" alt="FORBES" title="Forbes"class='feedimage'/><div class='caption'></div><div class='fdname'>Forbes</div></li>
+             <li data-id="http://rss.cnn.com/rss/money_latest.rss" class="busi tosubscr"><img src="img/feedimgs/fortune.png" alt="FORTUNE" title="Fortune"class='feedimage'/><div class='caption'></div><div class='fdname'>Fortune</div></li>
+      		<li data-id="http://www.iwillteachyoutoberich.com/atom.xml" class="busi tosubscr"><img src="img/feedimgs/iwtutbr.png" alt="I Will Teach You To Be Rich" title="I Will Teach You To Be Rich"class='feedimage'/><div class='caption'></div><div class='fdname'>I Will Teach You To Be Rich</div></li>
+            <li data-id="http://www.nytimes.com/services/xml/rss/nyt/Business.xml" class="busi tosubscr"><img src="img/feedimgs/nytbusi.png" alt="NYT > Business" title="NYT : Business"class='feedimage'/><div class='caption'></div><div class='fdname'>NYT : Business</div></li>
+            <li data-id="http://feeds.smartmoney.com/smartmoney/headlines" class="busi tosubscr"><img src="img/feedimgs/smartmoney.png" alt="Smartmoney.com" title="Smartmoney.com"class='feedimage'/><div class='caption'></div><div class='fdname'>Smartmoney.com</div></li>
+            <li data-id="http://www.thestreet.com/feeds/rss/index.xml" class="busi tosubscr"><img src="img/feedimgs/thestreet.png" alt="TheStreet.com" title="TheStreet.com"class='feedimage'/><div class='caption'></div><div class='fdname'>TheStreet.com</div></li> 
+            <li data-id="http://feeds.finance.yahoo.com/rss/2.0/category-stocks" class="busi tosubscr"><img src="img/feedimgs/yfin.png" alt="YAHOO FINANCE" title="Yahoo!: Finance"class='feedimage'/><div class='caption'></div><div class='fdname'>Yahoo!: Finance</div></li>
+            </div>
+            <div id="enti-feeds" class="fdkadiv">
+            <li  data-id="http://feeds.feedburner.com/buzzsugar" class="enti tosubscr"><img src="img/feedimgs/bsug.png" alt="BUZZSUGAR" title="Buzzsugar"class='feedimage'/><div class='caption'></div><div class='fdname'>Buzzsugar</div></li>
+            <li  data-id="http://www.eonline.com/syndication/feeds/rssfeeds/topstories.xml" class="enti tosubscr"><img src="img/feedimgs/eonline.png" alt="E! Online (US) - Top Stories" title="E! Online(US): Top Stories"class='feedimage'/><div class='caption'></div><div class='fdname'>E! Online(US): Top Stories</div></li>
+            <li  data-id="http://trailers.apple.com/trailers/home/rss/newtrailers.rss" class="enti tosubscr"><img src="img/feedimgs/movtrail.png" alt="iTunes Movie Trailers" title="iTunes Movie Trailers"class='feedimage'/><div class='caption'></div><div class='fdname'>iTunes Movie Trailers</div></li>
+            
+            <li  data-id="http://www.mtv.com/rss/news/news_full.jhtml" class="enti tosubscr"><img src="img/feedimgs/mtv.png" alt="MTV" title="MTV"class='feedimage'/><div class='caption'></div><div class='fdname'>MTV</div></li>
+            <li  data-id="http://feeds.people.com/people/headlines" class="enti tosubscr"><img src="img/feedimgs/people.png" alt="PEOPLE" title="People"class='feedimage'/><div class='caption'></div><div class='fdname'>People</div></li>
+            <li  data-id="http://www.rollingstone.com/siteServices/rss/allNews" class="enti tosubscr"><img src="img/feedimgs/rollst.png" alt="ROLLING STONES" title="Rolling Stones"class='feedimage'/><div class='caption'></div><div class='fdname'>Rolling Stones</div></li>
+            <li  data-id="http://news.yahoo.com/rss/entertainment" class="enti tosubscr"><img src="img/feedimgs/yent.png" alt="YAHOO ENTI" title="Yahoo! Entertainment"class='feedimage'/><div class='caption'></div><div class='fdname'>Yahoo! Entertainment</div></li>
+                 </div>                    
+             <div id="comic-feeds" class="fdkadiv"> 
+             			 <li data-id="http://www.arcamax.com/thefunnies/bc/rss" class="comic tosubscr"><img src="img/feedimgs/bc.png" alt="B.C." title="B.C."class='feedimage'/><div class='caption'></div><div class='fdname'>B.C.</div></li>
+                         
+		     <li data-id="http://feeds.feedburner.com/DilbertDailyStrip" class="comic tosubscr"><img src="img/feedimgs/dilbert.png" alt="DILBERT" title="Dilbert"class='feedimage'/><div class='caption'></div><div class='fdname'>Dilbert</div></li>
+                         
+             <li data-id="http://www.rsspect.com/rss/qwantz.xml" class="comic tosubscr"><img src="img/feedimgs/dino.png" alt="Dinosaur Comics" title="Dinosaur Comics"class='feedimage'/><div class='caption'></div><div class='fdname'>Dinosaur Comics</div></li>
+             
+             <li data-id="http://friendfeed.com/dailygarfield?format=atom" class="comic tosubscr"><img src="img/feedimgs/garf.png" alt="GARFIELD" title="Garfield"class='feedimage'/><div class='caption'></div><div class='fdname'>Garfield</div></li> 
+             
+			 <li data-id="http://www.arcamax.com/thefunnies/hagarthehorrible/rss" class="comic tosubscr"><img src="img/feedimgs/hagar.png" alt="hagar the horrible" title="Hagar The Horrible"class='feedimage'/><div class='caption'></div><div class='fdname'>Hagar The Horrible</div></li>
+             <li data-id="http://www.phdcomics.com/gradfeed.php" class="comic tosubscr"><img src="img/feedimgs/phd.png" alt="PHD Comics" title="PHD Comics"class='feedimage'/><div class='caption'></div><div class='fdname'>PHD Comics</div></li> 
+             <li data-id="http://xkcd.com/atom.xml" class="comic tosubscr"><img src="img/feedimgs/xkcd.png" alt="XKCD" title="XKCD"class='feedimage'/><div class='caption'></div><div class='fdname'>XKCD</div></li>
+             
+             </div>
+             
+             <div id="food-feeds" class="fdkadiv">
+             <li data-id="http://www.101cookbooks.com/index.rdf" class="food tosubscr tosubscr"><img src="img/feedimgs/101cookbook.png" alt="101 Cookbooks" title="101 Cookbooks"class='feedimage'/><div class='caption'></div><div class='fdname'>101 Cookbooks</div></li>
+       <li data-id="http://feeds.feedburner.com/TheAmateurGourmet" class="food tosubscr tosubscr"><img src="img/feedimgs/amatgour.png" alt="The Amateur Gourmet" title="The Amateur Gourmet"class='feedimage'/><div class='caption'></div><div class='fdname'>The Amateur Gourmet</div></li>
+             <li data-id="http://www.kqed.org/weblog/food/atom.xml" class="food tosubscr"><img src="img/feedimgs/bayareabites.png" alt="Bay Area Bites" title="Bay Area Bites"class='feedimage'/><div class='caption'></div><div class='fdname'>Bay Area Bites</div></li>
+             <li data-id="http://www.cookingforengineers.com/atom.xml" class="food tosubscr"><img src="img/feedimgs/cookengg.png" alt="Cooking For Engineers" title="Cooking For Engineers"class='feedimage'/><div class='caption'></div><div class='fdname'>Cooking For Engineers</div></li>
+             <li data-id="http://www.slashfood.com/rss.xml" class="food tosubscr"><img src="img/feedimgs/huffpostfood.png" alt="Huffpost Food" title="Huffpost Food"class='feedimage'/><div class='caption'></div><div class='fdname'>Huffpost Food</div></li>
+             
+             <li data-id="http://feeds.seriouseats.com/seriouseatsfeaturesvideos" class="food tosubscr"><img src="img/feedimgs/seriouseats.png" alt="Serious Eats" title="Serious Eats"class='feedimage'/><div class='caption'></div><div class='fdname'>Serious Eats</div></li>
+             <li data-id="http://www.elise.com/recipes/index.rdf" class="food tosubscr"><img src="img/feedimgs/simprecip.png" alt="Simply Recipes" title="Simply Recipes"class='feedimage'/><div class='caption'></div><div class='fdname'>Simply Recipes</div></li>
+              </div>
+             
+             <div id="tech-feeds" class="fdkadiv">
+			 <li data-id="http://www.anandtech.com/rss/articlefeed.aspx" class="tech tosubscr"><img src="img/feedimgs/anand.png" alt="Anand Tech" title="Anand Tech"class='feedimage'/><div class='caption'></div><div class='fdname'>Anand Tech</div></li>
+             <li data-id="http://www.engadget.com/rss.xml" class="tech tosubscr"><img src="img/feedimgs/engdg.png" alt="ENGADGET" title="Engadget"class='feedimage'/><div class='caption'></div><div class='fdname'>Engadget</div></li>
+             <li data-id="http://www.gizmodo.com/index.xml" class="tech tosubscr"><img src="img/feedimgs/gizmodo.png" alt="Gizmodo" title="Gizmodo"class='feedimage'/><div class='caption'></div><div class='fdname'>Gizmodo</div></li>
+             <li data-id="http://lifehacker.com/index.xml"class="tech tosubscr"><img src="img/feedimgs/lifhck.png" alt="LIFEHACKER" title="Lifehacker"class='feedimage'/><div class='caption'></div><div class='fdname'>Lifehacker</div></li>
+             <li data-id="http://www.redmondpie.com/feed" class="tech tosubscr"><img src="img/feedimgs/rdmnd.png" alt="REDMONDPIE" title="Redmondpie"class='feedimage'/><div class='caption'></div><div class='fdname'>Redmondpie</div></li>
+             <li data-id="http://feedproxy.google.com/Techcrunch" class="tech tosubscr"><img src="img/feedimgs/techcrunch.png" alt="TechCrunch" title="TechCrunch"class='feedimage'/><div class='caption'></div><div class='fdname'>TechCrunch</div></li>
+             <li data-id="http://feeds.feedburner.com/tedblog" class="tech tosubscr"><img src="img/feedimgs/ted.png" alt="TED Blog" title="TED Blog"class='feedimage'/><div class='caption'></div><div class='fdname'>TED Blog</div></li>
+             </div>
+             
+             <div id="compu-feeds" class="fdkadiv">
+			 <li data-id="http://www.appleinsider.com/appleinsider.rss" class="compu tosubscr"><img src="img/feedimgs/appleinside.png" alt="AppleInsider" title="AppleInsider"class='feedimage'/><div class='caption'></div><div class='fdname'>AppleInsider</div></li>
+			 <li data-id="http://codebetter.com/blogs/MainFeed.aspx" class="compu tosubscr"><img src="img/feedimgs/codebetr.png" alt="CodeBetter.Com" title="CodeBetter.Com"class='feedimage'/><div class='caption'></div><div class='fdname'>CodeBetter.Com</div></li>
+			 <li data-id="http://rss.computerworld.com/computerworld/news/feed?type=breaking_news" class="compu tosubscr"><img src="img/feedimgs/cworld.png" alt="Computer World" title="Computer World"class='feedimage'/><div class='caption'></div><div class='fdname'>Computer World</div></li>
+			 <li data-id="http://www.f-secure.com/weblog/weblog.rdf" class="compu tosubscr"><img src="img/feedimgs/fsecure.png" alt="F-Secure Antivirus Research Weblog" title="F-Secure Antivirus Research Weblog"class='feedimage'/><div class='caption'></div><div class='fdname'>F-Secure Antivirus Research</div></li>
+			 <li data-id="http://www.macrumors.com/macrumors.xml" class="compu tosubscr"><img src="img/feedimgs/macrumours.png" alt="MacRumors" title="MacRumors"class='feedimage'/><div class='caption'></div><div class='fdname'>MacRumors</div></li>
+			 <li data-id="http://rss.slashdot.org/Slashdot/slashdotLinux" class="compu tosubscr"><img src="img/feedimgs/slashlin.png" alt="Slashdot: Linux" title="Slashdot: Linux"class='feedimage'/><div class='caption'></div><div class='fdname'>Slashdot: Linux</div></li>
+			 <li data-id="http://news.softpedia.com/newsRSS/Microsoft-6.xml" class="compu tosubscr"><img src="img/feedimgs/softmicro.png" alt="Softpedia - Microsoft" title="Softpedia - Microsoft"class='feedimage'/><div class='caption'></div><div class='fdname'>Softpedia - Microsoft</div></li>
+			 </div>
+              <div id="science-feeds" class="fdkadiv">   
+              <li data-id="http://scienceblogs.com/cognitivedaily/atom.xml" class="science tosubscr"><img src="img/feedimgs/cogdaily.png" alt="COGNITIVE DAILY" title="Cognitive Daily"class='feedimage'/><div class='caption'></div><div class='fdname'>Cognitive Daily</div></li>
+              <li data-id="http://www.novaspivack.com/feed/rss" class="science tosubscr"><img src="img/feedimgs/minplnt.png" alt="MINDING THE PLANET" title="Minding the Planet"class='feedimage'/><div class='caption'></div><div class='fdname'>Minding the Planet</div></li> 
+              <li data-id="http://news.nationalgeographic.com/index.rss" class="science tosubscr"><img src="img/feedimgs/natgeo.png" alt="NATGEO" title="National Geographic News"class='feedimage'/><div class='caption'></div><div class='fdname'>NatGeo News</div></li> 
+              <li data-id="http://www.newscientist.com/feed.ns?index=online-news" class="science tosubscr"><img src="img/feedimgs/newscien.png" alt="NEW SCIENTIST" title="New Scientist"class='feedimage'/><div class='caption'></div><div class='fdname'>New Scientist</div></li>
+				<li data-id="http://tomsastroblog.com/feed" class="science tosubscr"><img src="img/feedimgs/tomsblog.png" alt="Tom's Astro Blog" title="Tom's Astro Blog"class='feedimage'/><div class='caption'></div><div class='fdname'>Tom's Astro Blog</div></li>
+              <li data-id="http://www.sciencemag.org/rss/current.xml" class="science tosubscr"><img src="img/feedimgs/scicurr.png" alt="SCIENCEMAG" title="Science: Current Issue"class='feedimage'/><div class='caption'></div><div class='fdname'>Science: Current Issue</div></li>                 
+              <li data-id="http://www.space.com/syn/space.xml" class="science tosubscr"><img src="img/feedimgs/space.com.png" alt="SPACE.COM" title="Space.com"class='feedimage'/><div class='caption'></div><div class='fdname'>Space.com</div></li>
+             
+              </div>
+              
+             <div id="sports-feeds" class="fdkadiv">
+             <li data-id="http://newsrss.bbc.co.uk/rss/sportonline_uk_edition/latest_published_stories/rss.xml" class="sports tosubscr"><img src="img/feedimgs/bbcs.png" alt="BBC SPORTS" title="BBC Sports"class='feedimage'/><div class='caption'></div><div class='fdname'>BBC Sports</div></li>
+             <li data-id="http://www.espncricinfo.com/rss/livescores.xml" class="sports tosubscr"><img src="img/feedimgs/cricinfo.png" alt="CRICINFO" title="Cricinfo"class='feedimage'/><div class='caption'></div><div class='fdname'>Cricinfo</div></li>
+             <li data-id="http://sports.espn.go.com/espn/rss/news" class="sports tosubscr"><img src="img/feedimgs/espn.png" alt="ESPN" title="ESPN"class='feedimage'/><div class='caption'></div><div class='fdname'>ESPN</div></li>
+             <li data-id="http://www.fifa.com/rss/index.xml" class="sports tosubscr"><img src="img/feedimgs/fifa.png" alt="FIFA" title="FIFA"class='feedimage'/><div class='caption'></div><div class='fdname'>FIFA</div></li>
+             <li data-id="http://www.goal.com/en-india/feeds/news" class="sports tosubscr"><img src="img/feedimgs/goal.png" alt="Goal.com" title="Goal.com"class='feedimage'/><div class='caption'></div><div class='fdname'>Goal.com</div></li>
+             <li data-id="http://feeds1.nytimes.com/nyt/rss/Sports" class="sports tosubscr"><img src="img/feedimgs/nytsports.png" alt="New York Times: Sports" title="New York Times: Sports"class='feedimage'/><div class='caption'></div><div class='fdname'>New York Times: Sports</div></li>
+             <li data-id="http://sports.yahoo.com/top/rss.xml" class="sports tosubscr"><img src="img/feedimgs/ysport.png" alt="YAHOO SPORTS" title="Yahoo! Sports"class='feedimage'/><div class='caption'></div><div class='fdname'>Yahoo!: Sports</div></li>
+            </div>
+             <div id="youtube-feeds" class="fdkadiv">
+             <div id='forscroll'>
+             <div id="firstpage">
+             <ul id='vcatlist'><span>Select Category:</span>
+             	<li><a href="#" class=" RF selected" data-value="http://gdata.youtube.com/feeds/api/standardfeeds/recently_featured?max-results=12&alt=json">Recently Featured</a></li>
+                <li><a href="#" class=" TR" data-value="http://gdata.youtube.com/feeds/api/videos?max-results=12&alt=json">Miscellaneous</a></li>
+                <li><a href="#" class=" MR" data-value="http://gdata.youtube.com/feeds/api/standardfeeds/most_recent?max-results=12&alt=json">Most Recent</a></li>
+                <li><a href="#" class=" MF" data-value="https://gdata.youtube.com/feeds/api/standardfeeds/most_shared?max-results=12&alt=json">Most Shared</a></li>
+                <li><a href="#" class=" YTT" data-value="https://gdata.youtube.com/feeds/api/standardfeeds/on_the_web?max-results=12&alt=json">YouTube Trends</a></li>
+                 
+               
+             </ul>
+			 <ul id='videosbox'>
+             	<li class='vidcat'>
+                	<ul class='videoslist'>
+                    </ul>
+                </li>
+			</ul>
+                <div id="fwdbutton"></div>
+                </div>
+             <div id="secondpage">
+             <div id="backbutton"></div>
+             <div id="youtubeplayer">
+                <iframe class="youtube-player" type="text/html" width="640" height="360" src="" frameborder="0"></iframe>  
+             </div>
+			 <div id="youtubecontrols" style="float:right;margin:110px -120px;">
+				<img id = "youtubelike" style="margin-right:5px;" src='img/like.png'>
+				<img id = 'youtubedislike' src='img/dislike.png'>
+			 </div>
+             <div id="closevideo"></div>             
+             </div></div>
+    
+            </div>
+          </ul>
+        </div>
+       </div>
+    
+		<div id='footer'>
+			<a id="feedback">Feedback</a>
+			<div id="tomyfeedsbtn">My Feeds</div>
+		</div>
+	</div>  <!-- #addfeedsdiv end -->
+	  
+	  
+	  <div id = "myfeedsdiv"  style="visibility:hidden">  
+      	<div><h1 id='header'><img src="img/doublearrow.png"/>MY FEEDS:</h1><form>
+        <input id = "feedsearch" type = "search"  placeholder="Search Feed Here...." autofocus onKeyUp="FeedViewer.searchMyFeeds(this.value);return false;"><img class="srchglass" src="img/search-dark.png" ></form>
+         <ol class='myfeedlist'>
+      
+      </ol><div id='footer'>
+      	<div class="toaddfeedsbtn" style="margin-right:90px;">Add Feeds</div>
+    
+    </div>
+      </div></div>
+      <div id = "readerviewdiv" style="visibility:hidden">
+      <div id = "feedurldiv" style="display:none"></div>
+      <div id="page-wrap">  
+           <!-- AnythingSlider #2 -->
+			<ul id="slider">
+            </ul>
+			<!-- END AnythingSlider #2 -->
+	    
+     <div id='footer'>
+     <div id="tomyfeedsbtn2">My Feeds</div>
+     <select id="viewOptionsBox">
+      <option value="1">Show All Feeds</option>
+      <option value="0">Show Unread Feeds</option>
+    </select>"
+	<!-- Like Dislike option -->
+	<div class = 'likedislike'>
+		<img class = "like" style="margin-right:5px;" src='img/like.png'>
+		<img class = 'dislike' src='img/dislike.png'>
+	</div>
+
+	<!-- Mark Read Unread option -->
+     <div id = "readMessage" class = "readerFooterElem" ><img src = "img/marked.png" title = "Mark Unread" style = "cursor:pointer;"/>Marked Read</div>
+    <div id = "unreadMessage" class = "readerFooterElem" ><img src = "img/unsub.png" title = "Mark Read" style = "cursor:pointer;"/>Marked UnRead</div>
+
+     <div id='headlview' state="notshown">View Headlines</div>
+        <ul id="rdrheadl" start = '0' end = '10'>
+        <div id = "minimizeHeadlines"></div>
+     	<li id = "headlactions">
+        	<img src = "img/barload.gif"/> 
+            <h2 style="color:#F00;margin-left:20px;display:none">Error Loading More Feeds</h2>
+         </li>
+     </ul>
+     </div>
+     </div><!--  #page-wrap end   -->
+      </div>   <!-- readerviewend -->
+ <!--     </div>  --><!-- .content end -->
+      </div>  <!-- .scrollable end -->
+<!--      </div>  --> <!-- #content end -->
+
+        <!-- Div to hold the loading screen -->
+        <div id="loadingScreen" class="reveal-modal">
+			<img src = "img/feedsload.gif" />
+		</div>
+        
+        <!-- Div to hold the popup -->
+        <div id ="popupbox">
+        </div>
+</div><!-- wrapper end -->
+         <script type="text/javascript">
+            //GOOGLE ANALYTICS: Enter your settings here
+            ga_pokki._setAccount('UA-27342226-1');
+            ga_pokki._setDomain('googleanalytics.domain.com'); 
+			pokki.addEventListener('popup_shown', function() { 
+   				ga_pokki._trackPageview('/'); 
+			});
+        </script>
+		 
+</body>
+</html>
